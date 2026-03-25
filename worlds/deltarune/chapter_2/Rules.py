@@ -122,10 +122,10 @@ def handle_locked_items(world: "DeltaruneWorld"):
       multiworld.get_location(Ch2Locations.mansion_spamton_neo_defeat_item_3, player).place_locked_item(world.create_item(Ch2Items.dealmaker))
   
   # if not world.is_warps_randomized():
-  if True:
-        multiworld.get_location(Ch2Locations.cyber_field_warp_door, player).place_locked_item(world.create_item(Ch2Items.cyber_field_warp))
-        multiworld.get_location(Ch2Locations.trash_zone_warp_door, player).place_locked_item(world.create_item(Ch2Items.trash_zone_warp))
-        multiworld.get_location(Ch2Locations.mansion_warp_door, player).place_locked_item(world.create_item(Ch2Items.mansion_warp))
+  # if True:
+  #       multiworld.get_location(Ch2Locations.cyber_field_warp_door, player).place_locked_item(world.create_item(Ch2Items.cyber_field_warp))
+  #       multiworld.get_location(Ch2Locations.trash_zone_warp_door, player).place_locked_item(world.create_item(Ch2Items.trash_zone_warp))
+  #       multiworld.get_location(Ch2Locations.mansion_warp_door, player).place_locked_item(world.create_item(Ch2Items.mansion_warp))
   
   # Hidden items
   if not world.is_hidden_items_randomized():

@@ -139,9 +139,9 @@ chapter2_conditional_items = {
   CCItems.shadowcrystal.value:ConditionalItemData(ItemIDs.shadowcrystal.value,ItemClassification.useful,    lambda world: world.is_secret_bosses_randomized()),
   
   # Warps
-  Ch2Items.cyber_field_warp.value:  ConditionalItemData(ItemIDs.cyber_field_warp.value, ItemClassification.progression, lambda world: world.is_warps_randomized(), [ItemGroups.warps], 0),
-  Ch2Items.trash_zone_warp.value:   ConditionalItemData(ItemIDs.trash_zone_warp.value,  ItemClassification.progression, lambda world: world.is_warps_randomized(), [ItemGroups.warps], 0),
-  Ch2Items.mansion_warp.value:      ConditionalItemData(ItemIDs.mansion_warp.value,     ItemClassification.progression, lambda world: world.is_warps_randomized(), [ItemGroups.warps], 0),
+  # Ch2Items.cyber_field_warp.value:  ConditionalItemData(ItemIDs.cyber_field_warp.value, ItemClassification.progression, lambda world: world.is_warps_randomized(), [ItemGroups.warps], 0),
+  # Ch2Items.trash_zone_warp.value:   ConditionalItemData(ItemIDs.trash_zone_warp.value,  ItemClassification.progression, lambda world: world.is_warps_randomized(), [ItemGroups.warps], 0),
+  # Ch2Items.mansion_warp.value:      ConditionalItemData(ItemIDs.mansion_warp.value,     ItemClassification.progression, lambda world: world.is_warps_randomized(), [ItemGroups.warps], 0),
 }
 
 def create_items(world: "DeltaruneWorld") -> list[DeltaruneItem]:

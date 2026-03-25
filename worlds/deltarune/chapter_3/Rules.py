@@ -71,6 +71,11 @@ def handle_locked_items(world: "DeltaruneWorld"):
   player = world.player
   multiworld = world.multiworld
   
+  # if not world.is_warps_randomized():
+  # if True:
+  #   multiworld.get_location(Ch3Locations.tv_world_entrance_warp_door, player).place_locked_item(world.create_item(Ch3Items.tv_world_entrace_warp))
+  #   multiworld.get_location(Ch3Locations.tv_world_goulden_sam_warp_door, player).place_locked_item(world.create_item(Ch3Items.goulden_sam_warp))
+  
   # MANTLE
   if not (world.is_mantle_randomized() or world.is_mantleless()):
     if world.is_shadow_mantle_included():

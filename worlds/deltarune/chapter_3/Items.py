@@ -116,6 +116,10 @@ chapter3_conditional_items = {
     Ch3Items.ice_key.value:         ConditionalItemData(ItemIDs.ice_key.value,         ItemClassification.progression, lambda world: world.is_mantle_randomized() or world.is_mantleless(), [ItemGroups.mantle_items]),
     Ch3Items.shelter_key.value:     ConditionalItemData(ItemIDs.shelter_key.value,     ItemClassification.progression, lambda world: world.is_mantle_randomized() or world.is_mantleless(), [ItemGroups.mantle_items]),
     Ch3Items.tripticket.value:      ConditionalItemData(ItemIDs.tripticket.value,      ItemClassification.progression, lambda world: world.is_hidden_items_randomized() and ((not world.is_weird_route()) or world.is_all_routes())),
+    
+    # Warps
+    # Ch3Items.tv_world_entrace_warp.value:   ConditionalItemData(ItemIDs.tv_world_entrace_warp.value,  ItemClassification.progression, lambda world: world.is_warps_randomized(), [ItemGroups.warps], 0),
+    # Ch3Items.goulden_sam_warp.value:        ConditionalItemData(ItemIDs.goulden_sam_warp.value,       ItemClassification.progression, lambda world: world.is_warps_randomized(), [ItemGroups.warps], 0),
 }
 
 def create_items(world: "DeltaruneWorld") -> list[DeltaruneItem]:
