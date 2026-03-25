@@ -30,7 +30,7 @@ def set_rules(world: "DeltaruneWorld"):
     set_rule(multiworld.get_location(Ch2Locations.mansion_basement_mechanism, player), lambda state: state.has(Ch2Items.keygen, player))
     
   # Region lockers
-  set_rule(multiworld.get_entrance(Ch2Entrances.cyber_city_entrance,   player), lambda state: state.has(Ch2Items.safety_vest, player))
+  set_rule(multiworld.get_entrance(Ch2Entrances.cyber_city_entrance,   player), lambda state: state.has(Ch2Items.safety_vest, player) or state.has(glitched_item_name, player))
   # Mansion have special logic, need either thornring or mansion reservation depending of the route
   
   # set_rule(multiworld.get_entrance(Ch2Entrances.cyber_field_entrance,          player), lambda state: state.has(Ch2Items.cyber_field_warp, player))
