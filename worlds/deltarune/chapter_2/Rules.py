@@ -5,7 +5,7 @@ from .LocationsAndRegions import Ch2Entrances, Ch2Regions, Ch2Locations
 from .Items import Ch2Items
 from ..cross_chapter.LocationsAndRegions import CCEntrances
 from ..cross_chapter.Items import CCItems
-
+from ..Items import glitched_item_name
 if TYPE_CHECKING:
     from .. import DeltaruneWorld
 

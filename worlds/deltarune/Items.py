@@ -4,6 +4,8 @@ from typing import TYPE_CHECKING, NamedTuple, Optional, Callable
 
 if TYPE_CHECKING: from . import DeltaruneWorld
 
+glitched_item_name = "Deltarune is an episodic role-playing video game by American indie developer Toby Fox."
+
 class ItemGroups(StrEnum):
     healing_item = "Healing Items"
     fusion_ingredient = "Fusion Ingredients"
@@ -37,6 +39,9 @@ class DeltaruneItem(Item):
 
 
 class ItemIDs(Enum):
+    # UT Integration
+    glitched_item = -1
+    
     dark_candy = 1
     revivemint = 2
     glowshard = 3
