@@ -218,12 +218,12 @@ chapter2_conditional_locations = {
 }
 
 chapter2_regions = [
-  (Ch2Regions.chapter_2.value, [Ch2Entrances.castle_town_entrance.value, Ch2Entrances.fusion_access_entrance]),
-  (Ch2Regions.castle_town.value, [Ch2Entrances.cyber_field_entrance.value]),
-  (Ch2Regions.cyber_field.value, [Ch2Entrances.cyber_city_entrance.value]),
-  (Ch2Regions.cyber_city.value, [Ch2Entrances.mansion_entrance.value]),
-  (Ch2Regions.mansion.value, [Ch2Entrances.post_chapter_castle_town_entrance.value]),
-  (Ch2Regions.post_chapter_castle_town.value, [])
+  (Ch2Regions.chapter_2,      [Ch2Entrances.castle_town_entrance, Ch2Entrances.fusion_access_entrance]),
+  (Ch2Regions.castle_town,    [Ch2Entrances.cyber_field_entrance]),
+  (Ch2Regions.cyber_field,    [Ch2Entrances.cyber_city_entrance]),
+  (Ch2Regions.cyber_city,     [Ch2Entrances.mansion_entrance]),
+  (Ch2Regions.mansion,        [Ch2Entrances.post_chapter_castle_town_entrance]),
+  (Ch2Regions.post_chapter_castle_town, [])
 ]
 
 chapter2_mandatory_connections = [
