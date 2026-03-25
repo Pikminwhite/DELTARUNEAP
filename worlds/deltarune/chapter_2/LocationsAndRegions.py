@@ -196,8 +196,9 @@ chapter2_conditional_locations = {
   Ch2Locations.spamton_shop_3.value:                  ConditionalLocationData(LocationIDs.ch2_spamtons_shop_3.value,                Ch2Regions.cyber_city.value,     lambda world: world.is_all_recruits(), LocationGroups.chapter2.value),
   Ch2Locations.spamton_shop_4.value:                  ConditionalLocationData(LocationIDs.ch2_spamtons_shop_4.value,                Ch2Regions.cyber_city.value,     lambda world: world.is_all_recruits(), LocationGroups.chapter2.value),
   Ch2Locations.recruit_werewerewire.value:                      ConditionalLocationData(LocationIDs.ch2_recruit_werewerewire.value,                       Ch2Regions.mansion.value, lambda world: world.is_all_recruits(), LocationGroups.chapter2.value),
-  Ch2Locations.castle_town_tasque_manager_says_challenge.value: ConditionalLocationData(LocationIDs.ch2_castle_town_tasque_manager_says_challenge.value,  Ch2Regions.mansion.value, lambda world: world.is_all_recruits(), LocationGroups.chapter2.value),
-  Ch2Locations.castle_town_ch2_all_stars_challenge.value:       ConditionalLocationData(LocationIDs.ch2_castle_town_all_stars_challenge.value,            Ch2Regions.mansion.value, lambda world: world.is_all_recruits(), LocationGroups.chapter2.value),
+  
+  Ch2Locations.castle_town_tasque_manager_says_challenge.value: ConditionalLocationData(LocationIDs.ch2_castle_town_tasque_manager_says_challenge.value,  Ch2Regions.post_chapter_castle_town.value, lambda world: world.is_all_recruits(), LocationGroups.chapter2.value),
+  Ch2Locations.castle_town_ch2_all_stars_challenge.value:       ConditionalLocationData(LocationIDs.ch2_castle_town_all_stars_challenge.value,            Ch2Regions.post_chapter_castle_town.value, lambda world: world.is_all_recruits(), LocationGroups.chapter2.value),
   
   Ch2Locations.mansion_spamton_neo_defeat_item_3.value:     ConditionalLocationData(LocationIDs.ch2_mansion_spamton_neo_defeat_item_3.value,     Ch2Regions.mansion.value, lambda world: (not world.is_weird_route() or world.is_all_routes()), LocationGroups.chapter2.value),
   
