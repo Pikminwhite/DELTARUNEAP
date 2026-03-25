@@ -93,7 +93,7 @@ chapter2_items = {
   # Noelle royal pin
   Ch2Items.royalpin.value:          ItemData(ItemIDs.royalpin.value,          ItemClassification.useful, [ItemGroups.armors]),
   
-  Ch2Items.tensionbit.value:          ItemData(ItemIDs.tensionbit.value,        ItemClassification.progression | ItemClassification.useful, [ItemGroups.weapons]),
+  Ch2Items.tensionbit.value:          ItemData(ItemIDs.tensionbit.value,        ItemClassification.progression | ItemClassification.useful, [ItemGroups.tension_items]),
   Ch2Items.glowwrist.value:           ItemData(ItemIDs.glowwrist.value,         ItemClassification.progression | ItemClassification.useful, [ItemGroups.armors, ItemGroups.fusion_ingredient], 2),
   CCItems.pink_ribbon.value:          ItemData(ItemIDs.pink_ribbon.value,       ItemClassification.progression, [ItemGroups.armors, ItemGroups.fusion_ingredient]),
   Ch2Items.safety_vest.value:         ItemData(ItemIDs.safety_vest.value,       ItemClassification.progression, [ItemGroups.region_blockers]),
