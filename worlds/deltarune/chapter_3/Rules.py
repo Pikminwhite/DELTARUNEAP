@@ -6,6 +6,7 @@ from .LocationsAndRegions import Ch3Entrances, Ch3Regions, Ch3Locations
 from .Items import Ch3Items
 from ..cross_chapter.LocationsAndRegions import CCEntrances
 from ..cross_chapter.Items import CCItems
+from ..Items import glitched_item_name
 
 if TYPE_CHECKING: from .. import DeltaruneWorld
 
@@ -27,16 +28,16 @@ def set_rules(world: "DeltaruneWorld"):
       if world.is_mantleless():  
         if world.is_final_chapter(3):
           set_rule(multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player), lambda state: state.has(Ch3Items.remote_battery, player, world.options.goal_macguffin_amount)
-                                                                                                  and state.has(Ch3Items.shadowmantle, player))
+                                                                                                  and (state.has(Ch3Items.shadowmantle, player) or state.has(glitched_item_name, player)))
         else:
-            set_rule(multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player), lambda state: state.has(Ch3Items.shadowmantle, player))
+            set_rule(multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player), lambda state: state.has(Ch3Items.shadowmantle, player) or state.has(glitched_item_name, player))
       else:
         if world.is_final_chapter(3):
           set_rule(multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player), lambda state: state.has(Ch3Items.remote_battery, player, world.options.goal_macguffin_amount)
-                                                                                                  and state.has(Ch3Items.shadowmantle, player)
+                                                                                                  and (state.has(Ch3Items.shadowmantle, player) or state.has(glitched_item_name, player))
                                                                                                   and can_do_mantle(state, player))
         else:
-            set_rule(multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player), lambda state: state.has(Ch3Items.shadowmantle, player)
+            set_rule(multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player), lambda state: (state.has(Ch3Items.shadowmantle, player) or state.has(glitched_item_name, player))
                                                                                                       and can_do_mantle(state, player))
     else:
       if world.is_mantleless():
@@ -52,7 +53,7 @@ def set_rules(world: "DeltaruneWorld"):
     set_rule(multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player), lambda state: state.has(Ch3Items.remote_battery, player, world.options.goal_macguffin_amount))
   
   # SWORD GAME
-  set_rule(multiworld.get_location(Ch3Locations.mantle_out_of_bounds_chest,   player),         lambda state: state.has(Ch3Items.odd_controller, player))
+  set_rule(multiworld.get_location(Ch3Locations.mantle_out_of_bounds_chest,   player),     lambda state: state.has(Ch3Items.odd_controller, player))
   set_rule(multiworld.get_location(Ch3Locations.mantle_northern_light_item,   player),     lambda state: state.has(Ch3Items.odd_controller, player) and state.has(Ch3Items.ice_key, player))
   if not (world.is_mantleless()):
     set_rule(multiworld.get_location(Ch3Locations.mantle_defeat,   player),   lambda state: can_do_mantle(state, player))
@@ -60,8 +61,8 @@ def set_rules(world: "DeltaruneWorld"):
 
   # Knight
   if world.is_shadow_mantle_included():
-    set_rule(multiworld.get_location(Ch3Locations.cold_place_knight_defeat_item_1, player), lambda state: state.has(Ch3Items.shadowmantle, player))
-    set_rule(multiworld.get_location(Ch3Locations.cold_place_knight_defeat_item_2, player), lambda state: state.has(Ch3Items.shadowmantle, player))
+    set_rule(multiworld.get_location(Ch3Locations.cold_place_knight_defeat_item_1, player), lambda state: state.has(Ch3Items.shadowmantle, player) or state.has(glitched_item_name, player))
+    set_rule(multiworld.get_location(Ch3Locations.cold_place_knight_defeat_item_2, player), lambda state: state.has(Ch3Items.shadowmantle, player) or state.has(glitched_item_name, player))
 
 def can_do_mantle(state: CollectionState, player: int):
   return state.has(Ch3Items.odd_controller, player) and state.has(Ch3Items.ice_key, player) and state.has(Ch3Items.shelter_key, player)
