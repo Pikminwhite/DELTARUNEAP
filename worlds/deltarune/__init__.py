@@ -121,7 +121,7 @@ class DeltaruneWorld(World):
         
     def create_item(self, name: str) -> DeltaruneItem:
         if name == glitched_item_name: return DeltaruneItem(name, ItemClassification.progression, -1, self.player)
-        if name == progressive_weapon_name: return DeltaruneItem(name, ItemClassification.progression, -2, self.player)
+        if name == progressive_weapon_name: return DeltaruneItem(name, ItemClassification.useful, -2, self.player)
         
         item_data = every_items[name]
 
