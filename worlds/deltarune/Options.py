@@ -177,6 +177,13 @@ class ItemBalancing(Toggle):
     (For example, Chapter 4's AbsorbAx in chapter 1 will only give +3 attack instead of +8.)"""
     display_name = "ItemBalancing"
     default = 0
+    
+class ProgressiveWeapons(Toggle):
+    """
+    I'm sure that emerald will find something ch4 vibe
+    """
+    display_name = "ProgressiveWeapons"
+    default = 0
 
 class IncludeHiddenItems(Toggle):
     """
@@ -333,3 +340,4 @@ class DeltaruneOptions(PerGameCommonOptions):
     include_hidden_items:                             IncludeHiddenItems
     death_link:                                       DeathLink
 #    include_traps:                                    IncludeTraps
+    progressive_weapons:                              ProgressiveWeapons

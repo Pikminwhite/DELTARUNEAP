@@ -116,6 +116,7 @@ class DeltaruneWorld(World):
             "item_balancing": bool(self.options.item_balancing.value),
             "include_shadow_mantle": bool(self.options.include_shadow_mantle.value),
             "randomize_mantle": self.options.randomize_mantle.current_key,
+            "progressive_weapons": self.options.progressive_weapons,
         }
         
     def create_item(self, name: str) -> DeltaruneItem:
@@ -277,7 +278,8 @@ class DeltaruneWorld(World):
         # if self.include_chapter(5): Ch5Items.create_items(self)
         # if self.include_chapter(6): Ch6Items.create_items(self)
         # if self.include_chapter(7): Ch7Items.create_items(self)
-        self.handle_progressive_weapon(item_pool)
+        
+        if self.options.progressive_weapons.value == 1: self.handle_progressive_weapon(item_pool)
         self.handle_chapter_keys(item_pool)
         self.handle_macguffins_items(item_pool)
         
