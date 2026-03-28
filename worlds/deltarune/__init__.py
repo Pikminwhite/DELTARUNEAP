@@ -1,6 +1,6 @@
 from worlds.deltarune.Regions import link_deltarune_areas
 
-from .Items import DeltaruneItem, ItemData, ConditionalItemData, get_item_groups, glitched_item_name
+from .Items import DeltaruneItem, ItemData, ConditionalItemData, get_item_groups, glitched_item_name, progressive_weapon_name, ItemGroups
 from .Rules import set_completion_rules
 from .Locations import LocationData, ConditionalLocationData, get_location_groups
 from BaseClasses import ItemClassification, Tutorial
@@ -120,6 +120,7 @@ class DeltaruneWorld(World):
         
     def create_item(self, name: str) -> DeltaruneItem:
         if name == glitched_item_name: return DeltaruneItem(name, ItemClassification.progression, -1, self.player)
+        if name == progressive_weapon_name: return DeltaruneItem(name, ItemClassification.progression, -2, self.player)
         
         item_data = every_items[name]
 
@@ -276,7 +277,7 @@ class DeltaruneWorld(World):
         # if self.include_chapter(5): Ch5Items.create_items(self)
         # if self.include_chapter(6): Ch6Items.create_items(self)
         # if self.include_chapter(7): Ch7Items.create_items(self)
-        
+        self.handle_progressive_weapon(item_pool)
         self.handle_chapter_keys(item_pool)
         self.handle_macguffins_items(item_pool)
         
@@ -337,3 +338,12 @@ class DeltaruneWorld(World):
         # if self.include_chapter(7): Ch7Rules.set_rules(self)
         
         set_completion_rules(self)
+        
+    def handle_progressive_weapon(self, itempool: list[str]):
+        # Looking for all non-progressive weapons
+        weapons = [name for name, value in every_items.items() if ItemGroups.weapons in value.groups and not value.classification & ItemClassification.progression]
+        print(weapons)
+        for item in itempool:
+            if item in weapons:
+                itempool.remove(item)
+                itempool.append(progressive_weapon_name)
