@@ -115,7 +115,7 @@ chapter1_conditional_items = {
   Ch1Items.king_shape_key_piece.value: ConditionalItemData(ItemIDs.king_shape_key_piece.value, ItemClassification.progression, lambda world: world.is_final_chapter(1), [ItemGroups.region_blockers], 0)
 }
 
-def create_items(world: "DeltaruneWorld") -> list[DeltaruneItem]:
+def create_items(world: "DeltaruneWorld"):
   return generic_create_items(world, chapter1_items, chapter1_conditional_items)
   
 def get_filler_items(world: "DeltaruneWorld"):

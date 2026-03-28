@@ -291,12 +291,12 @@ class DeltaruneWorld(World):
         if self.is_final_chapter(3): return Ch3Items.chapter3_macguffin_item
         if self.is_final_chapter(4): return Ch4Items.chapter4_macguffin_item
     
-    def handle_macguffins_items(self, item_pool: list):
+    def handle_macguffins_items(self, item_pool: list[str]):
         item_to_add = self.get_macguffins_item()
         
         item_pool += [item_to_add] * self.options.goal_macguffin_amount
     
-    def handle_chapter_keys(self, item_pool: list):
+    def handle_chapter_keys(self, item_pool: list[str]):
         if self.is_all_chapters_unlocked(): return
         
         starting_chapter = -1
