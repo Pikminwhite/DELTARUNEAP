@@ -13,6 +13,8 @@ from ..chapter_3.Items import Ch3Items
 from ..chapter_3.LocationsAndRegions import Ch3Locations
 from ..chapter_4.Items import Ch4Items
 from ..chapter_4.LocationsAndRegions import Ch4Locations
+from ..chapter_5.Items import Ch5Items
+from ..chapter_5.LocationsAndRegions import Ch5Locations
 
 if TYPE_CHECKING: from .. import DeltaruneWorld
 
@@ -53,6 +55,7 @@ def get_unlock_item(world: "DeltaruneWorld", chapter: int):
     if chapter == 2: return Ch2Items.chapter_2_unlock
     if chapter == 3: return Ch3Items.chapter_3_unlock
     if chapter == 4: return Ch4Items.chapter_4_unlock
+    if chapter == 5: return Ch5Items.chapter_5_unlock
 
 def handle_locked_items(world: "DeltaruneWorld"): 
   player = world.player
@@ -63,6 +66,7 @@ def handle_locked_items(world: "DeltaruneWorld"):
     
     for current_chapter in playable_chapters:
         next_chapter = world.get_next_in_order_chapter(current_chapter)
-        if next_chapter == -1: break
+        if next_chapter == -1:
+            next_chapter = current_chapter + 1
         
         get_location(world, current_chapter).place_locked_item(world.create_item(get_unlock_item(world, next_chapter)))

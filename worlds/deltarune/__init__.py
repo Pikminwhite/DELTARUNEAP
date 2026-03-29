@@ -14,6 +14,7 @@ from .chapter_1 import LocationsAndRegions as Ch1LocationAndRegions, Rules as Ch
 from .chapter_2 import LocationsAndRegions as Ch2LocationAndRegions, Rules as Ch2Rules, Items as Ch2Items
 from .chapter_3 import LocationsAndRegions as Ch3LocationAndRegions, Rules as Ch3Rules, Items as Ch3Items
 from .chapter_4 import LocationsAndRegions as Ch4LocationAndRegions, Rules as Ch4Rules, Items as Ch4Items
+from .chapter_5 import LocationsAndRegions as Ch5LocationAndRegions, Rules as Ch5Rules, Items as Ch5Items
 
 def run_client():
     print('running deltarune client')
@@ -45,6 +46,8 @@ every_items: dict[str, ItemData | ConditionalItemData] = {
     **Ch3Items.chapter3_conditional_items,
     **Ch4Items.chapter4_items,
     **Ch4Items.chapter4_conditional_items,
+    **Ch5Items.chapter5_items,
+    **Ch5Items.chapter5_conditional_items,
 }
 
 every_locations: dict[str, LocationData | ConditionalItemData] = {

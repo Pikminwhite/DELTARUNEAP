@@ -26,6 +26,7 @@ class CCEntrances(StrEnum):
   chapter_2_entrance = "Chapter 2 Entrance"
   chapter_3_entrance = "Chapter 3 Entrance"
   chapter_4_entrance = "Chapter 4 Entrance"
+  chapter_5_entrance = "Chapter 5 Entrance"
 
 cross_chapter_locations: dict = {
   
