@@ -63,6 +63,9 @@ def set_rules(world: "DeltaruneWorld"):
   if world.is_shadow_mantle_included():
     set_rule(multiworld.get_location(Ch3Locations.cold_place_knight_defeat_item_1, player), lambda state: state.has(Ch3Items.shadowmantle, player) or state.has(glitched_item_name, player))
     set_rule(multiworld.get_location(Ch3Locations.cold_place_knight_defeat_item_2, player), lambda state: state.has(Ch3Items.shadowmantle, player) or state.has(glitched_item_name, player))
+    
+  if (not world.is_weird_route()) or world.is_all_routes():
+    set_rule(multiworld.get_location(Ch3Locations.tv_world_man, player), lambda state: state.has(Ch3Items.tripticket, player))
 
 def can_do_mantle(state: CollectionState, player: int):
   return state.has(Ch3Items.odd_controller, player) and state.has(Ch3Items.ice_key, player) and state.has(Ch3Items.shelter_key, player)
