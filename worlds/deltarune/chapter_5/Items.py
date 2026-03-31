@@ -22,10 +22,10 @@ class Ch5Items(StrEnum):
 chapter5_macguffin_item = ""
   
 chapter5_items = {
-  Ch5Items.chapter_5_unlock.value:  ConditionalItemData(ItemIDs.chapter_5_unlock.value, ItemClassification.progression, lambda world: world.is_chapters_randomized(), [ItemGroups.region_blockers]),
 }
 
 chapter5_conditional_items = {
+  Ch5Items.chapter_5_unlock.value:  ConditionalItemData(ItemIDs.chapter_5_unlock.value, ItemClassification.progression, lambda world: world.is_chapters_randomized(), [ItemGroups.region_blockers]),
   # Ch5Items.egg.value:           ConditionalItemData(ItemIDs.chapter_5_egg.value,  ItemClassification.useful, lambda world: world.is_hidden_items_randomized(), [ItemGroups.eggs]),
 }
 
