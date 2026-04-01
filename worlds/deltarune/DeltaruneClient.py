@@ -271,7 +271,6 @@ async def process_deltarune_cmd(ctx: DeltaruneContext, cmd: str, args: dict):
                 filename = f"mantle.flag"
                 with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
                     f.close()
-        ctx.mandatorymantle = args["slot_data"]["randomize_mantle"]
         if ctx.mandatorymantle == "mantleless":
             filename = f"nomantle.flag"
             with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
