@@ -112,7 +112,7 @@ chapter1_conditional_items = {
   
   Ch1Items.chapter_1_unlock.value:     ConditionalItemData(ItemIDs.chapter_1_unlock.value,     ItemClassification.progression, lambda world: world.is_chapters_randomized(), [ItemGroups.region_blockers]),
   # Amount is handle in __init__.py handle_macguffins_items()
-  Ch1Items.king_shape_key_piece.value: ConditionalItemData(ItemIDs.king_shape_key_piece.value, ItemClassification.progression, lambda world: world.is_final_chapter(1), [ItemGroups.region_blockers], 0)
+  Ch1Items.king_shape_key_piece.value: ConditionalItemData(ItemIDs.king_shape_key_piece.value, ItemClassification.progression_skip_balancing, lambda world: world.is_final_chapter(1), [ItemGroups.region_blockers], 0)
 }
 
 def create_items(world: "DeltaruneWorld"):

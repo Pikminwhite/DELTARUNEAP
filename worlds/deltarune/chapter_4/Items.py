@@ -64,7 +64,7 @@ chapter4_conditional_items = {
   
   Ch4Items.chapter_4_unlock.value:  ConditionalItemData(ItemIDs.chapter_4_unlock.value, ItemClassification.progression, lambda world: world.is_chapters_randomized(), [ItemGroups.region_blockers]),
   # Amount is handle in __init__.py handle_macguffins_items()
-  Ch4Items.combination_lock_digit.value:  ConditionalItemData(ItemIDs.combinaison_lock_digit.value, ItemClassification.progression, lambda world: world.is_final_chapter(4), [ItemGroups.region_blockers], 0),
+  Ch4Items.combination_lock_digit.value:  ConditionalItemData(ItemIDs.combinaison_lock_digit.value, ItemClassification.progression_skip_balancing, lambda world: world.is_final_chapter(4), [ItemGroups.region_blockers], 0),
 }
 
 def create_items(world: "DeltaruneWorld") -> list[DeltaruneItem]:

@@ -129,7 +129,7 @@ chapter2_conditional_items = {
   
   Ch2Items.chapter_2_unlock.value:  ConditionalItemData(ItemIDs.chapter_2_unlock.value, ItemClassification.progression, lambda world: world.is_chapters_randomized(), [ItemGroups.region_blockers]),
   # Amount is handle in __init__.py handle_macguffins_items()
-  Ch2Items.keygen_2_segment.value: ConditionalItemData(ItemIDs.key_gen_2_segment.value, ItemClassification.progression, lambda world: world.is_final_chapter(2), [ItemGroups.region_blockers], 0),
+  Ch2Items.keygen_2_segment.value: ConditionalItemData(ItemIDs.key_gen_2_segment.value, ItemClassification.progression_skip_balancing, lambda world: world.is_final_chapter(2), [ItemGroups.region_blockers], 0),
   
   # Secret Boss
   Ch2Items.emptydisk.value:   ConditionalItemData(ItemIDs.emptydisk.value,  ItemClassification.progression, lambda world: (not world.is_weird_route() or world.is_all_routes()) and world.is_hidden_items_randomized(), [ItemGroups.spamton_access]),
