@@ -59,11 +59,6 @@ class Ch2Items(StrEnum):
   # Macguffins
   keygen_2_segment    = "KeyGen 2 Segment"
   
-  # Warps
-  cyber_field_warp    = "Cyber Field Warp"
-  trash_zone_warp     = "Trash Zone Warp"
-  mansion_warp        = "Mansion Warp"
-  
 chapter2_macguffin_item = Ch2Items.keygen_2_segment.value
 
 chapter2_items = {
@@ -137,11 +132,6 @@ chapter2_conditional_items = {
   Ch2Items.dealmaker.value:   ConditionalItemData(ItemIDs.dealmaker.value,  ItemClassification.useful,      lambda world: (not world.is_weird_route() or world.is_all_routes()) and world.is_secret_bosses_randomized(), [ItemGroups.armors]),
   Ch2Items.puppetscarf.value: ConditionalItemData(ItemIDs.puppetscarf.value,ItemClassification.useful,      lambda world: world.is_secret_bosses_randomized(), [ItemGroups.weapons]),
   CCItems.shadowcrystal.value:ConditionalItemData(ItemIDs.shadowcrystal.value,ItemClassification.useful,    lambda world: world.is_secret_bosses_randomized()),
-  
-  # Warps
-  # Ch2Items.cyber_field_warp.value:  ConditionalItemData(ItemIDs.cyber_field_warp.value, ItemClassification.progression, lambda world: world.is_warps_randomized(), [ItemGroups.warps], 0),
-  # Ch2Items.trash_zone_warp.value:   ConditionalItemData(ItemIDs.trash_zone_warp.value,  ItemClassification.progression, lambda world: world.is_warps_randomized(), [ItemGroups.warps], 0),
-  # Ch2Items.mansion_warp.value:      ConditionalItemData(ItemIDs.mansion_warp.value,     ItemClassification.progression, lambda world: world.is_warps_randomized(), [ItemGroups.warps], 0),
 }
 
 def create_items(world: "DeltaruneWorld") -> list[DeltaruneItem]:

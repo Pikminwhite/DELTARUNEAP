@@ -48,12 +48,6 @@ class Ch1Items(StrEnum):
   # Macguffins
   king_shape_key_piece = "King-Shaped Key Piece"
   
-  # Warps
-  bake_sale_warp = "Bake Sale Warp"
-  forest_warp = "Forest Warp"
-  fields_warp = "Fields Warp"
-  card_castle_warp = "Card Castle Warp"
-  
 chapter1_macguffin_item = Ch1Items.king_shape_key_piece.value
 
 chapter1_items = {
@@ -103,12 +97,6 @@ chapter1_conditional_items = {
   Ch1Items.jevilstail.value:        ConditionalItemData(ItemIDs.jevilstail.value,       ItemClassification.useful, lambda world: world.is_secret_bosses_randomized(), [ItemGroups.armors]),
   Ch1Items.devilsknife.value:       ConditionalItemData(ItemIDs.devilsknife.value,      ItemClassification.useful, lambda world: world.is_secret_bosses_randomized(), [ItemGroups.weapons]),
   CCItems.shadowcrystal.value:      ConditionalItemData(ItemIDs.shadowcrystal.value,    ItemClassification.useful, lambda world: world.is_secret_bosses_randomized()),
-  
-  # Warps
-  Ch1Items.fields_warp.value:       ConditionalItemData(ItemIDs.fields_warp.value,       ItemClassification.progression, lambda world: world.is_warps_randomized(), [ItemGroups.warps]),
-  Ch1Items.forest_warp.value:       ConditionalItemData(ItemIDs.forest_warp.value,       ItemClassification.progression, lambda world: world.is_warps_randomized(), [ItemGroups.warps]),
-  Ch1Items.bake_sale_warp.value:    ConditionalItemData(ItemIDs.bake_sale_warp.value,    ItemClassification.progression, lambda world: world.is_warps_randomized(), [ItemGroups.warps]),
-  Ch1Items.card_castle_warp.value:  ConditionalItemData(ItemIDs.card_castle_warp.value,  ItemClassification.progression, lambda world: world.is_warps_randomized(), [ItemGroups.warps]),
   
   Ch1Items.chapter_1_unlock.value:     ConditionalItemData(ItemIDs.chapter_1_unlock.value,     ItemClassification.progression, lambda world: world.is_chapters_randomized(), [ItemGroups.region_blockers]),
   # Amount is handle in __init__.py handle_macguffins_items()

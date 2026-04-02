@@ -77,18 +77,6 @@ class Ch1Entrances(StrEnum):
   card_castle_entrance    = "CH1: Card Castle Entrance"
   light_world_entrance    = "CH1: Light World Entrance"
   
-  # Warps
-  fields_warp             = "CH1: Fields Warp"
-  forest_warp             = "CH1: Forest Warp"
-  bake_sale_warp          = "CH1: Bake Sale Warp"
-  card_castle_warp        = "CH1: Card Castle Warp"
-  
-  # Warp Hubs
-  fields_warp_hub         = "CH1: Fields Warp Hub"
-  forest_warp_hub         = "CH1: Forest Warp Hub"
-  bake_sale_warp_hub      = "CH1: Bake Sale Warp Hub"
-  card_castle_warp_hub    = "CH1: Card Castle Warp Hub"
-  
 chapter1_locations = {
   Ch1Locations.unknown_hidden_item.value:                   LocationData(LocationIDs.ch1_unknown_hidden_item.value,                    Ch1Regions.castle_town.value, LocationGroups.chapter1.value),
   
@@ -153,11 +141,10 @@ chapter1_end_region = Ch1Regions.light_world.value
 chapter1_regions = [
   (Ch1Regions.chapter_1.value,       [Ch1Entrances.castle_town_entrance.value]),
   (Ch1Regions.castle_town.value,     [Ch1Entrances.fields_entrance.value]),
-  (Ch1Regions.fields.value,          [Ch1Entrances.forest_entrance.value, Ch1Entrances.fields_warp.value]),
-  (Ch1Regions.forest.value,          [Ch1Entrances.bake_sale_entrance.value, Ch1Entrances.forest_warp.value]),
-  (Ch1Regions.bake_sale.value,       [Ch1Entrances.card_castle_entrance.value, Ch1Entrances.bake_sale_warp.value]),
-  (Ch1Regions.card_castle.value,     [Ch1Entrances.light_world_entrance.value, Ch1Entrances.card_castle_warp.value]),
-  (Ch1Regions.warp_hub.value,        [Ch1Entrances.fields_warp_hub.value, Ch1Entrances.forest_warp_hub.value, Ch1Entrances.bake_sale_warp_hub.value, Ch1Entrances.card_castle_warp_hub.value]),
+  (Ch1Regions.fields.value,          [Ch1Entrances.forest_entrance.value]),
+  (Ch1Regions.forest.value,          [Ch1Entrances.bake_sale_entrance.value]),
+  (Ch1Regions.bake_sale.value,       [Ch1Entrances.card_castle_entrance.value]),
+  (Ch1Regions.card_castle.value,     [Ch1Entrances.light_world_entrance.value]),
   (Ch1Regions.light_world.value,     []),
 ]
 
@@ -168,14 +155,6 @@ chapter1_mandatory_connections = [
   (Ch1Entrances.bake_sale_entrance.value,   Ch1Regions.bake_sale.value),
   (Ch1Entrances.card_castle_entrance.value, Ch1Regions.card_castle.value),
   (Ch1Entrances.light_world_entrance.value, Ch1Regions.light_world.value),
-  (Ch1Entrances.fields_warp.value,          Ch1Regions.warp_hub.value),
-  (Ch1Entrances.forest_warp.value,          Ch1Regions.warp_hub.value),
-  (Ch1Entrances.bake_sale_warp.value,       Ch1Regions.warp_hub.value),
-  (Ch1Entrances.card_castle_warp.value,     Ch1Regions.warp_hub.value),
-  (Ch1Entrances.fields_warp_hub.value,      Ch1Regions.fields.value),
-  (Ch1Entrances.forest_warp_hub.value,      Ch1Regions.forest.value),
-  (Ch1Entrances.bake_sale_warp_hub.value,   Ch1Regions.bake_sale.value),
-  (Ch1Entrances.card_castle_warp_hub.value, Ch1Regions.card_castle.value),
 ]
 
 def create_regions(world: "DeltaruneWorld"):

@@ -12,7 +12,6 @@ class ItemGroups(StrEnum):
     armors = "Armors"
     weapons = "Weapons"
     eggs = "Eggs"
-    warps = "Warps"
     currencies = "Currencies"
     region_blockers = "Story Blockers"
     moss = "Moss"

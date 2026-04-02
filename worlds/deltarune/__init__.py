@@ -104,7 +104,6 @@ class DeltaruneWorld(World):
             "player_id": self.player,
             "client_version": self.required_client_version,
             "race": self.multiworld.is_race,
-            "randomize_warp_doors": bool(self.options.randomize_warp_doors.value),
             "randomize_secret_bosses": self.options.randomize_secret_bosses.current_key,
             "goal_macguffin_amount": int(self.options.goal_macguffin_amount.value),
             "include_chapter_1": bool(self.options.include_chapter_1.value),
@@ -143,9 +142,6 @@ class DeltaruneWorld(World):
     
     def include_chapter(self, chapter: int) -> bool:
         return getattr(self.options, f"include_chapter_{chapter}").value == 1
-
-    def is_warps_randomized(self) -> bool:
-        return self.options.randomize_warp_doors.value == 1
         
     def is_chapters_in_order(self):
         return self.options.randomize_chapters == RandomizeChapterOptions.in_order

@@ -194,16 +194,6 @@ class IncludeHiddenItems(Toggle):
     display_name = "Include Grindy/Hidden Items"
     default = 0
 
-
-class RandomizeWarpDoors(Toggle):
-    """SHORTCUT DOORS
-    WILL BE AN ALTERNATIVE
-    TO THE LOCATION KEY.
-
-    (Chapter 1 is the only chapter that's affected as of current.)"""
-    display_name = "Randomize Warp Doors"
-    default = 0
-
 class IncludeChapter1(Toggle):
     """DO YOU WISH
     TO PLAY CHAPTER 1?"""
@@ -325,7 +315,6 @@ class DeltaruneOptions(PerGameCommonOptions):
     chosen_route:                                     ChosenRoute
     item_balancing:                                   ItemBalancing
     goal_macguffin_amount:                            GoalMacGuffinAmount
-    randomize_warp_doors:                             RandomizeWarpDoors
     randomize_secret_bosses:                          RandomizeSecretBosses
     randomize_mantle:                                 RandomizeMANTLE
     include_shadow_mantle:                            IncludeShadowMantle
