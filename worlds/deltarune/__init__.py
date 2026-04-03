@@ -1,3 +1,6 @@
+from typing import Any, Optional
+
+from Options import Option
 from worlds.deltarune.Regions import link_deltarune_areas
 
 from .Items import DeltaruneItem, ItemData, ConditionalItemData, get_item_groups, glitched_item_name
@@ -95,29 +98,32 @@ class DeltaruneWorld(World):
     location_name_groups = get_location_groups(every_locations.items())
     
     glitches_item_name = glitched_item_name
+    ut_can_gen_without_yaml = True
 
     def _get_deltarune_data(self):
         return {
+            "options": {
+                "randomize_secret_bosses": self.options.randomize_secret_bosses.current_key,
+                "goal_macguffin_amount": int(self.options.goal_macguffin_amount.value),
+                "include_chapter_1": bool(self.options.include_chapter_1.value),
+                "include_chapter_2": bool(self.options.include_chapter_2.value),
+                "include_chapter_3": bool(self.options.include_chapter_3.value),
+                "include_chapter_4": bool(self.options.include_chapter_4.value),
+                "include_t_rank": bool(self.options.include_t_rank.value),
+                "chosen_route": self.options.chosen_route.current_key,
+                "randomize_chapters": self.options.randomize_chapters.current_key,
+                "include_hidden_items": bool(self.options.include_hidden_items.value),
+                "death_link": bool(self.options.death_link.value),
+                "item_balancing": bool(self.options.item_balancing.value),
+                "include_shadow_mantle": bool(self.options.include_shadow_mantle.value),
+                "randomize_mantle": self.options.randomize_mantle.current_key,
+            },
             "world_seed": self.random.getrandbits(32),
             "seed_name": self.multiworld.seed_name,
             "player_name": self.multiworld.get_player_name(self.player),
             "player_id": self.player,
             "client_version": self.required_client_version,
             "race": self.multiworld.is_race,
-            "randomize_secret_bosses": self.options.randomize_secret_bosses.current_key,
-            "goal_macguffin_amount": int(self.options.goal_macguffin_amount.value),
-            "include_chapter_1": bool(self.options.include_chapter_1.value),
-            "include_chapter_2": bool(self.options.include_chapter_2.value),
-            "include_chapter_3": bool(self.options.include_chapter_3.value),
-            "include_chapter_4": bool(self.options.include_chapter_4.value),
-            "include_t_rank": bool(self.options.include_t_rank.value),
-            "chosen_route": self.options.chosen_route.current_key,
-            "randomize_chapters": self.options.randomize_chapters.current_key,
-            "include_hidden_items": bool(self.options.include_hidden_items.value),
-            "death_link": bool(self.options.death_link.value),
-            "item_balancing": bool(self.options.item_balancing.value),
-            "include_shadow_mantle": bool(self.options.include_shadow_mantle.value),
-            "randomize_mantle": self.options.randomize_mantle.current_key,
         }
         
     def create_item(self, name: str) -> DeltaruneItem:
@@ -137,9 +143,31 @@ class DeltaruneWorld(World):
         
         return self.random.choices(list(junk_pool.keys()), weights=list(junk_pool.values()))[0]
 
+    @staticmethod
+    def interpret_slot_data(slot_data: dict[str, Any]) -> dict[str, Any]:
+        # Trigger a regen in UT
+        print("Interpreting slot data for DELTARUNE:", slot_data)
+        return slot_data
+    
     def fill_slot_data(self):
         return self._get_deltarune_data()
     
+    def generate_early(self) -> None:
+        print("Regen ?")
+        re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
+        if re_gen_passthrough and self.game in re_gen_passthrough:
+            print("Regenning DELTARUNE world with slot data")
+            # Get the passed through slot data from the real generation
+            slot_data: dict[str, Any] = re_gen_passthrough[self.game]
+
+            slot_options: dict[str, Any] = slot_data.get("options", {})
+            # Set all your options here instead of getting them from the yaml
+            for key, value in slot_options.items():
+                opt: Optional[Option] = getattr(self.options, key, None)
+                if opt is not None:
+                    # You can also set .value directly but that won't work if you have OptionSets
+                    setattr(self.options, key, opt.from_any(value))
+        
     def include_chapter(self, chapter: int) -> bool:
         return getattr(self.options, f"include_chapter_{chapter}").value == 1
         
