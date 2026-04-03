@@ -12,6 +12,8 @@ from worlds import deltarune
 from MultiServer import mark_raw, Context, Client
 from Utils import async_start
 
+ap_world_version = "v1.2.0"
+
 # Try importing gui_enabled in Utils first before trying to import them from CommonClient
 # Core AP will be officially moving it to Utils in the future, so this is in accommodation for that
 gui_loaded_from_utils: bool = False
@@ -223,7 +225,7 @@ class DeltaruneContext(SuperContext):
 
     def make_gui(self):
         ui = super().make_gui()
-        ui.base_title = "Archipelago DELTARUNE Client"
+        ui.base_title = "Archipelago DELTARUNE Client " + ap_world_version
         ui.logging_pairs = [
                 ("Client", "Archipelago")
             ]
@@ -512,7 +514,7 @@ async def send_testy():
         logger.info("I am testing yippeee...")
 
 def main():
-    Utils.init_logging("DeltaruneClient", exception_logger="Client")
+    Utils.init_logging("DeltaruneClient" + ap_world_version, exception_logger="Client")
 
     async def _main():
         ctx = DeltaruneContext(None, None)
