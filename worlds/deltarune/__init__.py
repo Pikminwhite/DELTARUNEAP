@@ -22,12 +22,12 @@ def run_client():
     p = Process(target=main)
     p.start()
 
-
-# components.append(Component("DELTARUNE Client", "DELTARUNEClient"))
 components.append(Component("DELTARUNE Client",
                             func=run_client,
                             component_type=Type.CLIENT,
-                            icon="deltarune"))
+                            icon="deltarune",
+                            game_name="DELTARUNE",
+                            supports_uri=True))
 
 #I apologize for the name of the icon - Emerald
 icon_paths["deltarune"] = f"ap:{__name__}/icons/gay_deltarune.png"
