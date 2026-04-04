@@ -91,6 +91,11 @@ def handle_locked_items(world: "DeltaruneWorld"):
   # Hidden items
   if not world.is_hidden_items_randomized():
     multiworld.get_location(Ch3Locations.board_2_moss, player).place_locked_item(world.create_item(Ch3Items.board_moss))
+    multiworld.get_location(Ch3Locations.b_rank_room_golden_prize_1, player).place_locked_item(world.create_item(CCItems.execbuffet))
+    multiworld.get_location(Ch3Locations.b_rank_room_golden_prize_2, player).place_locked_item(world.create_item(Ch3Items.tennatie))
+    multiworld.get_location(Ch3Locations.b_rank_room_golden_prize_3, player).place_locked_item(world.create_item(Ch3Items.tensionmax))
+    multiworld.get_location(Ch3Locations.b_rank_room_golden_prize_4, player).place_locked_item(world.create_item(Ch3Items.blue_ribbon))
+    multiworld.get_location(Ch3Locations.b_rank_room_golden_prize_5, player).place_locked_item(world.create_item(CCItems.revivemint))
     # Location not available in weird route to avoid potential soft-lock due to Zapper Lost
     if ((not world.is_weird_route()) or world.is_all_routes()):
       multiworld.get_location(Ch3Locations.tv_world_man, player).place_locked_item(world.create_item(Ch3Items.egg))
