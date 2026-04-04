@@ -67,6 +67,8 @@ class RandomizeSecretBosses(Choice):
     POSSESSING SHADOW CRYSTALS
     WILL BE RANDOMIZED.
 
+    OTHERWISE, THEY WILL REMAIN
+    IN THEIR DEFAULT LOCATIONS.
     
     SHOULD THE OPTION
     BE SET TO "MANDATORY",
@@ -94,6 +96,8 @@ class RandomizeMANTLE(Choice):
     OF THE THIRD CHAPTER
     WILL BE RANDOMIZED.
 
+    OTHERWISE, THEY WILL REMAIN
+    IN THEIR DEFAULT LOCATIONS.
     
     SHOULD THE OPTION
     BE SET TO "MANTLELESS",
@@ -187,14 +191,17 @@ class IncludeHiddenItems(Toggle):
     THAT ARE CONSIDERABLY MORE
     DIFFICULT TO FIND
     OR TEDIOUS TO OBTAIN.
-
+    
+    OTHERWISE, THEY WILL REMAIN
+    IN THEIR DEFAULT LOCATIONS.
+    
     (Examples:
     - The Golden Prizes in Chapter 3
     - The Eggs
     - Items Needed for Secret Bosses
     - Dog Dollars
     - Moss)"""
-    display_name = "Include Grindy/Hidden Items"
+    display_name = "Randomize Grindy/Hidden Items"
     default = 0
 
 class IncludeChapter1(Toggle):
