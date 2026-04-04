@@ -136,7 +136,7 @@ class IncludeShadowMantle(Toggle):
 
     (Of course, this only applies if you play Chapter 3.)"""
     display_name = "Include Shadow Mantle"
-    default = 0
+    default = 1
 
 class IncludeTraps(Choice):
     """
