@@ -146,17 +146,14 @@ class DeltaruneWorld(World):
     @staticmethod
     def interpret_slot_data(slot_data: dict[str, Any]) -> dict[str, Any]:
         # Trigger a regen in UT
-        print("Interpreting slot data for DELTARUNE:", slot_data)
         return slot_data
     
     def fill_slot_data(self):
         return self._get_deltarune_data()
     
     def generate_early(self) -> None:
-        print("Regen ?")
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
         if re_gen_passthrough and self.game in re_gen_passthrough:
-            print("Regenning DELTARUNE world with slot data")
             # Get the passed through slot data from the real generation
             slot_data: dict[str, Any] = re_gen_passthrough[self.game]
 
