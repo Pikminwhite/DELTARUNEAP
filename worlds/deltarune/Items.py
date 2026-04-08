@@ -2,11 +2,13 @@ from BaseClasses import Item, ItemClassification
 from enum import Enum, StrEnum
 from typing import TYPE_CHECKING, NamedTuple, Optional, Callable
 
-if TYPE_CHECKING: from . import DeltaruneWorld
+if TYPE_CHECKING:
+    from . import DeltaruneWorld
 
 base_weight = 1000
 
 glitched_item_name = "Deltarune is an episodic role-playing video game by American indie developer Toby Fox."
+
 
 class ItemGroups(StrEnum):
     healing_item = "Healing Items"
@@ -21,7 +23,8 @@ class ItemGroups(StrEnum):
     spamton_access = "Spamton Access"
     tension_items = "Tension Items"
     mantle_items = "Mantle Items"
-    
+
+
 class FillerGroupBaseWeight(Enum):
     currency = base_weight * 0.5
     healing = base_weight * 0.25
@@ -29,11 +32,13 @@ class FillerGroupBaseWeight(Enum):
     tension = base_weight * 0.01
     smile = base_weight * 0.001
 
+
 class ItemData(NamedTuple):
     code: Optional[int]
     classification: ItemClassification
     groups: Optional[list[ItemGroups]] = []
     amount: Optional[int] = 1
+
 
 class ConditionalItemData(NamedTuple):
     code: Optional[int]
@@ -42,6 +47,7 @@ class ConditionalItemData(NamedTuple):
     groups: Optional[list[ItemGroups]] = []
     amount: Optional[int] = 1
 
+
 class DeltaruneItem(Item):
     game: str = "Deltarune"
 
@@ -49,24 +55,24 @@ class DeltaruneItem(Item):
 class ItemIDs(Enum):
     # UT Integration
     glitched_item = -1
-    
+
     dark_candy = 1
     revivemint = 2
     glowshard = 3
     manual = 4
-    #nothing = 6
+    # nothing = 6
     spincake = 7
     darkburger = 8
     lancer_cookie = 9
-    #nothing = 10
+    # nothing = 10
     clubsandwich = 11
     heartsdonut = 12
     chocdiamond = 13
-    #nothing = 14
+    # nothing = 14
     rouxlsroux = 15
-    
+
     cd_bagel = 16
-    #nothing = 17
+    # nothing = 17
     kris_tea = 18
     noelle_tea = 19
     ralsei_tea = 20
@@ -75,45 +81,45 @@ class ItemIDs(Enum):
     lightcandy = 23
     butjuice = 24
     spagetticode = 25
-    #nothing = 26
+    # nothing = 26
     tensionbit = 27
     tensiongem = 28
     tensionmax = 29
     revivedust = 30
-    #nothing = 31
+    # nothing = 31
     spoison = 32
     dogdollar = 33
     tvdinner = 34
-    #nothing = 35
+    # nothing = 35
     flatsoda = 36
     tvslop = 37
     execbuffet = 38
     deluxedinner = 39
-    
+
     ancientsweet = 60
     rhapsotea = 61
     scarlixir = 62
     bittertear = 63
-        
+
     chapter_1_egg = 10002
     brokencake = 10003
     broken_key_a = 10004
     door_key = 10005
     broken_key_b = 10006
     broken_key_c = 10007
-    
+
     emptydisk = 10010
     # nothing
     keygen = 10012
     shadowcrystal = 10013
-    
+
     oddcontroller = 10016
     # nothing
     tripticket = 10018
-    
+
     sheetmusic = 10030
     claimbclaws = 10031
-    
+
     # great_door_key = 11000
     bake_sale_ticket = 11001
     # king_chess_piece = 11002
@@ -136,7 +142,7 @@ class ItemIDs(Enum):
     shelter_key = 11019
     sacred_moss = 11020
     chapter_4_egg = 11021
-    
+
     amber_card = 20001
     dice_brace = 20002
     pink_ribbon = 20003
@@ -151,7 +157,7 @@ class ItemIDs(Enum):
     spikeband = 20013
     tensionbow = 20015
     mannequin = 20016
-    
+
     frayedbowtie = 20020
     dealmaker = 20021
     royalpin = 20022
@@ -160,13 +166,13 @@ class ItemIDs(Enum):
     gingerguard = 20025
     blue_ribbon = 20026
     tennatie = 20027
-    
+
     waferguard = 20050
     mysticband = 20051
     powerband = 20052
     princessrbn = 20053
     goldwidow = 20054
-        
+
     spookysword = 30005
     brave_ax = 30006
     devilsknife = 30007
@@ -186,13 +192,13 @@ class ItemIDs(Enum):
     toxicaxe = 30024
     flexscarf = 30025
     blackshard = 30026
-    
+
     jingleblade = 30050
     scarfmark = 30051
     justiceaxe = 30052
     wingblade = 30053
     absorbaxe = 30054
-    
+
     dark_dollar_1 = 40001
     dark_dollars_20 = 40020
     dark_dollars_40 = 40040
@@ -200,7 +206,7 @@ class ItemIDs(Enum):
     dark_dollars_100 = 40100
     dark_dollars_250 = 40250
     dark_dollars_500 = 40500
-    
+
     fields_warp = 50000
     forest_warp = 50001
     bake_sale_warp = 50002
@@ -210,14 +216,14 @@ class ItemIDs(Enum):
     mansion_warp = 50006
     tv_world_entrace_warp = 50007
     goulden_sam_warp = 50008
-    
+
     what_interesting_behavior = 66666
-    
+
     king_shape_key_piece = 70000
     key_gen_2_segment = 70001
     remote_battery = 70002
     combinaison_lock_digit = 70003
-    
+
     point_1 = 80001
     points_2 = 80002
     points_10 = 80010
@@ -225,48 +231,75 @@ class ItemIDs(Enum):
     points_120 = 80120
     points_300 = 80300
     points_500 = 80500
-    
+
     chapter_1_unlock = 90000
     chapter_2_unlock = 90001
     chapter_3_unlock = 90002
     chapter_4_unlock = 90003
     chapter_5_unlock = 90004
 
-def generic_create_items(world: "DeltaruneWorld", items: dict[str, ItemData], conditional_items: dict[str, ConditionalItemData]) -> list[str]:
+
+def generic_create_items(
+    world: "DeltaruneWorld", items: dict[str, ItemData], conditional_items: dict[str, ConditionalItemData]
+) -> list[str]:
     item_pool: list[str] = []
-  
+
     for item_name, item_data in items.items():
         item_pool += [item_name] * item_data.amount
-        
+
     for item_name, item_data in conditional_items.items():
         if item_data.should_be_included(world):
             item_pool += [item_name] * item_data.amount
 
     return item_pool
-    
-def generic_get_filler_items(world: "DeltaruneWorld", items: dict[str, ItemData], conditional_items: dict[str, ConditionalItemData]) -> dict[str, ItemData | ConditionalItemData]:
+
+
+def generic_get_filler_items(
+    world: "DeltaruneWorld", items: dict[str, ItemData], conditional_items: dict[str, ConditionalItemData]
+) -> dict[str, ItemData | ConditionalItemData]:
     filler_items: dict[str, ItemData | ConditionalItemData] = {}
-    
-    filler_items |= {item_name: item_data for item_name, item_data in items.items() if item_data.classification == ItemClassification.filler }
-    filler_items |= {item_name: item_data for item_name, item_data in conditional_items.items() if item_data.classification == ItemClassification.filler and item_data.should_be_included(world)}
-    
+
+    filler_items |= {
+        item_name: item_data
+        for item_name, item_data in items.items()
+        if item_data.classification == ItemClassification.filler
+    }
+    filler_items |= {
+        item_name: item_data
+        for item_name, item_data in conditional_items.items()
+        if item_data.classification == ItemClassification.filler and item_data.should_be_included(world)
+    }
+
     return filler_items
+
 
 def convert_filler_to_weights(items: dict[str, ItemData | ConditionalItemData]):
     fillers_with_weights = {}
-    
-    healing_fillers = [item_name for item_name, item_data in items.items()  if ItemGroups.healing_item in item_data.groups]
-    armor_fillers = [item_name for item_name, item_data in items.items()    if ItemGroups.armors in item_data.groups]
-    tension_fillers = [item_name for item_name, item_data in items.items()  if ItemGroups.tension_items in item_data.groups]
-    currency_fillers = [item_name for item_name, item_data in items.items() if ItemGroups.currencies in item_data.groups]
-    smile_fillers = [item_name for item_name, item_data in items.items()    if item_data.code == ItemIDs.smile.value]
-    
-    healing_adjusted_weight =   FillerGroupBaseWeight.healing.value / len(healing_fillers) if len(healing_fillers) > 0 else 0
-    armor_adjusted_weight =     FillerGroupBaseWeight.armor.value / len(armor_fillers) if len(armor_fillers) > 0 else 0
-    tension_adjusted_weight =   FillerGroupBaseWeight.tension.value / len(tension_fillers) if len(tension_fillers) > 0 else 0
-    currency_adjusted_weight =  FillerGroupBaseWeight.currency.value / len(currency_fillers) if len(currency_fillers) > 0 else 0
-    smile_adjusted_weight =     FillerGroupBaseWeight.smile.value / len(smile_fillers) if len(smile_fillers) > 0 else 0
-    
+
+    healing_fillers = [
+        item_name for item_name, item_data in items.items() if ItemGroups.healing_item in item_data.groups
+    ]
+    armor_fillers = [item_name for item_name, item_data in items.items() if ItemGroups.armors in item_data.groups]
+    tension_fillers = [
+        item_name for item_name, item_data in items.items() if ItemGroups.tension_items in item_data.groups
+    ]
+    currency_fillers = [
+        item_name for item_name, item_data in items.items() if ItemGroups.currencies in item_data.groups
+    ]
+    smile_fillers = [item_name for item_name, item_data in items.items() if item_data.code == ItemIDs.smile.value]
+
+    healing_adjusted_weight = (
+        FillerGroupBaseWeight.healing.value / len(healing_fillers) if len(healing_fillers) > 0 else 0
+    )
+    armor_adjusted_weight = FillerGroupBaseWeight.armor.value / len(armor_fillers) if len(armor_fillers) > 0 else 0
+    tension_adjusted_weight = (
+        FillerGroupBaseWeight.tension.value / len(tension_fillers) if len(tension_fillers) > 0 else 0
+    )
+    currency_adjusted_weight = (
+        FillerGroupBaseWeight.currency.value / len(currency_fillers) if len(currency_fillers) > 0 else 0
+    )
+    smile_adjusted_weight = FillerGroupBaseWeight.smile.value / len(smile_fillers) if len(smile_fillers) > 0 else 0
+
     for item_name in healing_fillers:
         fillers_with_weights[item_name] = healing_adjusted_weight
     for item_name in armor_fillers:
@@ -280,11 +313,12 @@ def convert_filler_to_weights(items: dict[str, ItemData | ConditionalItemData]):
 
     return fillers_with_weights
 
+
 def get_item_groups(items: dict[str, ItemData | ConditionalItemData]):
     groups: dict[str : set[str]] = {}
-    
-    for (item_name, item_data) in items:
+
+    for item_name, item_data in items:
         for group_name in item_data.groups:
             groups.setdefault(group_name.value, set()).add(item_name)
-    
+
     return groups

@@ -3,11 +3,24 @@ from typing import Any, Optional
 from Options import Option
 from worlds.deltarune.Regions import link_deltarune_areas
 
-from .Items import DeltaruneItem, ItemData, ConditionalItemData, convert_filler_to_weights, get_item_groups, glitched_item_name
+from .Items import (
+    DeltaruneItem,
+    ItemData,
+    ConditionalItemData,
+    convert_filler_to_weights,
+    get_item_groups,
+    glitched_item_name,
+)
 from .Rules import set_completion_rules
 from .Locations import LocationData, ConditionalLocationData, get_location_groups
 from BaseClasses import ItemClassification, Tutorial
-from .Options import DeltaruneOptions, RandomizeChapterOptions, ChosenRouteOptions, RandomizeSecretBossesOptions, RandomizeMANTLEOptions
+from .Options import (
+    DeltaruneOptions,
+    RandomizeChapterOptions,
+    ChosenRouteOptions,
+    RandomizeSecretBossesOptions,
+    RandomizeMANTLEOptions,
+)
 from worlds.AutoWorld import World, WebWorld
 from worlds.LauncherComponents import components, Component, Type, icon_paths
 from multiprocessing import Process
@@ -19,20 +32,27 @@ from .chapter_3 import LocationsAndRegions as Ch3LocationAndRegions, Rules as Ch
 from .chapter_4 import LocationsAndRegions as Ch4LocationAndRegions, Rules as Ch4Rules, Items as Ch4Items
 from .chapter_5 import LocationsAndRegions as Ch5LocationAndRegions, Rules as Ch5Rules, Items as Ch5Items
 
+
 def run_client():
-    print('running deltarune client')
+    print("running deltarune client")
     from .DeltaruneClient import main  # lazy import
+
     p = Process(target=main)
     p.start()
 
-components.append(Component("DELTARUNE Client",
-                            func=run_client,
-                            component_type=Type.CLIENT,
-                            icon="deltarune",
-                            game_name="DELTARUNE",
-                            supports_uri=True))
 
-#I apologize for the name of the icon - Emerald
+components.append(
+    Component(
+        "DELTARUNE Client",
+        func=run_client,
+        component_type=Type.CLIENT,
+        icon="deltarune",
+        game_name="DELTARUNE",
+        supports_uri=True,
+    )
+)
+
+# I apologize for the name of the icon - Emerald
 icon_paths["deltarune"] = f"ap:{__name__}/icons/gay_deltarune.png"
 
 max_deltarune_chapter = 4
@@ -66,27 +86,32 @@ every_locations: dict[str, LocationData | ConditionalItemData] = {
     **Ch4LocationAndRegions.chapter4_conditional_locations,
 }
 
+
 def data_path(file_name: str):
     import pkgutil
+
     return pkgutil.get_data(__name__, "data/" + file_name)
 
 
 class DeltaruneWeb(WebWorld):
-    tutorials = [Tutorial(
-        "Multiworld Setup Guide",
-        "A guide to setting up the Archipelago DELTARUNE software on your computer. This guide covers "
-        "single-player, multiworld, and related software.",
-        "English",
-        "setup_en.md",
-        "setup/en",
-        ["Mewlif"]
-    )]
+    tutorials = [
+        Tutorial(
+            "Multiworld Setup Guide",
+            "A guide to setting up the Archipelago DELTARUNE software on your computer. This guide covers "
+            "single-player, multiworld, and related software.",
+            "English",
+            "setup_en.md",
+            "setup/en",
+            ["Mewlif"],
+        )
+    ]
 
 
 class DeltaruneWorld(World):
     """
     DELTARUNE is an RPG.
     """
+
     game = "DELTARUNE"
     options_dataclass = DeltaruneOptions
     options: DeltaruneOptions
@@ -96,7 +121,7 @@ class DeltaruneWorld(World):
     item_name_groups = get_item_groups(every_items.items())
     location_name_to_id = {name: data.id for name, data in every_locations.items()}
     location_name_groups = get_location_groups(every_locations.items())
-    
+
     glitches_item_name = glitched_item_name
     ut_can_gen_without_yaml = True
 
@@ -125,36 +150,41 @@ class DeltaruneWorld(World):
             "client_version": self.required_client_version,
             "race": self.multiworld.is_race,
         }
-        
+
     def create_item(self, name: str) -> DeltaruneItem:
-        if name == glitched_item_name: return DeltaruneItem(name, ItemClassification.progression, -1, self.player)
-        
+        if name == glitched_item_name:
+            return DeltaruneItem(name, ItemClassification.progression, -1, self.player)
+
         item_data = every_items[name]
 
         return DeltaruneItem(name, item_data.classification, item_data.code, self.player)
 
     def get_filler_item_name(self):
         filler_pool = CCItems.get_filler_items(self)
-        
-        if self.options.include_chapter_1: filler_pool.update(Ch1Items.get_filler_items(self))
-        if self.options.include_chapter_2: filler_pool.update(Ch2Items.get_filler_items(self))
-        if self.options.include_chapter_3: filler_pool.update(Ch3Items.get_filler_items(self))
-        if self.options.include_chapter_4: filler_pool.update(Ch4Items.get_filler_items(self))
-        
+
+        if self.options.include_chapter_1:
+            filler_pool.update(Ch1Items.get_filler_items(self))
+        if self.options.include_chapter_2:
+            filler_pool.update(Ch2Items.get_filler_items(self))
+        if self.options.include_chapter_3:
+            filler_pool.update(Ch3Items.get_filler_items(self))
+        if self.options.include_chapter_4:
+            filler_pool.update(Ch4Items.get_filler_items(self))
+
         filler_pool_with_weights = convert_filler_to_weights(filler_pool)
 
-        print("Filler pool with weights:", filler_pool_with_weights)
-        
-        return self.random.choices(list(filler_pool_with_weights.keys()), weights=list(filler_pool_with_weights.values()))[0]
+        return self.random.choices(
+            list(filler_pool_with_weights.keys()), weights=list(filler_pool_with_weights.values())
+        )[0]
 
     @staticmethod
     def interpret_slot_data(slot_data: dict[str, Any]) -> dict[str, Any]:
         # Trigger a regen in UT
         return slot_data
-    
+
     def fill_slot_data(self):
         return self._get_deltarune_data()
-    
+
     def generate_early(self) -> None:
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
         if re_gen_passthrough and self.game in re_gen_passthrough:
@@ -168,34 +198,37 @@ class DeltaruneWorld(World):
                 if opt is not None:
                     # You can also set .value directly but that won't work if you have OptionSets
                     setattr(self.options, key, opt.from_any(value))
-        
+
     def include_chapter(self, chapter: int) -> bool:
         return getattr(self.options, f"include_chapter_{chapter}").value == 1
-        
+
     def is_chapters_in_order(self):
         return self.options.randomize_chapters == RandomizeChapterOptions.in_order
 
     def is_all_chapters_unlocked(self):
         return self.options.randomize_chapters == RandomizeChapterOptions.all_unlocked
-    
+
     def is_chapters_randomized(self):
         return self.options.randomize_chapters == RandomizeChapterOptions.randomized
-    
+
     def is_all_recruits(self):
         return self.options.chosen_route == ChosenRouteOptions.all_recruits or self.is_all_routes()
-    
+
     def is_weird_route(self):
         return self.options.chosen_route == ChosenRouteOptions.weird_route or self.is_all_routes()
-    
+
     def is_all_routes(self):
         return self.options.chosen_route == ChosenRouteOptions.all_routes
-    
+
     def is_secret_bosses_randomized(self):
-        return self.options.randomize_secret_bosses == RandomizeSecretBossesOptions.true or self.is_secret_bosses_mandatory()
-        
+        return (
+            self.options.randomize_secret_bosses == RandomizeSecretBossesOptions.true
+            or self.is_secret_bosses_mandatory()
+        )
+
     def is_secret_bosses_mandatory(self):
         return self.options.randomize_secret_bosses == RandomizeSecretBossesOptions.mandatory
-    
+
     def is_mantle_randomized(self):
         return self.options.randomize_mantle == RandomizeMANTLEOptions.true
 
@@ -207,62 +240,71 @@ class DeltaruneWorld(World):
 
     def is_hidden_items_randomized(self):
         return self.options.include_hidden_items.value == 1
-    
+
     # Check if you have at least one chapter that give you access to fusions
     def can_access_fusion(self) -> bool:
         result = self.has_at_least_one_chapter_included(fusion_access_chapter)
         return result
-    
+
     def count_chapter_included(self, chapters=list(range(1, max_deltarune_chapter + 1))):
         count = 0
         for chapterToCheck in chapters:
-            if getattr(self.options, f"include_chapter_{chapterToCheck}").value == 1: count += 1
+            if getattr(self.options, f"include_chapter_{chapterToCheck}").value == 1:
+                count += 1
         return count
-    
+
     # Check if at least one of specified chapters is included
     def has_at_least_one_chapter_included(self, chapters: list[int]) -> bool:
         return any(getattr(self.options, f"include_chapter_{chapter}").value == 1 for chapter in chapters)
 
     def have_all_chapters_included(self, chapters: list[int]) -> bool:
         return all(getattr(self.options, f"include_chapter_{chapter}").value == 1 for chapter in chapters)
-    
+
     def get_first_chapter(self) -> int:
-        for chapterToCheck in range (1, max_deltarune_chapter + 1, 1):
-            if self.include_chapter(chapterToCheck): return chapterToCheck
+        for chapterToCheck in range(1, max_deltarune_chapter + 1, 1):
+            if self.include_chapter(chapterToCheck):
+                return chapterToCheck
         return -1
-    
+
     def get_playable_chapters(self) -> list[int]:
         playable_chapters = []
         for chapterToCheck in range(1, max_deltarune_chapter + 1, 1):
-            if getattr(self.options, f"include_chapter_{chapterToCheck}"): playable_chapters.append(chapterToCheck)
+            if getattr(self.options, f"include_chapter_{chapterToCheck}"):
+                playable_chapters.append(chapterToCheck)
         return playable_chapters
-    
+
     def is_final_chapter(self, chapter: int) -> bool:
         for chapterToCheck in range(max_deltarune_chapter, 0, -1):
-            if chapterToCheck == chapter: return True
-            if getattr(self.options, f"include_chapter_{chapterToCheck}"): return False
-            
-    def get_previous_in_order_chapter(self, chapter:int):
-        if chapter <= 1: return -1
-        
+            if chapterToCheck == chapter:
+                return True
+            if getattr(self.options, f"include_chapter_{chapterToCheck}"):
+                return False
+
+    def get_previous_in_order_chapter(self, chapter: int):
+        if chapter <= 1:
+            return -1
+
         for chapterToCheck in range(chapter - 1, 0, -1):
-            if getattr(self.options, f"include_chapter_{chapterToCheck}"): return chapterToCheck
-        
+            if getattr(self.options, f"include_chapter_{chapterToCheck}"):
+                return chapterToCheck
+
         return -1
-    
-    def get_next_in_order_chapter(self, chapter:int):
-        if chapter > max_deltarune_chapter: return -1
-        
+
+    def get_next_in_order_chapter(self, chapter: int):
+        if chapter > max_deltarune_chapter:
+            return -1
+
         for chapterToCheck in range(chapter + 1, max_deltarune_chapter + 1, 1):
-            if getattr(self.options, f"include_chapter_{chapterToCheck}"): return chapterToCheck
-        
+            if getattr(self.options, f"include_chapter_{chapterToCheck}"):
+                return chapterToCheck
+
         return -1
-        
+
     def create_regions(self):
         every_connections = CCLocationsAndRegions.get_cross_chapter_mandatory_connection(self)
-        
+
         CCLocationsAndRegions.create_regions(self)
-        if self.include_chapter(1): 
+        if self.include_chapter(1):
             Ch1LocationAndRegions.create_regions(self)
             every_connections += Ch1LocationAndRegions.chapter1_mandatory_connections
         if self.include_chapter(2):
@@ -277,16 +319,16 @@ class DeltaruneWorld(World):
         # if self.include_chapter(5): Ch5LocationAndRegions.create_regions(self)
         # if self.include_chapter(6): Ch6LocationAndRegions.create_regions(self)
         # if self.include_chapter(7): Ch7LocationAndRegions.create_regions(self)
-        
+
         link_deltarune_areas(self.multiworld, self.player, every_connections)
-        
+
     def create_items(self):
         if self.get_playable_chapters() == []:
             self.multiworld.push_precollected(self.create_item(CCItems.CCItems.what_interresting_behavior))
             return
-        
+
         item_pool: list[str] = []
-        
+
         item_pool += CCItems.create_items(self)
         CCRules.handle_locked_items(self)
         if self.include_chapter(1):
@@ -304,64 +346,76 @@ class DeltaruneWorld(World):
         # if self.include_chapter(5): Ch5Items.create_items(self)
         # if self.include_chapter(6): Ch6Items.create_items(self)
         # if self.include_chapter(7): Ch7Items.create_items(self)
-        
+
         self.handle_chapter_keys(item_pool)
         self.handle_macguffins_items(item_pool)
-        
+
         item_pool_converted = [item for item in map(lambda name: self.create_item(name), item_pool)]
         self.handle_item_unfill_and_overflows(item_pool_converted)
 
         self.multiworld.itempool += item_pool_converted
-    
+
     def get_macguffins_item(self):
-        if self.is_final_chapter(1): return Ch1Items.chapter1_macguffin_item
-        if self.is_final_chapter(2): return Ch2Items.chapter2_macguffin_item
-        if self.is_final_chapter(3): return Ch3Items.chapter3_macguffin_item
-        if self.is_final_chapter(4): return Ch4Items.chapter4_macguffin_item
-    
+        if self.is_final_chapter(1):
+            return Ch1Items.chapter1_macguffin_item
+        if self.is_final_chapter(2):
+            return Ch2Items.chapter2_macguffin_item
+        if self.is_final_chapter(3):
+            return Ch3Items.chapter3_macguffin_item
+        if self.is_final_chapter(4):
+            return Ch4Items.chapter4_macguffin_item
+
     def handle_macguffins_items(self, item_pool: list[str]):
         item_to_add = self.get_macguffins_item()
-        
+
         item_pool += [item_to_add] * self.options.goal_macguffin_amount
-    
+
     def handle_chapter_keys(self, item_pool: list[str]):
-        if self.is_all_chapters_unlocked(): return
-        
+        if self.is_all_chapters_unlocked():
+            return
+
         starting_chapter = -1
-        
+
         if self.is_chapters_in_order():
             starting_chapter = self.get_first_chapter()
         elif self.is_chapters_randomized():
             starting_chapter = self.random.choice(self.get_playable_chapters())
-            
-        if starting_chapter == -1: return
-        
+
+        if starting_chapter == -1:
+            return
+
         item_name = f"Chapter {starting_chapter} Unlock"
-        
+
         if self.is_chapters_randomized():
             item_pool.remove(item_name)
-            
+
         self.multiworld.push_precollected(self.create_item(item_name))
-            
+
     def handle_item_unfill_and_overflows(self, item_pool: list[DeltaruneItem]):
-        # Remove random junk items if the item pool overflows       
+        # Remove random junk items if the item pool overflows
         if len(item_pool) > len(self.multiworld.get_unfilled_locations(self.player)):
             print(len(item_pool) - len(self.multiworld.get_unfilled_locations(self.player)))
             while len(item_pool) > len(self.multiworld.get_unfilled_locations(self.player)):
-                item_pool.remove(self.random.choice([item for item in item_pool if item.classification == ItemClassification.filler]))
-                
+                item_pool.remove(
+                    self.random.choice([item for item in item_pool if item.classification == ItemClassification.filler])
+                )
+
         # Fill remaining items with randomly generated junk
         while len(item_pool) < len(self.multiworld.get_unfilled_locations(self.player)):
             item_pool.append(self.create_filler())
-        
+
     def set_rules(self):
         CCRules.set_rules(self)
-        if self.include_chapter(1): Ch1Rules.set_rules(self)
-        if self.include_chapter(2): Ch2Rules.set_rules(self)
-        if self.include_chapter(3): Ch3Rules.set_rules(self)
-        if self.include_chapter(4): Ch4Rules.set_rules(self)
+        if self.include_chapter(1):
+            Ch1Rules.set_rules(self)
+        if self.include_chapter(2):
+            Ch2Rules.set_rules(self)
+        if self.include_chapter(3):
+            Ch3Rules.set_rules(self)
+        if self.include_chapter(4):
+            Ch4Rules.set_rules(self)
         # if self.include_chapter(5): Ch5Rules.set_rules(self)
         # if self.include_chapter(6): Ch6Rules.set_rules(self)
         # if self.include_chapter(7): Ch7Rules.set_rules(self)
-        
+
         set_completion_rules(self)
