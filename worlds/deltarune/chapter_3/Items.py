@@ -57,25 +57,30 @@ class Ch3Items(StrEnum):
 chapter3_macguffin_item = Ch3Items.remote_battery.value
 
 chapter3_items = {
+    Ch3Items.flatsoda.value:    ItemData(ItemIDs.flatsoda.value,    ItemClassification.filler, [ItemGroups.healing_item], 0),
+    CCItems.revivemint.value:   ItemData(ItemIDs.revivemint.value,   ItemClassification.filler, [ItemGroups.healing_item], 2),
+    CCItems.execbuffet.value:       ItemData(ItemIDs.execbuffet.value,   ItemClassification.filler, [ItemGroups.healing_item]),
+    
+    CCItems.dogdollard.value:       ItemData(ItemIDs.dogdollar.value,    ItemClassification.filler, [ItemGroups.currencies], 0),
     Ch3Items.point_1.value:     ItemData(ItemIDs.point_1.value,     ItemClassification.filler, [ItemGroups.currencies]),
     Ch3Items.points_2.value:    ItemData(ItemIDs.points_2.value,    ItemClassification.filler, [ItemGroups.currencies]),
-    Ch3Items.points_10.value:   ItemData(ItemIDs.points_10.value,   ItemClassification.filler, [ItemGroups.currencies], 5),
+    Ch3Items.points_10.value:   ItemData(ItemIDs.points_10.value,   ItemClassification.filler, [ItemGroups.currencies]),
     Ch3Items.points_50.value:   ItemData(ItemIDs.points_50.value,   ItemClassification.filler, [ItemGroups.currencies]),
     Ch3Items.points_120.value:  ItemData(ItemIDs.points_120.value,  ItemClassification.filler, [ItemGroups.currencies]),
-    Ch3Items.points_300.value:  ItemData(ItemIDs.points_300.value,  ItemClassification.useful, [ItemGroups.currencies]),
-    Ch3Items.points_500.value:  ItemData(ItemIDs.points_500.value,  ItemClassification.useful, [ItemGroups.currencies]),
+    Ch3Items.points_300.value:  ItemData(ItemIDs.points_300.value,  ItemClassification.filler, [ItemGroups.currencies]),
+    Ch3Items.points_500.value:  ItemData(ItemIDs.points_500.value,  ItemClassification.filler, [ItemGroups.currencies]),
     
-    Ch3Items.smile.value:       ItemData(ItemIDs.smile.value,       ItemClassification.useful),
+    CCItems.tensiongem.value:   ItemData(ItemIDs.tensiongem.value,  ItemClassification.filler, [ItemGroups.tension_items]),
+    Ch3Items.tensionmax.value:      ItemData(ItemIDs.tensionmax.value,   ItemClassification.filler, [ItemGroups.tension_items], 0),
+    
+    Ch3Items.smile.value:       ItemData(ItemIDs.smile.value,       ItemClassification.filler),
+    
     Ch3Items.lodestone.value:   ItemData(ItemIDs.lodestone.value,   ItemClassification.filler, [ItemGroups.armors]),
     Ch3Items.gingerguard.value: ItemData(ItemIDs.gingerguard.value, ItemClassification.filler, [ItemGroups.armors]),
-    
-    CCItems.tensiongem.value:   ItemData(ItemIDs.tensiongem.value,  ItemClassification.useful, [ItemGroups.tension_items]),
     
     Ch3Items.toxicaxe.value:    ItemData(ItemIDs.toxicaxe.value,    ItemClassification.useful, [ItemGroups.weapons]),
     Ch3Items.saber10.value:     ItemData(ItemIDs.saber10.value,     ItemClassification.useful, [ItemGroups.weapons]),
     Ch3Items.flexscarf.value:   ItemData(ItemIDs.flexscarf.value,   ItemClassification.useful, [ItemGroups.weapons]),
-    
-    CCItems.revivemint.value:  ItemData(ItemIDs.revivemint.value,  ItemClassification.useful, [ItemGroups.healing_item], 2),
     
     CCItems.execbuffet.value:   ItemData(ItemIDs.execbuffet.value,  ItemClassification.useful, [ItemGroups.healing_item]),
 
@@ -88,16 +93,11 @@ chapter3_items = {
 
 chapter3_conditional_items = {
     # Ball Machine
-    CCItems.execbuffet.value:       ConditionalItemData(ItemIDs.execbuffet.value,   ItemClassification.useful, lambda world: world.is_hidden_items_randomized(), [ItemGroups.healing_item]),
     Ch3Items.tennatie.value:        ConditionalItemData(ItemIDs.tennatie.value,     ItemClassification.useful, lambda world: world.is_hidden_items_randomized(), [ItemGroups.armors]),
-    Ch3Items.tensionmax.value:      ConditionalItemData(ItemIDs.tensionmax.value,   ItemClassification.useful, lambda world: world.is_hidden_items_randomized(), [ItemGroups.tension_items]),
     Ch3Items.blue_ribbon.value:     ConditionalItemData(ItemIDs.blue_ribbon.value,  ItemClassification.useful, lambda world: world.is_hidden_items_randomized(), [ItemGroups.armors]),
-    CCItems.revivemint.value:       ConditionalItemData(ItemIDs.revivemint.value,    ItemClassification.useful, lambda world: world.is_hidden_items_randomized(), [ItemGroups.healing_item]),
-    CCItems.dogdollard.value:       ConditionalItemData(ItemIDs.dogdollar.value,    ItemClassification.useful, lambda world: world.is_hidden_items_randomized(), [ItemGroups.currencies]),
     
     Ch3Items.shadowmantle.value:    ConditionalItemData(ItemIDs.shadowmantle.value, ItemClassification.progression, lambda world: world.is_shadow_mantle_included() and (world.is_mantle_randomized() or world.is_mantleless()), [ItemGroups.armors]),
 
-    Ch3Items.flatsoda.value:        ConditionalItemData(ItemIDs.flatsoda.value,     ItemClassification.useful, lambda world: world.is_mantle_randomized() or world.is_mantleless(), [ItemGroups.healing_item]),
     Ch3Items.blackshard.value:      ConditionalItemData(ItemIDs.blackshard.value,   ItemClassification.useful, lambda world: world.is_secret_bosses_randomized(), [ItemGroups.armors]),
     CCItems.shadowcrystal.value:    ConditionalItemData(ItemIDs.shadowcrystal.value,ItemClassification.useful, lambda world: world.is_secret_bosses_randomized()),
     

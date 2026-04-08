@@ -3,7 +3,7 @@ from typing import Any, Optional
 from Options import Option
 from worlds.deltarune.Regions import link_deltarune_areas
 
-from .Items import DeltaruneItem, ItemData, ConditionalItemData, get_item_groups, glitched_item_name
+from .Items import DeltaruneItem, ItemData, ConditionalItemData, convert_filler_to_weights, get_item_groups, glitched_item_name
 from .Rules import set_completion_rules
 from .Locations import LocationData, ConditionalLocationData, get_location_groups
 from BaseClasses import ItemClassification, Tutorial
@@ -134,14 +134,18 @@ class DeltaruneWorld(World):
         return DeltaruneItem(name, item_data.classification, item_data.code, self.player)
 
     def get_filler_item_name(self):
-        junk_pool: dict[str, int] = CCItems.get_filler_items(self)
+        filler_pool = CCItems.get_filler_items(self)
         
-        if self.options.include_chapter_1: junk_pool.update(Ch1Items.get_filler_items(self))
-        if self.options.include_chapter_2: junk_pool.update(Ch2Items.get_filler_items(self))
-        if self.options.include_chapter_3: junk_pool.update(Ch3Items.get_filler_items(self))
-        if self.options.include_chapter_4: junk_pool.update(Ch4Items.get_filler_items(self))
+        if self.options.include_chapter_1: filler_pool.update(Ch1Items.get_filler_items(self))
+        if self.options.include_chapter_2: filler_pool.update(Ch2Items.get_filler_items(self))
+        if self.options.include_chapter_3: filler_pool.update(Ch3Items.get_filler_items(self))
+        if self.options.include_chapter_4: filler_pool.update(Ch4Items.get_filler_items(self))
         
-        return self.random.choices(list(junk_pool.keys()), weights=list(junk_pool.values()))[0]
+        filler_pool_with_weights = convert_filler_to_weights(filler_pool)
+
+        print("Filler pool with weights:", filler_pool_with_weights)
+        
+        return self.random.choices(list(filler_pool_with_weights.keys()), weights=list(filler_pool_with_weights.values()))[0]
 
     @staticmethod
     def interpret_slot_data(slot_data: dict[str, Any]) -> dict[str, Any]:

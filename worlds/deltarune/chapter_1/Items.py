@@ -51,26 +51,26 @@ class Ch1Items(StrEnum):
 chapter1_macguffin_item = Ch1Items.king_shape_key_piece.value
 
 chapter1_items = {
-  CCItems.dark_candy.value:      ItemData(ItemIDs.dark_candy.value,    ItemClassification.filler, [ItemGroups.healing_item]),
-  CCItems.dark_burger.value:     ItemData(ItemIDs.darkburger.value,    ItemClassification.filler, [ItemGroups.healing_item, ItemGroups.fusion_ingredient]),
-  Ch1Items.heartsdonut.value:    ItemData(ItemIDs.heartsdonut.value,   ItemClassification.filler, [ItemGroups.healing_item]),
-  Ch1Items.chocdiamond.value:    ItemData(ItemIDs.chocdiamond.value,   ItemClassification.filler, [ItemGroups.healing_item]),
-  Ch1Items.rouxlsroux.value:     ItemData(ItemIDs.rouxlsroux.value,    ItemClassification.filler, [ItemGroups.healing_item]),
-  CCItems.amber_card.value:      ItemData(ItemIDs.amber_card.value,    ItemClassification.filler, [ItemGroups.armors, ItemGroups.fusion_ingredient]),
+  CCItems.dark_candy.value:       ItemData(ItemIDs.dark_candy.value,      ItemClassification.filler, [ItemGroups.healing_item]),
+  Ch1Items.rouxlsroux.value:      ItemData(ItemIDs.rouxlsroux.value,      ItemClassification.filler, [ItemGroups.healing_item]),
+  CCItems.clubsSandwich.value:    ItemData(ItemIDs.clubsandwich.value,    ItemClassification.filler, [ItemGroups.healing_item]),
+  CCItems.dark_burger.value:      ItemData(ItemIDs.darkburger.value,      ItemClassification.filler, [ItemGroups.healing_item, ItemGroups.fusion_ingredient]),
+  Ch1Items.heartsdonut.value:     ItemData(ItemIDs.heartsdonut.value,     ItemClassification.filler, [ItemGroups.healing_item]),
+  Ch1Items.chocdiamond.value:     ItemData(ItemIDs.chocdiamond.value,     ItemClassification.filler, [ItemGroups.healing_item]),
+  CCItems.revivemint.value:       ItemData(ItemIDs.revivemint.value,      ItemClassification.filler, [ItemGroups.healing_item], 2),
+  CCItems.spincake.value:         ItemData(ItemIDs.spincake.value,        ItemClassification.filler, [ItemGroups.healing_item]),
   
-  CCItems.clubsSandwich.value:    ItemData(ItemIDs.clubsandwich.value,    ItemClassification.useful, [ItemGroups.healing_item]),
-  CCItems.glowshard.value:       ItemData(ItemIDs.glowshard.value,        ItemClassification.useful),
-  CCItems.dark_dollars_40.value:  ItemData(ItemIDs.dark_dollars_40.value, ItemClassification.useful, [ItemGroups.currencies]),
+  CCItems.amber_card.value:       ItemData(ItemIDs.amber_card.value,      ItemClassification.filler, [ItemGroups.armors, ItemGroups.fusion_ingredient]),
+  
+  CCItems.glowshard.value:        ItemData(ItemIDs.glowshard.value,       ItemClassification.filler, [ItemGroups.currencies]),
+  
   Ch1Items.dice_brace.value:      ItemData(ItemIDs.dice_brace.value,      ItemClassification.useful, [ItemGroups.armors]),
-  CCItems.spincake.value:         ItemData(ItemIDs.spincake.value,        ItemClassification.useful, [ItemGroups.healing_item]),
-  Ch1Items.spookysword.value:      ItemData(ItemIDs.spookysword.value,     ItemClassification.useful, [ItemGroups.weapons]),
+  Ch1Items.spookysword.value:     ItemData(ItemIDs.spookysword.value,     ItemClassification.useful, [ItemGroups.weapons]),
   Ch1Items.brave_ax.value:        ItemData(ItemIDs.brave_ax.value,        ItemClassification.useful, [ItemGroups.weapons]),
   Ch1Items.ragger.value:          ItemData(ItemIDs.ragger.value,          ItemClassification.useful, [ItemGroups.weapons]),
   Ch1Items.daintyscarf.value:     ItemData(ItemIDs.daintyscarf.value,     ItemClassification.useful, [ItemGroups.weapons]),
-
-  CCItems.revivemint.value:      ItemData(ItemIDs.revivemint.value,      ItemClassification.useful, [ItemGroups.healing_item], 2),
   
-  Ch1Items.manual.value:          ItemData(ItemIDs.manual.value,          ItemClassification.progression | ItemClassification.useful, [], 2),
+  Ch1Items.manual.value:          ItemData(ItemIDs.manual.value,          ItemClassification.progression | ItemClassification.useful, amount = 2),
   
   # Blockers
   Ch1Items.bake_sale_ticket.value: ItemData(ItemIDs.bake_sale_ticket.value,  ItemClassification.progression, [ItemGroups.region_blockers]),

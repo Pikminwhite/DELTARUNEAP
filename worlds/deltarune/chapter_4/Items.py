@@ -36,12 +36,15 @@ class Ch4Items(StrEnum):
 chapter4_macguffin_item = Ch4Items.combination_lock_digit.value
   
 chapter4_items = {
-  Ch4Items.rhapsotea.value:  ItemData(ItemIDs.rhapsotea.value, ItemClassification.filler, [ItemGroups.healing_item]),
-  Ch4Items.scarlixir.value:  ItemData(ItemIDs.scarlixir.value, ItemClassification.filler, [ItemGroups.healing_item]),
   # Darker candy
-  CCItems.dark_candy.value:  ItemData(ItemIDs.dark_candy.value, ItemClassification.filler, [ItemGroups.healing_item]),
+  CCItems.dark_candy.value:  ItemData(ItemIDs.dark_candy.value,      ItemClassification.filler, [ItemGroups.healing_item]),
+  Ch4Items.rhapsotea.value:  ItemData(ItemIDs.rhapsotea.value, ItemClassification.filler, [ItemGroups.healing_item]),
+  Ch4Items.scarlixir.value:  ItemData(ItemIDs.scarlixir.value,    ItemClassification.filler, [ItemGroups.healing_item]),
   
-  CCItems.tensiongem.value:     ItemData(ItemIDs.tensiongem.value,    ItemClassification.useful, [ItemGroups.tension_items]),
+  CCItems.tensiongem.value:  ItemData(ItemIDs.tensiongem.value,   ItemClassification.filler, [ItemGroups.tension_items]),
+  
+  CCItems.dogdollard.value:     ItemData(ItemIDs.dogdollar.value,     ItemClassification.filler, [ItemGroups.currencies], 0),
+  
   Ch4Items.mysticband.value:    ItemData(ItemIDs.mysticband.value,    ItemClassification.useful, [ItemGroups.armors]),
   Ch4Items.powerband.value:     ItemData(ItemIDs.powerband.value,     ItemClassification.useful, [ItemGroups.armors]),
   Ch4Items.princessrbn.value:   ItemData(ItemIDs.princessrbn.value,   ItemClassification.useful, [ItemGroups.armors]),
@@ -60,7 +63,6 @@ chapter4_conditional_items = {
   
   Ch4Items.egg.value:           ConditionalItemData(ItemIDs.chapter_4_egg.value,  ItemClassification.useful, lambda world: world.is_hidden_items_randomized(), [ItemGroups.eggs]),
   Ch4Items.holy_moss.value:     ConditionalItemData(ItemIDs.sacred_moss.value,    ItemClassification.useful, lambda world: world.is_hidden_items_randomized(), [ItemGroups.moss]),
-  CCItems.dogdollard.value:     ConditionalItemData(ItemIDs.dogdollar.value,      ItemClassification.useful, lambda world: world.is_hidden_items_randomized(), [ItemGroups.currencies]),
   
   Ch4Items.chapter_4_unlock.value:  ConditionalItemData(ItemIDs.chapter_4_unlock.value, ItemClassification.progression, lambda world: world.is_chapters_randomized(), [ItemGroups.region_blockers]),
   # Amount is handle in __init__.py handle_macguffins_items()

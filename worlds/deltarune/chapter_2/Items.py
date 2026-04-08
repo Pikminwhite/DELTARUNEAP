@@ -62,22 +62,16 @@ class Ch2Items(StrEnum):
 chapter2_macguffin_item = Ch2Items.keygen_2_segment.value
 
 chapter2_items = {
-  Ch2Items.cd_bagel.value:        ItemData(ItemIDs.cd_bagel.value,          ItemClassification.filler, [ItemGroups.healing_item]),
-  CCItems.dark_dollars_100.value: ItemData(ItemIDs.dark_dollars_100.value,  ItemClassification.filler, [ItemGroups.currencies]),
-  CCItems.tensiongem.value:       ItemData(ItemIDs.tensiongem.value,        ItemClassification.useful, [ItemGroups.tension_items]),
-
-  CCItems.dark_dollar_1.value:    ItemData(ItemIDs.dark_dollar_1.value,     ItemClassification.useful, [ItemGroups.currencies]),
-  CCItems.dark_dollars_20.value:  ItemData(ItemIDs.dark_dollars_20.value,   ItemClassification.useful, [ItemGroups.currencies], 2),
-  CCItems.dark_dollars_80.value:  ItemData(ItemIDs.dark_dollars_80.value,   ItemClassification.useful, [ItemGroups.currencies]),
-  CCItems.dark_dollars_250.value: ItemData(ItemIDs.dark_dollars_250.value,  ItemClassification.useful, [ItemGroups.currencies]),
+  Ch2Items.cd_bagel.value:          ItemData(ItemIDs.cd_bagel.value,          ItemClassification.filler, [ItemGroups.healing_item]),
+  CCItems.clubsSandwich.value:      ItemData(ItemIDs.clubsandwich.value,      ItemClassification.filler, [ItemGroups.healing_item]),
+  Ch2Items.lightcandy.value:        ItemData(ItemIDs.lightcandy.value,        ItemClassification.filler, [ItemGroups.healing_item]),
+  CCItems.revivemint.value:         ItemData(ItemIDs.revivemint.value,        ItemClassification.filler, [ItemGroups.healing_item], 2),
+  CCItems.spincake.value:           ItemData(ItemIDs.spincake.value,          ItemClassification.filler, [ItemGroups.healing_item]),
   
-  CCItems.clubsSandwich.value:      ItemData(ItemIDs.clubsandwich.value,      ItemClassification.useful, [ItemGroups.healing_item]),
+  CCItems.tensiongem.value:         ItemData(ItemIDs.tensiongem.value,        ItemClassification.filler, [ItemGroups.tension_items]),
+  
+  
   Ch2Items.joe_life_savings.value:  ItemData(ItemIDs.joe_life_savings.value,  ItemClassification.useful, [ItemGroups.currencies]),
-  Ch2Items.lightcandy.value:        ItemData(ItemIDs.lightcandy.value,        ItemClassification.useful, [ItemGroups.healing_item]),
-  CCItems.spincake.value:           ItemData(ItemIDs.spincake.value,          ItemClassification.useful, [ItemGroups.healing_item]),
-  
-  CCItems.revivemint.value:        ItemData(ItemIDs.revivemint.value,        ItemClassification.useful, [ItemGroups.healing_item], 2),
-  
   Ch2Items.mechasaber.value:        ItemData(ItemIDs.mechasaber.value,        ItemClassification.useful, [ItemGroups.weapons]),
   Ch2Items.autoaxe.value:           ItemData(ItemIDs.autoaxe.value,           ItemClassification.useful, [ItemGroups.weapons]),
   Ch2Items.fiberscarf.value:        ItemData(ItemIDs.fiberscarf.value,        ItemClassification.useful, [ItemGroups.weapons]),
@@ -95,22 +89,23 @@ chapter2_items = {
 }
 
 chapter2_conditional_items = {
-  Ch2Items.butjuice.value:        ConditionalItemData(ItemIDs.butjuice.value,       ItemClassification.filler, lambda world: not world.is_weird_route() or world.is_all_routes(), [ItemGroups.healing_item]),
   Ch2Items.spagetticode.value:    ConditionalItemData(ItemIDs.spagetticode.value,   ItemClassification.filler, lambda world: not world.is_weird_route() or world.is_all_routes(), [ItemGroups.healing_item]),
+  Ch2Items.butjuice.value:        ConditionalItemData(ItemIDs.butjuice.value,       ItemClassification.filler, lambda world: not world.is_weird_route() or world.is_all_routes(), [ItemGroups.healing_item]),
   Ch2Items.spoison.value:         ConditionalItemData(ItemIDs.spoison.value,        ItemClassification.filler, lambda world: not world.is_weird_route() or world.is_all_routes(), [ItemGroups.healing_item]),
   Ch2Items.kris_tea.value:        ConditionalItemData(ItemIDs.kris_tea.value,       ItemClassification.filler, lambda world: not world.is_weird_route() or world.is_all_routes(), [ItemGroups.healing_item]),
   Ch2Items.noelle_tea.value:      ConditionalItemData(ItemIDs.noelle_tea.value,     ItemClassification.filler, lambda world: not world.is_weird_route() or world.is_all_routes(), [ItemGroups.healing_item]),
   Ch2Items.ralsei_tea.value:      ConditionalItemData(ItemIDs.ralsei_tea.value,     ItemClassification.filler, lambda world: not world.is_weird_route() or world.is_all_routes(), [ItemGroups.healing_item]),
   Ch2Items.susie_tea.value:       ConditionalItemData(ItemIDs.susie_tea.value,      ItemClassification.filler, lambda world: not world.is_weird_route() or world.is_all_routes(), [ItemGroups.healing_item]),
-  Ch2Items.spoison.value:         ConditionalItemData(ItemIDs.spoison.value,        ItemClassification.filler, lambda world: not world.is_weird_route() or world.is_all_routes(), [ItemGroups.healing_item]),
+  Ch2Items.revivedust.value:      ConditionalItemData(ItemIDs.revivedust.value,     ItemClassification.filler, lambda world: not world.is_weird_route() or world.is_all_routes(), [ItemGroups.healing_item]),
+  
   Ch2Items.royalpin.value:        ConditionalItemData(ItemIDs.royalpin.value,       ItemClassification.filler, lambda world: not world.is_weird_route() or world.is_all_routes(), [ItemGroups.armors]),
   Ch2Items.frayedbowtie.value:    ConditionalItemData(ItemIDs.frayedbowtie.value,   ItemClassification.filler, lambda world: not world.is_weird_route() or world.is_all_routes(), [ItemGroups.armors]),
   
-  CCItems.glowshard.value:    ConditionalItemData(ItemIDs.glowshard.value,      ItemClassification.useful, lambda world: not world.is_weird_route() or world.is_all_routes(), [ItemGroups.currencies]),
+  CCItems.glowshard.value:        ConditionalItemData(ItemIDs.glowshard.value,      ItemClassification.filler, lambda world: not world.is_weird_route() or world.is_all_routes(), [ItemGroups.currencies]),
+  CCItems.dogdollard.value:       ConditionalItemData(ItemIDs.dogdollar.value,      ItemClassification.filler, lambda world: not world.is_weird_route() or world.is_all_routes(), [ItemGroups.currencies], 0),
+  
   Ch2Items.egg.value:         ConditionalItemData(ItemIDs.chapter_2_egg.value,  ItemClassification.useful, lambda world: (not world.is_weird_route() or world.is_all_routes()) and world.is_hidden_items_randomized(), [ItemGroups.eggs]),
   Ch2Items.city_moss.value:   ConditionalItemData(ItemIDs.city_moss.value,      ItemClassification.useful, lambda world: (not world.is_weird_route() or world.is_all_routes()) and world.is_hidden_items_randomized(), [ItemGroups.moss]),
-  CCItems.dogdollard.value:   ConditionalItemData(ItemIDs.dogdollar.value,      ItemClassification.useful, lambda world: (not world.is_weird_route() or world.is_all_routes()) and world.is_hidden_items_randomized(), [ItemGroups.currencies]),
-  Ch2Items.revivedust.value:  ConditionalItemData(ItemIDs.revivedust.value,     ItemClassification.useful, lambda world: not world.is_weird_route() or world.is_all_routes(), [ItemGroups.healing_item]),
   Ch2Items.chainmail.value:   ConditionalItemData(ItemIDs.chainmail.value,      ItemClassification.useful, lambda world: not world.is_weird_route() or world.is_all_routes(), [ItemGroups.armors]),
   Ch2Items.brokenswd.value:   ConditionalItemData(ItemIDs.brokenswd.value,      ItemClassification.useful, lambda world: not world.is_weird_route() or world.is_all_routes(), [ItemGroups.weapons]),
   

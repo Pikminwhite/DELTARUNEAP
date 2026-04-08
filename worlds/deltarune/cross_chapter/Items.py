@@ -46,13 +46,22 @@ class CCItems(StrEnum):
   shadowcrystal = "ShadowCrystal"
 
 cross_chapter_items = {
-  CCItems.what_interresting_behavior.value: ItemData(ItemIDs.what_interesting_behavior.value, ItemClassification.progression | ItemClassification.useful, [], 0)
+  CCItems.dark_dollar_1.value:    ItemData(ItemIDs.dark_dollar_1.value,     ItemClassification.filler, [ItemGroups.currencies]),
+  CCItems.dark_dollars_20.value:  ItemData(ItemIDs.dark_dollars_20.value,   ItemClassification.filler, [ItemGroups.currencies]),
+  CCItems.dark_dollars_40.value:  ItemData(ItemIDs.dark_dollars_40.value,   ItemClassification.filler, [ItemGroups.currencies]),
+  CCItems.dark_dollars_80.value:  ItemData(ItemIDs.dark_dollars_80.value,   ItemClassification.filler, [ItemGroups.currencies]),
+  CCItems.dark_dollars_100.value: ItemData(ItemIDs.dark_dollars_100.value,  ItemClassification.filler, [ItemGroups.currencies]),
+  CCItems.dark_dollars_250.value: ItemData(ItemIDs.dark_dollars_250.value,  ItemClassification.filler, [ItemGroups.currencies]),
+  CCItems.dark_dollars_500.value: ItemData(ItemIDs.dark_dollars_500.value,  ItemClassification.filler, [ItemGroups.currencies]),
+  
+  CCItems.what_interresting_behavior.value: ItemData(ItemIDs.what_interesting_behavior.value, ItemClassification.progression | ItemClassification.useful, amount = 0),
 }
 
 cross_chapter_conditional_items = {  
   # Fusions
   CCItems.dd_burger.value:    ConditionalItemData(ItemIDs.dd_burger.value,    ItemClassification.filler,    lambda world: world.can_access_fusion(), [ItemGroups.healing_item]),
   CCItems.silver_card.value:  ConditionalItemData(ItemIDs.silver_card.value,  ItemClassification.filler,    lambda world: world.can_access_fusion(), [ItemGroups.armors]),
+  
   # Require Pink Ribbon that can be found in chapter 2 and 3 and White Ribbon that can be found in chapter 1 and 3 and starting armor for chapter 2
   CCItems.twin_ribbon.value:  ConditionalItemData(ItemIDs.twin_ribbon.value,  ItemClassification.useful,    lambda world: world.can_access_fusion() and world.has_at_least_one_chapter_included([2, 3]) and world.has_at_least_one_chapter_included([1, 2, 3]), [ItemGroups.armors]),
   # Require IronShackle that is exclusive to chapter 1 and Glow Wrist to chapter 2 (shop) and chapter 4 (starting armor like chapter 3 but chapter 3 can't fuse)
