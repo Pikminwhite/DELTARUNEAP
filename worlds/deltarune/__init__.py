@@ -20,6 +20,7 @@ from .Options import (
     ChosenRouteOptions,
     RandomizeSecretBossesOptions,
     RandomizeMANTLEOptions,
+    deltarune_option_groups,
 )
 from worlds.AutoWorld import World, WebWorld
 from worlds.LauncherComponents import components, Component, Type, icon_paths
@@ -105,6 +106,8 @@ class DeltaruneWeb(WebWorld):
             ["Mewlif"],
         )
     ]
+
+    option_groups = deltarune_option_groups
 
 
 class DeltaruneWorld(World):

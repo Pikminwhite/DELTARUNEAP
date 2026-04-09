@@ -1,4 +1,4 @@
-from Options import Choice, Toggle, Range, PerGameCommonOptions, NamedRange
+from Options import Choice, Toggle, Range, PerGameCommonOptions, NamedRange, OptionGroup
 from dataclasses import dataclass
 from enum import StrEnum
 
@@ -350,6 +350,12 @@ class Accessibility(Choice):
     alias_items = 0
     default = 0
 
+deltarune_option_groups = [
+    OptionGroup("Chapters", [RandomizeChapters, IncludeChapter1, IncludeChapter2, IncludeChapter3, IncludeChapter4]),
+    OptionGroup("Goal", [ChosenRoute, GoalMacGuffinAmount, RandomizeSecretBosses, RandomizeMANTLE]),
+    OptionGroup("Items", [IncludeShadowMantle, IncludeHiddenItems]),
+    OptionGroup("Locations", [IncludeTRank]),
+]
 
 @dataclass
 class DeltaruneOptions(PerGameCommonOptions):
