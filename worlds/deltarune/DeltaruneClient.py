@@ -44,6 +44,16 @@ except ModuleNotFoundError:
         from CommonClient import gui_enabled
 
 
+def update_deathlink_flag(ctx: DeltaruneContext):
+    filename = f"deathlink.flag"
+    if ctx.deathlink_status == 1:
+        with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
+            f.close()
+    else:
+        if os.path.exists(os.path.join(ctx.save_game_folder, filename)):
+            os.remove(os.path.join(ctx.save_game_folder, filename))
+
+
 class DeltaruneCommandProcessor(ClientCommandProcessor):
     def __init__(self, ctx):
         super().__init__(ctx)
@@ -141,6 +151,16 @@ Both gaining and losing recruits have been turned into checks."""
                 shutil.copytree(tempInstall, Utils.user_path("DELTARUNE"), dirs_exist_ok=True)
                 self.ctx.patch_game()
                 self.output("Patching successful!")
+
+    def _cmd_deathlink(self):
+        """Toggles deathlink"""
+        if isinstance(self.ctx, DeltaruneContext):
+            self.ctx.deathlink_status = not self.ctx.deathlink_status
+            if self.ctx.deathlink_status:
+                self.output(f"Deathlink enabled.")
+            else:
+                self.output(f"Deathlink disabled.")
+            update_deathlink_flag(self.ctx)
 
 
 class DeltaruneContext(SuperContext):
@@ -288,27 +308,27 @@ async def process_deltarune_cmd(ctx: DeltaruneContext, cmd: str, args: dict):
                 }
             ]
         )
+
+        options = args["slot_data"]["options"]
+
         # flags are files so that i can just do `file_exists("weird_route.route")` in DELTARUNE code
-        ctx.chosen_route = args["slot_data"]["chosen_route"]
+        ctx.chosen_route = options["chosen_route"]
         filename = f"{str(ctx.chosen_route)}.route"
         with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
             f.close()
-        ctx.item_balancing = args["slot_data"]["item_balancing"]
+        ctx.item_balancing = options["item_balancing"]
         if ctx.item_balancing == 1:
             filename = f"balancing.flag"
             with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
                 f.close()
-        ctx.deathlink_status = args["slot_data"]["death_link"]
-        if ctx.deathlink_status == 1:
-            filename = f"deathlink.flag"
-            with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                f.close()
-        ctx.mandatoryboss = args["slot_data"]["randomize_secret_bosses"]
+        ctx.deathlink_status = options["death_link"]
+        update_deathlink_flag(ctx)
+        ctx.mandatoryboss = options["randomize_secret_bosses"]
         if ctx.mandatoryboss == "mandatory":
             filename = f"super.flag"
             with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
                 f.close()
-            ctx.mandatorymantle = args["slot_data"]["randomize_mantle"]
+            ctx.mandatorymantle = options["randomize_mantle"]
             if ctx.mandatorymantle != "mantleless":
                 filename = f"mantle.flag"
                 with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
@@ -317,33 +337,33 @@ async def process_deltarune_cmd(ctx: DeltaruneContext, cmd: str, args: dict):
             filename = f"nomantle.flag"
             with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
                 f.close()
-        ctx.ranchapters = args["slot_data"]["randomize_chapters"]
+        ctx.ranchapters = options["randomize_chapters"]
         if ctx.ranchapters == "all_unlocked":
             filename = f"all.route"
             with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
                 f.close()
-        ctx.chapter1 = args["slot_data"]["include_chapter_1"]
+        ctx.chapter1 = options["include_chapter_1"]
         if ctx.chapter1 == 1:
             filename = f"ch1.route"
             with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
                 f.close()
-        ctx.chapter2 = args["slot_data"]["include_chapter_2"]
+        ctx.chapter2 = options["include_chapter_2"]
         if ctx.chapter2 == 1:
             filename = f"ch2.route"
             with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
                 f.close()
-        ctx.chapter3 = args["slot_data"]["include_chapter_3"]
+        ctx.chapter3 = options["include_chapter_3"]
         if ctx.chapter3 == 1:
             filename = f"ch3.route"
             with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
                 f.close()
-        ctx.chapter4 = args["slot_data"]["include_chapter_4"]
+        ctx.chapter4 = options["include_chapter_4"]
         if ctx.chapter4 == 1:
             filename = f"ch4.route"
             with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
                 f.close()
         ctx.goal_macguffin_amount = 3  # by default
-        ctx.goal_macguffin_amount = args["slot_data"]["goal_macguffin_amount"]
+        ctx.goal_macguffin_amount = options["goal_macguffin_amount"]
         filename = f"macguffin_amount.flag"
         with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
             f.write(str(ctx.goal_macguffin_amount))
@@ -487,19 +507,7 @@ async def game_watcher(ctx: DeltaruneContext):
                 if "DontBeMad.mad" in file:
                     os.remove(os.path.join(root, file))
                     if "DeathLink" in ctx.tags:
-                        for file in files:
-                            # "skipped.smh" is a file created by DELTARUNE if you somehow skip to a future area
-                            if "skipped.smh" in file:
-                                os.remove(os.path.join(root, file))
-                                skipped = 1
-                        if skipped:
-                            await ctx.send_death(
-                                f"{ctx.player_names[ctx.slot]} has attempted to skip a necessary item. Nice try."
-                            )
-                        else:
-                            await ctx.send_death()
-                if "skipped.smh" in file:
-                    os.remove(os.path.join(root, file))
+                        await ctx.send_death()
                 if "scout" == file:
                     sendinghint = []
                     try:
