@@ -296,6 +296,8 @@ class DeltaruneWorld(World):
 
     def is_t_rank_included(self):
         return self.options.include_t_rank.value == IncludeTRankOptions.true
+
+    def is_t_rank_excluded_from_logic(self):
         return self.options.include_t_rank.value == IncludeTRankOptions.excluded_from_logic
 
     def get_next_in_order_chapter(self, chapter: int):
