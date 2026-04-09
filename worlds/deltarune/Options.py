@@ -350,8 +350,80 @@ class Accessibility(Choice):
     alias_items = 0
     default = 0
 
+filler_weight_range_names = {"common": 50, "uncommon": 25, "rare": 10, "very rare": 5, "extremly rare": 1}
+
+
+class FillerCurrencyWeight(NamedRange):
+    """
+    D$, points, dog dollars
+    """
+
+    display_name = "Currency Weight"
+    range_start = 0
+    range_end = 99
+    default = filler_weight_range_names["common"]
+    rich_text_doc = True
+    special_range_names = filler_weight_range_names
+
+
+class FillerHealingWeight(NamedRange):
+    """
+    Healing items
+    """
+
+    display_name = "Healing Items Weight"
+    range_start = 0
+    range_end = 99
+    default = filler_weight_range_names["uncommon"]
+    rich_text_doc = True
+    special_range_names = filler_weight_range_names
+
+
+class FillerArmorWeight(NamedRange):
+    """
+    Armors
+    """
+
+    display_name = "Armors Weight"
+    range_start = 0
+    range_end = 99
+    default = filler_weight_range_names["rare"]
+    rich_text_doc = True
+    special_range_names = filler_weight_range_names
+
+
+class FillerTensionWeight(NamedRange):
+    """
+    Tension items
+    """
+
+    display_name = "Tension Items Weight"
+    range_start = 0
+    range_end = 99
+    default = filler_weight_range_names["very rare"]
+    rich_text_doc = True
+    special_range_names = filler_weight_range_names
+
+
+class FillerSMILEWeight(NamedRange):
+    """
+    SMILE
+    """
+
+    display_name = "SMILE Weight"
+    range_start = 0
+    range_end = 99
+    default = filler_weight_range_names["extremly rare"]
+    rich_text_doc = True
+    special_range_names = filler_weight_range_names
+
+
 deltarune_option_groups = [
     OptionGroup("Chapters", [RandomizeChapters, IncludeChapter1, IncludeChapter2, IncludeChapter3, IncludeChapter4]),
+    OptionGroup(
+        "Fillers",
+        [FillerCurrencyWeight, FillerHealingWeight, FillerArmorWeight, FillerTensionWeight, FillerSMILEWeight],
+    ),
     OptionGroup("Goal", [ChosenRoute, GoalMacGuffinAmount, RandomizeSecretBosses, RandomizeMANTLE]),
     OptionGroup("Items", [IncludeShadowMantle, IncludeHiddenItems]),
     OptionGroup("Locations", [IncludeTRank]),
@@ -375,6 +447,9 @@ class DeltaruneOptions(PerGameCommonOptions):
     include_t_rank: IncludeTRank
     include_hidden_items: IncludeHiddenItems
     death_link: DeathLink
-
-
-#    include_traps:                                    IncludeTraps
+    filler_currency_weight: FillerCurrencyWeight
+    filler_healing_weight: FillerHealingWeight
+    filler_armor_weight: FillerArmorWeight
+    filler_tension_weight: FillerTensionWeight
+    filler_smile_weight: FillerSMILEWeight
+#    include_traps: IncludeTraps

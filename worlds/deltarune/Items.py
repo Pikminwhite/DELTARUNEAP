@@ -3,12 +3,9 @@ from enum import Enum, StrEnum
 from typing import TYPE_CHECKING, NamedTuple, Optional, Callable
 
 if TYPE_CHECKING:
-    from . import DeltaruneWorld
-
-base_weight = 1000
+    from . import DeltaruneWorld, DeltaruneOptions
 
 glitched_item_name = "Deltarune is an episodic role-playing video game by American indie developer Toby Fox."
-
 
 class ItemGroups(StrEnum):
     healing_item = "Healing Items"
@@ -23,15 +20,6 @@ class ItemGroups(StrEnum):
     spamton_access = "Spamton Access"
     tension_items = "Tension Items"
     mantle_items = "Mantle Items"
-
-
-class FillerGroupBaseWeight(Enum):
-    currency = base_weight * 0.5
-    healing = base_weight * 0.25
-    armor = base_weight * 0.1
-    tension = base_weight * 0.01
-    smile = base_weight * 0.001
-
 
 class ItemData(NamedTuple):
     code: Optional[int]
@@ -273,7 +261,7 @@ def generic_get_filler_items(
     return filler_items
 
 
-def convert_filler_to_weights(items: dict[str, ItemData | ConditionalItemData]):
+def convert_filler_to_weights(items: dict[str, ItemData | ConditionalItemData], options: "DeltaruneOptions"):
     fillers_with_weights = {}
 
     healing_fillers = [
@@ -289,16 +277,16 @@ def convert_filler_to_weights(items: dict[str, ItemData | ConditionalItemData]):
     smile_fillers = [item_name for item_name, item_data in items.items() if item_data.code == ItemIDs.smile.value]
 
     healing_adjusted_weight = (
-        FillerGroupBaseWeight.healing.value / len(healing_fillers) if len(healing_fillers) > 0 else 0
+        options.filler_healing_weight.value / len(healing_fillers) if len(healing_fillers) > 0 else 0
     )
-    armor_adjusted_weight = FillerGroupBaseWeight.armor.value / len(armor_fillers) if len(armor_fillers) > 0 else 0
+    armor_adjusted_weight = options.filler_armor_weight.value / len(armor_fillers) if len(armor_fillers) > 0 else 0
     tension_adjusted_weight = (
-        FillerGroupBaseWeight.tension.value / len(tension_fillers) if len(tension_fillers) > 0 else 0
+        options.filler_tension_weight.value / len(tension_fillers) if len(tension_fillers) > 0 else 0
     )
     currency_adjusted_weight = (
-        FillerGroupBaseWeight.currency.value / len(currency_fillers) if len(currency_fillers) > 0 else 0
+        options.filler_currency_weight.value / len(currency_fillers) if len(currency_fillers) > 0 else 0
     )
-    smile_adjusted_weight = FillerGroupBaseWeight.smile.value / len(smile_fillers) if len(smile_fillers) > 0 else 0
+    smile_adjusted_weight = options.filler_smile_weight.value / len(smile_fillers) if len(smile_fillers) > 0 else 0
 
     for item_name in healing_fillers:
         fillers_with_weights[item_name] = healing_adjusted_weight

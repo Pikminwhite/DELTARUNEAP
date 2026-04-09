@@ -174,7 +174,7 @@ class DeltaruneWorld(World):
         if self.options.include_chapter_4:
             filler_pool.update(Ch4Items.get_filler_items(self))
 
-        filler_pool_with_weights = convert_filler_to_weights(filler_pool)
+        filler_pool_with_weights = convert_filler_to_weights(filler_pool, self.options)
 
         return self.random.choices(
             list(filler_pool_with_weights.keys()), weights=list(filler_pool_with_weights.values())
