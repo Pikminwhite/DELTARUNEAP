@@ -54,6 +54,29 @@ def update_deathlink_flag(ctx: DeltaruneContext):
             os.remove(os.path.join(ctx.save_game_folder, filename))
 
 
+def guess_deltarune_path(path: str | None):
+    tempInstall = ""
+    if path == "steaminstall" or path == None:
+        tempInstall = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DELTARUNE"
+        if os.path.exists(tempInstall):
+            return tempInstall
+        else:
+            tempInstall = "C:\\Program Files\\Steam\\steamapps\\common\\DELTARUNE"
+            if os.path.exists(tempInstall):
+                return tempInstall
+
+    if path == "steamdepot":
+        tempInstall = "C:\\Program Files (x86)\\Steam\steamapps\\content\\app_1671210\\depot_1671212"
+        if os.path.exists(tempInstall):
+            return tempInstall
+        else:
+            tempInstall = "C:\\Program Files\\Steam\steamapps\\content\\app_1671210\\depot_1671212"
+            if os.path.exists(tempInstall):
+                return tempInstall
+
+    return path
+
+
 class DeltaruneCommandProcessor(ClientCommandProcessor):
     def __init__(self, ctx):
         super().__init__(ctx)
@@ -119,7 +142,7 @@ Both gaining and losing recruits have been turned into checks."""
                 self.output("You'll need to connect to a Multiworld, first.")
 
     @mark_raw
-    def _cmd_auto_patch(self, steaminstall: typing.Optional[str] = None):
+    def _cmd_auto_patch(self, path: typing.Optional[str] = None):
         """Patch the game automatically."""
         if isinstance(self.ctx, DeltaruneContext):
             os.path.exists("DELTARUNE")
@@ -127,28 +150,16 @@ Both gaining and losing recruits have been turned into checks."""
                 for file in files:
                     os.remove(os.path.join(root, file))
             os.makedirs(name=Utils.user_path("DELTARUNE"), exist_ok=True)
-            tempInstall = steaminstall
-            if not os.path.isfile(os.path.join(tempInstall, "data.win")):
-                tempInstall = None
-            if tempInstall is None:
-                tempInstall = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DELTARUNE"
-                if not os.path.exists(tempInstall):
-                    tempInstall = "C:\\Program Files\\Steam\\steamapps\\common\\DELTARUNE"
-            elif not os.path.exists(tempInstall):
-                tempInstall = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DELTARUNE"
-                if not os.path.exists(tempInstall):
-                    tempInstall = "C:\\Program Files\\Steam\\steamapps\\common\\DELTARUNE"
-            if (
-                not os.path.exists(tempInstall)
-                or not os.path.exists(tempInstall)
-                or not os.path.isfile(os.path.join(tempInstall, "data.win"))
-            ):
+
+            pathInstall = guess_deltarune_path(path)
+
+            if not os.path.exists(pathInstall) or not os.path.isfile(os.path.join(pathInstall, "data.win")):
                 self.output(
                     "ERROR: Cannot find DELTARUNE. Please rerun the command with the correct folder."
                     ' command. "/auto_patch (Steam directory)".'
                 )
             else:
-                shutil.copytree(tempInstall, Utils.user_path("DELTARUNE"), dirs_exist_ok=True)
+                shutil.copytree(pathInstall, Utils.user_path("DELTARUNE"), dirs_exist_ok=True)
                 self.ctx.patch_game()
                 self.output("Patching successful!")
 
