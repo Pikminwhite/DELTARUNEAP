@@ -1,6 +1,7 @@
+from enum import StrEnum
+
 from Options import Choice, Toggle, Range, PerGameCommonOptions, NamedRange, OptionGroup
 from dataclasses import dataclass
-from enum import StrEnum
 
 
 class Notice(Choice):
@@ -33,7 +34,7 @@ class ChosenRoute(Choice):
     option_all_recruits = 0
     option_weird_route = 1
     option_all_routes = 2
-    default = 0
+    default = option_all_recruits
 
 
 class ChosenRouteOptions(StrEnum):
@@ -61,7 +62,7 @@ class RandomizeChapters(Choice):
     option_in_order = 0
     option_randomized = 1
     option_all_unlocked = 2
-    default = 0
+    default = option_in_order
 
 
 class RandomizeChapterOptions(StrEnum):
@@ -92,7 +93,7 @@ class RandomizeSecretBosses(Choice):
     option_false = 0
     option_true = 1
     option_mandatory = 2
-    default = 0
+    default = option_false
 
 
 class RandomizeSecretBossesOptions(StrEnum):
@@ -131,7 +132,7 @@ class RandomizeMANTLE(Choice):
     option_false = 0
     option_true = 1
     option_mantleless = 2
-    default = 0
+    default = option_false
 
 
 class RandomizeMANTLEOptions(StrEnum):
@@ -179,10 +180,10 @@ class IncludeTraps(Choice):
     option_false = 0
     option_true = 1
     option_all_traps = 2
-    default = 0
+    default = option_false
 
 
-class IncludeTRank(Toggle):
+class IncludeTRank(Choice):
     """
     GETTING THE HIGHEST RANK
     OF THE THIRD CHAPTER
@@ -191,7 +192,16 @@ class IncludeTRank(Toggle):
     (Of course, this only applies if you play Chapter 3.)"""
 
     display_name = "Include T Rank"
-    default = 0
+    option_false = 0
+    option_true = 1
+    option_excluded_from_logic = 2
+    default = option_false
+
+
+class IncludeTRankOptions(StrEnum):
+    false = "false"
+    true = "true"
+    excluded_from_logic = "excluded_from_logic"
 
 
 class ItemBalancing(Toggle):
@@ -350,6 +360,7 @@ class Accessibility(Choice):
     alias_items = 0
     default = 0
 
+
 filler_weight_range_names = {"common": 50, "uncommon": 25, "rare": 10, "very rare": 5, "extremly rare": 1}
 
 
@@ -429,6 +440,7 @@ deltarune_option_groups = [
     OptionGroup("Locations", [IncludeTRank]),
 ]
 
+
 @dataclass
 class DeltaruneOptions(PerGameCommonOptions):
     progression_balancing: ProgressionBalancing
@@ -452,4 +464,6 @@ class DeltaruneOptions(PerGameCommonOptions):
     filler_armor_weight: FillerArmorWeight
     filler_tension_weight: FillerTensionWeight
     filler_smile_weight: FillerSMILEWeight
+
+
 #    include_traps: IncludeTraps

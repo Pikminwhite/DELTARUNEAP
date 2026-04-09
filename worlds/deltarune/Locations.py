@@ -1,4 +1,4 @@
-from BaseClasses import Location
+from BaseClasses import Location, LocationProgressType
 from typing import TYPE_CHECKING, NamedTuple, Optional, Callable
 from enum import Enum, StrEnum
 
@@ -18,6 +18,7 @@ class LocationData(NamedTuple):
     id: Optional[int]
     region: str
     group: Optional[LocationGroups]
+    progress_type: LocationProgressType = LocationProgressType.DEFAULT
 
 
 class ConditionalLocationData(NamedTuple):
@@ -25,6 +26,7 @@ class ConditionalLocationData(NamedTuple):
     region: str
     should_be_included: Callable[["DeltaruneWorld"], bool]
     group: Optional[LocationGroups]
+    progress_type: LocationProgressType = LocationProgressType.DEFAULT
 
 
 class DeltaruneLocation(Location):

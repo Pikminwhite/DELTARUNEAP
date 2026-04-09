@@ -1,6 +1,5 @@
 from worlds.generic.Rules import set_rule
 from typing import TYPE_CHECKING
-from ..Options import RandomizeChapterOptions, RandomizeSecretBossesOptions
 from .LocationsAndRegions import Ch2Entrances, Ch2Regions, Ch2Locations
 from .Items import Ch2Items
 from ..cross_chapter.LocationsAndRegions import CCEntrances

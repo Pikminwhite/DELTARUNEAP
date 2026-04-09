@@ -1,4 +1,4 @@
-from BaseClasses import Location
+from BaseClasses import Location, LocationProgressType
 from enum import StrEnum
 from ..Locations import LocationIDs, LocationData, ConditionalLocationData, LocationGroups
 from ..Regions import generic_create_regions, fusion_access_entrance
@@ -329,14 +329,29 @@ chapter3_conditional_locations = {
     Ch3Locations.board_1_t_rank.value: ConditionalLocationData(
         LocationIDs.ch3_board_1_t_rank.value,
         Ch3Regions.board_1,
-        lambda world: world.options.include_t_rank == 1,
+        lambda world: world.is_t_rank_included() and not world.is_t_rank_excluded_from_logic(),
         LocationGroups.chapter3.value,
     ),
     Ch3Locations.board_2_t_rank.value: ConditionalLocationData(
         LocationIDs.ch3_board_2_t_rank.value,
         Ch3Regions.board_2,
-        lambda world: world.options.include_t_rank == 1,
+        lambda world: world.is_t_rank_included() and not world.is_t_rank_excluded_from_logic(),
         LocationGroups.chapter3.value,
+    ),
+    # T-Rank excluded from logic
+    Ch3Locations.board_1_t_rank.value: ConditionalLocationData(
+        LocationIDs.ch3_board_1_t_rank.value,
+        Ch3Regions.board_1,
+        lambda world: world.is_t_rank_included() and world.is_t_rank_excluded_from_logic(),
+        LocationGroups.chapter3.value,
+        progress_type=LocationProgressType.EXCLUDED,
+    ),
+    Ch3Locations.board_2_t_rank.value: ConditionalLocationData(
+        LocationIDs.ch3_board_2_t_rank.value,
+        Ch3Regions.board_2,
+        lambda world: world.is_t_rank_included() and world.is_t_rank_excluded_from_logic(),
+        LocationGroups.chapter3.value,
+        progress_type=LocationProgressType.EXCLUDED,
     ),
     # All Recruits
     Ch3Locations.recruit_water_cooler.value: ConditionalLocationData(

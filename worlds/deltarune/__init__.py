@@ -20,6 +20,7 @@ from .Options import (
     ChosenRouteOptions,
     RandomizeSecretBossesOptions,
     RandomizeMANTLEOptions,
+    IncludeTRankOptions,
     deltarune_option_groups,
 )
 from worlds.AutoWorld import World, WebWorld
@@ -137,7 +138,7 @@ class DeltaruneWorld(World):
                 "include_chapter_2": bool(self.options.include_chapter_2.value),
                 "include_chapter_3": bool(self.options.include_chapter_3.value),
                 "include_chapter_4": bool(self.options.include_chapter_4.value),
-                "include_t_rank": bool(self.options.include_t_rank.value),
+                "include_t_rank": self.options.include_t_rank.current_key,
                 "chosen_route": self.options.chosen_route.current_key,
                 "randomize_chapters": self.options.randomize_chapters.current_key,
                 "include_hidden_items": bool(self.options.include_hidden_items.value),
@@ -292,6 +293,10 @@ class DeltaruneWorld(World):
                 return chapterToCheck
 
         return -1
+
+    def is_t_rank_included(self):
+        return self.options.include_t_rank.value == IncludeTRankOptions.true
+        return self.options.include_t_rank.value == IncludeTRankOptions.excluded_from_logic
 
     def get_next_in_order_chapter(self, chapter: int):
         if chapter > max_deltarune_chapter:
