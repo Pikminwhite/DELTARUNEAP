@@ -92,9 +92,15 @@ chapter3_items = {
     Ch3Items.smile.value: ItemData(ItemIDs.smile.value, ItemClassification.filler),
     Ch3Items.lodestone.value: ItemData(ItemIDs.lodestone.value, ItemClassification.filler, [ItemGroups.armors]),
     Ch3Items.gingerguard.value: ItemData(ItemIDs.gingerguard.value, ItemClassification.filler, [ItemGroups.armors]),
-    Ch3Items.toxicaxe.value: ItemData(ItemIDs.toxicaxe.value, ItemClassification.useful, [ItemGroups.weapons]),
-    Ch3Items.saber10.value: ItemData(ItemIDs.saber10.value, ItemClassification.useful, [ItemGroups.weapons]),
-    Ch3Items.flexscarf.value: ItemData(ItemIDs.flexscarf.value, ItemClassification.useful, [ItemGroups.weapons]),
+    Ch3Items.toxicaxe.value: ItemData(
+        ItemIDs.toxicaxe.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.susie_weapons]
+    ),
+    Ch3Items.saber10.value: ItemData(
+        ItemIDs.saber10.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.kris_weapons]
+    ),
+    Ch3Items.flexscarf.value: ItemData(
+        ItemIDs.flexscarf.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.ralsei_weapons]
+    ),
     CCItems.execbuffet.value: ItemData(ItemIDs.execbuffet.value, ItemClassification.useful, [ItemGroups.healing_item]),
     CCItems.white_ribbon.value: ItemData(
         ItemIDs.white_ribbon.value, ItemClassification.progression, [ItemGroups.armors, ItemGroups.fusion_ingredient]
@@ -134,7 +140,7 @@ chapter3_conditional_items = {
         ItemIDs.blackshard.value,
         ItemClassification.useful,
         lambda world: world.is_secret_bosses_randomized(),
-        [ItemGroups.armors],
+        [ItemGroups.armors, ItemGroups.kris_weapons],
     ),
     CCItems.shadowcrystal.value: ConditionalItemData(
         ItemIDs.shadowcrystal.value, ItemClassification.useful, lambda world: world.is_secret_bosses_randomized()

@@ -85,10 +85,18 @@ chapter1_items = {
     ),
     CCItems.glowshard.value: ItemData(ItemIDs.glowshard.value, ItemClassification.filler, [ItemGroups.currencies]),
     Ch1Items.dice_brace.value: ItemData(ItemIDs.dice_brace.value, ItemClassification.useful, [ItemGroups.armors]),
-    Ch1Items.spookysword.value: ItemData(ItemIDs.spookysword.value, ItemClassification.useful, [ItemGroups.weapons]),
-    Ch1Items.brave_ax.value: ItemData(ItemIDs.brave_ax.value, ItemClassification.useful, [ItemGroups.weapons]),
-    Ch1Items.ragger.value: ItemData(ItemIDs.ragger.value, ItemClassification.useful, [ItemGroups.weapons]),
-    Ch1Items.daintyscarf.value: ItemData(ItemIDs.daintyscarf.value, ItemClassification.useful, [ItemGroups.weapons]),
+    Ch1Items.spookysword.value: ItemData(
+        ItemIDs.spookysword.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.kris_weapons]
+    ),
+    Ch1Items.brave_ax.value: ItemData(
+        ItemIDs.brave_ax.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.susie_weapons]
+    ),
+    Ch1Items.ragger.value: ItemData(
+        ItemIDs.ragger.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.ralsei_weapons]
+    ),
+    Ch1Items.daintyscarf.value: ItemData(
+        ItemIDs.daintyscarf.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.ralsei_weapons]
+    ),
     Ch1Items.manual.value: ItemData(
         ItemIDs.manual.value, ItemClassification.progression | ItemClassification.useful, amount=2
     ),
@@ -160,7 +168,7 @@ chapter1_conditional_items = {
         ItemIDs.devilsknife.value,
         ItemClassification.useful,
         lambda world: world.is_secret_bosses_randomized(),
-        [ItemGroups.weapons],
+        [ItemGroups.weapons, ItemGroups.susie_weapons],
     ),
     CCItems.shadowcrystal.value: ConditionalItemData(
         ItemIDs.shadowcrystal.value, ItemClassification.useful, lambda world: world.is_secret_bosses_randomized()

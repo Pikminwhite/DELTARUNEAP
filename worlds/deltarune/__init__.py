@@ -7,6 +7,7 @@ from .Items import (
     DeltaruneItem,
     ItemData,
     ConditionalItemData,
+    ItemGroups,
     convert_filler_to_weights,
     get_item_groups,
     glitched_item_name,
@@ -156,9 +157,9 @@ class DeltaruneWorld(World):
         }
 
     def create_item(self, name: str) -> DeltaruneItem:
-        if name == glitched_item_name: return DeltaruneItem(name, ItemClassification.progression, -1, self.player)
-        if name == progressive_weapon_name: return DeltaruneItem(name, ItemClassification.useful, -2, self.player)
-        
+        if name == glitched_item_name:
+            return DeltaruneItem(name, ItemClassification.progression, -1, self.player)
+
         item_data = every_items[name]
 
         return DeltaruneItem(name, item_data.classification, item_data.code, self.player)
@@ -244,6 +245,18 @@ class DeltaruneWorld(World):
 
     def is_hidden_items_randomized(self):
         return self.options.include_hidden_items.value == 1
+
+    def is_kris_weapons_progressive(self):
+        return self.options.progressive_kris_weapons.value == 1
+
+    def is_susie_weapons_progressive(self):
+        return self.options.progressive_susie_weapons.value == 1
+
+    def is_ralsei_weapons_progressive(self):
+        return self.options.progressive_ralsei_weapons.value == 1
+
+    def is_noelle_weapons_progressive(self):
+        return self.options.progressive_noelle_weapons.value == 1 and self.include_chapter(2)
 
     # Check if you have at least one chapter that give you access to fusions
     def can_access_fusion(self) -> bool:
@@ -356,9 +369,16 @@ class DeltaruneWorld(World):
         # if self.include_chapter(5): Ch5Items.create_items(self)
         # if self.include_chapter(6): Ch6Items.create_items(self)
         # if self.include_chapter(7): Ch7Items.create_items(self)
-        
-        if self.options.progressive_weapons.value == 1: self.handle_progressive_weapon(item_pool)
-          
+
+        if self.is_kris_weapons_progressive():
+            self.handle_progressive_weapon(item_pool, ItemGroups.kris_weapons)
+        if self.is_susie_weapons_progressive():
+            self.handle_progressive_weapon(item_pool, ItemGroups.susie_weapons)
+        if self.is_ralsei_weapons_progressive():
+            self.handle_progressive_weapon(item_pool, ItemGroups.ralsei_weapons)
+        if self.is_noelle_weapons_progressive():
+            self.handle_progressive_weapon(item_pool, ItemGroups.noelle_weapons)
+
         self.handle_chapter_keys(item_pool)
         self.handle_macguffins_items(item_pool)
 
@@ -429,14 +449,30 @@ class DeltaruneWorld(World):
         # if self.include_chapter(5): Ch5Rules.set_rules(self)
         # if self.include_chapter(6): Ch6Rules.set_rules(self)
         # if self.include_chapter(7): Ch7Rules.set_rules(self)
-        
+
         set_completion_rules(self)
-        
-    def handle_progressive_weapon(self, itempool: list[str]):
-        # Looking for all non-progressive weapons
-        weapons = [name for name, value in every_items.items() if ItemGroups.weapons in value.groups and not value.classification & ItemClassification.progression]
-        print(weapons)
-        for item in itempool:
-            if item in weapons:
-                itempool.remove(item)
-                itempool.append(progressive_weapon_name)
+
+    def handle_progressive_weapon(
+        self,
+        itempool: list[str],
+        character: ItemGroups,
+    ):
+        weapons_character = [name for name, value in every_items.items() if character in value.groups]
+        print(character, weapons_character)
+
+        # Remove them from the item pool
+        for weapon in weapons_character:
+            if weapon in itempool:
+                itempool.remove(weapon)
+
+        match character:
+            case ItemGroups.kris_weapons:
+                itempool += [CCItems.CCItems.progressive_kris_weapons] * len(weapons_character)
+            case ItemGroups.susie_weapons:
+                itempool += [CCItems.CCItems.progressive_susie_weapons] * len(weapons_character)
+            case ItemGroups.ralsei_weapons:
+                itempool += [CCItems.CCItems.progressive_ralsei_weapons] * len(weapons_character)
+            case ItemGroups.noelle_weapons:
+                itempool += [CCItems.CCItems.progressive_noelle_weapons] * len(weapons_character)
+            case _:
+                raise ValueError("Invalid character for progressive weapon")

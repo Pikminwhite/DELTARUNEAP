@@ -13,6 +13,10 @@ class ItemGroups(StrEnum):
     fusion_ingredient = "Fusion Ingredients"
     armors = "Armors"
     weapons = "Weapons"
+    kris_weapons = "Kris Weapons"
+    susie_weapons = "Susie Weapons"
+    ralsei_weapons = "Ralsei Weapons"
+    noelle_weapons = "Noelle Weapons"
     eggs = "Eggs"
     currencies = "Currencies"
     region_blockers = "Story Blockers"
@@ -162,6 +166,11 @@ class ItemIDs(Enum):
     powerband = 20052
     princessrbn = 20053
     goldwidow = 20054
+
+    progressive_kris_weapons = 30000
+    progressive_susie_weapons = 30001
+    progressive_ralsei_weapons = 30002
+    progressive_noelle_weapons = 30003
 
     spookysword = 30005
     brave_ax = 30006

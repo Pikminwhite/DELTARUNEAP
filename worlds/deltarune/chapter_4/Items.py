@@ -56,9 +56,15 @@ chapter4_items = {
     Ch4Items.mysticband.value: ItemData(ItemIDs.mysticband.value, ItemClassification.useful, [ItemGroups.armors]),
     Ch4Items.powerband.value: ItemData(ItemIDs.powerband.value, ItemClassification.useful, [ItemGroups.armors]),
     Ch4Items.princessrbn.value: ItemData(ItemIDs.princessrbn.value, ItemClassification.useful, [ItemGroups.armors]),
-    Ch4Items.scarfmark.value: ItemData(ItemIDs.scarfmark.value, ItemClassification.useful, [ItemGroups.weapons]),
-    Ch4Items.absobax.value: ItemData(ItemIDs.absorbaxe.value, ItemClassification.useful, [ItemGroups.weapons]),
-    Ch4Items.wingblade.value: ItemData(ItemIDs.wingblade.value, ItemClassification.useful, [ItemGroups.weapons]),
+    Ch4Items.scarfmark.value: ItemData(
+        ItemIDs.scarfmark.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.ralsei_weapons]
+    ),
+    Ch4Items.absobax.value: ItemData(
+        ItemIDs.absorbaxe.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.susie_weapons]
+    ),
+    Ch4Items.wingblade.value: ItemData(
+        ItemIDs.wingblade.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.kris_weapons]
+    ),
     Ch4Items.claimbclaws.value: ItemData(
         ItemIDs.claimbclaws.value, ItemClassification.progression, [ItemGroups.region_blockers]
     ),
@@ -72,7 +78,7 @@ chapter4_conditional_items = {
         ItemIDs.justiceaxe.value,
         ItemClassification.useful,
         lambda world: world.is_secret_bosses_randomized(),
-        [ItemGroups.weapons],
+        [ItemGroups.weapons, ItemGroups.susie_weapons],
     ),
     CCItems.shadowcrystal.value: ConditionalItemData(
         ItemIDs.shadowcrystal.value, ItemClassification.useful, lambda world: world.is_secret_bosses_randomized()

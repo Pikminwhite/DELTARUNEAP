@@ -216,14 +216,6 @@ class ItemBalancing(Toggle):
 
     display_name = "ItemBalancing"
     default = 0
-    
-class ProgressiveWeapons(Toggle):
-    """
-    I'm sure that emerald will find something ch4 vibe
-    """
-    display_name = "ProgressiveWeapons"
-    default = 0
-
 
 class IncludeHiddenItems(Toggle):
     """
@@ -469,6 +461,42 @@ class FillerSMILEWeight(NamedRange):
     special_range_names = filler_weight_range_names
 
 
+class ProgressiveKrisWeapons(Toggle):
+    """
+    Is Kris weapons progressive
+    """
+
+    display_name = "Progressive Kris Weapons"
+    default = 0
+
+
+class ProgressiveSusieWeapons(Toggle):
+    """
+    Is Susie weapons progressive
+    """
+
+    display_name = "Progressive Susie Weapons"
+    default = 0
+
+
+class ProgressiveRalseiWeapons(Toggle):
+    """
+    Is Ralsei weapons progressive
+    """
+
+    display_name = "Progressive Ralsei Weapons"
+    default = 0
+
+
+class ProgressiveNoelleWeapons(Toggle):
+    """
+    Is Noelle weapons progressive
+    """
+
+    display_name = "Progressive Noelle Weapons"
+    default = 0
+
+
 deltarune_option_groups = [
     OptionGroup("Chapters", [RandomizeChapters, IncludeChapter1, IncludeChapter2, IncludeChapter3, IncludeChapter4]),
     OptionGroup(
@@ -476,7 +504,17 @@ deltarune_option_groups = [
         [FillerCurrencyWeight, FillerHealingWeight, FillerArmorWeight, FillerTensionWeight, FillerSMILEWeight],
     ),
     OptionGroup("Goal", [ChosenRoute, GoalMacGuffinAmount, RandomizeSecretBosses, RandomizeMANTLE]),
-    OptionGroup("Items", [IncludeShadowMantle, IncludeHiddenItems]),
+    OptionGroup(
+        "Items",
+        [
+            IncludeShadowMantle,
+            IncludeHiddenItems,
+            ProgressiveKrisWeapons,
+            ProgressiveSusieWeapons,
+            ProgressiveRalseiWeapons,
+            ProgressiveNoelleWeapons,
+        ],
+    ),
     OptionGroup("Locations", [IncludeTRank]),
 ]
 
@@ -504,6 +542,9 @@ class DeltaruneOptions(PerGameCommonOptions):
     filler_armor_weight: FillerArmorWeight
     filler_tension_weight: FillerTensionWeight
     filler_smile_weight: FillerSMILEWeight
-    progressive_weapons: ProgressiveWeapons
+    progressive_kris_weapons: ProgressiveKrisWeapons
+    progressive_susie_weapons: ProgressiveSusieWeapons
+    progressive_ralsei_weapons: ProgressiveRalseiWeapons
+    progressive_noelle_weapons: ProgressiveNoelleWeapons
 
 #    include_traps: IncludeTraps
