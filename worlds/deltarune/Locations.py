@@ -1,150 +1,158 @@
-from BaseClasses import Location
+from BaseClasses import Location, LocationProgressType
 from typing import TYPE_CHECKING, NamedTuple, Optional, Callable
 from enum import Enum, StrEnum
 
-if TYPE_CHECKING: from . import DeltaruneWorld
+if TYPE_CHECKING:
+    from . import DeltaruneWorld
+
 
 class LocationGroups(StrEnum):
-  castle_town = "Castle Town"
-  chapter1 = "Chapter 1"
-  chapter2 = "Chapter 2"
-  chapter3 = "Chapter 3"
-  chapter4 = "Chapter 4"
+    castle_town = "Castle Town"
+    chapter1 = "Chapter 1"
+    chapter2 = "Chapter 2"
+    chapter3 = "Chapter 3"
+    chapter4 = "Chapter 4"
+
 
 class LocationData(NamedTuple):
-  id: Optional[int]
-  region: str
-  group: Optional[LocationGroups]
+    id: Optional[int]
+    region: str
+    group: Optional[LocationGroups]
+    progress_type: LocationProgressType = LocationProgressType.DEFAULT
+
 
 class ConditionalLocationData(NamedTuple):
-  id: Optional[int]
-  region: str
-  should_be_included: Callable[["DeltaruneWorld"], bool]
-  group: Optional[LocationGroups]
-  
+    id: Optional[int]
+    region: str
+    should_be_included: Callable[["DeltaruneWorld"], bool]
+    group: Optional[LocationGroups]
+    progress_type: LocationProgressType = LocationProgressType.DEFAULT
+
+
 class DeltaruneLocation(Location):
-  game: str = "Deltarune"
+    game: str = "Deltarune"
+
 
 class LocationIDs(Enum):
-    ch1_unknown_hidden_item         = 1
-    ch1_field_dark_candy_tree_1     = 2
-    ch1_field_dark_candy_tree_2     = 3
-    ch1_field_dark_candy_tree_3     = 4
-    ch1_field_dark_candy_tree_4     = 5
-    ch1_bake_repair_top_cake        = 6
-    ch1_bake_diamond_stand          = 7
-    ch1_bake_heart_stand            = 8
-    ch1_bake_spade_stand            = 9
-    ch1_card_castle_rudinn_gift     = 10
-    ch1_field_return_top_cake       = 11
-    ch1_castle_town_manual          = 12
-    ch1_field_maze_of_death_chest       = 13
-    ch1_field_chest_before_great_board  = 14
-    ch1_forest_scissor_dancers_chest    = 15
-    ch1_forest_hidden_chest_near_dancers   = 16
-    ch1_forest_coat_rack_chest             = 17
-    ch1_forest_letter_block_chest          = 18
-    ch1_forest_chest_near_worm             = 19
-    ch1_card_castle_2f_chest        = 20
-    ch1_card_castle_4f_chest        = 21
-    ch1_throw_away_manual           = 22
-    ch1_field_brokencake            = 23
-    ch1_forest_man                  = 24
-    ch1_card_castle_jevil_1         = 25
-    ch1_card_castle_jevil_2         = 26
-    ch1_card_castle_jevil_3         = 27
-    ch1_bake_repair_door_key        = 28
+    ch1_unknown_hidden_item = 1
+    ch1_field_dark_candy_tree_1 = 2
+    ch1_field_dark_candy_tree_2 = 3
+    ch1_field_dark_candy_tree_3 = 4
+    ch1_field_dark_candy_tree_4 = 5
+    ch1_bake_repair_top_cake = 6
+    ch1_bake_diamond_stand = 7
+    ch1_bake_heart_stand = 8
+    ch1_bake_spade_stand = 9
+    ch1_card_castle_rudinn_gift = 10
+    ch1_field_return_top_cake = 11
+    ch1_castle_town_manual = 12
+    ch1_field_maze_of_death_chest = 13
+    ch1_field_chest_before_great_board = 14
+    ch1_forest_scissor_dancers_chest = 15
+    ch1_forest_hidden_chest_near_dancers = 16
+    ch1_forest_coat_rack_chest = 17
+    ch1_forest_letter_block_chest = 18
+    ch1_forest_chest_near_worm = 19
+    ch1_card_castle_2f_chest = 20
+    ch1_card_castle_4f_chest = 21
+    ch1_throw_away_manual = 22
+    ch1_field_brokencake = 23
+    ch1_forest_man = 24
+    ch1_card_castle_jevil_1 = 25
+    ch1_card_castle_jevil_2 = 26
+    ch1_card_castle_jevil_3 = 27
+    ch1_bake_repair_door_key = 28
     ch1_seam_seap_talk_about_strange_prisoner = 29
-    ch1_card_castle_ironshackle     = 30
-    ch1_field_warp_door             = 31
-    ch1_forest_warp_door            = 32
-    ch1_bake_sale_warp_door         = 33
-    ch1_card_castle_warp_door       = 34
-    ch1_card_castle_moss            = 35
-    ch2_castle_town_jigsaw_joe_challenge        = 36
-    ch2_castle_town_graze_challenge_1           = 37
-    ch2_castle_town_clover_rematch_challenge    = 38
-    ch2_castle_town_top_chef_gift               = 39
-    cc_castle_town_dd_burger_fusion             = 40
-    cc_castle_town_silver_card_fusion          = 41
-    ch2_castle_town_spike_band_fusion           = 42
-    ch2_cyber_field_first_chest                 = 43
-    ch2_cyber_field_nubert_chest                = 44
-    ch2_cyber_field_tasque_maze_checkmark       = 45
-    ch2_cyber_field_chest_near_music_shop       = 46
-    ch2_cyber_field_virovirokun_puzzle_chest    = 47
-    ch2_cyber_field_teacup_puzzle_chest         = 48
-    ch2_recruit_werewire    = 49
-    ch1_seam_seap_1         = 50
-    ch1_seam_seap_2         = 51
-    ch1_seam_seap_3         = 52
-    ch1_seam_seap_4         = 53
-    ch2_recruit_tasque      = 54
+    ch1_card_castle_ironshackle = 30
+    ch1_field_warp_door = 31
+    ch1_forest_warp_door = 32
+    ch1_bake_sale_warp_door = 33
+    ch1_card_castle_warp_door = 34
+    ch1_card_castle_moss = 35
+    ch2_castle_town_jigsaw_joe_challenge = 36
+    ch2_castle_town_graze_challenge_1 = 37
+    ch2_castle_town_clover_rematch_challenge = 38
+    ch2_castle_town_top_chef_gift = 39
+    cc_castle_town_dd_burger_fusion = 40
+    cc_castle_town_silver_card_fusion = 41
+    ch2_castle_town_spike_band_fusion = 42
+    ch2_cyber_field_first_chest = 43
+    ch2_cyber_field_nubert_chest = 44
+    ch2_cyber_field_tasque_maze_checkmark = 45
+    ch2_cyber_field_chest_near_music_shop = 46
+    ch2_cyber_field_virovirokun_puzzle_chest = 47
+    ch2_cyber_field_teacup_puzzle_chest = 48
+    ch2_recruit_werewire = 49
+    ch1_seam_seap_1 = 50
+    ch1_seam_seap_2 = 51
+    ch1_seam_seap_3 = 52
+    ch1_seam_seap_4 = 53
+    ch2_recruit_tasque = 54
     ch2_recruit_virovirokun = 55
-    ch2_trash_zone_trash_can    = 56
-    ch2_cyber_city_trash_can_1  = 57
-    ch2_cyber_city_trash_can_2  = 58
+    ch2_trash_zone_trash_can = 56
+    ch2_cyber_city_trash_can_1 = 57
+    ch2_cyber_city_trash_can_2 = 58
     ch2_cyber_city_queen_poster_chest = 59
-    ch1_rouxls_shop_1       = 60
-    ch1_rouxls_shop_2       = 61
-    ch1_rouxls_shop_3       = 62
-    ch1_rouxls_shop_4       = 63
+    ch1_rouxls_shop_1 = 60
+    ch1_rouxls_shop_2 = 61
+    ch1_rouxls_shop_3 = 62
+    ch1_rouxls_shop_4 = 63
     ch2_cyber_city_chest_guarded_by_virovirokun = 64
-    ch2_cyber_city_purchase_mannequin           = 65
-    ch2_cyber_city_annoying_dog                 = 66
-    ch2_cyber_city_man                          = 67
-    ch2_cyber_city_cheese_maze_chest            = 68
-    ch2_cyber_city_trash_can_3                  = 69
-    ch2_music_shop_1        = 70
-    ch2_music_shop_2        = 71
-    ch2_music_shop_3        = 72
-    ch2_music_shop_4        = 73
+    ch2_cyber_city_purchase_mannequin = 65
+    ch2_cyber_city_annoying_dog = 66
+    ch2_cyber_city_man = 67
+    ch2_cyber_city_cheese_maze_chest = 68
+    ch2_cyber_city_trash_can_3 = 69
+    ch2_music_shop_1 = 70
+    ch2_music_shop_2 = 71
+    ch2_music_shop_3 = 72
+    ch2_music_shop_4 = 73
     ch2_cyber_city_trash_can_4 = 74
     ch2_cyber_city_trash_can_5 = 75
-    ch2_recruit_poppup      = 76
+    ch2_recruit_poppup = 76
     ch2_recruit_ambyu_lance = 77
-    ch2_recruit_maus        = 78
+    ch2_recruit_maus = 78
     ch2_mansion_painting_chest = 79
-    ch2_swatchs_cafe_1      = 80
-    ch2_swatchs_cafe_2      = 81
-    ch2_swatchs_cafe_3      = 82
-    ch2_swatchs_cafe_4      = 83
-    ch2_mansion_sculpture_room_chest    = 84
-    ch2_mansion_platter_chest           = 85
-    ch2_mansion_tunnel_of_love_chest    = 86
-    ch2_recruit_swatchling              = 87
-    ch2_recruit_tasque_manager          = 88
-    ch2_recruit_mauswheel               = 89
-    ch2_spamtons_shop_1     = 90
-    ch2_spamtons_shop_2     = 91
-    ch2_spamtons_shop_3     = 92
-    ch2_spamtons_shop_4     = 93
-    ch2_recruit_werewerewire                = 94
-    ch2_mansion_basement_chest              = 95
-    ch2_mansion_basement_mechanism          = 96
-    ch2_mansion_spamton_neo_defeat_item_1   = 97
-    ch2_mansion_spamton_neo_defeat_item_2   = 98
-    ch2_mansion_spamton_neo_defeat_item_3   = 99
+    ch2_swatchs_cafe_1 = 80
+    ch2_swatchs_cafe_2 = 81
+    ch2_swatchs_cafe_3 = 82
+    ch2_swatchs_cafe_4 = 83
+    ch2_mansion_sculpture_room_chest = 84
+    ch2_mansion_platter_chest = 85
+    ch2_mansion_tunnel_of_love_chest = 86
+    ch2_recruit_swatchling = 87
+    ch2_recruit_tasque_manager = 88
+    ch2_recruit_mauswheel = 89
+    ch2_spamtons_shop_1 = 90
+    ch2_spamtons_shop_2 = 91
+    ch2_spamtons_shop_3 = 92
+    ch2_spamtons_shop_4 = 93
+    ch2_recruit_werewerewire = 94
+    ch2_mansion_basement_chest = 95
+    ch2_mansion_basement_mechanism = 96
+    ch2_mansion_spamton_neo_defeat_item_1 = 97
+    ch2_mansion_spamton_neo_defeat_item_2 = 98
+    ch2_mansion_spamton_neo_defeat_item_3 = 99
     ch2_castle_town_tasque_manager_says_challenge = 100
-    ch2_castle_town_all_stars_challenge     = 101
-    cc_castle_town_twin_ribbon_fusion       = 102
-    cc_castle_town_tension_bow_fusion       = 103
-    ch2_cyber_field_warp_door               = 104
-    ch2_trash_zone_warp_door                = 105
-    ch2_mansion_warp_door                   = 106
-    ch2_cyber_city_moss                     = 107
-    ch2_cyber_city_purchase_kris_tea        = 108
-    ch2_cyber_city_purchase_noelle_tea      = 109
-    ch2_cyber_city_purchase_susie_tea       = 110
-    ch2_cyber_city_purchase_ralsei_tea      = 111
-    ch2_cyber_city_purchase_freezering      = 112
-    ch2_cyber_city_purchase_thornring       = 113
-    ch3_couch_cliffs_dust_pile_chest        = 114
-    ch3_board_1_c_rank      = 115
-    ch3_board_1_b_rank      = 116
-    ch3_board_1_a_rank      = 117
-    ch3_board_1_s_rank      = 118
-    ch3_board_1_t_rank      = 119
+    ch2_castle_town_all_stars_challenge = 101
+    cc_castle_town_twin_ribbon_fusion = 102
+    cc_castle_town_tension_bow_fusion = 103
+    ch2_cyber_field_warp_door = 104
+    ch2_trash_zone_warp_door = 105
+    ch2_mansion_warp_door = 106
+    ch2_cyber_city_moss = 107
+    ch2_cyber_city_purchase_kris_tea = 108
+    ch2_cyber_city_purchase_noelle_tea = 109
+    ch2_cyber_city_purchase_susie_tea = 110
+    ch2_cyber_city_purchase_ralsei_tea = 111
+    ch2_cyber_city_purchase_freezering = 112
+    ch2_cyber_city_purchase_thornring = 113
+    ch3_couch_cliffs_dust_pile_chest = 114
+    ch3_board_1_c_rank = 115
+    ch3_board_1_b_rank = 116
+    ch3_board_1_a_rank = 117
+    ch3_board_1_s_rank = 118
+    ch3_board_1_t_rank = 119
     ch3_green_room_vending_machine_1 = 120
     ch3_green_room_vending_machine_2 = 121
     ch3_green_room_vending_machine_3 = 122
@@ -160,18 +168,18 @@ class LocationIDs(Enum):
     ch3_b_rank_room_golden_prize_3 = 132
     ch3_b_rank_room_golden_prize_4 = 133
     ch3_b_rank_room_golden_prize_5 = 134
-    #nothing = 135
+    # nothing = 135
     ch3_s_rank_room_person_behind_curtain = 136
     ch3_s_rank_room_vending_machine_1 = 137
     ch3_s_rank_room_vending_machine_2 = 138
     ch3_s_rank_room_vending_machine_3 = 139
     ch3_s_rank_room_vending_machine_4 = 140
     ch3_s_rank_room_oddcontroller = 141
-    ch3_board_2_c_rank      = 142
-    ch3_board_2_b_rank      = 143
-    ch3_board_2_a_rank      = 144
-    ch3_board_2_s_rank      = 145
-    ch3_board_2_t_rank      = 146
+    ch3_board_2_c_rank = 142
+    ch3_board_2_b_rank = 143
+    ch3_board_2_a_rank = 144
+    ch3_board_2_s_rank = 145
+    ch3_board_2_t_rank = 146
     ch3_green_room_board_2_ramb_gift = 147
     ch3_tv_world_chest_near_shadowmen = 148
     ch3_tv_world_board_puzzle_1_chest = 149
@@ -203,7 +211,7 @@ class LocationIDs(Enum):
     ch3_green_room_warp_door = 175
     ch3_tv_world_entrance_warp_door = 176
     ch3_tv_world_goulden_sam_warp_door = 177
-    #nothing = 178
+    # nothing = 178
     ch3_board_1_extra_key = 179
     ch3_board_2_extra_photo = 180
     ch3_board_2_moss = 181
@@ -256,8 +264,7 @@ class LocationIDs(Enum):
     ch4_second_sanctuary_destroyed_piano_block_chest = 228
     ch2_cyber_field_teacup_ride_checkmark = 229
     ch2_cyber_field_giasfelfebrehber_checkmark = 230
-    
-    
+
     ch2_lost_werewire = 1049
     ch2_lost_tasque = 1054
     ch2_lost_virovirokun = 1055
@@ -283,10 +290,11 @@ class LocationIDs(Enum):
     ch4_lost_winglade = 1223
     ch4_lost_organikk = 1224
 
+
 def get_location_groups(locations: dict[str, LocationData | ConditionalLocationData]):
     groups: dict[str : set[str]] = {}
-    
-    for (location_name, location_data) in locations:
-      groups.setdefault(location_data.group, set()).add(location_name)
-    
+
+    for location_name, location_data in locations:
+        groups.setdefault(location_data.group, set()).add(location_name)
+
     return groups
