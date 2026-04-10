@@ -13,7 +13,7 @@ class CCItems(StrEnum):
 
     # Healing Items
     dark_candy = "Dark Candy"
-    clubsSandwich = "ClubSandwich"
+    clubsSandwich = "ClubsSandwich"
     dark_burger = "Dark Burger"
     dd_burger = "DD-Burger"
     lancer_cookie = "Lancer Cookie"

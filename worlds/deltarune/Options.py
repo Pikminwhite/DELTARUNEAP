@@ -13,8 +13,8 @@ class Notice(Choice):
 
     GENERATION WILL FAIL.
 
-    (For example: Including only chapter 2 and 3 or just doing a single chapter WILL work fine.
-    Including chapter 1, not including chapter 2, but including chapter 3 will not work.)"""
+    (For example: Including only chapter 2 and 3 or just doing a single chapter WILL work fine.)
+    (Including chapter 1, not including chapter 2, but including chapter 3 will not work.)"""
 
     display_name = "NOTICE: READ OPTION INFO"
     option_understood = 0
@@ -86,8 +86,8 @@ class RandomizeSecretBosses(Choice):
     DEFEATING THESE CHALLENGES
     WILL BE REQUIRED TO PROGRESS.
 
-    (If you don't choose "Mantleless" for the next option,
-    The Shadow Mantle will also be included as a mandatory boss.)"""
+    (If you don't choose "Mantleless" for the next option,)
+    (The Shadow Mantle will also be included as a mandatory boss.)"""
 
     display_name = "Randomize Secret Bosses"
     option_false = 0
@@ -228,12 +228,12 @@ class IncludeHiddenItems(Toggle):
     OTHERWISE, THEY WILL REMAIN
     IN THEIR DEFAULT LOCATIONS.
 
-    (Examples:
-    - The Golden Prizes in Chapter 3
-    - The Eggs
-    - Items Needed for Secret Bosses
-    - Dog Dollars
-    - Moss)"""
+    (Examples:)
+    - (The Golden Prizes in Chapter 3)
+    - (The Eggs)
+    - (Items Needed for Secret Bosses)
+    - (Dog Dollars)
+    - (Moss)"""
 
     display_name = "Randomize Grindy/Hidden Items"
     default = 0
@@ -361,28 +361,21 @@ class Accessibility(Choice):
     default = 0
 
 
-filler_weight_range_names = {"common": 50, "uncommon": 25, "rare": 10, "very rare": 5, "extremly rare": 1}
+filler_weight_range_names = {"common": 50, "uncommon": 25, "rare": 10, "very rare": 5, "extremely rare": 1}
 
 
 class FillerCurrencyWeight(NamedRange):
     """
-    D$, points, dog dollars
+    DETERMINES HOW OFTEN
+    ALL CURRENCIES WILL APPEAR
+    COMPARED TO OTHERS ITEMS.
+
+    REGARDLESS OF THIS SETTING,
+    EACH AMOUNT WILL BE GUARANTEED
+    TO APPEAR AT LEAST ONCE.
     """
 
-    display_name = "Currency Weight"
-    range_start = 0
-    range_end = 99
-    default = filler_weight_range_names["common"]
-    rich_text_doc = True
-    special_range_names = filler_weight_range_names
-
-
-class FillerHealingWeight(NamedRange):
-    """
-    Healing items
-    """
-
-    display_name = "Healing Items Weight"
+    display_name = "Currency Weights"
     range_start = 0
     range_end = 99
     default = filler_weight_range_names["uncommon"]
@@ -390,12 +383,37 @@ class FillerHealingWeight(NamedRange):
     special_range_names = filler_weight_range_names
 
 
-class FillerArmorWeight(NamedRange):
+class FillerHealingWeight(NamedRange):
     """
-    Armors
+    DETERMINES HOW OFTEN
+    COMMON HEALING ITEMS WILL APPEAR
+    COMPARED TO OTHERS ITEMS.
+
+    REGARDLESS OF THIS SETTING,
+    EACH WILL BE GUARANTEED
+    TO APPEAR AT LEAST ONCE.
     """
 
-    display_name = "Armors Weight"
+    display_name = "Healing Items Weights"
+    range_start = 0
+    range_end = 99
+    default = filler_weight_range_names["common"]
+    rich_text_doc = True
+    special_range_names = filler_weight_range_names
+
+
+class FillerArmorWeight(NamedRange):
+    """
+    DETERMINES HOW OFTEN
+    ARMOR ITEMS WILL APPEAR
+    COMPARED TO OTHERS ITEMS.
+
+    REGARDLESS OF THIS SETTING,
+    EACH WILL BE GUARANTEED
+    TO APPEAR AT LEAST ONCE.
+    """
+
+    display_name = "Armors Weights"
     range_start = 0
     range_end = 99
     default = filler_weight_range_names["rare"]
@@ -405,10 +423,16 @@ class FillerArmorWeight(NamedRange):
 
 class FillerTensionWeight(NamedRange):
     """
-    Tension items
+    DETERMINES HOW OFTEN
+    TENSION ITEMS WILL APPEAR
+    COMPARED TO OTHERS ITEMS.
+
+    REGARDLESS OF THIS SETTING,
+    EACH WILL BE GUARANTEED
+    TO APPEAR AT LEAST ONCE.
     """
 
-    display_name = "Tension Items Weight"
+    display_name = "Tension Items Weights"
     range_start = 0
     range_end = 99
     default = filler_weight_range_names["very rare"]
@@ -418,13 +442,22 @@ class FillerTensionWeight(NamedRange):
 
 class FillerSMILEWeight(NamedRange):
     """
-    SMILE
+    DETERMINES HOW OFTEN
+    IT WILL SMILE.
+
+    REGARDLESS OF THIS SETTING,
+    IT WILL BE GUARANTEED
+    TO SMILE AT LEAST ONCE.
+
+    (SMILE only sends you a silly message.)
+    
+    (...Right?)
     """
 
     display_name = "SMILE Weight"
     range_start = 0
     range_end = 99
-    default = filler_weight_range_names["extremly rare"]
+    default = filler_weight_range_names["extremely rare"]
     rich_text_doc = True
     special_range_names = filler_weight_range_names
 

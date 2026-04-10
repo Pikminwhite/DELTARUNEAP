@@ -53,6 +53,15 @@ def update_deathlink_flag(ctx: DeltaruneContext):
         if os.path.exists(os.path.join(ctx.save_game_folder, filename)):
             os.remove(os.path.join(ctx.save_game_folder, filename))
 
+def update_receiving_type(ctx: DeltaruneContext):
+    filename = f"receivingtype.start"
+    if ctx.receivingtype == 1:
+        with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
+            f.close()
+    else:
+        if os.path.exists(os.path.join(ctx.save_game_folder, filename)):
+            os.remove(os.path.join(ctx.save_game_folder, filename))
+
 
 def guess_deltarune_path(path: str | None):
     tempInstall = ""
@@ -66,11 +75,11 @@ def guess_deltarune_path(path: str | None):
                 return tempInstall
 
     if path == "steamdepot":
-        tempInstall = "C:\\Program Files (x86)\\Steam\steamapps\\content\\app_1671210\\depot_1671212"
+        tempInstall = "C:\\Program Files (x86)\\Steam\\steamapps\\content\\app_1671210\\depot_1671212"
         if os.path.exists(tempInstall):
             return tempInstall
         else:
-            tempInstall = "C:\\Program Files\\Steam\steamapps\\content\\app_1671210\\depot_1671212"
+            tempInstall = "C:\\Program Files\\Steam\\steamapps\\content\\app_1671210\\depot_1671212"
             if os.path.exists(tempInstall):
                 return tempInstall
 
@@ -166,13 +175,25 @@ Both gaining and losing recruits have been turned into checks."""
     def _cmd_deathlink(self):
         """Toggles deathlink"""
         if isinstance(self.ctx, DeltaruneContext):
-            self.ctx.deathlink_status = not self.ctx.deathlink_status
-            if self.ctx.deathlink_status:
-                self.output(f"Deathlink enabled.")
+            if self.ctx.chosen_route == 0:
+                self.output(f"Deathlink status unchanged. Try connecting first.")
             else:
-                self.output(f"Deathlink disabled.")
-            update_deathlink_flag(self.ctx)
+                self.ctx.deathlink_status = not self.ctx.deathlink_status
+                if self.ctx.deathlink_status:
+                    self.output(f"Deathlink enabled. Enjoy the fun.")
+                else:
+                    self.output(f"Deathlink disabled. Too difficult for you?")
+                update_deathlink_flag(self.ctx)
 
+    def _cmd_receive_type(self):
+        """Toggles between receiving items at the start of the room or whenever possible.\nShould reduce lag for Linux users."""
+        if isinstance(self.ctx, DeltaruneContext):
+            self.ctx.receivingtype = not self.ctx.receivingtype
+            if self.ctx.receivingtype:
+                self.output(f"Receiving mode set to: Start of the room.")
+            else:
+                self.output(f"Receiving mode set to: Whenever possible.")
+            update_receiving_type(self.ctx)
 
 class DeltaruneContext(SuperContext):
     tags = {"AP"}
@@ -194,6 +215,7 @@ class DeltaruneContext(SuperContext):
     chosen_route = 0
     mandatoryboss = 0
     mandatorymantle = 0
+    receivingtype = 0
     save_game_folder = os.path.expandvars(r"%localappdata%/DELTARUNEAP")
 
     def __init__(self, server_address, password):
@@ -244,6 +266,7 @@ class DeltaruneContext(SuperContext):
             for file in files:
                 if file.endswith((".item", ".mine", ".flag", ".hint")):
                     os.remove(os.path.join(root, file))
+        self.chosen_route = 0
 
     def clear_deltarune_files(self):
         path = self.save_game_folder
@@ -254,6 +277,7 @@ class DeltaruneContext(SuperContext):
                     os.remove(os.path.join(root, file))
                 elif file.endswith((".item", ".victory", ".route", ".mine", ".flag", ".hint", ".complete")):
                     os.remove(os.path.join(root, file))
+        self.chosen_route = 0
 
     # no delete certain files on connect/lost connect, but disconnecting manually and closing the client still deletes all
     async def connect(self, address: typing.Optional[str] = None):
@@ -261,11 +285,11 @@ class DeltaruneContext(SuperContext):
         await super().connect(address)
 
     async def disconnect(self, allow_autoreconnect: bool = False):
-        self.clear_deltarune_files_disconnect()
+        self.clear_deltarune_files()
         await super().disconnect(allow_autoreconnect)
 
     async def connection_closed(self):
-        self.clear_deltarune_files()
+        self.clear_deltarune_files_disconnect()
         await super().connection_closed()
 
     async def shutdown(self):
@@ -280,13 +304,17 @@ class DeltaruneContext(SuperContext):
 
     def make_gui(self):
         ui = super().make_gui()
-        ui.base_title = "Archipelago DELTARUNE Client " + ap_world_version
+        ui.base_title = "Archipelago DELTARUNE Client " + ap_world_version + " - AP version"
         ui.logging_pairs = [("Client", "Archipelago")]
         return ui
-
+    
     def on_deathlink(self, data: typing.Dict[str, typing.Any]):
         self.got_deathlink = True
         super().on_deathlink(data)
+
+    async def version_mismatch(self):
+        DeltaruneCommandProcessor.output(self, f"""*****\nWARNING: Incompatible DELTARUNEAP version. Unable to connect.\n*****""")
+        await super().disconnect(False)
 
 
 async def process_deltarune_cmd(ctx: DeltaruneContext, cmd: str, args: dict):
@@ -320,7 +348,11 @@ async def process_deltarune_cmd(ctx: DeltaruneContext, cmd: str, args: dict):
             ]
         )
 
-        options = args["slot_data"]["options"]
+        try:
+            options = args["slot_data"]["options"]
+        except:
+            await ctx.version_mismatch()
+            return
 
         # flags are files so that i can just do `file_exists("weird_route.route")` in DELTARUNE code
         ctx.chosen_route = options["chosen_route"]
@@ -542,6 +574,9 @@ async def game_watcher(ctx: DeltaruneContext):
                                 sending = sending + [int(l.rstrip("\n"))]
                     finally:
                         await ctx.send_msgs([{"cmd": "LocationChecks", "locations": sending}])
+                if "receivingtype.start" in file:
+                    ctx.receivingtype = 1
+                    update_receiving_type()
                 if "victory" in file:
                     victory = True
                     os.remove(os.path.join(root, file))
