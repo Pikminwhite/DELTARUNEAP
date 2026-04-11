@@ -54,19 +54,20 @@ class ItemIDs(Enum):
     revivemint = 2
     glowshard = 3
     manual = 4
+    brokencake_consumable = 5
     # nothing = 6
     spincake = 7
     darkburger = 8
     lancer_cookie = 9
-    # nothing = 10
+    gigasalad = 10
     clubsandwich = 11
     heartsdonut = 12
     chocdiamond = 13
-    # nothing = 14
+    favsandwich = 14
     rouxlsroux = 15
 
     cd_bagel = 16
-    # nothing = 17
+    mannequin_consumable = 17
     kris_tea = 18
     noelle_tea = 19
     ralsei_tea = 20
@@ -75,12 +76,12 @@ class ItemIDs(Enum):
     lightcandy = 23
     butjuice = 24
     spagetticode = 25
-    # nothing = 26
+    javacookie = 26
     tensionbit = 27
     tensiongem = 28
     tensionmax = 29
     revivedust = 30
-    # nothing = 31
+    revivebrite = 31
     spoison = 32
     dogdollar = 33
     tvdinner = 34
@@ -94,13 +95,6 @@ class ItemIDs(Enum):
     rhapsotea = 61
     scarlixir = 62
     bittertear = 63
-
-    brokencake_consumable = 64
-    gigasalad = 65
-    favsandwich = 66
-    javacookie = 68
-    revivebrite = 69
-    mannequin_consumable = 70
 
     chapter_1_egg = 10002
     brokencake = 10003
@@ -151,6 +145,7 @@ class ItemIDs(Enum):
     pink_ribbon = 20003
     white_ribbon = 20004
     ironshackle = 20005
+    mouse_token = 20006
     jevilstail = 20007
     silver_card = 20008
     twin_ribbon = 20009
@@ -160,6 +155,9 @@ class ItemIDs(Enum):
     spikeband = 20013
     tensionbow = 20015
     mannequin = 20016
+    darkgoldband = 20017
+    skymantle = 20018
+    spikeshackle = 20019
 
     frayedbowtie = 20020
     dealmaker = 20021
@@ -176,25 +174,21 @@ class ItemIDs(Enum):
     princessrbn = 20053
     goldwidow = 20054
 
-    
-    mouse_token = 20055
-    darkgoldband = 20056
-    skymantle = 20057
-    spikeshackle = 20058
-
     progressive_kris_weapons = 30000
     progressive_susie_weapons = 30001
     progressive_ralsei_weapons = 30002
     progressive_noelle_weapons = 30003
-    
+
     spookysword = 30005
     brave_ax = 30006
     devilsknife = 30007
+    trefoil = 30008
     ragger = 30009
     daintyscarf = 30010
+    twistedswd = 30011
     thornring = 30013
     bounceblade = 30014
-    # nothing = 30015
+    cheerscarf = 30015
     mechasaber = 30016
     autoaxe = 30017
     fiberscarf = 30018
@@ -212,10 +206,6 @@ class ItemIDs(Enum):
     justiceaxe = 30052
     wingblade = 30053
     absorbaxe = 30054
-
-    trefoil = 30055
-    cheerscarf = 30056
-    twistedswd = 30057
 
     dark_dollar_1 = 40001
     dark_dollars_20 = 40020

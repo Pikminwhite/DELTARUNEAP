@@ -274,7 +274,6 @@ class DeltaruneWorld(World):
         return self.options.progressive_noelle_weapons.value == 1 and self.include_chapter(2)
 
     def is_unused_items_included(self):
-        return False
         return self.options.include_unused_items.value == 1
 
     # Check if you have at least one chapter that give you access to fusions
