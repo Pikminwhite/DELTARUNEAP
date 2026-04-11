@@ -458,21 +458,21 @@ class DeltaruneWorld(World):
         character: ItemGroups,
     ):
         weapons_character = [name for name, value in every_items.items() if character in value.groups]
+        weapons_character_in_pool = [weapon for weapon in weapons_character if weapon in itempool]
         print(character, weapons_character)
 
         # Remove them from the item pool
-        for weapon in weapons_character:
-            if weapon in itempool:
-                itempool.remove(weapon)
+        for weapon in weapons_character_in_pool:
+            itempool.remove(weapon)
 
         match character:
             case ItemGroups.kris_weapons:
-                itempool += [CCItems.CCItems.progressive_kris_weapons] * len(weapons_character)
+                itempool += [CCItems.CCItems.progressive_kris_weapons] * len(weapons_character_in_pool)
             case ItemGroups.susie_weapons:
-                itempool += [CCItems.CCItems.progressive_susie_weapons] * len(weapons_character)
+                itempool += [CCItems.CCItems.progressive_susie_weapons] * len(weapons_character_in_pool)
             case ItemGroups.ralsei_weapons:
-                itempool += [CCItems.CCItems.progressive_ralsei_weapons] * len(weapons_character)
+                itempool += [CCItems.CCItems.progressive_ralsei_weapons] * len(weapons_character_in_pool)
             case ItemGroups.noelle_weapons:
-                itempool += [CCItems.CCItems.progressive_noelle_weapons] * len(weapons_character)
+                itempool += [CCItems.CCItems.progressive_noelle_weapons] * len(weapons_character_in_pool)
             case _:
                 raise ValueError("Invalid character for progressive weapon")
