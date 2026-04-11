@@ -334,7 +334,7 @@ chapter2_conditional_items = {
         ItemIDs.cheerscarf.value,
         ItemClassification.useful,
         lambda world: world.is_unused_items_included(),
-        [ItemGroups.weapons],
+        [ItemGroups.weapons, ItemGroups.ralsei_weapons],
     ),
 }
 

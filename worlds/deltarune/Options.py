@@ -466,7 +466,7 @@ class ProgressiveKrisWeapons(Toggle):
     Is Kris weapons progressive
     """
 
-    display_name = "Progressive Kris Weapons"
+    display_name = "(COMING SOON) Progressive Kris Weapons"
     default = 0
 
 
@@ -475,7 +475,7 @@ class ProgressiveSusieWeapons(Toggle):
     Is Susie weapons progressive
     """
 
-    display_name = "Progressive Susie Weapons"
+    display_name = "(COMING SOON) Progressive Susie Weapons"
     default = 0
 
 
@@ -484,7 +484,7 @@ class ProgressiveRalseiWeapons(Toggle):
     Is Ralsei weapons progressive
     """
 
-    display_name = "Progressive Ralsei Weapons"
+    display_name = "(COMING SOON) Progressive Ralsei Weapons"
     default = 0
 
 
@@ -493,7 +493,7 @@ class ProgressiveNoelleWeapons(Toggle):
     Is Noelle weapons progressive
     """
 
-    display_name = "Progressive Noelle Weapons"
+    display_name = "(COMING SOON) Progressive Noelle Weapons"
 class IncludeUnusedItems(Toggle):
     """
     Is unused items included

@@ -216,6 +216,7 @@ class DeltaruneContext(SuperContext):
     mandatoryboss = 0
     mandatorymantle = 0
     receivingtype = 0
+    unused_items = 0
     save_game_folder = os.path.expandvars(r"%localappdata%/DELTARUNEAP")
 
     def __init__(self, server_address, password):
@@ -307,7 +308,7 @@ class DeltaruneContext(SuperContext):
         ui.base_title = "Archipelago DELTARUNE Client " + ap_world_version + " - AP version"
         ui.logging_pairs = [("Client", "Archipelago")]
         return ui
-    
+
     def on_deathlink(self, data: typing.Dict[str, typing.Any]):
         self.got_deathlink = True
         super().on_deathlink(data)
@@ -416,6 +417,11 @@ async def process_deltarune_cmd(ctx: DeltaruneContext, cmd: str, args: dict):
             for ss in set(args["checked_locations"]):
                 f.write(str(ss) + "\n")
             f.close()
+        ctx.unused_items = options["include_unused_items"]
+        if ctx.unused_items == 1:
+            filename = f"unused_items.flag"
+            with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
+                f.close()
     elif cmd == "Retrieved":
         # makes completion data
         if str(ctx.slot) + " complete chapter1" in args["keys"]:

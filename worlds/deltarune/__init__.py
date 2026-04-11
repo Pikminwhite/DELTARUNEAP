@@ -147,6 +147,7 @@ class DeltaruneWorld(World):
                 "item_balancing": bool(self.options.item_balancing.value),
                 "include_shadow_mantle": bool(self.options.include_shadow_mantle.value),
                 "randomize_mantle": self.options.randomize_mantle.current_key,
+                "include_unused_items": bool(self.options.include_unused_items.value),
             },
             "world_seed": self.random.getrandbits(32),
             "seed_name": self.multiworld.seed_name,
@@ -247,16 +248,21 @@ class DeltaruneWorld(World):
         return self.options.include_hidden_items.value == 1
 
     def is_kris_weapons_progressive(self):
+        return False
         return self.options.progressive_kris_weapons.value == 1
 
     def is_susie_weapons_progressive(self):
+        return False
         return self.options.progressive_susie_weapons.value == 1
 
     def is_ralsei_weapons_progressive(self):
+        return False
         return self.options.progressive_ralsei_weapons.value == 1
 
     def is_noelle_weapons_progressive(self):
+        return False
         return self.options.progressive_noelle_weapons.value == 1 and self.include_chapter(2)
+
     def is_unused_items_included(self):
         return False
         return self.options.include_unused_items.value == 1

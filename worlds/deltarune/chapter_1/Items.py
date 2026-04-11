@@ -221,7 +221,7 @@ chapter1_conditional_items = {
         ItemIDs.trefoil.value,
         ItemClassification.useful,
         lambda world: world.is_unused_items_included(),
-        [ItemGroups.weapons],
+        [ItemGroups.weapons, ItemGroups.kris_weapons],
     ),
 }
 
