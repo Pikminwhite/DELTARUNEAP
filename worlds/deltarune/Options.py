@@ -499,7 +499,7 @@ class IncludeUnusedItems(Toggle):
     Is unused items included
     """
 
-    display_name = "(COMING SOON) Include Unused Items"
+    display_name = "Include Unused Items"
     default = 0
 
 
