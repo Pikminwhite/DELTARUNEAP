@@ -29,6 +29,11 @@ class Ch2Items(StrEnum):
     butjuice = "ButJuice"
     spagetticode = "SpagettiCode"
     revivedust = "ReviveDust"
+    javacookie = "JavaCookie"
+    revivebrite = "ReviveBrite"
+    mannequin_consumable = "Mannequin (Consumable)"
+
+    darkgoldband = "DarkGoldBand"
 
     spoison = "S.POISON"
     tensionbit = "TensionBit"
@@ -41,6 +46,8 @@ class Ch2Items(StrEnum):
     chainmail = "ChainMail"
     frayedbowtie = "FrayedBowtie"
     bshotbowtie = "B.ShotBowtie"
+    skymantle = "SkyMantle"
+    spikeshackle = "SpikeShackle"
 
     # Weapons
     mechasaber = "MechaSaber"
@@ -49,6 +56,7 @@ class Ch2Items(StrEnum):
     fiberscarf = "FiberScarf"
     ragger2 = "Ragger2"
     puppetscarf = "PuppetScarf"
+    cheerscarf = "CheerScarf"
     brokenswd = "BrokenSwd"
     freezering = "FreezeRing"
     thornring = "ThornRing"
@@ -284,6 +292,49 @@ chapter2_conditional_items = {
     ),
     CCItems.shadowcrystal.value: ConditionalItemData(
         ItemIDs.shadowcrystal.value, ItemClassification.useful, lambda world: world.is_secret_bosses_randomized()
+    ),
+    # Unused Items
+    Ch2Items.javacookie.value: ConditionalItemData(
+        ItemIDs.javacookie.value,
+        ItemClassification.filler,
+        lambda world: world.is_unused_items_included(),
+        [ItemGroups.healing_item],
+    ),
+    Ch2Items.revivebrite.value: ConditionalItemData(
+        ItemIDs.revivebrite.value,
+        ItemClassification.filler,
+        lambda world: world.is_unused_items_included(),
+        [ItemGroups.healing_item],
+    ),
+    Ch2Items.mannequin_consumable.value: ConditionalItemData(
+        ItemIDs.mannequin_consumable.value,
+        ItemClassification.filler,
+        lambda world: world.is_unused_items_included(),
+        [ItemGroups.healing_item],
+    ),
+    Ch2Items.darkgoldband.value: ConditionalItemData(
+        ItemIDs.darkgoldband.value,
+        ItemClassification.filler,
+        lambda world: world.is_unused_items_included(),
+        [ItemGroups.currencies],
+    ),
+    Ch2Items.skymantle.value: ConditionalItemData(
+        ItemIDs.skymantle.value,
+        ItemClassification.useful,
+        lambda world: world.is_unused_items_included(),
+        [ItemGroups.armors],
+    ),
+    Ch2Items.spikeshackle.value: ConditionalItemData(
+        ItemIDs.spikeshackle.value,
+        ItemClassification.useful,
+        lambda world: world.is_unused_items_included(),
+        [ItemGroups.armors],
+    ),
+    Ch2Items.cheerscarf.value: ConditionalItemData(
+        ItemIDs.cheerscarf.value,
+        ItemClassification.useful,
+        lambda world: world.is_unused_items_included(),
+        [ItemGroups.weapons],
     ),
 }
 

@@ -23,16 +23,21 @@ class Ch1Items(StrEnum):
     heartsdonut = "HeartsDonut"
     chocdiamond = "ChocDiamond"
     rouxlsroux = "RouxlsRoux"
+    brokencake_consumable = "BrokenCake (Consumable)"
+    gigasalad = "GigaSalad"
+    favsandwich = "FavSandwich"
 
     # Armors
     dice_brace = "Dice Bracelet"
     ironshackle = "IronShackle"
     jevilstail = "JevilsTail"
-    devilsknife = "Devilsknife"
+    mouse_token = "Mouse Token"
 
     # Weapons
     spookysword = "Spookysword"
+    trefoil = "Trefoil"
     brave_ax = "Brave Ax"
+    devilsknife = "Devilsknife"
     ragger = "Ragger"
     daintyscarf = "DaintyScarf"
 
@@ -186,6 +191,37 @@ chapter1_conditional_items = {
         lambda world: world.is_final_chapter(1),
         [ItemGroups.region_blockers],
         amount=0,
+    ),
+    # Unused Items
+    Ch1Items.brokencake_consumable.value: ConditionalItemData(
+        ItemIDs.brokencake_consumable.value,
+        ItemClassification.filler,
+        lambda world: world.is_unused_items_included(),
+        [ItemGroups.healing_item],
+    ),
+    Ch1Items.gigasalad.value: ConditionalItemData(
+        ItemIDs.gigasalad.value,
+        ItemClassification.filler,
+        lambda world: world.is_unused_items_included(),
+        [ItemGroups.healing_item],
+    ),
+    Ch1Items.favsandwich.value: ConditionalItemData(
+        ItemIDs.favsandwich.value,
+        ItemClassification.filler,
+        lambda world: world.is_unused_items_included(),
+        [ItemGroups.healing_item],
+    ),
+    Ch1Items.mouse_token.value: ConditionalItemData(
+        ItemIDs.mouse_token.value,
+        ItemClassification.useful,
+        lambda world: world.is_unused_items_included(),
+        [ItemGroups.armors],
+    ),
+    Ch1Items.trefoil.value: ConditionalItemData(
+        ItemIDs.trefoil.value,
+        ItemClassification.useful,
+        lambda world: world.is_unused_items_included(),
+        [ItemGroups.weapons],
     ),
 }
 

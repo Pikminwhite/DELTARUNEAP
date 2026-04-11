@@ -363,25 +363,6 @@ class Accessibility(Choice):
 filler_weight_range_names = {"common": 50, "uncommon": 25, "rare": 10, "very rare": 5, "extremely rare": 1}
 
 
-class FillerCurrencyWeight(NamedRange):
-    """
-    DETERMINES HOW OFTEN
-    ALL CURRENCIES WILL APPEAR
-    COMPARED TO OTHERS ITEMS.
-
-    REGARDLESS OF THIS SETTING,
-    EACH AMOUNT WILL BE GUARANTEED
-    TO APPEAR AT LEAST ONCE.
-    """
-
-    display_name = "Currency Weights"
-    range_start = 0
-    range_end = 99
-    default = filler_weight_range_names["uncommon"]
-    rich_text_doc = True
-    special_range_names = filler_weight_range_names
-
-
 class FillerHealingWeight(NamedRange):
     """
     DETERMINES HOW OFTEN
@@ -397,6 +378,25 @@ class FillerHealingWeight(NamedRange):
     range_start = 0
     range_end = 99
     default = filler_weight_range_names["common"]
+    rich_text_doc = True
+    special_range_names = filler_weight_range_names
+
+
+class FillerCurrencyWeight(NamedRange):
+    """
+    DETERMINES HOW OFTEN
+    ALL CURRENCIES WILL APPEAR
+    COMPARED TO OTHERS ITEMS.
+
+    REGARDLESS OF THIS SETTING,
+    EACH AMOUNT WILL BE GUARANTEED
+    TO APPEAR AT LEAST ONCE.
+    """
+
+    display_name = "Currency Weights"
+    range_start = 0
+    range_end = 99
+    default = filler_weight_range_names["uncommon"]
     rich_text_doc = True
     special_range_names = filler_weight_range_names
 
@@ -494,6 +494,12 @@ class ProgressiveNoelleWeapons(Toggle):
     """
 
     display_name = "Progressive Noelle Weapons"
+class IncludeUnusedItems(Toggle):
+    """
+    Is unused items included
+    """
+
+    display_name = "(COMING SOON) Include Unused Items"
     default = 0
 
 
@@ -501,7 +507,7 @@ deltarune_option_groups = [
     OptionGroup("Chapters", [RandomizeChapters, IncludeChapter1, IncludeChapter2, IncludeChapter3, IncludeChapter4]),
     OptionGroup(
         "Fillers",
-        [FillerCurrencyWeight, FillerHealingWeight, FillerArmorWeight, FillerTensionWeight, FillerSMILEWeight],
+        [FillerHealingWeight, FillerCurrencyWeight, FillerArmorWeight, FillerTensionWeight, FillerSMILEWeight],
     ),
     OptionGroup("Goal", [ChosenRoute, GoalMacGuffinAmount, RandomizeSecretBosses, RandomizeMANTLE]),
     OptionGroup(
@@ -509,6 +515,7 @@ deltarune_option_groups = [
         [
             IncludeShadowMantle,
             IncludeHiddenItems,
+            IncludeUnusedItems,
             ProgressiveKrisWeapons,
             ProgressiveSusieWeapons,
             ProgressiveRalseiWeapons,
@@ -536,9 +543,10 @@ class DeltaruneOptions(PerGameCommonOptions):
     include_shadow_mantle: IncludeShadowMantle
     include_t_rank: IncludeTRank
     include_hidden_items: IncludeHiddenItems
+    include_unused_items: IncludeUnusedItems
     death_link: DeathLink
-    filler_currency_weight: FillerCurrencyWeight
     filler_healing_weight: FillerHealingWeight
+    filler_currency_weight: FillerCurrencyWeight
     filler_armor_weight: FillerArmorWeight
     filler_tension_weight: FillerTensionWeight
     filler_smile_weight: FillerSMILEWeight
