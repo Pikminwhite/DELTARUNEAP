@@ -17,6 +17,7 @@ from .Locations import LocationData, ConditionalLocationData, get_location_group
 from BaseClasses import ItemClassification, Tutorial
 from .Options import (
     DeltaruneOptions,
+    IncludeMikeOptions,
     RandomizeChapterOptions,
     ChosenRouteOptions,
     RandomizeSecretBossesOptions,
@@ -148,6 +149,7 @@ class DeltaruneWorld(World):
                 "include_shadow_mantle": bool(self.options.include_shadow_mantle.value),
                 "randomize_mantle": self.options.randomize_mantle.current_key,
                 "include_unused_items": bool(self.options.include_unused_items.value),
+                "include_mike": bool(self.options.include_mike.value),
             },
             "world_seed": self.random.getrandbits(32),
             "seed_name": self.multiworld.seed_name,
@@ -246,6 +248,14 @@ class DeltaruneWorld(World):
 
     def is_hidden_items_randomized(self):
         return self.options.include_hidden_items.value == 1
+
+    def is_mike_battle_included(self):
+        return False
+        return self.options.include_mike.value == IncludeMikeOptions.battle_only or self.is_mike_games_included()
+
+    def is_mike_games_included(self):
+        return False
+        return self.options.include_mike.value == IncludeMikeOptions.battle_and_games
 
     def is_kris_weapons_progressive(self):
         return False

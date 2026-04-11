@@ -68,6 +68,21 @@ class Ch4Locations(StrEnum):
     lost_wingblade = "CH4: Lost Wingblade"
     lost_organikk = "CH4: Lost Organikk"
 
+    # Mike Room
+    mike_defeat = "CH4: Mike - Defeat Mike"
+    mike_battat_bronze = "CH4: Mike - Battat (Bronze Rank)"
+    mike_battat_silver = "CH4: Mike - Battat (Silver Rank)"
+    mike_battat_gold = "CH4: Mike - Battat (Gold Rank)"
+    mike_battat_platinum = "CH4: Mike - Battat (Platinum Rank)"
+    mike_jongler_bronze = "CH4: Mike - Jongler (Bronze Rank)"
+    mike_jongler_silver = "CH4: Mike - Jongler (Silver Rank)"
+    mike_jongler_gold = "CH4: Mike - Jongler (Gold Rank)"
+    mike_jongler_platinum = "CH4: Mike - Jongler (Platinum Rank)"
+    mike_pluey_bronze = "CH4: Mike - Pluey (Bronze Rank)"
+    mike_pluey_silver = "CH4: Mike - Pluey (Silver Rank)"
+    mike_pluey_gold = "CH4: Mike - Pluey (Gold Rank)"
+    mike_pluey_platinum = "CH4: Mike - Pluey (Platinum Rank)"
+
 
 class Ch4Regions(StrEnum):
     chapter_4 = "Chapter 4"
@@ -78,6 +93,7 @@ class Ch4Regions(StrEnum):
     third_sanctuary = "CH4: Third Sanctuary"
     titan_fight = "CH4: Titan Fight"
     light_world = "CH4: Light World"
+    mike_room = "CH4: Mike Room"
 
 
 class Ch4Entrances(StrEnum):
@@ -89,6 +105,7 @@ class Ch4Entrances(StrEnum):
     third_sanctuary_entrance = "CH4: Third Sanctuary Entrance"
     titan_fight_entrance = "CH4: Titan Fight Entrance"
     light_world_entrance = "CH4: Light World Entrance"
+    mike_room_entrance = "CH4: Mike Room Entrance"
 
 
 chapter4_end_region = Ch4Regions.light_world.value
@@ -332,10 +349,93 @@ chapter4_conditional_locations = {
         lambda world: world.is_weird_route(),
         LocationGroups.chapter4.value,
     ),
+    # Mike
+    Ch4Locations.mike_defeat.value: ConditionalLocationData(
+        LocationIDs.ch4_mike_defeat.value,
+        Ch4Regions.mike_room,
+        lambda world: world.is_mike_battle_included(),
+        LocationGroups.chapter4.value,
+    ),
+    Ch4Locations.mike_battat_bronze.value: ConditionalLocationData(
+        LocationIDs.ch4_mike_battat_bronze.value,
+        Ch4Regions.mike_room,
+        lambda world: world.is_mike_games_included(),
+        LocationGroups.chapter4.value,
+    ),
+    Ch4Locations.mike_battat_silver.value: ConditionalLocationData(
+        LocationIDs.ch4_mike_battat_silver.value,
+        Ch4Regions.mike_room,
+        lambda world: world.is_mike_games_included(),
+        LocationGroups.chapter4.value,
+    ),
+    Ch4Locations.mike_battat_gold.value: ConditionalLocationData(
+        LocationIDs.ch4_mike_battat_gold.value,
+        Ch4Regions.mike_room,
+        lambda world: world.is_mike_games_included(),
+        LocationGroups.chapter4.value,
+    ),
+    Ch4Locations.mike_battat_platinum.value: ConditionalLocationData(
+        LocationIDs.ch4_mike_battat_platinum.value,
+        Ch4Regions.mike_room,
+        lambda world: world.is_mike_games_included(),
+        LocationGroups.chapter4.value,
+    ),
+    Ch4Locations.mike_jongler_bronze.value: ConditionalLocationData(
+        LocationIDs.ch4_mike_jongler_bronze.value,
+        Ch4Regions.mike_room,
+        lambda world: world.is_mike_games_included(),
+        LocationGroups.chapter4.value,
+    ),
+    Ch4Locations.mike_jongler_silver.value: ConditionalLocationData(
+        LocationIDs.ch4_mike_jongler_silver.value,
+        Ch4Regions.mike_room,
+        lambda world: world.is_mike_games_included(),
+        LocationGroups.chapter4.value,
+    ),
+    Ch4Locations.mike_jongler_gold.value: ConditionalLocationData(
+        LocationIDs.ch4_mike_jongler_gold.value,
+        Ch4Regions.mike_room,
+        lambda world: world.is_mike_games_included(),
+        LocationGroups.chapter4.value,
+    ),
+    Ch4Locations.mike_jongler_platinum.value: ConditionalLocationData(
+        LocationIDs.ch4_mike_jongler_platinum.value,
+        Ch4Regions.mike_room,
+        lambda world: world.is_mike_games_included(),
+        LocationGroups.chapter4.value,
+    ),
+    Ch4Locations.mike_pluey_bronze.value: ConditionalLocationData(
+        LocationIDs.ch4_mike_pluey_bronze.value,
+        Ch4Regions.mike_room,
+        lambda world: world.is_mike_games_included(),
+        LocationGroups.chapter4.value,
+    ),
+    Ch4Locations.mike_pluey_silver.value: ConditionalLocationData(
+        LocationIDs.ch4_mike_pluey_silver.value,
+        Ch4Regions.mike_room,
+        lambda world: world.is_mike_games_included(),
+        LocationGroups.chapter4.value,
+    ),
+    Ch4Locations.mike_pluey_gold.value: ConditionalLocationData(
+        LocationIDs.ch4_mike_pluey_gold.value,
+        Ch4Regions.mike_room,
+        lambda world: world.is_mike_games_included(),
+        LocationGroups.chapter4.value,
+    ),
+    Ch4Locations.mike_pluey_platinum.value: ConditionalLocationData(
+        LocationIDs.ch4_mike_pluey_platinum.value,
+        Ch4Regions.mike_room,
+        lambda world: world.is_mike_games_included(),
+        LocationGroups.chapter4.value,
+    ),
 }
 
 chapter4_regions = [
-    (Ch4Regions.chapter_4.value, [Ch4Entrances.castle_town_entrance.value, Ch4Entrances.fusion_access_entrance]),
+    (
+        Ch4Regions.chapter_4.value,
+        [Ch4Entrances.castle_town_entrance.value, Ch4Entrances.fusion_access_entrance, Ch4Entrances.mike_room_entrance],
+    ),
+    (Ch4Regions.mike_room.value, []),
     (Ch4Regions.castle_town.value, [Ch4Entrances.dark_sanctuary_entrance.value]),
     (Ch4Regions.dark_sanctuary.value, [Ch4Entrances.dark_sanctuary_claimbclaws_entrance.value]),
     (Ch4Regions.dark_sanctuary_claimbclaws.value, [Ch4Entrances.second_sanctuary_entrance.value]),
@@ -348,6 +448,7 @@ chapter4_regions = [
 chapter4_mandatory_connections = [
     (Ch4Entrances.castle_town_entrance.value, Ch4Regions.castle_town.value),
     (Ch4Entrances.fusion_access_entrance.value, fusion_access_region),
+    (Ch4Entrances.mike_room_entrance.value, Ch4Regions.mike_room.value),
     (Ch4Entrances.dark_sanctuary_entrance.value, Ch4Regions.dark_sanctuary.value),
     (Ch4Entrances.dark_sanctuary_claimbclaws_entrance.value, Ch4Regions.dark_sanctuary_claimbclaws.value),
     (Ch4Entrances.second_sanctuary_entrance.value, Ch4Regions.second_sanctuary.value),

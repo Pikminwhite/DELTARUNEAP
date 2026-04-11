@@ -265,6 +265,20 @@ class LocationIDs(Enum):
     ch2_cyber_field_teacup_ride_checkmark = 229
     ch2_cyber_field_giasfelfebrehber_checkmark = 230
 
+    ch4_mike_defeat = 231
+    ch4_mike_battat_bronze = 232
+    ch4_mike_battat_silver = 233
+    ch4_mike_battat_gold = 234
+    ch4_mike_battat_platinum = 235
+    ch4_mike_jongler_bronze = 236
+    ch4_mike_jongler_silver = 237
+    ch4_mike_jongler_gold = 238
+    ch4_mike_jongler_platinum = 239
+    ch4_mike_pluey_bronze = 240
+    ch4_mike_pluey_silver = 241
+    ch4_mike_pluey_gold = 242
+    ch4_mike_pluey_platinum = 243
+
     ch2_lost_werewire = 1049
     ch2_lost_tasque = 1054
     ch2_lost_virovirokun = 1055

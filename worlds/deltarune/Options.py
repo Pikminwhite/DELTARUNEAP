@@ -503,6 +503,24 @@ class IncludeUnusedItems(Toggle):
     default = 0
 
 
+class IncludeMike(Choice):
+    """
+    Is Mike Battle and games included
+    """
+
+    display_name = "(COMING SOON) Include Mike"
+    option_false = 0
+    option_battle_only = 1
+    option_battle_and_games = 2
+    default = option_false
+
+
+class IncludeMikeOptions(StrEnum):
+    false = "false"
+    battle_only = "battle_only"
+    battle_and_games = "battle_and_games"
+
+
 deltarune_option_groups = [
     OptionGroup("Chapters", [RandomizeChapters, IncludeChapter1, IncludeChapter2, IncludeChapter3, IncludeChapter4]),
     OptionGroup(
@@ -522,7 +540,7 @@ deltarune_option_groups = [
             ProgressiveNoelleWeapons,
         ],
     ),
-    OptionGroup("Locations", [IncludeTRank]),
+    OptionGroup("Locations", [IncludeTRank, IncludeMike]),
 ]
 
 
@@ -554,5 +572,6 @@ class DeltaruneOptions(PerGameCommonOptions):
     progressive_susie_weapons: ProgressiveSusieWeapons
     progressive_ralsei_weapons: ProgressiveRalseiWeapons
     progressive_noelle_weapons: ProgressiveNoelleWeapons
+    include_mike: IncludeMike
 
 #    include_traps: IncludeTraps
