@@ -462,6 +462,15 @@ class FillerSMILEWeight(NamedRange):
     special_range_names = filler_weight_range_names
 
 
+class IncludeUnusedItems(Toggle):
+    """
+    Is unused items included
+    """
+
+    display_name = "(COMING SOON) Include Unused Items"
+    default = 0
+
+
 deltarune_option_groups = [
     OptionGroup("Chapters", [RandomizeChapters, IncludeChapter1, IncludeChapter2, IncludeChapter3, IncludeChapter4]),
     OptionGroup(
@@ -469,7 +478,7 @@ deltarune_option_groups = [
         [FillerHealingWeight, FillerCurrencyWeight, FillerArmorWeight, FillerTensionWeight, FillerSMILEWeight],
     ),
     OptionGroup("Goal", [ChosenRoute, GoalMacGuffinAmount, RandomizeSecretBosses, RandomizeMANTLE]),
-    OptionGroup("Items", [IncludeShadowMantle, IncludeHiddenItems]),
+    OptionGroup("Items", [IncludeShadowMantle, IncludeHiddenItems, IncludeUnusedItems]),
     OptionGroup("Locations", [IncludeTRank]),
 ]
 
@@ -491,6 +500,7 @@ class DeltaruneOptions(PerGameCommonOptions):
     include_shadow_mantle: IncludeShadowMantle
     include_t_rank: IncludeTRank
     include_hidden_items: IncludeHiddenItems
+    include_unused_items: IncludeUnusedItems
     death_link: DeathLink
     filler_healing_weight: FillerHealingWeight
     filler_currency_weight: FillerCurrencyWeight

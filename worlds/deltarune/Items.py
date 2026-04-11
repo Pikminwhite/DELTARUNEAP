@@ -89,6 +89,13 @@ class ItemIDs(Enum):
     scarlixir = 62
     bittertear = 63
 
+    brokencake_consumable = 64
+    gigasalad = 65
+    favsandwich = 66
+    javacookie = 68
+    revivebrite = 69
+    mannequin_consumable = 70
+
     chapter_1_egg = 10002
     brokencake = 10003
     broken_key_a = 10004
@@ -131,6 +138,8 @@ class ItemIDs(Enum):
     sacred_moss = 11020
     chapter_4_egg = 11021
 
+    purecrystal = 11022
+
     amber_card = 20001
     dice_brace = 20002
     pink_ribbon = 20003
@@ -161,6 +170,11 @@ class ItemIDs(Enum):
     princessrbn = 20053
     goldwidow = 20054
 
+    mouse_token = 20055
+    darkgoldband = 20056
+    skymantle = 20057
+    spikeshackle = 20058
+
     spookysword = 30005
     brave_ax = 30006
     devilsknife = 30007
@@ -186,6 +200,10 @@ class ItemIDs(Enum):
     justiceaxe = 30052
     wingblade = 30053
     absorbaxe = 30054
+
+    trefoil = 30055
+    cheerscarf = 30056
+    twistedswd = 30057
 
     dark_dollar_1 = 40001
     dark_dollars_20 = 40020

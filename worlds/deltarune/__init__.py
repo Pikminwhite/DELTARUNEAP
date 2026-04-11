@@ -245,6 +245,10 @@ class DeltaruneWorld(World):
     def is_hidden_items_randomized(self):
         return self.options.include_hidden_items.value == 1
 
+    def is_unused_items_included(self):
+        return False
+        return self.options.include_unused_items.value == 1
+
     # Check if you have at least one chapter that give you access to fusions
     def can_access_fusion(self) -> bool:
         result = self.has_at_least_one_chapter_included(fusion_access_chapter)
