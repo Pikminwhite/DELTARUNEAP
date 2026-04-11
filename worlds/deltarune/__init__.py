@@ -426,7 +426,7 @@ class DeltaruneWorld(World):
     def handle_item_unfill_and_overflows(self, item_pool: list[DeltaruneItem]):
         # Remove random junk items if the item pool overflows
         if len(item_pool) > len(self.multiworld.get_unfilled_locations(self.player)):
-            print(len(item_pool) - len(self.multiworld.get_unfilled_locations(self.player)))
+            print(f"Item pool overflow: {len(item_pool) - len(self.multiworld.get_unfilled_locations(self.player))}")
             while len(item_pool) > len(self.multiworld.get_unfilled_locations(self.player)):
                 item_pool.remove(
                     self.random.choice([item for item in item_pool if item.classification == ItemClassification.filler])
@@ -459,7 +459,6 @@ class DeltaruneWorld(World):
     ):
         weapons_character = [name for name, value in every_items.items() if character in value.groups]
         weapons_character_in_pool = [weapon for weapon in weapons_character if weapon in itempool]
-        print(character, weapons_character)
 
         # Remove them from the item pool
         for weapon in weapons_character_in_pool:
