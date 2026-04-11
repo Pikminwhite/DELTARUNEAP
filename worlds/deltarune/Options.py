@@ -217,7 +217,6 @@ class ItemBalancing(Toggle):
     display_name = "ItemBalancing"
     default = 0
 
-
 class IncludeHiddenItems(Toggle):
     """
     RANDOMIZES ITEMS
@@ -462,6 +461,39 @@ class FillerSMILEWeight(NamedRange):
     special_range_names = filler_weight_range_names
 
 
+class ProgressiveKrisWeapons(Toggle):
+    """
+    Is Kris weapons progressive
+    """
+
+    display_name = "(COMING SOON) Progressive Kris Weapons"
+    default = 0
+
+
+class ProgressiveSusieWeapons(Toggle):
+    """
+    Is Susie weapons progressive
+    """
+
+    display_name = "(COMING SOON) Progressive Susie Weapons"
+    default = 0
+
+
+class ProgressiveRalseiWeapons(Toggle):
+    """
+    Is Ralsei weapons progressive
+    """
+
+    display_name = "(COMING SOON) Progressive Ralsei Weapons"
+    default = 0
+
+
+class ProgressiveNoelleWeapons(Toggle):
+    """
+    Is Noelle weapons progressive
+    """
+
+    display_name = "(COMING SOON) Progressive Noelle Weapons"
 class IncludeUnusedItems(Toggle):
     """
     Is unused items included
@@ -478,7 +510,18 @@ deltarune_option_groups = [
         [FillerHealingWeight, FillerCurrencyWeight, FillerArmorWeight, FillerTensionWeight, FillerSMILEWeight],
     ),
     OptionGroup("Goal", [ChosenRoute, GoalMacGuffinAmount, RandomizeSecretBosses, RandomizeMANTLE]),
-    OptionGroup("Items", [IncludeShadowMantle, IncludeHiddenItems, IncludeUnusedItems]),
+    OptionGroup(
+        "Items",
+        [
+            IncludeShadowMantle,
+            IncludeHiddenItems,
+            IncludeUnusedItems,
+            ProgressiveKrisWeapons,
+            ProgressiveSusieWeapons,
+            ProgressiveRalseiWeapons,
+            ProgressiveNoelleWeapons,
+        ],
+    ),
     OptionGroup("Locations", [IncludeTRank]),
 ]
 
@@ -507,6 +550,9 @@ class DeltaruneOptions(PerGameCommonOptions):
     filler_armor_weight: FillerArmorWeight
     filler_tension_weight: FillerTensionWeight
     filler_smile_weight: FillerSMILEWeight
-
+    progressive_kris_weapons: ProgressiveKrisWeapons
+    progressive_susie_weapons: ProgressiveSusieWeapons
+    progressive_ralsei_weapons: ProgressiveRalseiWeapons
+    progressive_noelle_weapons: ProgressiveNoelleWeapons
 
 #    include_traps: IncludeTraps

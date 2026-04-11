@@ -6,12 +6,17 @@ if TYPE_CHECKING:
     from . import DeltaruneWorld, DeltaruneOptions
 
 glitched_item_name = "Deltarune is an episodic role-playing video game by American indie developer Toby Fox."
+progressive_weapon_name = "Progressive Weapon"
 
 class ItemGroups(StrEnum):
     healing_item = "Healing Items"
     fusion_ingredient = "Fusion Ingredients"
     armors = "Armors"
     weapons = "Weapons"
+    kris_weapons = "Kris Weapons"
+    susie_weapons = "Susie Weapons"
+    ralsei_weapons = "Ralsei Weapons"
+    noelle_weapons = "Noelle Weapons"
     eggs = "Eggs"
     currencies = "Currencies"
     region_blockers = "Story Blockers"
@@ -41,6 +46,7 @@ class DeltaruneItem(Item):
 
 
 class ItemIDs(Enum):
+    progressive_weapon = -2
     # UT Integration
     glitched_item = -1
 
@@ -170,11 +176,17 @@ class ItemIDs(Enum):
     princessrbn = 20053
     goldwidow = 20054
 
+    
     mouse_token = 20055
     darkgoldband = 20056
     skymantle = 20057
     spikeshackle = 20058
 
+    progressive_kris_weapons = 30000
+    progressive_susie_weapons = 30001
+    progressive_ralsei_weapons = 30002
+    progressive_noelle_weapons = 30003
+    
     spookysword = 30005
     brave_ax = 30006
     devilsknife = 30007

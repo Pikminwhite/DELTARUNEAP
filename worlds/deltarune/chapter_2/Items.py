@@ -93,11 +93,21 @@ chapter2_items = {
     Ch2Items.joe_life_savings.value: ItemData(
         ItemIDs.joe_life_savings.value, ItemClassification.useful, [ItemGroups.currencies]
     ),
-    Ch2Items.mechasaber.value: ItemData(ItemIDs.mechasaber.value, ItemClassification.useful, [ItemGroups.weapons]),
-    Ch2Items.autoaxe.value: ItemData(ItemIDs.autoaxe.value, ItemClassification.useful, [ItemGroups.weapons]),
-    Ch2Items.fiberscarf.value: ItemData(ItemIDs.fiberscarf.value, ItemClassification.useful, [ItemGroups.weapons]),
-    Ch2Items.ragger2.value: ItemData(ItemIDs.ragger2.value, ItemClassification.useful, [ItemGroups.weapons]),
-    Ch2Items.bounceblade.value: ItemData(ItemIDs.bounceblade.value, ItemClassification.useful, [ItemGroups.weapons]),
+    Ch2Items.mechasaber.value: ItemData(
+        ItemIDs.mechasaber.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.kris_weapons]
+    ),
+    Ch2Items.autoaxe.value: ItemData(
+        ItemIDs.autoaxe.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.susie_weapons]
+    ),
+    Ch2Items.fiberscarf.value: ItemData(
+        ItemIDs.fiberscarf.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.ralsei_weapons]
+    ),
+    Ch2Items.ragger2.value: ItemData(
+        ItemIDs.ragger2.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.ralsei_weapons]
+    ),
+    Ch2Items.bounceblade.value: ItemData(
+        ItemIDs.bounceblade.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.kris_weapons]
+    ),
     Ch2Items.mannequin.value: ItemData(ItemIDs.mannequin.value, ItemClassification.useful, [ItemGroups.armors]),
     # Noelle royal pin
     Ch2Items.royalpin.value: ItemData(ItemIDs.royalpin.value, ItemClassification.useful, [ItemGroups.armors]),
@@ -230,13 +240,16 @@ chapter2_conditional_items = {
     ),
     # Weird route
     Ch2Items.freezering.value: ConditionalItemData(
-        ItemIDs.freezering.value, ItemClassification.useful, lambda world: world.is_weird_route(), [ItemGroups.weapons]
+        ItemIDs.freezering.value,
+        ItemClassification.useful,
+        lambda world: world.is_weird_route(),
+        [ItemGroups.weapons, ItemGroups.noelle_weapons],
     ),
     Ch2Items.thornring.value: ConditionalItemData(
         ItemIDs.thornring.value,
         ItemClassification.progression | ItemClassification.useful,
         lambda world: world.is_weird_route(),
-        [ItemGroups.weapons],
+        [ItemGroups.weapons, ItemGroups.noelle_weapons],
     ),
     Ch2Items.chapter_2_unlock.value: ConditionalItemData(
         ItemIDs.chapter_2_unlock.value,
@@ -275,7 +288,7 @@ chapter2_conditional_items = {
         ItemIDs.puppetscarf.value,
         ItemClassification.useful,
         lambda world: world.is_secret_bosses_randomized(),
-        [ItemGroups.weapons],
+        [ItemGroups.weapons, ItemGroups.ralsei_weapons],
     ),
     CCItems.shadowcrystal.value: ConditionalItemData(
         ItemIDs.shadowcrystal.value, ItemClassification.useful, lambda world: world.is_secret_bosses_randomized()
@@ -321,7 +334,7 @@ chapter2_conditional_items = {
         ItemIDs.cheerscarf.value,
         ItemClassification.useful,
         lambda world: world.is_unused_items_included(),
-        [ItemGroups.weapons],
+        [ItemGroups.weapons, ItemGroups.ralsei_weapons],
     ),
 }
 

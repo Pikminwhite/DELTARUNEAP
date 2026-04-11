@@ -34,6 +34,10 @@ class CCItems(StrEnum):
     dark_dollars_500 = "500 Dark Dollars"
 
     # Weapons
+    progressive_kris_weapons = "Progressive Kris Weapons"
+    progressive_susie_weapons = "Progressive Susie Weapons"
+    progressive_ralsei_weapons = "Progressive Ralsei Weapons"
+    progressive_noelle_weapons = "Progressive Noelle Weapons"
 
     # Armors
     amber_card = "Amber Card"
@@ -112,6 +116,35 @@ cross_chapter_conditional_items = {
         ItemClassification.useful,
         lambda world: world.can_access_fusion() and world.include_chapter(2) and not world.is_weird_route(),
         [ItemGroups.tension_items, ItemGroups.armors],
+    ),
+    # Progressive weapons
+    CCItems.progressive_kris_weapons.value: ConditionalItemData(
+        ItemIDs.progressive_kris_weapons.value,
+        ItemClassification.useful,
+        lambda world: world.is_kris_weapons_progressive(),
+        [ItemGroups.weapons],
+        0,
+    ),
+    CCItems.progressive_susie_weapons.value: ConditionalItemData(
+        ItemIDs.progressive_susie_weapons.value,
+        ItemClassification.useful,
+        lambda world: world.is_susie_weapons_progressive(),
+        [ItemGroups.weapons],
+        0,
+    ),
+    CCItems.progressive_ralsei_weapons.value: ConditionalItemData(
+        ItemIDs.progressive_ralsei_weapons.value,
+        ItemClassification.useful,
+        lambda world: world.is_ralsei_weapons_progressive(),
+        [ItemGroups.weapons],
+        0,
+    ),
+    CCItems.progressive_noelle_weapons.value: ConditionalItemData(
+        ItemIDs.progressive_noelle_weapons.value,
+        ItemClassification.progression | ItemClassification.useful,
+        lambda world: world.include_chapter(2) and world.is_noelle_weapons_progressive(),
+        [ItemGroups.weapons],
+        0,
     ),
 }
 
