@@ -314,7 +314,8 @@ class DeltaruneContext(SuperContext):
         super().on_deathlink(data)
 
     async def version_mismatch(self):
-        DeltaruneCommandProcessor.output(self, f"""*****\nWARNING: Incompatible DELTARUNEAP version. Unable to connect.\n*****""")
+        DeltaruneCommandProcessor.output(self, 
+            """*****\nWARNING: Incompatible DELTARUNEAP version. Unable to connect.\n*****""")
         await super().disconnect(False)
 
     async def invalid_file_directory(self):
@@ -593,7 +594,7 @@ async def game_watcher(ctx: DeltaruneContext):
                         await ctx.send_msgs([{"cmd": "LocationChecks", "locations": sending}])
                 if "receivingtype.start" in file:
                     ctx.receivingtype = 1
-                    update_receiving_type()
+                    update_receiving_type(ctx)
                 if "victory" in file:
                     victory = True
                     os.remove(os.path.join(root, file))
