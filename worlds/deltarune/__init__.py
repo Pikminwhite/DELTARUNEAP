@@ -326,7 +326,7 @@ class DeltaruneWorld(World):
         return -1
 
     def is_t_rank_included(self):
-        return self.options.include_t_rank.value == IncludeTRankOptions.true
+        return self.options.include_t_rank.value == IncludeTRankOptions.true or self.is_t_rank_excluded_from_logic()
 
     def is_t_rank_excluded_from_logic(self):
         return self.options.include_t_rank.value == IncludeTRankOptions.excluded_from_logic
