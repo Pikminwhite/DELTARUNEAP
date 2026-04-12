@@ -317,11 +317,22 @@ class DeltaruneContext(SuperContext):
         DeltaruneCommandProcessor.output(self, f"""*****\nWARNING: Incompatible DELTARUNEAP version. Unable to connect.\n*****""")
         await super().disconnect(False)
 
+    async def invalid_file_directory(self):
+        DeltaruneCommandProcessor.output(self,
+            """*****\nWARNING: No file directory matches the current save path of """ +
+            self.save_game_folder + """\nChange the save path with the /savepath command.\n*****""")
+        await super().disconnect(False)
 
 async def process_deltarune_cmd(ctx: DeltaruneContext, cmd: str, args: dict):
     if cmd == "Connected":
-        if not os.path.exists(ctx.save_game_folder):
-            os.mkdir(os.path.join(ctx.save_game_folder))  # Umm idk how this works but it does so you know... no touchie
+        try:
+            if not os.path.exists(ctx.save_game_folder):
+                os.mkdir(os.path.join(ctx.save_game_folder))
+        except:        
+            await ctx.invalid_file_directory()
+            return
+            
+        # Umm idk how this works but it does so you know... no touchie
         await ctx.send_msgs(
             [
                 {
