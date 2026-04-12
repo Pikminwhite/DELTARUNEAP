@@ -157,7 +157,7 @@ cross_chapter_conditional_items = {
         and world.include_chapter(2)
         and world.is_unused_items_included()
         and world.is_weird_route(),
-        [ItemGroups.weapons, ItemGroups.kris_weapons],
+        [ItemGroups.weapons, ItemGroups.kris_weapons, ItemGroups.unused_items],
     ),
     CCItems.purecrystal.value: ConditionalItemData(
         ItemIDs.purecrystal.value,
@@ -166,7 +166,7 @@ cross_chapter_conditional_items = {
         and world.include_chapter(2)
         and world.is_unused_items_included()
         and world.is_weird_route(),
-        [ItemGroups.fusion_ingredient],
+        [ItemGroups.fusion_ingredient, ItemGroups.unused_items],
     ),
     CCItems.everybodyweapon.value: ConditionalItemData(
         ItemIDs.everybodyweapon.value,
@@ -178,6 +178,7 @@ cross_chapter_conditional_items = {
             ItemGroups.susie_weapons,
             ItemGroups.ralsei_weapons,
             ItemGroups.noelle_weapons,
+            ItemGroups.unused_items,
         ],
         amount=4,
     ),

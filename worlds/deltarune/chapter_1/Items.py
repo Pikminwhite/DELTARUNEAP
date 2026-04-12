@@ -197,31 +197,31 @@ chapter1_conditional_items = {
         ItemIDs.brokencake_consumable.value,
         ItemClassification.filler,
         lambda world: world.is_unused_items_included(),
-        [ItemGroups.healing_item],
+        [ItemGroups.healing_item, ItemGroups.unused_items],
     ),
     Ch1Items.gigasalad.value: ConditionalItemData(
         ItemIDs.gigasalad.value,
         ItemClassification.filler,
         lambda world: world.is_unused_items_included(),
-        [ItemGroups.healing_item],
+        [ItemGroups.healing_item, ItemGroups.unused_items],
     ),
     Ch1Items.favsandwich.value: ConditionalItemData(
         ItemIDs.favsandwich.value,
         ItemClassification.filler,
         lambda world: world.is_unused_items_included(),
-        [ItemGroups.healing_item],
+        [ItemGroups.healing_item, ItemGroups.unused_items],
     ),
     Ch1Items.mouse_token.value: ConditionalItemData(
         ItemIDs.mouse_token.value,
         ItemClassification.useful,
         lambda world: world.is_unused_items_included(),
-        [ItemGroups.armors],
+        [ItemGroups.armors, ItemGroups.unused_items],
     ),
     Ch1Items.trefoil.value: ConditionalItemData(
         ItemIDs.trefoil.value,
         ItemClassification.useful,
         lambda world: world.is_unused_items_included(),
-        [ItemGroups.weapons, ItemGroups.kris_weapons],
+        [ItemGroups.weapons, ItemGroups.kris_weapons, ItemGroups.unused_items],
     ),
 }
 

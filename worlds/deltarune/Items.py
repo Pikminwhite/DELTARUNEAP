@@ -25,6 +25,7 @@ class ItemGroups(StrEnum):
     spamton_access = "Spamton Access"
     tension_items = "Tension Items"
     mantle_items = "Mantle Items"
+    unused_items = "Unused Items"
 
 class ItemData(NamedTuple):
     code: Optional[int]
