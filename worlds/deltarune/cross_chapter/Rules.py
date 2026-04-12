@@ -62,6 +62,18 @@ def set_rules(world: "DeltaruneWorld"):
                 lambda state: state.has(Ch2Items.bshotbowtie, player) and state.has(Ch2Items.tensionbit, player),
             )
 
+        # TwistedSwd
+        if world.is_unused_items_included() and world.include_chapter(2):
+            set_rule(
+                multiworld.get_location(CCLocations.castle_town_twistedsword_fusion, player),
+                lambda state: state.has(Ch1Items.ironshackle, player)
+                and state.has(Ch2Items.thornring, player)
+                and state.has(CCItems.purecrystal, player),
+            )
+            multiworld.get_location(CCLocations.castle_town_twistedsword_fusion, player).place_locked_item(
+                world.create_item(CCItems.twistedswd)
+            )
+
 
 def get_location(world: "DeltaruneWorld", chapter: int):
     if chapter == 1:

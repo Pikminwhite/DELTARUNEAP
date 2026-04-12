@@ -179,6 +179,7 @@ class ItemIDs(Enum):
     progressive_ralsei_weapons = 30002
     progressive_noelle_weapons = 30003
 
+    everybodyweapon = 30004
     spookysword = 30005
     brave_ax = 30006
     devilsknife = 30007

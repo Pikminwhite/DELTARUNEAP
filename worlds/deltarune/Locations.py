@@ -279,6 +279,8 @@ class LocationIDs(Enum):
     ch4_mike_pluey_gold = 242
     ch4_mike_pluey_platinum = 243
 
+    cc_castle_town_twistedsword_fusion = 244
+
     ch2_lost_werewire = 1049
     ch2_lost_tasque = 1054
     ch2_lost_virovirokun = 1055

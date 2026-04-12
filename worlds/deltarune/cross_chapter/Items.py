@@ -38,6 +38,8 @@ class CCItems(StrEnum):
     progressive_susie_weapons = "Progressive Susie Weapons"
     progressive_ralsei_weapons = "Progressive Ralsei Weapons"
     progressive_noelle_weapons = "Progressive Noelle Weapons"
+    twistedswd = "TwistedSwd"
+    everybodyweapon = "EverybodyWeapon"
 
     # Armors
     amber_card = "Amber Card"
@@ -49,6 +51,7 @@ class CCItems(StrEnum):
     tensionbow = "TensionBow"
 
     shadowcrystal = "ShadowCrystal"
+    purecrystal = "PureCrystal"
 
 
 cross_chapter_items = {
@@ -145,6 +148,38 @@ cross_chapter_conditional_items = {
         lambda world: world.include_chapter(2) and world.is_noelle_weapons_progressive(),
         [ItemGroups.weapons],
         0,
+    ),
+    # Unused
+    CCItems.twistedswd.value: ConditionalItemData(
+        ItemIDs.twistedswd.value,
+        ItemClassification.useful,
+        lambda world: world.can_access_fusion()
+        and world.include_chapter(2)
+        and world.is_unused_items_included()
+        and world.is_weird_route(),
+        [ItemGroups.weapons, ItemGroups.kris_weapons],
+    ),
+    CCItems.purecrystal.value: ConditionalItemData(
+        ItemIDs.purecrystal.value,
+        ItemClassification.progression,
+        lambda world: world.can_access_fusion()
+        and world.include_chapter(2)
+        and world.is_unused_items_included()
+        and world.is_weird_route(),
+        [ItemGroups.fusion_ingredient],
+    ),
+    CCItems.everybodyweapon.value: ConditionalItemData(
+        ItemIDs.everybodyweapon.value,
+        ItemClassification.useful,
+        lambda world: world.is_unused_items_included(),
+        [
+            ItemGroups.weapons,
+            ItemGroups.kris_weapons,
+            ItemGroups.susie_weapons,
+            ItemGroups.ralsei_weapons,
+            ItemGroups.noelle_weapons,
+        ],
+        amount=4,
     ),
 }
 

@@ -1,5 +1,7 @@
 from enum import StrEnum
 from typing import TYPE_CHECKING
+
+from BaseClasses import LocationProgressType
 from ..Locations import ConditionalLocationData, LocationIDs, LocationGroups
 from ..Regions import generic_create_regions, fusion_access_region, fusion_access_entrance
 from ..chapter_1.LocationsAndRegions import Ch1Regions
@@ -17,6 +19,7 @@ class CCLocations(StrEnum):
     castle_town_ddburger_fusion = "Castle Town - DD-Burger Fusion"
     castle_town_silver_card_fusion = "Castle Town - Silver Card Fusion"
     castle_town_spike_band_fusion = "Castle Town - Spike Band Fusion"
+    castle_town_twistedsword_fusion = "Castle Town - TwistedSwd Fusion"
 
 
 class CCRegions(StrEnum):
@@ -74,6 +77,17 @@ cross_chapter_conditional_locations: dict = {
         and world.include_chapter(2)
         and (not world.is_weird_route() or world.is_all_routes()),
         LocationGroups.castle_town.value,
+    ),
+    # Require PureCrystal that is unused and thornring that is exclusive to chapter 2 weird route
+    CCLocations.castle_town_twistedsword_fusion.value: ConditionalLocationData(
+        LocationIDs.cc_castle_town_twistedsword_fusion.value,
+        fusion_access_region,
+        lambda world: world.can_access_fusion()
+        and world.include_chapter(2)
+        and world.is_unused_items_included()
+        and world.is_weird_route(),
+        LocationGroups.castle_town.value,
+        progress_type=LocationProgressType.EXCLUDED,
     ),
 }
 
