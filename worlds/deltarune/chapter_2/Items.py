@@ -249,7 +249,7 @@ chapter2_conditional_items = {
         ItemIDs.thornring.value,
         ItemClassification.progression | ItemClassification.useful,
         lambda world: world.is_weird_route(),
-        [ItemGroups.weapons, ItemGroups.noelle_weapons],
+        [ItemGroups.weapons, ItemGroups.noelle_weapons, ItemGroups.fusion_ingredient],
     ),
     Ch2Items.chapter_2_unlock.value: ConditionalItemData(
         ItemIDs.chapter_2_unlock.value,
