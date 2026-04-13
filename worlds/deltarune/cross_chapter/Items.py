@@ -1,5 +1,12 @@
 from enum import StrEnum
-from ..Items import ItemData, ConditionalItemData, ItemIDs, generic_create_items, generic_get_filler_items, ItemGroups
+from ..Items import (
+    ItemData,
+    ConditionalItemData,
+    ItemIDs,
+    generic_create_items,
+    generic_get_filler_and_trap_items,
+    ItemGroups,
+)
 from typing import TYPE_CHECKING
 from BaseClasses import ItemClassification
 
@@ -189,5 +196,5 @@ def create_items(world: "DeltaruneWorld"):
     return generic_create_items(world, cross_chapter_items, cross_chapter_conditional_items)
 
 
-def get_filler_items(world: "DeltaruneWorld"):
-    return generic_get_filler_items(world, cross_chapter_items, cross_chapter_conditional_items)
+def get_filler_and_trap_items(world: "DeltaruneWorld"):
+    return generic_get_filler_and_trap_items(world, cross_chapter_items, cross_chapter_conditional_items)

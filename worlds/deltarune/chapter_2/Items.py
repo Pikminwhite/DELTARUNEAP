@@ -4,7 +4,7 @@ from ..Items import (
     ItemData,
     ConditionalItemData,
     generic_create_items,
-    generic_get_filler_items,
+    generic_get_filler_and_trap_items,
     DeltaruneItem,
 )
 from ..cross_chapter.Items import CCItems
@@ -343,5 +343,5 @@ def create_items(world: "DeltaruneWorld") -> list[DeltaruneItem]:
     return generic_create_items(world, chapter2_items, chapter2_conditional_items)
 
 
-def get_filler_items(world: "DeltaruneWorld"):
-    return generic_get_filler_items(world, chapter2_items, chapter2_conditional_items)
+def get_filler_and_trap_items(world: "DeltaruneWorld"):
+    return generic_get_filler_and_trap_items(world, chapter2_items, chapter2_conditional_items)

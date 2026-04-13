@@ -401,6 +401,25 @@ class FillerCurrencyWeight(NamedRange):
     special_range_names = filler_weight_range_names
 
 
+class TrapWeight(NamedRange):
+    """
+    DETERMINES HOW OFTEN
+    TRAPS WILL APPEAR
+    COMPARED TO OTHERS ITEMS.
+
+    REGARDLESS OF THIS SETTING,
+    EACH TRAP WILL BE GUARANTEED
+    TO APPEAR AT LEAST ONCE.
+    """
+
+    display_name = "(Coming Soon) Trap Weights"
+    range_start = 0
+    range_end = 99
+    default = filler_weight_range_names["uncommon"]
+    rich_text_doc = True
+    special_range_names = filler_weight_range_names
+
+
 class FillerArmorWeight(NamedRange):
     """
     DETERMINES HOW OFTEN
@@ -525,7 +544,14 @@ deltarune_option_groups = [
     OptionGroup("Chapters", [RandomizeChapters, IncludeChapter1, IncludeChapter2, IncludeChapter3, IncludeChapter4]),
     OptionGroup(
         "Fillers",
-        [FillerHealingWeight, FillerCurrencyWeight, FillerArmorWeight, FillerTensionWeight, FillerSMILEWeight],
+        [
+            FillerHealingWeight,
+            FillerCurrencyWeight,
+            TrapWeight,
+            FillerArmorWeight,
+            FillerTensionWeight,
+            FillerSMILEWeight,
+        ],
     ),
     OptionGroup("Goal", [ChosenRoute, GoalMacGuffinAmount, RandomizeSecretBosses, RandomizeMANTLE]),
     OptionGroup(
@@ -565,6 +591,7 @@ class DeltaruneOptions(PerGameCommonOptions):
     death_link: DeathLink
     filler_healing_weight: FillerHealingWeight
     filler_currency_weight: FillerCurrencyWeight
+    trap_weight: TrapWeight
     filler_armor_weight: FillerArmorWeight
     filler_tension_weight: FillerTensionWeight
     filler_smile_weight: FillerSMILEWeight

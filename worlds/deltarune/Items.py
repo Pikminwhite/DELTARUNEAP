@@ -26,6 +26,7 @@ class ItemGroups(StrEnum):
     tension_items = "Tension Items"
     mantle_items = "Mantle Items"
     unused_items = "Unused Items"
+    traps = "Traps"
 
 class ItemData(NamedTuple):
     code: Optional[int]
@@ -264,7 +265,7 @@ def generic_create_items(
     return item_pool
 
 
-def generic_get_filler_items(
+def generic_get_filler_and_trap_items(
     world: "DeltaruneWorld", items: dict[str, ItemData], conditional_items: dict[str, ConditionalItemData]
 ) -> dict[str, ItemData | ConditionalItemData]:
     filler_items: dict[str, ItemData | ConditionalItemData] = {}
@@ -272,18 +273,21 @@ def generic_get_filler_items(
     filler_items |= {
         item_name: item_data
         for item_name, item_data in items.items()
-        if item_data.classification == ItemClassification.filler
+        if item_data.classification == ItemClassification.filler or item_data.classification == ItemClassification.trap
     }
     filler_items |= {
         item_name: item_data
         for item_name, item_data in conditional_items.items()
-        if item_data.classification == ItemClassification.filler and item_data.should_be_included(world)
+        if (
+            item_data.classification == ItemClassification.filler or item_data.classification == ItemClassification.trap
+        )
+        and item_data.should_be_included(world)
     }
 
     return filler_items
 
 
-def convert_filler_to_weights(items: dict[str, ItemData | ConditionalItemData], options: "DeltaruneOptions"):
+def convert_filler_and_trap_to_weights(items: dict[str, ItemData | ConditionalItemData], options: "DeltaruneOptions"):
     fillers_with_weights = {}
 
     healing_fillers = [
@@ -296,6 +300,7 @@ def convert_filler_to_weights(items: dict[str, ItemData | ConditionalItemData], 
     currency_fillers = [
         item_name for item_name, item_data in items.items() if ItemGroups.currencies in item_data.groups
     ]
+    traps = [item_name for item_name, item_data in items.items() if item_data.classification == ItemClassification.trap]
     smile_fillers = [item_name for item_name, item_data in items.items() if item_data.code == ItemIDs.smile.value]
 
     healing_adjusted_weight = (
@@ -308,6 +313,7 @@ def convert_filler_to_weights(items: dict[str, ItemData | ConditionalItemData], 
     currency_adjusted_weight = (
         options.filler_currency_weight.value / len(currency_fillers) if len(currency_fillers) > 0 else 0
     )
+    trap_adjusted_weight = options.trap_weight.value / len(traps) if len(traps) > 0 else 0
     smile_adjusted_weight = options.filler_smile_weight.value / len(smile_fillers) if len(smile_fillers) > 0 else 0
 
     for item_name in healing_fillers:
@@ -318,6 +324,8 @@ def convert_filler_to_weights(items: dict[str, ItemData | ConditionalItemData], 
         fillers_with_weights[item_name] = tension_adjusted_weight
     for item_name in currency_fillers:
         fillers_with_weights[item_name] = currency_adjusted_weight
+    for item_name in traps:
+        fillers_with_weights[item_name] = trap_adjusted_weight
     for item_name in smile_fillers:
         fillers_with_weights[item_name] = smile_adjusted_weight
 

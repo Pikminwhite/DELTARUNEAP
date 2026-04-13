@@ -8,7 +8,7 @@ from .Items import (
     ItemData,
     ConditionalItemData,
     ItemGroups,
-    convert_filler_to_weights,
+    convert_filler_and_trap_to_weights,
     get_item_groups,
     glitched_item_name,
 )
@@ -90,7 +90,6 @@ every_locations: dict[str, LocationData | ConditionalItemData] = {
     **Ch4LocationAndRegions.chapter4_conditional_locations,
 }
 
-
 def data_path(file_name: str):
     import pkgutil
 
@@ -131,6 +130,8 @@ class DeltaruneWorld(World):
     glitches_item_name = glitched_item_name
     ut_can_gen_without_yaml = True
 
+    cached_filler_and_trap_weights: dict[str, float] = {}
+
     def _get_deltarune_data(self):
         return {
             "options": {
@@ -168,22 +169,26 @@ class DeltaruneWorld(World):
         return DeltaruneItem(name, item_data.classification, item_data.code, self.player)
 
     def get_filler_item_name(self):
-        filler_pool = CCItems.get_filler_items(self)
-
-        if self.options.include_chapter_1:
-            filler_pool.update(Ch1Items.get_filler_items(self))
-        if self.options.include_chapter_2:
-            filler_pool.update(Ch2Items.get_filler_items(self))
-        if self.options.include_chapter_3:
-            filler_pool.update(Ch3Items.get_filler_items(self))
-        if self.options.include_chapter_4:
-            filler_pool.update(Ch4Items.get_filler_items(self))
-
-        filler_pool_with_weights = convert_filler_to_weights(filler_pool, self.options)
+        if len(self.cached_filler_and_trap_weights) == 0:
+            self.fill_weighted_fillers_and_traps()
 
         return self.random.choices(
-            list(filler_pool_with_weights.keys()), weights=list(filler_pool_with_weights.values())
+            list(self.cached_filler_and_trap_weights.keys()), weights=list(self.cached_filler_and_trap_weights.values())
         )[0]
+
+    def fill_weighted_fillers_and_traps(self):
+        filler_pool = CCItems.get_filler_and_trap_items(self)
+
+        if self.options.include_chapter_1:
+            filler_pool.update(Ch1Items.get_filler_and_trap_items(self))
+        if self.options.include_chapter_2:
+            filler_pool.update(Ch2Items.get_filler_and_trap_items(self))
+        if self.options.include_chapter_3:
+            filler_pool.update(Ch3Items.get_filler_and_trap_items(self))
+        if self.options.include_chapter_4:
+            filler_pool.update(Ch4Items.get_filler_and_trap_items(self))
+
+        self.cached_filler_and_trap_weights = convert_filler_and_trap_to_weights(filler_pool, self.options)
 
     @staticmethod
     def interpret_slot_data(slot_data: dict[str, Any]) -> dict[str, Any]:
@@ -447,7 +452,14 @@ class DeltaruneWorld(World):
             print(f"Item pool overflow: {len(item_pool) - len(self.multiworld.get_unfilled_locations(self.player))}")
             while len(item_pool) > len(self.multiworld.get_unfilled_locations(self.player)):
                 item_pool.remove(
-                    self.random.choice([item for item in item_pool if item.classification == ItemClassification.filler])
+                    self.random.choice(
+                        [
+                            item
+                            for item in item_pool
+                            if item.classification == ItemClassification.filler
+                            or item.classification == ItemClassification.trap
+                        ]
+                    )
                 )
 
         # Fill remaining items with randomly generated junk
