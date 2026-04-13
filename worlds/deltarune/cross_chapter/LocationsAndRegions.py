@@ -83,6 +83,7 @@ cross_chapter_conditional_locations: dict = {
         LocationIDs.cc_castle_town_twistedsword_fusion.value,
         fusion_access_region,
         lambda world: world.can_access_fusion()
+        and False
         and world.include_chapter(2)
         and world.is_unused_items_included()
         and world.is_weird_route(),
