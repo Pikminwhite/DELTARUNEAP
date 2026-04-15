@@ -63,7 +63,7 @@ def set_rules(world: "DeltaruneWorld"):
             )
 
         # TwistedSwd
-        if world.is_unused_items_included() and world.include_chapter(2) and world.is_weird_route():
+        if False and world.is_unused_items_included() and world.include_chapter(2) and world.is_weird_route():
             set_rule(
                 multiworld.get_location(CCLocations.castle_town_twistedsword_fusion, player),
                 lambda state: state.has(Ch2Items.thornring, player) and state.has(CCItems.purecrystal, player),

@@ -104,6 +104,10 @@ class Ch3Regions(StrEnum):
     chapter_3 = "Chapter 3"
     couch_cliffs = "CH3: Couch Cliffs"
     board_1 = "CH3: Board 1"
+    lost_shadowguy = "CH3: Lost Shadowguy"
+    lost_pippins = "CH3: Lost Pippins"
+    lost_shuttah = "CH3: Lost Shuttah"
+    lost_water_cooler = "CH3: Water Cooler"
     green_room = "CH3: Green Room"
     board_2 = "CH3: Board 2"
     tv_world = "CH3: TV World"
@@ -114,6 +118,10 @@ class Ch3Regions(StrEnum):
 class Ch3Entrances(StrEnum):
     couch_cliffs_entrance = "CH3: Couch Cliffs Entrance"
     board_1_entrance = "CH3: Board 1 Entrance"
+    lost_shadowguy = "CH3: Lost Shadowguy Entrance"
+    lost_pippins = "CH3: Lost Pippins Entrance"
+    lost_shuttah = "CH3: Lost Shuttah Entrance"
+    lost_water_cooler = "CH3: Water Cooler Entrance"
     green_room_entrance = "CH3: Green Room Entrance"
     board_2_entrance = "CH3: Board 2 Entrance"
     tv_world_entrance = "CH3: TV World Entrance"
@@ -356,7 +364,7 @@ chapter3_conditional_locations = {
     # All Recruits
     Ch3Locations.recruit_water_cooler.value: ConditionalLocationData(
         LocationIDs.ch3_recruit_water_cooler.value,
-        Ch3Regions.green_room,
+        Ch3Regions.lost_water_cooler,
         lambda world: world.is_all_recruits(),
         LocationGroups.chapter3.value,
     ),
@@ -405,7 +413,7 @@ chapter3_conditional_locations = {
     # Weird Route
     Ch3Locations.lost_shadowguy.value: ConditionalLocationData(
         LocationIDs.ch3_lost_shadowguy.value,
-        Ch3Regions.board_1,
+        Ch3Regions.lost_shadowguy,
         lambda world: world.is_weird_route(),
         LocationGroups.chapter3.value,
     ),
@@ -417,13 +425,13 @@ chapter3_conditional_locations = {
     ),
     Ch3Locations.lost_pippins.value: ConditionalLocationData(
         LocationIDs.ch3_lost_pippins.value,
-        Ch3Regions.board_2,
+        Ch3Regions.lost_pippins,
         lambda world: world.is_weird_route(),
         LocationGroups.chapter3.value,
     ),
     Ch3Locations.lost_shuttah.value: ConditionalLocationData(
         LocationIDs.ch3_lost_shuttah.value,
-        Ch3Regions.board_2,
+        Ch3Regions.lost_shuttah,
         lambda world: world.is_weird_route(),
         LocationGroups.chapter3.value,
     ),
@@ -443,10 +451,17 @@ chapter3_conditional_locations = {
 
 chapter3_regions = [
     (Ch3Regions.chapter_3.value, [Ch3Entrances.couch_cliffs_entrance.value]),
-    (Ch3Regions.couch_cliffs.value, [Ch3Entrances.board_1_entrance.value]),
+    (Ch3Regions.couch_cliffs.value, [Ch3Entrances.board_1_entrance.value, Ch3Entrances.lost_shadowguy.value]),
     (Ch3Regions.board_1.value, [Ch3Entrances.green_room_entrance.value]),
-    (Ch3Regions.green_room.value, [Ch3Entrances.board_2_entrance.value]),
-    (Ch3Regions.board_2.value, [Ch3Entrances.tv_world_entrance.value]),
+    (Ch3Regions.lost_shadowguy, []),
+    (Ch3Regions.green_room.value, [Ch3Entrances.board_2_entrance.value, Ch3Entrances.lost_water_cooler]),
+    (Ch3Regions.lost_water_cooler, []),
+    (
+        Ch3Regions.board_2.value,
+        [Ch3Entrances.tv_world_entrance.value, Ch3Entrances.lost_shuttah, Ch3Entrances.lost_pippins],
+    ),
+    (Ch3Regions.lost_pippins, []),
+    (Ch3Regions.lost_shuttah, []),
     (Ch3Regions.tv_world.value, [Ch3Entrances.goulden_sam_entrance.value]),
     (Ch3Regions.goulden_sam.value, [Ch3Entrances.cold_place_entrance.value]),
     (Ch3Regions.cold_place.value, []),
@@ -455,8 +470,12 @@ chapter3_regions = [
 chapter3_mandatory_connections = [
     (Ch3Entrances.couch_cliffs_entrance.value, Ch3Regions.couch_cliffs),
     (Ch3Entrances.board_1_entrance.value, Ch3Regions.board_1),
+    (Ch3Entrances.lost_shadowguy.value, Ch3Regions.lost_shadowguy),
     (Ch3Entrances.green_room_entrance.value, Ch3Regions.green_room),
+    (Ch3Entrances.lost_water_cooler, Ch3Regions.lost_water_cooler),
     (Ch3Entrances.board_2_entrance.value, Ch3Regions.board_2),
+    (Ch3Entrances.lost_pippins.value, Ch3Regions.lost_pippins),
+    (Ch3Entrances.lost_shuttah.value, Ch3Regions.lost_shuttah),
     (Ch3Entrances.tv_world_entrance.value, Ch3Regions.tv_world),
     (Ch3Entrances.goulden_sam_entrance.value, Ch3Regions.goulden_sam),
     (Ch3Entrances.cold_place_entrance.value, Ch3Regions.cold_place),
