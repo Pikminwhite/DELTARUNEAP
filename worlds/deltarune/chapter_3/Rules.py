@@ -50,6 +50,10 @@ def set_rules(world: "DeltaruneWorld"):
             multiworld.get_location(Ch3Locations.lost_water_cooler, player),
             lambda state: state.can_reach_region(Ch3Regions.tv_world, player) or state.has(glitched_item_name, player),
         )
+        set_rule(
+            multiworld.get_location(Ch3Locations.lost_zapper, player),
+            lambda state: state.can_reach_region(Ch3Regions.tv_world, player) or state.has(glitched_item_name, player),
+        )
 
     # Macguffin
     if world.is_secret_bosses_mandatory():
