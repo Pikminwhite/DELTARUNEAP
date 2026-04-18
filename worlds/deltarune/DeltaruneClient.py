@@ -204,7 +204,10 @@ def send_location_item_to_deltarune(ctx: DeltaruneContext):
     result = {}
 
     for location in ctx.locations_info.values():
-        playerName = ctx.player_names[location.player]
+        if location.player == ctx.slot:
+            playerName = "<yourself>"
+        else:
+            playerName = ctx.player_names[location.player]
         itemName = ctx.item_names.lookup_in_slot(location.item, location.player)
         result[location.location] = {"playerName": playerName, "itemName": itemName}
 
