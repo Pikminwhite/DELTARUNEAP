@@ -513,13 +513,24 @@ class ProgressiveNoelleWeapons(Toggle):
     """
 
     display_name = "(COMING SOON) Progressive Noelle Weapons"
-class IncludeUnusedItems(Toggle):
+
+
+class IncludeUnusedItems(Choice):
     """
-    Is unused items included
+    Is unused items included ? (EverybodyWeapon is pretty OP weapon that is probably used by dev for debugging)
     """
 
     display_name = "Include Unused Items"
-    default = 0
+    option_false = 0
+    option_true = 1
+    option_true_without_everybodyweapon = 2
+    default = option_false
+
+
+class IncludeUnusedItemsOptions(StrEnum):
+    false = "false"
+    true = "true"
+    true_without_everybodyweapon = "true without everybodyweapon"
 
 
 class IncludeMike(Choice):

@@ -179,7 +179,7 @@ cross_chapter_conditional_items = {
     CCItems.everybodyweapon.value: ConditionalItemData(
         ItemIDs.everybodyweapon.value,
         ItemClassification.useful,
-        lambda world: world.is_unused_items_included(),
+        lambda world: world.is_everybodyweapon_included(),
         [
             ItemGroups.weapons,
             ItemGroups.kris_weapons,

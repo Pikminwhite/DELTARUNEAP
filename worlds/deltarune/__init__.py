@@ -23,6 +23,7 @@ from .Options import (
     RandomizeSecretBossesOptions,
     RandomizeMANTLEOptions,
     IncludeTRankOptions,
+    IncludeUnusedItemsOptions,
     deltarune_option_groups,
 )
 from worlds.AutoWorld import World, WebWorld
@@ -279,7 +280,13 @@ class DeltaruneWorld(World):
         return self.options.progressive_noelle_weapons.value == 1 and self.include_chapter(2)
 
     def is_unused_items_included(self):
-        return self.options.include_unused_items.value == 1
+        return (
+            self.options.include_unused_items.value == IncludeUnusedItemsOptions.true
+            or self.is_everybodyweapon_included()
+        )
+
+    def is_everybodyweapon_included(self):
+        return self.options.include_unused_items.value == IncludeUnusedItemsOptions.true_without_everybodyweapon
 
     # Check if you have at least one chapter that give you access to fusions
     def can_access_fusion(self) -> bool:
