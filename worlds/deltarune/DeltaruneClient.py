@@ -4,6 +4,7 @@ import asyncio
 import typing
 import bsdiff4
 import shutil
+import json
 
 import Utils
 
@@ -195,6 +196,31 @@ Both gaining and losing recruits have been turned into checks."""
                 self.output(f"Receiving mode set to: Whenever possible.")
             update_receiving_type(self.ctx)
 
+
+def send_location_item_to_deltarune(ctx: DeltaruneContext):
+    if os.path.exists(os.path.join(ctx.save_game_folder, "scouting.json")):
+        return
+
+    result = {}
+
+    for location in ctx.locations_info.values():
+        playerName = ctx.player_names[location.player]
+        itemName = ctx.item_names.lookup_in_slot(location.item, location.player)
+        result[location.location] = {"playerName": playerName, "itemName": itemName}
+
+    with open(os.path.join(ctx.save_game_folder, "scouting.json"), "w") as file:
+        json.dump(result, file)
+
+
+def fill_scout_locations(ctx: DeltaruneContext):
+    if os.path.exists(os.path.join(ctx.save_game_folder, "scouting.json")):
+        return
+
+    if ctx.missing_locations and len(ctx.missing_locations) > 0:
+        return ctx.missing_locations
+    return
+
+
 class DeltaruneContext(SuperContext):
     tags = {"AP"}
     game = "DELTARUNE"
@@ -332,7 +358,7 @@ async def process_deltarune_cmd(ctx: DeltaruneContext, cmd: str, args: dict):
         except:        
             await ctx.invalid_file_directory()
             return
-            
+
         # Umm idk how this works but it does so you know... no touchie
         await ctx.send_msgs(
             [
@@ -434,6 +460,10 @@ async def process_deltarune_cmd(ctx: DeltaruneContext, cmd: str, args: dict):
             filename = f"unused_items.flag"
             with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
                 f.close()
+        ctx.locations_scouted = fill_scout_locations(ctx)
+        if ctx.locations_scouted:
+            msgs = [{"cmd": "LocationScouts", "locations": list(ctx.locations_scouted)}]
+            await ctx.send_msgs(msgs)
     elif cmd == "Retrieved":
         # makes completion data
         if str(ctx.slot) + " complete chapter1" in args["keys"]:
@@ -483,6 +513,7 @@ async def process_deltarune_cmd(ctx: DeltaruneContext, cmd: str, args: dict):
                 with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
                     f.close()
     if cmd == "LocationInfo":
+        send_location_item_to_deltarune(ctx)
         for l in args["locations"]:
             locationid = l.location
             filename = f"{str(locationid)}.hint"
