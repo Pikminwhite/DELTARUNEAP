@@ -122,7 +122,7 @@ If you're connected, you'll need to reconnect."""
             self.finished_game = False
             for root, dirs, files in os.walk(path):
                 for file in files:
-                    if "check.spot" == file or "checkbackup.spot" == file or "scout" == file:
+                    if "check.spot" == file or "checkbackup.spot" == file or "scout" == file or "scouting.json" == file:
                         os.remove(os.path.join(root, file))
                     elif file.endswith((".item", ".victory", ".route", ".mine", ".flag", ".hint", ".complete")):
                         os.remove(os.path.join(root, file))
