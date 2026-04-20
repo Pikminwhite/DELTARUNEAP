@@ -209,7 +209,7 @@ def send_location_item_to_deltarune(ctx: DeltaruneContext):
         else:
             playerName = ctx.player_names[location.player]
         itemName = ctx.item_names.lookup_in_slot(location.item, location.player)
-        result[location.location] = {"playerName": playerName, "itemName": itemName}
+        result[location.location] = {"playerName": playerName, "itemName": itemName, "flags": location.flags}
 
     with open(os.path.join(ctx.save_game_folder, "scouting.json"), "w") as file:
         json.dump(result, file)
