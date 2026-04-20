@@ -88,6 +88,11 @@ def set_rules(world: "DeltaruneWorld"):
         lambda state: state.has(Ch1Items.manual, player),
     )
 
+    set_rule(
+        multiworld.get_location(Ch1Locations.throw_away_manual_again, player),
+        lambda state: state.has(Ch1Items.manual, player, 2),
+    )
+
 
 def handle_locked_items(world: "DeltaruneWorld"):
     player = world.player

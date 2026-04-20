@@ -280,6 +280,7 @@ class LocationIDs(Enum):
     ch4_mike_pluey_platinum = 243
 
     cc_castle_town_twistedsword_fusion = 244
+    ch1_throw_away_manual_again = 245
 
     ch2_lost_werewire = 1049
     ch2_lost_tasque = 1054

@@ -12,6 +12,7 @@ class Ch1Locations(StrEnum):
 
     castle_town_manual = "CH1: Castle Town - Manual"
     throw_away_manual = "CH1: Throw Away Manual"
+    throw_away_manual_again = "CH1: Throw Away Manual (Again...)"
 
     field_warp_door = "CH1: Field - Warp Door"
     field_dark_candy_tree_1 = "CH1: Field - Dark Candy Tree 1"
@@ -91,6 +92,9 @@ chapter1_locations = {
     ),
     Ch1Locations.throw_away_manual.value: LocationData(
         LocationIDs.ch1_throw_away_manual.value, Ch1Regions.castle_town.value, LocationGroups.chapter1.value
+    ),
+    Ch1Locations.throw_away_manual_again.value: LocationData(
+        LocationIDs.ch1_throw_away_manual_again.value, Ch1Regions.castle_town.value, LocationGroups.chapter1.value
     ),
     Ch1Locations.field_dark_candy_tree_1.value: LocationData(
         LocationIDs.ch1_field_dark_candy_tree_1.value, Ch1Regions.fields.value, LocationGroups.chapter1.value
