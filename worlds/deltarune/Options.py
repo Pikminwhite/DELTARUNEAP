@@ -531,9 +531,8 @@ class IncludeUnusedItems(Choice):
     CERTAIN ITEMS ARE
     NOT NORMALLY PRESENT.
 
-    WILL THEY STILL
-    BE WITH THE REST
-    IN THE ITEM POOL?
+    WILL THEY NOW
+    BE WITH THE REST?
     
     (EverybodyWeapon is pretty over-powered, and it's probably for testing purposes.)
     (Set this option to "True Without EverybodyWeapon" if you'd rather not have it.)
