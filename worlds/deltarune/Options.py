@@ -482,7 +482,10 @@ class FillerSMILEWeight(NamedRange):
 
 class ProgressiveKrisWeapons(Toggle):
     """
-    Is Kris weapons progressive
+    THE WEAPONS RECEIVED
+    FOR THE CAGE
+    WILL BE IN SEQUENTIAL ORDER
+    OF RISING POWER.
     """
 
     display_name = "(COMING SOON) Progressive Kris Weapons"
@@ -491,7 +494,10 @@ class ProgressiveKrisWeapons(Toggle):
 
 class ProgressiveSusieWeapons(Toggle):
     """
-    Is Susie weapons progressive
+    THE WEAPONS RECEIVED
+    FOR THE GIRL
+    WILL BE IN SEQUENTIAL ORDER
+    OF RISING POWER.
     """
 
     display_name = "(COMING SOON) Progressive Susie Weapons"
@@ -500,7 +506,10 @@ class ProgressiveSusieWeapons(Toggle):
 
 class ProgressiveRalseiWeapons(Toggle):
     """
-    Is Ralsei weapons progressive
+    THE WEAPONS RECEIVED
+    FOR THE PRINCE
+    WILL BE IN SEQUENTIAL ORDER
+    OF RISING POWER.
     """
 
     display_name = "(COMING SOON) Progressive Ralsei Weapons"
@@ -509,7 +518,9 @@ class ProgressiveRalseiWeapons(Toggle):
 
 class ProgressiveNoelleWeapons(Toggle):
     """
-    Is Noelle weapons progressive
+    THE FORBIDDEN RINGS
+    WILL BE IN SEQUENTIAL ORDER
+    OF RISING POWER.
     """
 
     display_name = "(COMING SOON) Progressive Noelle Weapons"
@@ -517,7 +528,15 @@ class ProgressiveNoelleWeapons(Toggle):
 
 class IncludeUnusedItems(Choice):
     """
-    Is unused items included ? (EverybodyWeapon is pretty OP weapon that is probably used by dev for debugging)
+    CERTAIN ITEMS ARE
+    NOT NORMALLY PRESENT.
+
+    WILL THEY STILL
+    BE WITH THE REST
+    IN THE ITEM POOL?
+    
+    (EverybodyWeapon is pretty over-powered, and it's probably for testing purposes.)
+    (Set this option to "True Without EverybodyWeapon" if you'd rather not have it.)
     """
 
     display_name = "Include Unused Items"
@@ -535,7 +554,10 @@ class IncludeUnusedItemsOptions(StrEnum):
 
 class IncludeMike(Choice):
     """
-    Is Mike Battle and games included
+    WILL THE DEFEAT
+    OF THE MICROPHONE
+    AS WELL AS THEIR GAMES
+    COUNT AS CHECK LOCATIONS?
     """
 
     display_name = "(COMING SOON) Include Mike"
