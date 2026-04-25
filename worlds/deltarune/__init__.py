@@ -137,7 +137,11 @@ class DeltaruneWorld(World):
         return {
             "options": {
                 "randomize_secret_bosses": self.options.randomize_secret_bosses.current_key,
-                "goal_macguffin_amount": int(self.options.goal_macguffin_amount.value),
+                "macguffin_chapter_1": int(self.options.macguffin_chapter_1.value),
+                "macguffin_chapter_2": int(self.options.macguffin_chapter_2.value),
+                "macguffin_chapter_3": int(self.options.macguffin_chapter_3.value),
+                "macguffin_chapter_4": int(self.options.macguffin_chapter_4.value),
+                "macguffin_extra": int(self.options.macguffin_extra.value),
                 "include_chapter_1": bool(self.options.include_chapter_1.value),
                 "include_chapter_2": bool(self.options.include_chapter_2.value),
                 "include_chapter_3": bool(self.options.include_chapter_3.value),
@@ -320,13 +324,6 @@ class DeltaruneWorld(World):
                 playable_chapters.append(chapterToCheck)
         return playable_chapters
 
-    def is_final_chapter(self, chapter: int) -> bool:
-        for chapterToCheck in range(max_deltarune_chapter, 0, -1):
-            if chapterToCheck == chapter:
-                return True
-            if getattr(self.options, f"include_chapter_{chapterToCheck}"):
-                return False
-
     def get_previous_in_order_chapter(self, chapter: int):
         if chapter <= 1:
             return -1
@@ -417,20 +414,23 @@ class DeltaruneWorld(World):
 
         self.multiworld.itempool += item_pool_converted
 
-    def get_macguffins_item(self):
-        if self.is_final_chapter(1):
-            return Ch1Items.chapter1_macguffin_item
-        if self.is_final_chapter(2):
-            return Ch2Items.chapter2_macguffin_item
-        if self.is_final_chapter(3):
-            return Ch3Items.chapter3_macguffin_item
-        if self.is_final_chapter(4):
-            return Ch4Items.chapter4_macguffin_item
-
     def handle_macguffins_items(self, item_pool: list[str]):
-        item_to_add = self.get_macguffins_item()
-
-        item_pool += [item_to_add] * self.options.goal_macguffin_amount
+        if self.include_chapter(1):
+            item_pool += [Ch1Items.chapter1_macguffin_item] * (
+                self.options.macguffin_chapter_1.value + self.options.macguffin_extra.value
+            )
+        if self.include_chapter(2):
+            item_pool += [Ch2Items.chapter2_macguffin_item] * (
+                self.options.macguffin_chapter_2.value + self.options.macguffin_extra.value
+            )
+        if self.include_chapter(3):
+            item_pool += [Ch3Items.chapter3_macguffin_item] * (
+                self.options.macguffin_chapter_3.value + self.options.macguffin_extra.value
+            )
+        if self.include_chapter(4):
+            item_pool += [Ch4Items.chapter4_macguffin_item] * (
+                self.options.macguffin_chapter_4.value + self.options.macguffin_extra.value
+            )
 
     def handle_chapter_keys(self, item_pool: list[str]):
         if self.is_all_chapters_unlocked():

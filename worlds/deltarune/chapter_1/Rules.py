@@ -32,23 +32,15 @@ def set_rules(world: "DeltaruneWorld"):
 
     # Mandatory Secret boss option and macguffin
     if world.is_secret_bosses_mandatory():
-        if world.is_final_chapter(1):
-            set_rule(
-                multiworld.get_entrance(Ch1Entrances.light_world_entrance, player),
-                lambda state: state.has(
-                    Ch1Items.king_shape_key_piece, player, world.options.goal_macguffin_amount.value
-                )
-                and state.has(Ch1Items.door_key, player),
-            )
-        else:
-            set_rule(
-                multiworld.get_entrance(Ch1Entrances.light_world_entrance, player),
-                lambda state: state.has(Ch1Items.door_key, player),
-            )
-    elif world.is_final_chapter(1):
         set_rule(
             multiworld.get_entrance(Ch1Entrances.light_world_entrance, player),
-            lambda state: state.has(Ch1Items.king_shape_key_piece, player, world.options.goal_macguffin_amount.value),
+            lambda state: state.has(Ch1Items.king_shape_key_piece, player, world.options.macguffin_chapter_1.value)
+            and state.has(Ch1Items.door_key, player),
+        )
+    else:
+        set_rule(
+            multiworld.get_entrance(Ch1Entrances.light_world_entrance, player),
+            lambda state: state.has(Ch1Items.king_shape_key_piece, player, world.options.macguffin_chapter_1.value),
         )
 
     # Jevil quest

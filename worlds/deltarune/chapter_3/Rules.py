@@ -59,56 +59,34 @@ def set_rules(world: "DeltaruneWorld"):
     if world.is_secret_bosses_mandatory():
         if world.is_shadow_mantle_included():
             if world.is_mantleless():
-                if world.is_final_chapter(3):
-                    set_rule(
-                        multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player),
-                        lambda state: state.has(Ch3Items.remote_battery, player, world.options.goal_macguffin_amount)
-                        and (state.has(Ch3Items.shadowmantle, player) or state.has(glitched_item_name, player)),
-                    )
-                else:
-                    set_rule(
-                        multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player),
-                        lambda state: state.has(Ch3Items.shadowmantle, player) or state.has(glitched_item_name, player),
-                    )
+                set_rule(
+                    multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player),
+                    lambda state: state.has(Ch3Items.remote_battery, player, world.options.macguffin_chapter_3.value)
+                    and (state.has(Ch3Items.shadowmantle, player) or state.has(glitched_item_name, player)),
+                )
             else:
-                if world.is_final_chapter(3):
-                    set_rule(
-                        multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player),
-                        lambda state: state.has(Ch3Items.remote_battery, player, world.options.goal_macguffin_amount)
-                        and (state.has(Ch3Items.shadowmantle, player) or state.has(glitched_item_name, player))
-                        and can_do_mantle(state, player),
-                    )
-                else:
-                    set_rule(
-                        multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player),
-                        lambda state: (
-                            state.has(Ch3Items.shadowmantle, player) or state.has(glitched_item_name, player)
-                        )
-                        and can_do_mantle(state, player),
-                    )
+                set_rule(
+                    multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player),
+                    lambda state: state.has(Ch3Items.remote_battery, player, world.options.macguffin_chapter_3.value)
+                    and (state.has(Ch3Items.shadowmantle, player) or state.has(glitched_item_name, player))
+                    and can_do_mantle(state, player),
+                )
         else:
             if world.is_mantleless():
-                if world.is_final_chapter(3):
-                    set_rule(
-                        multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player),
-                        lambda state: state.has(Ch3Items.remote_battery, player, world.options.goal_macguffin_amount),
-                    )
+                set_rule(
+                    multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player),
+                    lambda state: state.has(Ch3Items.remote_battery, player, world.options.macguffin_chapter_3.value),
+                )
             else:
-                if world.is_final_chapter(3):
-                    set_rule(
-                        multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player),
-                        lambda state: state.has(Ch3Items.remote_battery, player, world.options.goal_macguffin_amount)
-                        and can_do_mantle(state, player),
-                    )
-                else:
-                    set_rule(
-                        multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player),
-                        lambda state: can_do_mantle(state, player),
-                    )
-    elif world.is_final_chapter(3):
+                set_rule(
+                    multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player),
+                    lambda state: state.has(Ch3Items.remote_battery, player, world.options.macguffin_chapter_3.value)
+                    and can_do_mantle(state, player),
+                )
+    else:
         set_rule(
             multiworld.get_entrance(Ch3Entrances.cold_place_entrance, player),
-            lambda state: state.has(Ch3Items.remote_battery, player, world.options.goal_macguffin_amount),
+            lambda state: state.has(Ch3Items.remote_battery, player, world.options.macguffin_chapter_3.value),
         )
 
     # SWORD GAME

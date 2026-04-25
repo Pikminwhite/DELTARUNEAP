@@ -71,6 +71,13 @@ chapter4_items = {
     Ch4Items.sheetmusic.value: ItemData(
         ItemIDs.sheetmusic.value, ItemClassification.progression, [ItemGroups.region_blockers]
     ),
+    # Amount is handle in __init__.py handle_macguffins_items()
+    Ch4Items.combination_lock_digit.value: ItemData(
+        ItemIDs.combinaison_lock_digit.value,
+        ItemClassification.progression_skip_balancing,
+        [ItemGroups.region_blockers],
+        0,
+    ),
 }
 
 chapter4_conditional_items = {
@@ -100,14 +107,6 @@ chapter4_conditional_items = {
         ItemClassification.progression,
         lambda world: world.is_chapters_randomized(),
         [ItemGroups.region_blockers],
-    ),
-    # Amount is handle in __init__.py handle_macguffins_items()
-    Ch4Items.combination_lock_digit.value: ConditionalItemData(
-        ItemIDs.combinaison_lock_digit.value,
-        ItemClassification.progression_skip_balancing,
-        lambda world: world.is_final_chapter(4),
-        [ItemGroups.region_blockers],
-        0,
     ),
 }
 

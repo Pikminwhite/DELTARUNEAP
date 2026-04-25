@@ -122,6 +122,13 @@ chapter1_items = {
     CCItems.white_ribbon.value: ItemData(
         ItemIDs.white_ribbon.value, ItemClassification.progression, [ItemGroups.armors, ItemGroups.fusion_ingredient]
     ),
+    # Amount is handle in __init__.py handle_macguffins_items()
+    Ch1Items.king_shape_key_piece.value: ItemData(
+        ItemIDs.king_shape_key_piece.value,
+        ItemClassification.progression_skip_balancing,
+        [ItemGroups.region_blockers],
+        amount=0,
+    ),
 }
 
 chapter1_conditional_items = {
@@ -183,14 +190,6 @@ chapter1_conditional_items = {
         ItemClassification.progression,
         lambda world: world.is_chapters_randomized(),
         [ItemGroups.region_blockers],
-    ),
-    # Amount is handle in __init__.py handle_macguffins_items()
-    Ch1Items.king_shape_key_piece.value: ConditionalItemData(
-        ItemIDs.king_shape_key_piece.value,
-        ItemClassification.progression_skip_balancing,
-        lambda world: world.is_final_chapter(1),
-        [ItemGroups.region_blockers],
-        amount=0,
     ),
     # Unused Items
     Ch1Items.brokencake_consumable.value: ConditionalItemData(

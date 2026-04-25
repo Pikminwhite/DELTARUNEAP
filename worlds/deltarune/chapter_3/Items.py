@@ -114,6 +114,13 @@ chapter3_items = {
     Ch3Items.vip_pass.value: ItemData(
         ItemIDs.vip_pass.value, ItemClassification.progression, [ItemGroups.region_blockers]
     ),
+    # Amount is handle in __init__.py handle_macguffins_items()
+    Ch3Items.remote_battery.value: ItemData(
+        ItemIDs.remote_battery.value,
+        ItemClassification.progression_skip_balancing,
+        [ItemGroups.region_blockers],
+        0,
+    ),
 }
 
 chapter3_conditional_items = {
@@ -162,14 +169,6 @@ chapter3_conditional_items = {
         ItemClassification.progression,
         lambda world: world.is_chapters_randomized(),
         [ItemGroups.region_blockers],
-    ),
-    # Amount is handle in __init__.py handle_macguffins_items()
-    Ch3Items.remote_battery.value: ConditionalItemData(
-        ItemIDs.remote_battery.value,
-        ItemClassification.progression_skip_balancing,
-        lambda world: world.is_final_chapter(3),
-        [ItemGroups.region_blockers],
-        0,
     ),
     Ch3Items.odd_controller.value: ConditionalItemData(
         ItemIDs.oddcontroller.value,

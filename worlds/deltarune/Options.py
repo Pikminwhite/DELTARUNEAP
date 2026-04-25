@@ -273,27 +273,95 @@ class IncludeChapter4(Toggle):
     default = 1
 
 
-class GoalMacGuffinAmount(Range):
+class MacGuffinChapter1(Range):
     """
-    A NEW ROADBLOCK WILL
+    A NEW ROADBLACK WILL
     APPEAR BEFORE THE
-    FINAL BOSS OF THE LAST
-    CHAPTER CHOSEN.
+    FINAL BOSS OF CHAPTER 1
 
     THIS OPTION DETERMINES
     HOW MANY OF THESE ITEMS
     WILL BE REQUIRED
     TO PROGRESS.
 
-    (Chapter 1: King-Shaped Key Pieces)
-    (Chapter 2: KeyGen 2 Segments)
-    (Chapter 3: Remote Batteries)
-    (Chapter 4: Combination Lock Digits)"""
+    (King-Shaped Key Pieces)
+    """
 
-    display_name = "Macguffin Amount"
+    display = "Macguffin Chapter 1 Amount"
     default = 3
     range_start = 0
     range_end = 10
+
+
+class MacGuffinChapter2(Range):
+    """
+    A NEW ROADBLACK WILL
+    APPEAR BEFORE THE
+    FINAL BOSS OF CHAPTER 2
+
+    THIS OPTION DETERMINES
+    HOW MANY OF THESE ITEMS
+    WILL BE REQUIRED
+    TO PROGRESS.
+
+    (KeyGen 2 Segments)
+    """
+
+    display = "Macguffin Chapter 2 Amount"
+    default = 3
+    range_start = 0
+    range_end = 10
+
+
+class MacGuffinChapter3(Range):
+    """
+    A NEW ROADBLACK WILL
+    APPEAR BEFORE THE
+    FINAL BOSS OF CHAPTER 3
+
+    THIS OPTION DETERMINES
+    HOW MANY OF THESE ITEMS
+    WILL BE REQUIRED
+    TO PROGRESS.
+
+    (Remote Batteries)
+    """
+
+    display = "Macguffin Chapter 3 Amount"
+    default = 3
+    range_start = 0
+    range_end = 10
+
+
+class MacGuffinChapter4(Range):
+    """
+    A NEW ROADBLACK WILL
+    APPEAR BEFORE THE
+    FINAL BOSS OF CHAPTER 4
+
+    THIS OPTION DETERMINES
+    HOW MANY OF THESE ITEMS
+    WILL BE REQUIRED
+    TO PROGRESS.
+
+    (Combination Lock Digits)
+    """
+
+    display = "Macguffin Chapter 4 Amount"
+    default = 3
+    range_start = 0
+    range_end = 10
+
+
+class MacGuffinExtra(Range):
+    """
+    Amount of extra macfuffins added in the item pool that are not required to progress.
+    """
+
+    display = "Extra MacGuffin Amount"
+    default = 1
+    range_start = 0
+    range_end = 5
 
 
 class DeathLink(Toggle):
@@ -585,7 +653,19 @@ deltarune_option_groups = [
             FillerSMILEWeight,
         ],
     ),
-    OptionGroup("Goal", [ChosenRoute, GoalMacGuffinAmount, RandomizeSecretBosses, RandomizeMANTLE]),
+    OptionGroup(
+        "Goal",
+        [
+            ChosenRoute,
+            MacGuffinChapter1,
+            MacGuffinChapter2,
+            MacGuffinChapter3,
+            MacGuffinChapter4,
+            MacGuffinExtra,
+            RandomizeSecretBosses,
+            RandomizeMANTLE,
+        ],
+    ),
     OptionGroup(
         "Items",
         [
@@ -613,7 +693,11 @@ class DeltaruneOptions(PerGameCommonOptions):
     randomize_chapters: RandomizeChapters
     chosen_route: ChosenRoute
     item_balancing: ItemBalancing
-    goal_macguffin_amount: GoalMacGuffinAmount
+    macguffin_chapter_1: MacGuffinChapter1
+    macguffin_chapter_2: MacGuffinChapter2
+    macguffin_chapter_3: MacGuffinChapter3
+    macguffin_chapter_4: MacGuffinChapter4
+    macguffin_extra: MacGuffinExtra
     randomize_secret_bosses: RandomizeSecretBosses
     randomize_mantle: RandomizeMANTLE
     include_shadow_mantle: IncludeShadowMantle

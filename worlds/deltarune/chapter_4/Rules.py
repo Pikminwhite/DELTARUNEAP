@@ -32,11 +32,10 @@ def set_rules(world: "DeltaruneWorld"):
     )
 
     # Macguffin
-    if world.is_final_chapter(4):
-        set_rule(
-            multiworld.get_entrance(Ch4Entrances.titan_fight_entrance, player),
-            lambda state: state.has(Ch4Items.combination_lock_digit, player, world.options.goal_macguffin_amount),
-        )
+    set_rule(
+        multiworld.get_entrance(Ch4Entrances.titan_fight_entrance, player),
+        lambda state: state.has(Ch4Items.combination_lock_digit, player, world.options.macguffin_chapter_4.value),
+    )
 
 
 def handle_locked_items(world: "DeltaruneWorld"):

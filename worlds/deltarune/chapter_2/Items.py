@@ -126,6 +126,13 @@ chapter2_items = {
     Ch2Items.safety_vest.value: ItemData(
         ItemIDs.safety_vest.value, ItemClassification.progression, [ItemGroups.region_blockers]
     ),
+    # Amount is handle in __init__.py handle_macguffins_items()
+    Ch2Items.keygen_2_segment.value: ItemData(
+        ItemIDs.key_gen_2_segment.value,
+        ItemClassification.progression_skip_balancing,
+        [ItemGroups.region_blockers],
+        amount=0,
+    ),
 }
 
 chapter2_conditional_items = {
@@ -256,14 +263,6 @@ chapter2_conditional_items = {
         ItemClassification.progression,
         lambda world: world.is_chapters_randomized(),
         [ItemGroups.region_blockers],
-    ),
-    # Amount is handle in __init__.py handle_macguffins_items()
-    Ch2Items.keygen_2_segment.value: ConditionalItemData(
-        ItemIDs.key_gen_2_segment.value,
-        ItemClassification.progression_skip_balancing,
-        lambda world: world.is_final_chapter(2),
-        [ItemGroups.region_blockers],
-        amount=0,
     ),
     # Secret Boss
     Ch2Items.emptydisk.value: ConditionalItemData(
