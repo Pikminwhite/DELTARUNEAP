@@ -140,7 +140,7 @@ chapter3_conditional_items = {
         ItemIDs.blackshard.value,
         ItemClassification.useful,
         lambda world: world.is_secret_bosses_randomized(),
-        [ItemGroups.armors, ItemGroups.kris_weapons],
+        [ItemGroups.weapons, ItemGroups.kris_weapons],
     ),
     CCItems.shadowcrystal.value: ConditionalItemData(
         ItemIDs.shadowcrystal.value, ItemClassification.useful, lambda world: world.is_secret_bosses_randomized()
