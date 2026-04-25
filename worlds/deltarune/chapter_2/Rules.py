@@ -60,6 +60,11 @@ def set_weird_route_rules(world: "DeltaruneWorld"):
         lambda state: handle_thornring(world, state),
     )
 
+    set_rule(
+        multiworld.get_location(Ch2Locations.mansion_warp_door, player),
+        lambda state: handle_thornring(world, state) or state.has(glitched_item_name, player),
+    )
+
     if world.is_final_chapter(2):
         set_rule(
             multiworld.get_entrance(Ch2Entrances.post_chapter_castle_town_entrance, player),

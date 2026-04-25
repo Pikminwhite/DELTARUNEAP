@@ -48,7 +48,6 @@ class DeltaruneItem(Item):
 
 
 class ItemIDs(Enum):
-    progressive_weapon = -2
     # UT Integration
     glitched_item = -1
 
@@ -243,11 +242,11 @@ class ItemIDs(Enum):
     points_300 = 80300
     points_500 = 80500
 
-    chapter_1_unlock = 90000
-    chapter_2_unlock = 90001
-    chapter_3_unlock = 90002
-    chapter_4_unlock = 90003
-    chapter_5_unlock = 90004
+    chapter_1_unlock = 90001
+    chapter_2_unlock = 90002
+    chapter_3_unlock = 90003
+    chapter_4_unlock = 90004
+    chapter_5_unlock = 90005
 
 
 def generic_create_items(
