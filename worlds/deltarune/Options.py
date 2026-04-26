@@ -287,7 +287,7 @@ class MacGuffinChapter1(Range):
     (King-Shaped Key Pieces)
     """
 
-    display = "Macguffin Chapter 1 Amount"
+    display_name = "Macguffin Chapter 1 Amount"
     default = 3
     range_start = 0
     range_end = 10
@@ -307,7 +307,7 @@ class MacGuffinChapter2(Range):
     (KeyGen 2 Segments)
     """
 
-    display = "Macguffin Chapter 2 Amount"
+    display_name = "Macguffin Chapter 2 Amount"
     default = 3
     range_start = 0
     range_end = 10
@@ -327,7 +327,7 @@ class MacGuffinChapter3(Range):
     (Remote Batteries)
     """
 
-    display = "Macguffin Chapter 3 Amount"
+    display_name = "Macguffin Chapter 3 Amount"
     default = 3
     range_start = 0
     range_end = 10
@@ -347,7 +347,7 @@ class MacGuffinChapter4(Range):
     (Combination Lock Digits)
     """
 
-    display = "Macguffin Chapter 4 Amount"
+    display_name = "Macguffin Chapter 4 Amount"
     default = 3
     range_start = 0
     range_end = 10
@@ -358,7 +358,7 @@ class MacGuffinExtra(Range):
     Amount of extra macfuffins added in the item pool that are not required to progress.
     """
 
-    display = "Extra MacGuffin Amount"
+    display_name = "Extra MacGuffin Amount"
     default = 1
     range_start = 0
     range_end = 5
