@@ -26,7 +26,7 @@ def set_rules(world: "DeltaruneWorld"):
         set_all_routes_rules(world)
     elif world.is_weird_route():
         set_weird_route_rules(world)
-    elif world.is_all_recruits():
+    elif world.is_all_recruits() or world.is_neutral_route():
         set_all_recruits_rules(world)
 
     if world.is_all_recruits():
@@ -176,7 +176,7 @@ def handle_locked_items(world: "DeltaruneWorld"):
         multiworld.get_location(Ch2Locations.mansion_spamton_neo_defeat_item_2, player).place_locked_item(
             world.create_item(CCItems.shadowcrystal)
         )
-        if not world.is_weird_route() or world.is_all_routes():
+        if world.is_not_weird_route_only():
             multiworld.get_location(Ch2Locations.mansion_spamton_neo_defeat_item_3, player).place_locked_item(
                 world.create_item(Ch2Items.dealmaker)
             )
@@ -189,7 +189,7 @@ def handle_locked_items(world: "DeltaruneWorld"):
 
     # Hidden items
     if not world.is_hidden_items_randomized():
-        if not world.is_weird_route() or world.is_all_routes():
+        if world.is_not_weird_route_only():
             multiworld.get_location(Ch2Locations.spamton_shop_1, player).place_locked_item(
                 world.create_item(Ch2Items.keygen)
             )

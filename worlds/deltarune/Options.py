@@ -26,14 +26,16 @@ class ChosenRoute(Choice):
     CHOOSE THE ROUTE
     THAT YOU PREFER.
 
-    (All Recruits - Progress through the story normally. Recruit Everyone!!!)
+    (All Recruits - Progress through the story by recruiting everyone.)
     (Weird Route - Proceed through the "Weird Route" storyline while losing all possible recruits.)
+    (Neutral Route - Proceed through the story normally.)
     (Losing/Gaining recruits have been turned into checks.)"""
 
     display_name = "Chosen Route"
     option_all_recruits = 0
     option_weird_route = 1
     option_all_routes = 2
+    option_neutral_route = 3
     default = option_all_recruits
 
 
@@ -41,7 +43,7 @@ class ChosenRouteOptions(StrEnum):
     all_recruits = "all_recruits"
     weird_route = "weird_route"
     all_routes = "all_routes"
-
+    neutral_route = "neutral_route"
 
 class RandomizeChapters(Choice):
     """

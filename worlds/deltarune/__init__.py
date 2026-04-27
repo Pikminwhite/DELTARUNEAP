@@ -229,6 +229,12 @@ class DeltaruneWorld(World):
     def is_chapters_randomized(self):
         return self.options.randomize_chapters == RandomizeChapterOptions.randomized
 
+    def is_not_weird_route_only(self):
+        return self.options.chosen_route != ChosenRouteOptions.weird_route or self.is_all_routes()
+
+    def is_neutral_route(self):
+        return self.options.chosen_route == ChosenRouteOptions.neutral_route or self.is_all_routes()
+
     def is_all_recruits(self):
         return self.options.chosen_route == ChosenRouteOptions.all_recruits or self.is_all_routes()
 
