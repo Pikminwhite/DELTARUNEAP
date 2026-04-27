@@ -3,24 +3,6 @@ from enum import StrEnum
 from Options import Choice, Toggle, Range, PerGameCommonOptions, NamedRange, OptionGroup
 from dataclasses import dataclass
 
-
-class Notice(Choice):
-    """
-    THIS IS NOT AN OPTION:
-
-    SHOULD A CHAPTER BE EXCLUDED
-    FROM BOTH OF ITS NEIGHBORS,
-
-    GENERATION WILL FAIL.
-
-    (For example: Including only chapter 2 and 3 or just doing a single chapter WILL work fine.)
-    (Including chapter 1, not including chapter 2, but including chapter 3 will not work.)"""
-
-    display_name = "NOTICE: READ OPTION INFO"
-    option_understood = 0
-    default = 0
-
-
 class ChosenRoute(Choice):
     """
     CHOOSE THE ROUTE
@@ -357,7 +339,7 @@ class MacGuffinChapter4(Range):
 
 class MacGuffinExtra(Range):
     """
-    Amount of extra macfuffins added in the item pool that are not required to progress.
+    Amount of extra macguffins added in the item pool that are not required to progress.
     """
 
     display_name = "Extra MacGuffin Amount"
