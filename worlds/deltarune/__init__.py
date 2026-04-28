@@ -139,8 +139,8 @@ class DeltaruneWorld(World):
                 "randomize_secret_bosses": self.options.randomize_secret_bosses.current_key,
                 "macguffin_chapter_1": int(self.options.macguffin_chapter_1.value),
                 "macguffin_chapter_2": int(self.options.macguffin_chapter_2.value),
-                "macguffin_chapter_3": int(self.options.macguffin_chapter_3.value),
-                "macguffin_chapter_4": int(self.options.macguffin_chapter_4.value),
+                "macguffin_chapter_3": int(0),
+                "macguffin_chapter_4": int(0),
                 "macguffin_extra": int(self.options.macguffin_extra.value),
                 "include_chapter_1": bool(self.options.include_chapter_1.value),
                 "include_chapter_2": bool(self.options.include_chapter_2.value),
@@ -218,6 +218,8 @@ class DeltaruneWorld(World):
                     setattr(self.options, key, opt.from_any(value))
 
     def include_chapter(self, chapter: int) -> bool:
+        if chapter == 3 or chapter == 4:
+            return False
         return getattr(self.options, f"include_chapter_{chapter}").value == 1
 
     def is_chapters_in_order(self):
@@ -357,6 +359,8 @@ class DeltaruneWorld(World):
         return -1
 
     def create_regions(self):
+        self.options.include_chapter_3.value = 0
+        self.options.include_chapter_4.value = 0
         every_connections = CCLocationsAndRegions.get_cross_chapter_mandatory_connection(self)
 
         CCLocationsAndRegions.create_regions(self)
