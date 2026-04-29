@@ -222,6 +222,14 @@ class IncludeHiddenItems(Toggle):
     default = 0
 
 
+class RemoveStartingEquipement(Toggle)
+    """DO YOU WISH
+    TO REMOVE THE STARTING EQUIPEMENT
+    FOR EACH CHAPTER?"""
+
+    display_name = "Remove Starting Equipement"
+    default = 1
+
 class IncludeChapter1(Toggle):
     """DO YOU WISH
     TO PLAY CHAPTER 1?"""
@@ -625,7 +633,7 @@ class IncludeMikeOptions(StrEnum):
 
 
 deltarune_option_groups = [
-    OptionGroup("Chapters", [RandomizeChapters, IncludeChapter1, IncludeChapter2, IncludeChapter3, IncludeChapter4]),
+    OptionGroup("Chapters", [RandomizeChapters, RemoveStartingEquipement, IncludeChapter1, IncludeChapter2, IncludeChapter3, IncludeChapter4]),
     OptionGroup(
         "Fillers",
         [
@@ -670,6 +678,7 @@ deltarune_option_groups = [
 class DeltaruneOptions(PerGameCommonOptions):
     progression_balancing: ProgressionBalancing
     accessibility: Accessibility
+    remove_starting_equipement: RemoveStartingEquipement
     include_chapter_1: IncludeChapter1
     include_chapter_2: IncludeChapter2
     include_chapter_3: IncludeChapter3
