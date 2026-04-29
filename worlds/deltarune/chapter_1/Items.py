@@ -102,9 +102,7 @@ chapter1_items = {
     Ch1Items.daintyscarf.value: ItemData(
         ItemIDs.daintyscarf.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.ralsei_weapons]
     ),
-    Ch1Items.manual.value: ItemData(
-        ItemIDs.manual.value, ItemClassification.progression | ItemClassification.useful, amount=2
-    ),
+    Ch1Items.manual.value: ItemData(ItemIDs.manual.value, ItemClassification.progression, amount=2),
     # Blockers
     Ch1Items.bake_sale_ticket.value: ItemData(
         ItemIDs.bake_sale_ticket.value, ItemClassification.progression, [ItemGroups.region_blockers]
@@ -135,15 +133,17 @@ chapter1_conditional_items = {
     # Hidden Items
     Ch1Items.egg.value: ConditionalItemData(
         ItemIDs.chapter_1_egg.value,
-        ItemClassification.useful,
+        ItemClassification.filler,
         lambda world: world.is_hidden_items_randomized(),
         [ItemGroups.eggs],
+        blacklist_filler=True,
     ),
     Ch1Items.castle_moss.value: ConditionalItemData(
         ItemIDs.castle_moss.value,
-        ItemClassification.useful,
+        ItemClassification.filler,
         lambda world: world.is_hidden_items_randomized(),
         [ItemGroups.moss],
+        blacklist_filler=True,
     ),
     Ch1Items.broken_key_a.value: ConditionalItemData(
         ItemIDs.broken_key_a.value,
@@ -183,7 +183,10 @@ chapter1_conditional_items = {
         [ItemGroups.weapons, ItemGroups.susie_weapons],
     ),
     CCItems.shadowcrystal.value: ConditionalItemData(
-        ItemIDs.shadowcrystal.value, ItemClassification.useful, lambda world: world.is_secret_bosses_randomized()
+        ItemIDs.shadowcrystal.value,
+        ItemClassification.filler,
+        lambda world: world.is_secret_bosses_randomized(),
+        blacklist_filler=True,
     ),
     Ch1Items.chapter_1_unlock.value: ConditionalItemData(
         ItemIDs.chapter_1_unlock.value,

@@ -91,7 +91,10 @@ chapter2_items = {
     CCItems.spincake.value: ItemData(ItemIDs.spincake.value, ItemClassification.filler, [ItemGroups.healing_item]),
     CCItems.tensiongem.value: ItemData(ItemIDs.tensiongem.value, ItemClassification.filler, [ItemGroups.tension_items]),
     Ch2Items.joe_life_savings.value: ItemData(
-        ItemIDs.joe_life_savings.value, ItemClassification.useful, [ItemGroups.currencies]
+        ItemIDs.joe_life_savings.value,
+        ItemClassification.filler,
+        [ItemGroups.currencies],
+        blacklist_filler=True,
     ),
     Ch2Items.mechasaber.value: ItemData(
         ItemIDs.mechasaber.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.kris_weapons]
@@ -150,9 +153,9 @@ chapter2_conditional_items = {
     ),
     Ch2Items.spoison.value: ConditionalItemData(
         ItemIDs.spoison.value,
-        ItemClassification.filler,
+        ItemClassification.trap,
         lambda world: world.is_not_weird_route_only(),
-        [ItemGroups.healing_item],
+        [ItemGroups.traps],
     ),
     Ch2Items.kris_tea.value: ConditionalItemData(
         ItemIDs.kris_tea.value,
@@ -211,15 +214,17 @@ chapter2_conditional_items = {
     ),
     Ch2Items.egg.value: ConditionalItemData(
         ItemIDs.chapter_2_egg.value,
-        ItemClassification.useful,
+        ItemClassification.filler,
         lambda world: world.is_not_weird_route_only() and world.is_hidden_items_randomized(),
         [ItemGroups.eggs],
+        blacklist_filler=True,
     ),
     Ch2Items.city_moss.value: ConditionalItemData(
         ItemIDs.city_moss.value,
-        ItemClassification.useful,
+        ItemClassification.filler,
         lambda world: world.is_not_weird_route_only() and world.is_hidden_items_randomized(),
         [ItemGroups.moss],
+        blacklist_filler=True,
     ),
     Ch2Items.chainmail.value: ConditionalItemData(
         ItemIDs.chainmail.value,
@@ -229,9 +234,10 @@ chapter2_conditional_items = {
     ),
     Ch2Items.brokenswd.value: ConditionalItemData(
         ItemIDs.brokenswd.value,
-        ItemClassification.useful,
+        ItemClassification.filler,
         lambda world: world.is_not_weird_route_only(),
         [ItemGroups.weapons],
+        blacklist_filler=True,
     ),
     Ch2Items.mansion_reservation.value: ConditionalItemData(
         ItemIDs.mansion_reservation.value,
@@ -290,7 +296,10 @@ chapter2_conditional_items = {
         [ItemGroups.weapons, ItemGroups.ralsei_weapons],
     ),
     CCItems.shadowcrystal.value: ConditionalItemData(
-        ItemIDs.shadowcrystal.value, ItemClassification.useful, lambda world: world.is_secret_bosses_randomized()
+        ItemIDs.shadowcrystal.value,
+        ItemClassification.filler,
+        lambda world: world.is_secret_bosses_randomized(),
+        blacklist_filler=True,
     ),
     # Unused Items
     Ch2Items.javacookie.value: ConditionalItemData(

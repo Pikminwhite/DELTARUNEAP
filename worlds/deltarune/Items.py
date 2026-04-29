@@ -33,6 +33,7 @@ class ItemData(NamedTuple):
     classification: ItemClassification
     groups: Optional[list[ItemGroups]] = []
     amount: Optional[int] = 1
+    blacklist_filler: Optional[bool] = False
 
 
 class ConditionalItemData(NamedTuple):
@@ -41,6 +42,7 @@ class ConditionalItemData(NamedTuple):
     should_be_included: Callable[["DeltaruneWorld"], bool]
     groups: Optional[list[ItemGroups]] = []
     amount: Optional[int] = 1
+    blacklist_filler: Optional[bool] = False
 
 
 class DeltaruneItem(Item):
@@ -272,13 +274,15 @@ def generic_get_filler_and_trap_items(
     filler_items |= {
         item_name: item_data
         for item_name, item_data in items.items()
-        if item_data.classification == ItemClassification.filler or item_data.classification == ItemClassification.trap
+        if (item_data.classification == ItemClassification.filler and not item_data.blacklist_filler)
+        or item_data.classification == ItemClassification.trap
     }
     filler_items |= {
         item_name: item_data
         for item_name, item_data in conditional_items.items()
         if (
-            item_data.classification == ItemClassification.filler or item_data.classification == ItemClassification.trap
+            (item_data.classification == ItemClassification.filler and not item_data.blacklist_filler)
+            or item_data.classification == ItemClassification.trap
         )
         and item_data.should_be_included(world)
     }

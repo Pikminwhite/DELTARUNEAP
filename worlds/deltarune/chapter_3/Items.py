@@ -150,19 +150,24 @@ chapter3_conditional_items = {
         [ItemGroups.weapons, ItemGroups.kris_weapons],
     ),
     CCItems.shadowcrystal.value: ConditionalItemData(
-        ItemIDs.shadowcrystal.value, ItemClassification.useful, lambda world: world.is_secret_bosses_randomized()
+        ItemIDs.shadowcrystal.value,
+        ItemClassification.filler,
+        lambda world: world.is_secret_bosses_randomized(),
+        blacklist_filler=True,
     ),
     Ch3Items.egg.value: ConditionalItemData(
         ItemIDs.chapter_3_egg.value,
-        ItemClassification.useful,
+        ItemClassification.filler,
         lambda world: world.is_hidden_items_randomized(),
         [ItemGroups.eggs],
+        blacklist_filler=True,
     ),
     Ch3Items.board_moss.value: ConditionalItemData(
         ItemIDs.board_moss.value,
-        ItemClassification.useful,
+        ItemClassification.filler,
         lambda world: world.is_hidden_items_randomized() and ((not world.is_weird_route()) or world.is_all_routes()),
         [ItemGroups.moss],
+        blacklist_filler=True,
     ),
     Ch3Items.chapter_3_unlock.value: ConditionalItemData(
         ItemIDs.chapter_3_unlock.value,

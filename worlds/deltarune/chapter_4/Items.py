@@ -88,19 +88,24 @@ chapter4_conditional_items = {
         [ItemGroups.weapons, ItemGroups.susie_weapons],
     ),
     CCItems.shadowcrystal.value: ConditionalItemData(
-        ItemIDs.shadowcrystal.value, ItemClassification.useful, lambda world: world.is_secret_bosses_randomized()
+        ItemIDs.shadowcrystal.value,
+        ItemClassification.filler,
+        lambda world: world.is_secret_bosses_randomized(),
+        blacklist_filler=True,
     ),
     Ch4Items.egg.value: ConditionalItemData(
         ItemIDs.chapter_4_egg.value,
-        ItemClassification.useful,
+        ItemClassification.filler,
         lambda world: world.is_hidden_items_randomized(),
         [ItemGroups.eggs],
+        blacklist_filler=True,
     ),
     Ch4Items.holy_moss.value: ConditionalItemData(
         ItemIDs.sacred_moss.value,
-        ItemClassification.useful,
+        ItemClassification.filler,
         lambda world: world.is_hidden_items_randomized(),
         [ItemGroups.moss],
+        blacklist_filler=True,
     ),
     Ch4Items.chapter_4_unlock.value: ConditionalItemData(
         ItemIDs.chapter_4_unlock.value,
