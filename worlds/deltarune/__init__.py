@@ -142,6 +142,7 @@ class DeltaruneWorld(World):
                 "macguffin_chapter_3": int(0),
                 "macguffin_chapter_4": int(0),
                 "macguffin_extra": int(self.options.macguffin_extra.value),
+                "remove_starting_equipement": bool(self.options.remove_starting_equipement.value),
                 "include_chapter_1": bool(self.options.include_chapter_1.value),
                 "include_chapter_2": bool(self.options.include_chapter_2.value),
                 "include_chapter_3": bool(self.options.include_chapter_3.value),
