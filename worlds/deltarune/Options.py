@@ -8,9 +8,9 @@ class ChosenRoute(Choice):
     CHOOSE THE ROUTE
     THAT YOU PREFER.
 
-    (All Recruits - Progress through the story by recruiting everyone.)
+    (All Recruits - Progress through the story normally, and recruit everyone along the way.)
     (Weird Route - Proceed through the "Weird Route" storyline while losing all possible recruits.)
-    (Neutral Route - Proceed through the story normally.)
+    (Neutral Route - Progress through the story normally. Losing/Gaining recruits aren't checks, so do whatever!)
     (Losing/Gaining recruits have been turned into checks.)"""
 
     display_name = "Chosen Route"
@@ -260,8 +260,9 @@ class IncludeChapter4(Toggle):
 class MacGuffinChapter1(Range):
     """
     A NEW ROADBLACK WILL
-    APPEAR BEFORE THE
-    FINAL BOSS OF CHAPTER 1
+    APPEAR BEFORE
+    THE FINAL BOSS
+    OF THE FIRST CHAPTER.
 
     THIS OPTION DETERMINES
     HOW MANY OF THESE ITEMS
@@ -272,7 +273,7 @@ class MacGuffinChapter1(Range):
     """
 
     display_name = "Macguffin Chapter 1 Amount"
-    default = 3
+    default = 0
     range_start = 0
     range_end = 10
 
@@ -280,8 +281,9 @@ class MacGuffinChapter1(Range):
 class MacGuffinChapter2(Range):
     """
     A NEW ROADBLACK WILL
-    APPEAR BEFORE THE
-    FINAL BOSS OF CHAPTER 2
+    APPEAR BEFORE
+    THE FINAL BOSS
+    OF THE SECOND CHAPTER.
 
     THIS OPTION DETERMINES
     HOW MANY OF THESE ITEMS
@@ -292,7 +294,7 @@ class MacGuffinChapter2(Range):
     """
 
     display_name = "Macguffin Chapter 2 Amount"
-    default = 3
+    default = 0
     range_start = 0
     range_end = 10
 
@@ -300,8 +302,9 @@ class MacGuffinChapter2(Range):
 class MacGuffinChapter3(Range):
     """
     A NEW ROADBLACK WILL
-    APPEAR BEFORE THE
-    FINAL BOSS OF CHAPTER 3
+    APPEAR BEFORE
+    THE FINAL BOSS
+    OF THE THIRD CHAPTER.
 
     THIS OPTION DETERMINES
     HOW MANY OF THESE ITEMS
@@ -312,7 +315,7 @@ class MacGuffinChapter3(Range):
     """
 
     display_name = "Macguffin Chapter 3 Amount"
-    default = 3
+    default = 0
     range_start = 0
     range_end = 10
 
@@ -320,8 +323,9 @@ class MacGuffinChapter3(Range):
 class MacGuffinChapter4(Range):
     """
     A NEW ROADBLACK WILL
-    APPEAR BEFORE THE
-    FINAL BOSS OF CHAPTER 4
+    APPEAR BEFORE
+    THE FINAL BOSS
+    OF THE FOURTH CHAPTER.
 
     THIS OPTION DETERMINES
     HOW MANY OF THESE ITEMS
@@ -339,7 +343,15 @@ class MacGuffinChapter4(Range):
 
 class MacGuffinExtra(Range):
     """
-    Amount of extra macguffins added in the item pool that are not required to progress.
+    EACH OF THE ROADBLOCKS
+    PLACED BEFORE
+    THE FINAL BOSS
+    WILL HAVE THIS NUMBER
+    OF SUPPLEMENTARY
+    YET UNNECESSARY ITEMS.
+
+    (So, there'll be this many extra macguffin items in the item pool,)
+    (But you'll still only need the amount you specified per chapter.)
     """
 
     display_name = "Extra MacGuffin Amount"
@@ -586,7 +598,7 @@ class IncludeUnusedItems(Choice):
     WILL THEY NOW
     BE WITH THE REST?
     
-    (EverybodyWeapon is pretty over-powered, and it's probably for testing purposes.)
+    (EverybodyWeapon is pretty overpowered, and it was probably made for testing purposes.)
     (Set this option to "True Without EverybodyWeapon" if you'd rather not have it.)
     """
 
