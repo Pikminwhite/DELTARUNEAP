@@ -222,13 +222,14 @@ class IncludeHiddenItems(Toggle):
     default = 0
 
 
-class RemoveStartingEquipement(Toggle)
+class RemoveStartingEquipement(Toggle):
     """DO YOU WISH
     TO REMOVE THE STARTING EQUIPEMENT
     FOR EACH CHAPTER?"""
 
     display_name = "Remove Starting Equipement"
     default = 1
+
 
 class IncludeChapter1(Toggle):
     """DO YOU WISH

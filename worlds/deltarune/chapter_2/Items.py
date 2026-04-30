@@ -111,7 +111,9 @@ chapter2_items = {
     Ch2Items.bounceblade.value: ItemData(
         ItemIDs.bounceblade.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.kris_weapons]
     ),
-    Ch2Items..value: ItemData(ItemIDs.mannequin.value, ItemClassification.filler, [ItemGroups.armors], blacklist_filler=True),
+    Ch2Items.mannequin.value: ItemData(
+        ItemIDs.mannequin.value, ItemClassification.filler, [ItemGroups.armors], blacklist_filler=True
+    ),
     # Noelle royal pin
     Ch2Items.royalpin.value: ItemData(ItemIDs.royalpin.value, ItemClassification.useful, [ItemGroups.armors]),
     Ch2Items.tensionbit.value: ItemData(
