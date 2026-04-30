@@ -504,7 +504,7 @@ chapter2_conditional_locations = {
     Ch2Locations.lost_swatchlings.value: ConditionalLocationData(
         LocationIDs.ch2_lost_swatchlings.value,
         Ch2Regions.mansion.value,
-        lambda world: world.is_all_routes(),
+        lambda world: world.is_weird_route() and world.options.include_lose_swatchling.value == 1,
         LocationGroups.chapter2.value,
     ),
     Ch2Locations.lost_tasque_manager.value: ConditionalLocationData(

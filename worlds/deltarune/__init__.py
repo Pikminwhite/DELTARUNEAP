@@ -149,6 +149,7 @@ class DeltaruneWorld(World):
                 "include_chapter_4": bool(self.options.include_chapter_4.value),
                 "include_t_rank": self.options.include_t_rank.current_key,
                 "chosen_route": self.options.chosen_route.current_key,
+                "include_lose_swatchling": bool(self.options.include_lose_swatchling),
                 "randomize_chapters": self.options.randomize_chapters.current_key,
                 "include_hidden_items": bool(self.options.include_hidden_items.value),
                 "death_link": bool(self.options.death_link.value),

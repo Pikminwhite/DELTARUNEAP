@@ -247,6 +247,16 @@ class IncludeChapter2(Toggle):
     default = 1
 
 
+class IncludeLoseSwatchling(Toggle):
+    """
+    Would lose swatchling be include if you are doing weird route or all routes ?
+    Technically, without reloading a save you need use wrong warp to do it in weird route.
+    """
+
+    display_name = "Include Lose Swatchling"
+    default = 0
+
+
 class IncludeChapter3(Toggle):
     """
     DO YOU WISH
@@ -633,7 +643,18 @@ class IncludeMikeOptions(StrEnum):
 
 
 deltarune_option_groups = [
-    OptionGroup("Chapters", [RandomizeChapters, RemoveStartingEquipement, IncludeChapter1, IncludeChapter2, IncludeChapter3, IncludeChapter4]),
+    OptionGroup(
+        "Chapters",
+        [
+            RandomizeChapters,
+            RemoveStartingEquipement,
+            IncludeChapter1,
+            IncludeChapter2,
+            IncludeLoseSwatchling,
+            IncludeChapter3,
+            IncludeChapter4
+        ],
+    ),
     OptionGroup(
         "Fillers",
         [
@@ -685,6 +706,7 @@ class DeltaruneOptions(PerGameCommonOptions):
     include_chapter_4: IncludeChapter4
     randomize_chapters: RandomizeChapters
     chosen_route: ChosenRoute
+    include_lose_swatchling: IncludeLoseSwatchling
     item_balancing: ItemBalancing
     macguffin_chapter_1: MacGuffinChapter1
     macguffin_chapter_2: MacGuffinChapter2
