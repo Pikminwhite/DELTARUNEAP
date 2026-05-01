@@ -214,3 +214,19 @@ def handle_thornring(world: "DeltaruneWorld", state: CollectionState):
         return state.has(CCItems.progressive_noelle_weapons, player, 2)
     else:
         return state.has(Ch2Items.thornring, player)
+
+
+def handle_lose_mansion_recruit_all_routes(world: "DeltaruneWorld"):
+    locations = [Ch2Locations.lost_werewerewire, Ch2Locations.lost_tasque_manager, Ch2Locations.lost_mauswheel]
+
+    for location in locations:
+        set_rule(
+            world.multiworld.get_location(location, world.player),
+            lambda state: handle_thornring(world, state) or state.has(glitched_item_name),
+        )
+
+    if world.options.include_lose_swatchling.value == 1:
+        set_rule(
+            world.multiworld.get_location(Ch2Locations.lost_swatchlings, world.player),
+            lambda state: handle_thornring(world, state) or state.has(glitched_item_name),
+        )
