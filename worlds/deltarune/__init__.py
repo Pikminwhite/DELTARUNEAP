@@ -248,6 +248,9 @@ class DeltaruneWorld(World):
     def is_all_routes(self):
         return self.options.chosen_route == ChosenRouteOptions.all_routes
 
+    def is_starting_equipment_removed(self):
+        return self.options.remove_starting_equipement.value == 1
+
     def is_secret_bosses_randomized(self):
         return (
             self.options.randomize_secret_bosses == RandomizeSecretBossesOptions.true

@@ -34,6 +34,9 @@ class Ch1Items(StrEnum):
     mouse_token = "Mouse Token"
 
     # Weapons
+    wood_blade = "Wood Blade"
+    mane_ax = "Mane Ax"
+    red_scarf = "Red Scarf"
     spookysword = "Spookysword"
     trefoil = "Trefoil"
     brave_ax = "Brave Ax"
@@ -130,6 +133,28 @@ chapter1_items = {
 }
 
 chapter1_conditional_items = {
+    # Starting Items
+    Ch1Items.wood_blade.value: ConditionalItemData(
+        ItemIDs.wood_blade.value,
+        ItemClassification.filler,
+        lambda world: world.is_starting_equipment_removed(),
+        [ItemGroups.weapons, ItemGroups.kris_weapons],
+        blacklist_filler=True,
+    ),
+    Ch1Items.mane_ax.value: ConditionalItemData(
+        ItemIDs.mane_ax.value,
+        ItemClassification.filler,
+        lambda world: world.is_starting_equipment_removed(),
+        [ItemGroups.weapons, ItemGroups.susie_weapons],
+        blacklist_filler=True,
+    ),
+    Ch1Items.red_scarf.value: ConditionalItemData(
+        ItemIDs.red_scarf.value,
+        ItemClassification.filler,
+        lambda world: world.is_starting_equipment_removed(),
+        [ItemGroups.armors, ItemGroups.ralsei_weapons],
+        blacklist_filler=True,
+    ),
     # Hidden Items
     Ch1Items.egg.value: ConditionalItemData(
         ItemIDs.chapter_1_egg.value,

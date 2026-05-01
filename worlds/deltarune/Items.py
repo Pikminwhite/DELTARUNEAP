@@ -177,11 +177,9 @@ class ItemIDs(Enum):
     princessrbn = 20053
     goldwidow = 20054
 
-    progressive_kris_weapons = 30000
-    progressive_susie_weapons = 30001
-    progressive_ralsei_weapons = 30002
-    progressive_noelle_weapons = 30003
-
+    wood_blade = 30001
+    mane_ax = 30002
+    red_scarf = 30003
     everybodyweapon = 30004
     spookysword = 30005
     brave_ax = 30006
@@ -219,15 +217,10 @@ class ItemIDs(Enum):
     dark_dollars_250 = 40250
     dark_dollars_500 = 40500
 
-    fields_warp = 50000
-    forest_warp = 50001
-    bake_sale_warp = 50002
-    card_castle_warp = 50003
-    cyber_field_warp = 50004
-    trash_zone_warp = 50005
-    mansion_warp = 50006
-    tv_world_entrace_warp = 50007
-    goulden_sam_warp = 50008
+    progressive_kris_weapons = 50000
+    progressive_susie_weapons = 50001
+    progressive_ralsei_weapons = 50002
+    progressive_noelle_weapons = 50003
 
     what_interesting_behavior = 66666
 
