@@ -222,11 +222,11 @@ def handle_lose_mansion_recruit_all_routes(world: "DeltaruneWorld"):
     for location in locations:
         set_rule(
             world.multiworld.get_location(location, world.player),
-            lambda state: handle_thornring(world, state) or state.has(glitched_item_name),
+            lambda state: handle_thornring(world, state) or state.has(glitched_item_name, world.player),
         )
 
     if world.options.include_lose_swatchling.value == 1:
         set_rule(
             world.multiworld.get_location(Ch2Locations.lost_swatchlings, world.player),
-            lambda state: handle_thornring(world, state) or state.has(glitched_item_name),
+            lambda state: handle_thornring(world, state) or state.has(glitched_item_name, world.player),
         )

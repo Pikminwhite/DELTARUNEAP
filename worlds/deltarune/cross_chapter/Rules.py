@@ -15,6 +15,7 @@ from ..chapter_4.Items import Ch4Items
 from ..chapter_4.LocationsAndRegions import Ch4Locations
 from ..chapter_5.Items import Ch5Items
 from ..chapter_5.LocationsAndRegions import Ch5Locations
+from ..Items import glitched_item_name
 
 if TYPE_CHECKING:
     from .. import DeltaruneWorld
@@ -26,21 +27,29 @@ def set_rules(world: "DeltaruneWorld"):
 
     # Fusions
     if world.can_access_fusion():
-
         # TwinRibbon
-        if world.has_at_least_one_chapter_included([2, 3]) and world.has_at_least_one_chapter_included([1, 2, 3]):
-            if (not world.include_chapter(2)) or (
-                world.include_chapter(1) and world.is_chapters_in_order
-            ):  # If you play chapter 1 in order then you don't get the white ribbon ralsei starts with
+        if world.is_starting_equipment_removed():
+            if world.has_at_least_one_chapter_included([2, 3]) and world.has_at_least_one_chapter_included([1, 3]):
+                # We have no ch2 starting equipment
                 set_rule(
                     multiworld.get_location(CCLocations.castle_town_twin_ribbon_fusion, player),
                     lambda state: state.has(CCItems.pink_ribbon, player) and state.has(CCItems.white_ribbon, player),
                 )
-            else:
-                set_rule(
-                    multiworld.get_location(CCLocations.castle_town_twin_ribbon_fusion, player),
-                    lambda state: state.has(CCItems.pink_ribbon, player),
-                )
+        else:
+            if world.has_at_least_one_chapter_included([2, 3]) and world.has_at_least_one_chapter_included([1, 2, 3]):
+                if world.include_chapter(1) and world.include_chapter(2) and world.is_chapters_in_order():
+                    # We have ch2 starting equipment but we are playing in order so expected to load ch1 completion data (?)
+                    set_rule(
+                        multiworld.get_location(CCLocations.castle_town_twin_ribbon_fusion, player),
+                        lambda state: state.has(CCItems.pink_ribbon, player)
+                        and (state.has(CCItems.white_ribbon, player) or state.has(glitched_item_name, player)),
+                    )
+                else:
+                    # We have ch2 starting equipment
+                    set_rule(
+                        multiworld.get_location(CCLocations.castle_town_twin_ribbon_fusion, player),
+                        lambda state: state.has(CCItems.pink_ribbon, player),
+                    )
 
         # SpikeBand
         if world.include_chapter(1):
@@ -63,7 +72,7 @@ def set_rules(world: "DeltaruneWorld"):
             )
 
         # TwistedSwd
-        if False and world.is_unused_items_included() and world.include_chapter(2) and world.is_weird_route():
+        if world.is_unused_items_included() and world.include_chapter(2) and world.is_weird_route():
             set_rule(
                 multiworld.get_location(CCLocations.castle_town_twistedsword_fusion, player),
                 lambda state: state.has(Ch2Items.thornring, player) and state.has(CCItems.purecrystal, player),

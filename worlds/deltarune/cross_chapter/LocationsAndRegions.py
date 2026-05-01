@@ -57,7 +57,10 @@ cross_chapter_conditional_locations: dict = {
         fusion_access_region,
         lambda world: world.can_access_fusion()
         and world.has_at_least_one_chapter_included([2, 3])
-        and world.has_at_least_one_chapter_included([1, 2, 3]),
+        and (
+            (world.is_starting_equipment_removed() and world.has_at_least_one_chapter_included([1, 3]))
+            or (not world.is_starting_equipment_removed() and world.has_at_least_one_chapter_included([1, 2, 3]))
+        ),
         LocationGroups.castle_town.value,
     ),
     # Require IronShackle that is exclusive to chapter 1 and Glow Wrist to chapter 2 (shop) and chapter 4 (starting armor like chapter 3 but chapter 3 can't fuse)
@@ -83,7 +86,6 @@ cross_chapter_conditional_locations: dict = {
         LocationIDs.cc_castle_town_twistedsword_fusion.value,
         fusion_access_region,
         lambda world: world.can_access_fusion()
-        and False
         and world.include_chapter(2)
         and world.is_unused_items_included()
         and world.is_weird_route(),
