@@ -25,11 +25,13 @@ class Ch4Items(StrEnum):
     # Healing
     rhapsotea = "Rhapsotea"
     scarlixir = "Scarlixir"
+    bittertear = "BitterTear"
 
     # Armors
     mysticband = "MysticBand"
     powerband = "PowerBand"
     princessrbn = "PrincessRBN"
+    goldwidow = "GoldWidow"
 
     # Weapons
     scarfmark = "ScarfMark"
@@ -51,11 +53,13 @@ chapter4_items = {
     CCItems.dark_candy.value: ItemData(ItemIDs.dark_candy.value, ItemClassification.filler, [ItemGroups.healing_item]),
     Ch4Items.rhapsotea.value: ItemData(ItemIDs.rhapsotea.value, ItemClassification.filler, [ItemGroups.healing_item]),
     Ch4Items.scarlixir.value: ItemData(ItemIDs.scarlixir.value, ItemClassification.filler, [ItemGroups.healing_item]),
+    Ch4Items.bittertear.value: ItemData(ItemIDs.bittertear.value, ItemClassification.filler, [ItemGroups.healing_item]),
     CCItems.tensiongem.value: ItemData(ItemIDs.tensiongem.value, ItemClassification.filler, [ItemGroups.tension_items]),
     CCItems.dogdollard.value: ItemData(ItemIDs.dogdollar.value, ItemClassification.filler, [ItemGroups.currencies], 0),
     Ch4Items.mysticband.value: ItemData(ItemIDs.mysticband.value, ItemClassification.useful, [ItemGroups.armors]),
     Ch4Items.powerband.value: ItemData(ItemIDs.powerband.value, ItemClassification.useful, [ItemGroups.armors]),
     Ch4Items.princessrbn.value: ItemData(ItemIDs.princessrbn.value, ItemClassification.useful, [ItemGroups.armors]),
+    Ch4Items.goldwidow.value: ItemData(ItemIDs.goldwidow.value, ItemClassification.useful, [ItemGroups.armors]),
     Ch4Items.scarfmark.value: ItemData(
         ItemIDs.scarfmark.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.ralsei_weapons]
     ),
