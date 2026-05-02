@@ -509,7 +509,11 @@ class DeltaruneWorld(World):
         itempool: list[str],
         character: ItemGroups,
     ):
-        weapons_character = [name for name, value in every_items.items() if character in value.groups]
+        weapons_character = [
+            name
+            for name, value in every_items.items()
+            if character in value.groups and value.classification != ItemClassification.filler
+        ]
         weapons_character_in_pool = [weapon for weapon in weapons_character if weapon in itempool]
 
         # Remove them from the item pool

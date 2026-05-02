@@ -58,6 +58,7 @@ class Ch2Items(StrEnum):
     puppetscarf = "PuppetScarf"
     cheerscarf = "CheerScarf"
     brokenswd = "BrokenSwd"
+    snowring = "SnowRing"
     freezering = "FreezeRing"
     thornring = "ThornRing"
 
@@ -141,6 +142,13 @@ chapter2_items = {
 }
 
 chapter2_conditional_items = {
+    Ch2Items.snowring.value: ConditionalItemData(
+        ItemIDs.snowring.value,
+        ItemClassification.filler,
+        lambda world: world.is_starting_equipment_removed(),
+        [ItemGroups.weapons, ItemGroups.noelle_weapons],
+        blacklist_filler=True,
+    ),
     Ch2Items.spagetticode.value: ConditionalItemData(
         ItemIDs.spagetticode.value,
         ItemClassification.filler,

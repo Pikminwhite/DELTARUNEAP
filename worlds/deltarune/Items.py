@@ -188,6 +188,7 @@ class ItemIDs(Enum):
     ragger = 30009
     daintyscarf = 30010
     twistedswd = 30011
+    snowring = 30012
     thornring = 30013
     bounceblade = 30014
     cheerscarf = 30015
