@@ -44,12 +44,21 @@ def set_rules(world: "DeltaruneWorld"):
 
         # SpikeBand
         if world.include_chapter(1):
-            if world.include_chapter(4):  # Chapter 4 have GlowWist have starter item so don't require it
+            if world.include_chapter(4) and world.is_all_chapters_unlocked:
+                    # if all chapters unlock: check for only ironshackle since you can go to chapter 4 immediately
                 set_rule(
-                    multiworld.get_location(CCLocations.castle_town_spike_band_fusion, player),
-                    lambda state: state.has(Ch1Items.ironshackle, player),
-                )
-            elif world.include_chapter(2):  # Chapter 2 have to gain GlowWist so require it to acquire it
+                        multiworld.get_location(CCLocations.castle_town_spike_band_fusion, player),
+                        lambda state: state.has(Ch1Items.ironshackle, player),
+                    )
+            elif world.include_chapter(4) and world.is_chapters_randomized:
+                    # if chapters randomized: check for ironshackle and either glowwrist or chapter 4 unlock
+                set_rule(
+                        multiworld.get_location(CCLocations.castle_town_spike_band_fusion, player),
+                        lambda state: state.has(Ch1Items.ironshackle, player) and
+                        (state.has(Ch4Items.chapter_4_unlock, player) or state.has(Ch2Items.glowwrist, player)),
+                    )
+            else:  # if chapters are in order/ only chapter 2: check for both ironshackle and glowwrist,
+                   # in order should never expect you to make a new save, so maybe add as glitched location?
                 set_rule(
                     multiworld.get_location(CCLocations.castle_town_spike_band_fusion, player),
                     lambda state: state.has(Ch1Items.ironshackle, player) and state.has(Ch2Items.glowwrist, player),
