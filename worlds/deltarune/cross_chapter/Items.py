@@ -18,6 +18,12 @@ class CCItems(StrEnum):
     # Gaster
     what_interresting_behavior = "WHAT INTERESTING BEHAVIOR."
 
+    # Characters
+    kris = "Kris"
+    susie = "Susie"
+    ralsei = "Ralsei"
+    noelle = "Noelle"
+
     # Healing Items
     dark_candy = "Dark Candy"
     clubsSandwich = "ClubsSandwich"
@@ -89,6 +95,31 @@ cross_chapter_items = {
 }
 
 cross_chapter_conditional_items = {
+    # Characters
+    CCItems.kris.value: ConditionalItemData(
+        ItemIDs.kris.value,
+        ItemClassification.progression,
+        lambda world: world.is_kris_unlockable(),
+        [ItemGroups.characters],
+    ),
+    CCItems.susie.value: ConditionalItemData(
+        ItemIDs.susie.value,
+        ItemClassification.progression,
+        lambda world: world.is_characters_unlockables(),
+        [ItemGroups.characters],
+    ),
+    CCItems.ralsei.value: ConditionalItemData(
+        ItemIDs.ralsei.value,
+        ItemClassification.progression,
+        lambda world: world.is_characters_unlockables(),
+        [ItemGroups.characters],
+    ),
+    CCItems.noelle.value: ConditionalItemData(
+        ItemIDs.noelle.value,
+        ItemClassification.progression,
+        lambda world: world.include_chapter(2) and world.is_characters_unlockables(),
+        [ItemGroups.characters],
+    ),
     # Fusions
     CCItems.dd_burger.value: ConditionalItemData(
         ItemIDs.dd_burger.value,

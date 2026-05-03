@@ -67,6 +67,7 @@ class Ch1Regions(StrEnum):
     chapter_1 = "Chapter 1"
     castle_town = "CH1: Castle Town"
     fields = "CH1: Fields"
+    fields_post_hathy = "CH1: Fields (Post-Hathy)"
     forest = "CH1: Forest"
     bake_sale = "CH1: Bake Sale"
     card_castle = "CH1: Card Castle"
@@ -77,6 +78,7 @@ class Ch1Regions(StrEnum):
 class Ch1Entrances(StrEnum):
     castle_town_entrance = "CH1: Castle Town Entrance"
     fields_entrance = "CH1: Fields Entrance"
+    fields_post_hathy_entrance = "CH1: Fields (Post-Hathy) Entrance"
     forest_entrance = "CH1: Forest Entrance"
     bake_sale_entrance = "CH1: Bake Sale Entrance"
     card_castle_entrance = "CH1: Card Castle Entrance"
@@ -118,27 +120,29 @@ chapter1_locations = {
         LocationIDs.ch1_field_maze_of_death_chest.value, Ch1Regions.fields.value, LocationGroups.chapter1.value
     ),
     Ch1Locations.field_chest_before_great_board.value: LocationData(
-        LocationIDs.ch1_field_chest_before_great_board.value, Ch1Regions.fields.value, LocationGroups.chapter1.value
+        LocationIDs.ch1_field_chest_before_great_board.value,
+        Ch1Regions.fields_post_hathy.value,
+        LocationGroups.chapter1.value,
     ),
     Ch1Locations.field_warp_door.value: LocationData(
-        LocationIDs.ch1_field_warp_door.value, Ch1Regions.fields.value, LocationGroups.chapter1.value
+        LocationIDs.ch1_field_warp_door.value, Ch1Regions.fields_post_hathy.value, LocationGroups.chapter1.value
     ),
     Ch1Locations.seam_seap_talk_about_strange_prisoner.value: LocationData(
         LocationIDs.ch1_seam_seap_talk_about_strange_prisoner.value,
-        Ch1Regions.fields.value,
+        Ch1Regions.fields_post_hathy.value,
         LocationGroups.chapter1.value,
     ),
     Ch1Locations.seam_seap_1.value: LocationData(
-        LocationIDs.ch1_seam_seap_1.value, Ch1Regions.fields.value, LocationGroups.chapter1.value
+        LocationIDs.ch1_seam_seap_1.value, Ch1Regions.fields_post_hathy.value, LocationGroups.chapter1.value
     ),
     Ch1Locations.seam_seap_2.value: LocationData(
-        LocationIDs.ch1_seam_seap_2.value, Ch1Regions.fields.value, LocationGroups.chapter1.value
+        LocationIDs.ch1_seam_seap_2.value, Ch1Regions.fields_post_hathy.value, LocationGroups.chapter1.value
     ),
     Ch1Locations.seam_seap_3.value: LocationData(
-        LocationIDs.ch1_seam_seap_3.value, Ch1Regions.fields.value, LocationGroups.chapter1.value
+        LocationIDs.ch1_seam_seap_3.value, Ch1Regions.fields_post_hathy.value, LocationGroups.chapter1.value
     ),
     Ch1Locations.seam_seap_4.value: LocationData(
-        LocationIDs.ch1_seam_seap_4.value, Ch1Regions.fields.value, LocationGroups.chapter1.value
+        LocationIDs.ch1_seam_seap_4.value, Ch1Regions.fields_post_hathy.value, LocationGroups.chapter1.value
     ),
     Ch1Locations.forest_warp_door.value: LocationData(
         LocationIDs.ch1_forest_warp_door.value, Ch1Regions.forest.value, LocationGroups.chapter1.value
@@ -232,7 +236,8 @@ chapter1_end_region = Ch1Regions.light_world.value
 chapter1_regions = [
     (Ch1Regions.chapter_1.value, [Ch1Entrances.castle_town_entrance.value]),
     (Ch1Regions.castle_town.value, [Ch1Entrances.fields_entrance.value]),
-    (Ch1Regions.fields.value, [Ch1Entrances.forest_entrance.value]),
+    (Ch1Regions.fields.value, [Ch1Entrances.fields_post_hathy_entrance.value]),
+    (Ch1Regions.fields_post_hathy.value, [Ch1Entrances.forest_entrance.value]),
     (Ch1Regions.forest.value, [Ch1Entrances.bake_sale_entrance.value]),
     (Ch1Regions.bake_sale.value, [Ch1Entrances.card_castle_entrance.value]),
     (Ch1Regions.card_castle.value, [Ch1Entrances.light_world_entrance.value]),
@@ -242,6 +247,7 @@ chapter1_regions = [
 chapter1_mandatory_connections = [
     (Ch1Entrances.castle_town_entrance.value, Ch1Regions.castle_town.value),
     (Ch1Entrances.fields_entrance.value, Ch1Regions.fields.value),
+    (Ch1Entrances.fields_post_hathy_entrance.value, Ch1Regions.fields_post_hathy.value),
     (Ch1Entrances.forest_entrance.value, Ch1Regions.forest.value),
     (Ch1Entrances.bake_sale_entrance.value, Ch1Regions.bake_sale.value),
     (Ch1Entrances.card_castle_entrance.value, Ch1Regions.card_castle.value),

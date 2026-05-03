@@ -15,6 +15,12 @@ def set_rules(world: "DeltaruneWorld"):
     player = world.player
     multiworld = world.multiworld
 
+    if world.is_kris_unlockable():
+        set_rule(
+            multiworld.get_entrance(Ch2Entrances.cyber_field_entrance, player),
+            lambda state: state.has(CCItems.kris, player) or state.has(CCItems.susie, player),
+        )
+
     # Chapter unlock
     if not world.is_all_chapters_unlocked():
         set_rule(
@@ -54,6 +60,9 @@ def set_rules(world: "DeltaruneWorld"):
 def set_weird_route_rules(world: "DeltaruneWorld"):
     player = world.player
     multiworld = world.multiworld
+
+    if world.is_characters_unlockables():
+        handle_cyber_city_weird_route_having_noelle(world)
 
     set_rule(
         multiworld.get_entrance(Ch2Entrances.mansion_entrance, player),
@@ -116,6 +125,9 @@ def set_all_recruits_rules(world: "DeltaruneWorld"):
 def set_all_routes_rules(world: "DeltaruneWorld"):
     player = world.player
     multiworld = world.multiworld
+
+    if world.is_characters_unlockables():
+        handle_cyber_city_weird_route_having_noelle(world)
 
     set_rule(
         multiworld.get_entrance(Ch2Entrances.mansion_entrance, player),
@@ -211,9 +223,36 @@ def handle_thornring(world: "DeltaruneWorld", state: CollectionState):
     player = world.player
 
     if world.is_noelle_weapons_progressive():
-        return state.has(CCItems.progressive_noelle_weapons, player, 2)
+        return state.has(CCItems.progressive_noelle_weapons, player, 2) and handle_having_noelle(world, state)
     else:
-        return state.has(Ch2Items.thornring, player)
+        return state.has(Ch2Items.thornring, player) and handle_having_noelle(world, state)
+
+
+def handle_having_noelle(world: "DeltaruneWorld", state: CollectionState):
+    player = world.player
+
+    if world.is_characters_unlockables():
+        return state.has(CCItems.noelle, player)
+    else:
+        return True
+
+
+def handle_cyber_city_weird_route_having_noelle(world: "DeltaruneWorld"):
+    player = world.player
+    multiworld = world.multiworld
+
+    set_rule(
+        multiworld.get_location(Ch2Locations.lost_ambyulance, player),
+        lambda state: state.has(CCItems.noelle, player) or state.has(glitched_item_name, player),
+    )
+    set_rule(
+        multiworld.get_location(Ch2Locations.lost_poppup, player),
+        lambda state: state.has(CCItems.noelle, player) or state.has(glitched_item_name, player),
+    )
+    set_rule(
+        multiworld.get_location(Ch2Locations.lost_maus, player),
+        lambda state: state.has(CCItems.noelle, player) or state.has(glitched_item_name, player),
+    )
 
 
 def handle_lose_mansion_recruit_all_routes(world: "DeltaruneWorld"):

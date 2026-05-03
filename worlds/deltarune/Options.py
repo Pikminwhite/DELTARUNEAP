@@ -597,6 +597,26 @@ class ProgressiveNoelleWeapons(Toggle):
     display_name = "(COMING SOON) Progressive Noelle Weapons"
 
 
+class UnlockCharacters(Choice):
+    """
+    YOU WILL HAVE TO UNLOCK
+    CHARACTERS OTHERWISE
+    THEY WILL BE -1HP
+    """
+
+    display_name = "Unlock Characters"
+    option_false = 0
+    option_true = 1
+    option_except_kris = 2
+    default = option_false
+
+
+class UnlockCharactersOptions(StrEnum):
+    false = "false"
+    true = "true"
+    except_kris = "except_kris"
+
+
 class IncludeUnusedItems(Choice):
     """
     CERTAIN ITEMS ARE
@@ -690,6 +710,7 @@ deltarune_option_groups = [
             ProgressiveSusieWeapons,
             ProgressiveRalseiWeapons,
             ProgressiveNoelleWeapons,
+            UnlockCharacters,
         ],
     ),
     OptionGroup("Locations", [IncludeTRank, IncludeMike]),
@@ -731,6 +752,7 @@ class DeltaruneOptions(PerGameCommonOptions):
     progressive_susie_weapons: ProgressiveSusieWeapons
     progressive_ralsei_weapons: ProgressiveRalseiWeapons
     progressive_noelle_weapons: ProgressiveNoelleWeapons
+    unlock_characters: UnlockCharacters
     include_mike: IncludeMike
 
 #    include_traps: IncludeTraps

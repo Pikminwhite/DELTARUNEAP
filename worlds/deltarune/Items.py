@@ -27,6 +27,7 @@ class ItemGroups(StrEnum):
     mantle_items = "Mantle Items"
     unused_items = "Unused Items"
     traps = "Traps"
+    characters = "Characters"
 
 class ItemData(NamedTuple):
     code: Optional[int]
@@ -223,6 +224,10 @@ class ItemIDs(Enum):
     progressive_ralsei_weapons = 50002
     progressive_noelle_weapons = 50003
 
+    kris = 60001
+    susie = 60002
+    ralsei = 60003
+    noelle = 60004
     what_interesting_behavior = 66666
 
     king_shape_key_piece = 70000

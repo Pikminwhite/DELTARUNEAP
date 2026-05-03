@@ -24,6 +24,7 @@ from .Options import (
     RandomizeMANTLEOptions,
     IncludeTRankOptions,
     IncludeUnusedItemsOptions,
+    UnlockCharactersOptions,
     deltarune_option_groups,
 )
 from worlds.AutoWorld import World, WebWorld
@@ -139,7 +140,7 @@ class DeltaruneWorld(World):
                 "randomize_secret_bosses": self.options.randomize_secret_bosses.current_key,
                 "macguffin_chapter_1": int(self.options.macguffin_chapter_1.value),
                 "macguffin_chapter_2": int(self.options.macguffin_chapter_2.value),
-                "macguffin_chapter_3": int(0),
+                "macguffin_chapter_3": int(self.options.macguffin_chapter_3.value),
                 "macguffin_chapter_4": int(0),
                 "macguffin_extra": int(self.options.macguffin_extra.value),
                 "remove_starting_equipment": bool(self.options.remove_starting_equipment.value),
@@ -158,6 +159,7 @@ class DeltaruneWorld(World):
                 "randomize_mantle": self.options.randomize_mantle.current_key,
                 "include_unused_items": bool(self.options.include_unused_items.value),
                 "include_mike": bool(self.options.include_mike.value),
+                "unlock_characters": self.options.unlock_characters.current_key,
             },
             "world_seed": self.random.getrandbits(32),
             "seed_name": self.multiworld.seed_name,
@@ -220,7 +222,7 @@ class DeltaruneWorld(World):
                     setattr(self.options, key, opt.from_any(value))
 
     def include_chapter(self, chapter: int) -> bool:
-        if chapter == 3 or chapter == 4:
+        if chapter == 4:
             return False
         return getattr(self.options, f"include_chapter_{chapter}").value == 1
 
@@ -296,6 +298,15 @@ class DeltaruneWorld(World):
         return False
         return self.options.progressive_noelle_weapons.value == 1 and self.include_chapter(2)
 
+    def is_characters_unlockables(self):
+        return (
+            self.options.unlock_characters.value == UnlockCharactersOptions.true
+            or self.options.unlock_characters.value == UnlockCharactersOptions.except_kris
+        )
+
+    def is_kris_unlockable(self):
+        return self.options.unlock_characters.value == UnlockCharactersOptions.true
+
     def is_unused_items_included(self):
         return (
             self.options.include_unused_items.value == IncludeUnusedItemsOptions.true
@@ -364,7 +375,6 @@ class DeltaruneWorld(World):
         return -1
 
     def create_regions(self):
-        self.options.include_chapter_3.value = 0
         self.options.include_chapter_4.value = 0
         every_connections = CCLocationsAndRegions.get_cross_chapter_mandatory_connection(self)
 

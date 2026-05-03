@@ -20,6 +20,12 @@ def set_rules(world: "DeltaruneWorld"):
             lambda state: state.has(Ch1Items.chapter_1_unlock, player),
         )
 
+    if world.is_kris_unlockable():
+        set_rule(
+            multiworld.get_entrance(Ch1Entrances.fields_post_hathy_entrance, player),
+            lambda state: state.has(CCItems.kris, player) or state.has(CCItems.ralsei, player),
+        )
+
     # Region lockers
     set_rule(
         multiworld.get_entrance(Ch1Entrances.bake_sale_entrance, player),

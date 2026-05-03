@@ -14,6 +14,14 @@ def set_rules(world: "DeltaruneWorld"):
     player = world.player
     multiworld = world.multiworld
 
+    if world.is_kris_unlockable():
+        set_rule(
+            multiworld.get_entrance(Ch4Entrances.dark_sanctuary_entrance, player),
+            lambda state: state.has(CCItems.kris, player)
+            or state.has(CCItems.susie, player)
+            or state.has(CCItems.ralsei, player),
+        )
+
     # Chapter unlock
     if not world.is_all_chapters_unlocked():
         set_rule(
