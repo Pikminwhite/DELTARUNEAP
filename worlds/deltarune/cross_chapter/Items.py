@@ -98,25 +98,25 @@ cross_chapter_conditional_items = {
     # Characters
     CCItems.kris.value: ConditionalItemData(
         ItemIDs.kris.value,
-        ItemClassification.progression,
+        ItemClassification.progression | ItemClassification.useful,
         lambda world: world.is_kris_unlockable(),
         [ItemGroups.characters],
     ),
     CCItems.susie.value: ConditionalItemData(
         ItemIDs.susie.value,
-        ItemClassification.progression,
+        ItemClassification.progression | ItemClassification.useful,
         lambda world: world.is_characters_unlockables(),
         [ItemGroups.characters],
     ),
     CCItems.ralsei.value: ConditionalItemData(
         ItemIDs.ralsei.value,
-        ItemClassification.progression,
+        ItemClassification.progression | ItemClassification.useful,
         lambda world: world.is_characters_unlockables(),
         [ItemGroups.characters],
     ),
     CCItems.noelle.value: ConditionalItemData(
         ItemIDs.noelle.value,
-        ItemClassification.progression,
+        ItemClassification.progression | ItemClassification.useful,
         lambda world: world.include_chapter(2) and world.is_characters_unlockables(),
         [ItemGroups.characters],
     ),
