@@ -639,7 +639,7 @@ class IncludeUnusedItems(Choice):
 class IncludeUnusedItemsOptions(StrEnum):
     false = "false"
     true = "true"
-    true_without_everybodyweapon = "true without everybodyweapon"
+    true_without_everybodyweapon = "true_without_everybodyweapon"
 
 
 class IncludeMike(Choice):

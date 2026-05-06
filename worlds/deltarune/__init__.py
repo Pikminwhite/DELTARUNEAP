@@ -300,21 +300,18 @@ class DeltaruneWorld(World):
 
     def is_characters_unlockables(self):
         return (
-            self.options.unlock_characters.value == UnlockCharactersOptions.true
-            or self.options.unlock_characters.value == UnlockCharactersOptions.except_kris
+            self.options.unlock_characters == UnlockCharactersOptions.true
+            or self.options.unlock_characters == UnlockCharactersOptions.except_kris
         )
 
     def is_kris_unlockable(self):
-        return self.options.unlock_characters.value == UnlockCharactersOptions.true
+        return self.options.unlock_characters == UnlockCharactersOptions.true
 
     def is_unused_items_included(self):
-        return (
-            self.options.include_unused_items.value == IncludeUnusedItemsOptions.true
-            or self.is_everybodyweapon_included()
-        )
+        return self.options.include_unused_items == IncludeUnusedItemsOptions.true or self.is_everybodyweapon_included()
 
     def is_everybodyweapon_included(self):
-        return self.options.include_unused_items.value == IncludeUnusedItemsOptions.true_without_everybodyweapon
+        return self.options.include_unused_items == IncludeUnusedItemsOptions.true_without_everybodyweapon
 
     # Check if you have at least one chapter that give you access to fusions
     def can_access_fusion(self) -> bool:
