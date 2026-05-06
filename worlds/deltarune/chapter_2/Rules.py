@@ -20,6 +20,18 @@ def set_rules(world: "DeltaruneWorld"):
             multiworld.get_entrance(Ch2Entrances.cyber_field_entrance, player),
             lambda state: state.has(CCItems.kris, player) or state.has(CCItems.susie, player),
         )
+        set_rule(
+            multiworld.get_location(Ch2Locations.castle_town_jigsaw_joe_challenge, player),
+            lambda state: state.has(CCItems.kris, player)
+            or state.has(CCItems.susie, player)
+            or state.has(CCItems.ralsei, player),
+        )
+        set_rule(
+            multiworld.get_location(Ch2Locations.castle_town_clover_rematch_challenge, player),
+            lambda state: state.has(CCItems.kris, player)
+            or state.has(CCItems.susie, player)
+            or state.has(CCItems.ralsei, player),
+        )
 
     # Chapter unlock
     if not world.is_all_chapters_unlocked():
