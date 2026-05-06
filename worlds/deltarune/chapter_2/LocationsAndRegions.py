@@ -109,6 +109,7 @@ class Ch2Regions(StrEnum):
     chapter_2 = "Chapter 2"
     castle_town = "CH2: Castle Town"
     cyber_field = "CH2: Cyber Field"
+    cyber_field_post_dj = "CH2: Cyber Field (Post-DJ)"
     cyber_city = "CH2: Cyber City"
     mansion = "CH2: Mansion"
     post_chapter_castle_town = "CH2: Post-Chapter Castle Town"
@@ -118,6 +119,7 @@ class Ch2Entrances(StrEnum):
     castle_town_entrance = "CH2: Castle Town Entrance"
     fusion_access_entrance = "CH2: Fusion access Entrance"
     cyber_field_entrance = "CH2: Cyber Field Entrance"
+    cyber_field_post_dj_entrance = "CH2: Cyber Field (Post-DJ) Entrance"
     cyber_city_entrance = "CH2: Cyber City Entrance"
     mansion_entrance = "CH2: Mansion Entrance"
     post_chapter_castle_town_entrance = "CH2: Post-Chapter Castle Town Entrance"
@@ -165,30 +167,30 @@ chapter2_locations = {
     ),
     Ch2Locations.cyber_field_chest_near_music_shop.value: LocationData(
         LocationIDs.ch2_cyber_field_chest_near_music_shop.value,
-        Ch2Regions.cyber_field.value,
+        Ch2Regions.cyber_field_post_dj.value,
         LocationGroups.chapter2.value,
     ),
     Ch2Locations.cyber_field_virovirokun_puzzle_chest.value: LocationData(
         LocationIDs.ch2_cyber_field_virovirokun_puzzle_chest.value,
-        Ch2Regions.cyber_field.value,
+        Ch2Regions.cyber_field_post_dj.value,
         LocationGroups.chapter2.value,
     ),
     Ch2Locations.cyber_field_teacup_puzzle_chest.value: LocationData(
         LocationIDs.ch2_cyber_field_teacup_puzzle_chest.value,
-        Ch2Regions.cyber_field.value,
+        Ch2Regions.cyber_field_post_dj.value,
         LocationGroups.chapter2.value,
     ),
     Ch2Locations.music_shop_1.value: LocationData(
-        LocationIDs.ch2_music_shop_1.value, Ch2Regions.cyber_field.value, LocationGroups.chapter2.value
+        LocationIDs.ch2_music_shop_1.value, Ch2Regions.cyber_field_post_dj.value, LocationGroups.chapter2.value
     ),
     Ch2Locations.music_shop_2.value: LocationData(
-        LocationIDs.ch2_music_shop_2.value, Ch2Regions.cyber_field.value, LocationGroups.chapter2.value
+        LocationIDs.ch2_music_shop_2.value, Ch2Regions.cyber_field_post_dj.value, LocationGroups.chapter2.value
     ),
     Ch2Locations.music_shop_3.value: LocationData(
-        LocationIDs.ch2_music_shop_3.value, Ch2Regions.cyber_field.value, LocationGroups.chapter2.value
+        LocationIDs.ch2_music_shop_3.value, Ch2Regions.cyber_field_post_dj.value, LocationGroups.chapter2.value
     ),
     Ch2Locations.music_shop_4.value: LocationData(
-        LocationIDs.ch2_music_shop_4.value, Ch2Regions.cyber_field.value, LocationGroups.chapter2.value
+        LocationIDs.ch2_music_shop_4.value, Ch2Regions.cyber_field_post_dj.value, LocationGroups.chapter2.value
     ),
     Ch2Locations.trash_zone_trash_can.value: LocationData(
         LocationIDs.ch2_trash_zone_trash_can.value, Ch2Regions.cyber_city.value, LocationGroups.chapter2.value
@@ -537,7 +539,8 @@ chapter2_conditional_locations = {
 chapter2_regions = [
     (Ch2Regions.chapter_2, [Ch2Entrances.castle_town_entrance, Ch2Entrances.fusion_access_entrance]),
     (Ch2Regions.castle_town, [Ch2Entrances.cyber_field_entrance]),
-    (Ch2Regions.cyber_field, [Ch2Entrances.cyber_city_entrance]),
+    (Ch2Regions.cyber_field, [Ch2Entrances.cyber_field_post_dj_entrance]),
+    (Ch2Regions.cyber_field_post_dj, [Ch2Entrances.cyber_city_entrance]),
     (Ch2Regions.cyber_city, [Ch2Entrances.mansion_entrance]),
     (Ch2Regions.mansion, [Ch2Entrances.post_chapter_castle_town_entrance]),
     (Ch2Regions.post_chapter_castle_town, []),
@@ -547,6 +550,7 @@ chapter2_mandatory_connections = [
     (Ch2Entrances.castle_town_entrance.value, Ch2Regions.castle_town.value),
     (Ch2Entrances.fusion_access_entrance, fusion_access_region),
     (Ch2Entrances.cyber_field_entrance.value, Ch2Regions.cyber_field.value),
+    (Ch2Entrances.cyber_field_post_dj_entrance.value, Ch2Regions.cyber_field_post_dj.value),
     (Ch2Entrances.cyber_city_entrance.value, Ch2Regions.cyber_city.value),
     (Ch2Entrances.mansion_entrance.value, Ch2Regions.mansion.value),
     (Ch2Entrances.post_chapter_castle_town_entrance.value, Ch2Regions.post_chapter_castle_town.value),
