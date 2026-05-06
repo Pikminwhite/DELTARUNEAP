@@ -160,6 +160,7 @@ class DeltaruneWorld(World):
                 "include_unused_items": bool(self.options.include_unused_items.value),
                 "include_mike": bool(self.options.include_mike.value),
                 "unlock_characters": self.options.unlock_characters.current_key,
+                "better_odds": bool(self.options.better_odds.value),
             },
             "world_seed": self.random.getrandbits(32),
             "seed_name": self.multiworld.seed_name,

@@ -663,6 +663,17 @@ class IncludeMikeOptions(StrEnum):
     battle_and_games = "battle_and_games"
 
 
+class BetterOdds(Toggle):
+    """
+    Should rng-depending things have better odds to happen ?
+
+    (Chapter 1/2 eggs)
+    """
+
+    display_name = "Better Odds"
+    default = 0
+
+
 deltarune_option_groups = [
     OptionGroup(
         "Chapters",
@@ -714,6 +725,7 @@ deltarune_option_groups = [
         ],
     ),
     OptionGroup("Locations", [IncludeTRank, IncludeMike]),
+    OptionGroup("Other", [BetterOdds]),
 ]
 
 
@@ -754,5 +766,6 @@ class DeltaruneOptions(PerGameCommonOptions):
     progressive_noelle_weapons: ProgressiveNoelleWeapons
     unlock_characters: UnlockCharacters
     include_mike: IncludeMike
+    better_odds: BetterOdds
 
 #    include_traps: IncludeTraps
