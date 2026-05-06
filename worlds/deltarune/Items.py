@@ -248,6 +248,8 @@ class ItemIDs(Enum):
     chapter_4_unlock = 90004
     chapter_5_unlock = 90005
 
+    s_r_n_actions = 100000
+
 
 def generic_create_items(
     world: "DeltaruneWorld", items: dict[str, ItemData], conditional_items: dict[str, ConditionalItemData]

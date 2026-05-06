@@ -281,6 +281,7 @@ class LocationIDs(Enum):
 
     cc_castle_town_twistedsword_fusion = 244
     ch1_throw_away_manual_again = 245
+    ch2_cyber_field_fun_gang_actions_unlock = 246
 
     ch2_lost_werewire = 1049
     ch2_lost_tasque = 1054

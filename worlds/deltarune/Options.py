@@ -674,6 +674,15 @@ class BetterOdds(Toggle):
     default = 0
 
 
+class UnlockFunGangActions(Toggle):
+    """
+    Should Susie/Ralsei/Noelle-Actions be an item ?
+    """
+
+    display_name = "Unlock S/R/N-Actions"
+    default = 1
+
+
 deltarune_option_groups = [
     OptionGroup(
         "Chapters",
@@ -722,6 +731,7 @@ deltarune_option_groups = [
             ProgressiveRalseiWeapons,
             ProgressiveNoelleWeapons,
             UnlockCharacters,
+            UnlockFunGangActions,
         ],
     ),
     OptionGroup("Locations", [IncludeTRank, IncludeMike]),
@@ -767,5 +777,6 @@ class DeltaruneOptions(PerGameCommonOptions):
     unlock_characters: UnlockCharacters
     include_mike: IncludeMike
     better_odds: BetterOdds
+    unlock_fun_gang_actions: UnlockFunGangActions
 
 #    include_traps: IncludeTraps

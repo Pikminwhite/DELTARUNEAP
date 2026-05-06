@@ -161,6 +161,7 @@ class DeltaruneWorld(World):
                 "include_mike": bool(self.options.include_mike.value),
                 "unlock_characters": self.options.unlock_characters.current_key,
                 "better_odds": bool(self.options.better_odds.value),
+                "unlock_fun_gang_actions": bool(self.options.unlock_fun_gang_actions),
             },
             "world_seed": self.random.getrandbits(32),
             "seed_name": self.multiworld.seed_name,
@@ -307,6 +308,9 @@ class DeltaruneWorld(World):
 
     def is_kris_unlockable(self):
         return self.options.unlock_characters == UnlockCharactersOptions.true
+
+    def is_fun_gang_actions_unlockable(self):
+        return self.options.unlock_fun_gang_actions == 1
 
     def is_unused_items_included(self):
         return self.options.include_unused_items == IncludeUnusedItemsOptions.true or self.is_everybodyweapon_included()

@@ -18,6 +18,8 @@ class CCItems(StrEnum):
     # Gaster
     what_interresting_behavior = "WHAT INTERESTING BEHAVIOR."
 
+    s_r_n_actions = "S/R/N-Action"
+
     # Characters
     kris = "Kris"
     susie = "Susie"
@@ -95,6 +97,11 @@ cross_chapter_items = {
 }
 
 cross_chapter_conditional_items = {
+    CCItems.s_r_n_actions.value: ConditionalItemData(
+        ItemIDs.s_r_n_actions.value,
+        ItemClassification.useful,
+        lambda world: world.is_fun_gang_actions_unlockable(),
+    ),
     # Characters
     CCItems.kris.value: ConditionalItemData(
         ItemIDs.kris.value,
