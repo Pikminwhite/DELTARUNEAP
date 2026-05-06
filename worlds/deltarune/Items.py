@@ -111,6 +111,7 @@ class ItemIDs(Enum):
     # nothing
     keygen = 10012
     shadowcrystal = 10013
+    purecrystal = 1015
 
     oddcontroller = 10016
     # nothing
@@ -141,8 +142,6 @@ class ItemIDs(Enum):
     shelter_key = 11019
     sacred_moss = 11020
     chapter_4_egg = 11021
-
-    purecrystal = 11022
 
     amber_card = 20001
     dice_brace = 20002
