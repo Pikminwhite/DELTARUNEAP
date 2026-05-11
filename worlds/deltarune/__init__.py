@@ -162,6 +162,7 @@ class DeltaruneWorld(World):
                 "unlock_characters": self.options.unlock_characters.current_key,
                 "better_odds": bool(self.options.better_odds.value),
                 "unlock_fun_gang_actions": bool(self.options.unlock_fun_gang_actions),
+                "chapter_1_recruit": bool(self.options.chapter_1_recruit),
             },
             "world_seed": self.random.getrandbits(32),
             "seed_name": self.multiworld.seed_name,
@@ -276,13 +277,16 @@ class DeltaruneWorld(World):
     def is_hidden_items_randomized(self):
         return self.options.include_hidden_items.value == 1
 
+    def is_chapter_1_recruit_system_enabled(self):
+        return self.options.chapter_1_recruit.value == 1
+
     def is_mike_battle_included(self):
         return False
-        return self.options.include_mike.value == IncludeMikeOptions.battle_only or self.is_mike_games_included()
+        return self.options.include_mike == IncludeMikeOptions.battle_only or self.is_mike_games_included()
 
     def is_mike_games_included(self):
         return False
-        return self.options.include_mike.value == IncludeMikeOptions.battle_and_games
+        return self.options.include_mike == IncludeMikeOptions.battle_and_games
 
     def is_kris_weapons_progressive(self):
         return False

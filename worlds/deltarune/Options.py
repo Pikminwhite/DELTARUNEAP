@@ -239,6 +239,17 @@ class IncludeChapter1(Toggle):
     default = 1
 
 
+class Chapter1Recruit(Toggle):
+    """
+    DO YOU WISH
+    TO HAVE THR RECRUIT/LOSE SYSTEM
+    FOR CHAPTER 1 ?
+    """
+
+    display_name = "Recruits/Lost for chapter 1"
+    default = 1
+
+
 class IncludeChapter2(Toggle):
     """
     DO YOU WISH
@@ -690,6 +701,7 @@ deltarune_option_groups = [
             RandomizeChapters,
             RemoveStartingEquipment,
             IncludeChapter1,
+            Chapter1Recruit,
             IncludeChapter2,
             IncludeLoseSwatchling,
             IncludeChapter3,
@@ -778,5 +790,6 @@ class DeltaruneOptions(PerGameCommonOptions):
     include_mike: IncludeMike
     better_odds: BetterOdds
     unlock_fun_gang_actions: UnlockFunGangActions
+    chapter_1_recruit: Chapter1Recruit
 
 #    include_traps: IncludeTraps

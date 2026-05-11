@@ -1,5 +1,5 @@
 from enum import StrEnum
-from ..Locations import LocationIDs, LocationData, LocationGroups
+from ..Locations import ConditionalLocationData, LocationIDs, LocationData, LocationGroups
 from ..Regions import generic_create_regions
 from typing import TYPE_CHECKING
 
@@ -61,6 +61,24 @@ class Ch1Locations(StrEnum):
     rouxls_shop_4 = "CH1: Rouxls' Shop 4"
 
     fountain_sealed = "CH1: Card Kingdom - Fountain Sealed"
+
+    recruit_rudinn = "CH1: Fields - Recruit Rudinn"
+    recruit_hathy = "CH1: Fields - Recruit Hathy"
+    recruit_ponman = "CH1: Great Board - Recruit Ponman"
+    recruit_rabbick = "CH1: Forest - Recruit Rabbick"
+    recruit_bloxer = "CH1: Forest - Recruit Bloxer"
+    recruit_jigsawry = "CH1: Fields - Recruit Jigsawry"
+    recruit_rudinn_ranger = "CH1: Card Castle - Recruit Rudinn Ranger"
+    recruit_head_hathy = "CH1: Card Castle - Recruit Head Hathy"
+
+    lost_rudinn = "CH1: Fields - Lost Rudinn"
+    lost_hathy = "CH1: Fields - Lost Hathy"
+    lost_ponman = "CH1: Great Board - Lost Ponman"
+    lost_rabbick = "CH1: Forest - Lost Rabbick"
+    lost_bloxer = "CH1: Forest - Lost Bloxer"
+    lost_jigsawry = "CH1: Fields - Lost Jigsawry"
+    lost_rudinn_ranger = "CH1: Card Castle - Lost Rudinn Ranger"
+    lost_head_hathy = "CH1: Card Castle - Lost Head Hathy"
 
 
 class Ch1Regions(StrEnum):
@@ -229,7 +247,92 @@ chapter1_locations = {
     ),
 }
 
-chapter1_conditional_locations: dict = {}
+chapter1_conditional_locations: dict = {
+    Ch1Locations.recruit_rudinn.value: ConditionalLocationData(
+        LocationIDs.ch1_recruit_rudinn.value,
+        Ch1Regions.fields.value,
+        lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_all_recruits(),
+        LocationGroups.chapter1.value,
+    ),
+    Ch1Locations.recruit_hathy.value: ConditionalLocationData(
+        LocationIDs.ch1_recruit_hathy.value,
+        Ch1Regions.fields.value,
+        lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_all_recruits(),
+        LocationGroups.chapter1.value,
+    ),
+    Ch1Locations.recruit_ponman.value: ConditionalLocationData(
+        LocationIDs.ch1_recruit_ponman.value,
+        Ch1Regions.fields_post_hathy.value,
+        lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_all_recruits(),
+        LocationGroups.chapter1.value,
+    ),
+    Ch1Locations.recruit_rabbick.value: ConditionalLocationData(
+        LocationIDs.ch1_recruit_rabbick.value,
+        Ch1Regions.forest.value,
+        lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_all_recruits(),
+        LocationGroups.chapter1.value,
+    ),
+    Ch1Locations.recruit_bloxer.value: ConditionalLocationData(
+        LocationIDs.ch1_recruit_bloxer.value,
+        Ch1Regions.forest.value,
+        lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_all_recruits(),
+        LocationGroups.chapter1.value,
+    ),
+    Ch1Locations.recruit_rudinn_ranger.value: ConditionalLocationData(
+        LocationIDs.ch1_recruit_rudinn_ranger.value,
+        Ch1Regions.card_castle.value,
+        lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_all_recruits(),
+        LocationGroups.chapter1.value,
+    ),
+    Ch1Locations.recruit_head_hathy.value: ConditionalLocationData(
+        LocationIDs.ch1_recruit_head_hathy.value,
+        Ch1Regions.card_castle.value,
+        lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_all_recruits(),
+        LocationGroups.chapter1.value,
+    ),
+    Ch1Locations.lost_rudinn.value: ConditionalLocationData(
+        LocationIDs.ch1_lost_rudinn.value,
+        Ch1Regions.fields.value,
+        lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_weird_route(),
+        LocationGroups.chapter1.value,
+    ),
+    Ch1Locations.lost_hathy.value: ConditionalLocationData(
+        LocationIDs.ch1_lost_hathy.value,
+        Ch1Regions.fields.value,
+        lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_weird_route(),
+        LocationGroups.chapter1.value,
+    ),
+    Ch1Locations.lost_ponman.value: ConditionalLocationData(
+        LocationIDs.ch1_lost_ponman.value,
+        Ch1Regions.fields_post_hathy.value,
+        lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_weird_route(),
+        LocationGroups.chapter1.value,
+    ),
+    Ch1Locations.lost_rabbick.value: ConditionalLocationData(
+        LocationIDs.ch1_lost_rabbick.value,
+        Ch1Regions.forest.value,
+        lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_weird_route(),
+        LocationGroups.chapter1.value,
+    ),
+    Ch1Locations.lost_bloxer.value: ConditionalLocationData(
+        LocationIDs.ch1_lost_bloxer.value,
+        Ch1Regions.forest.value,
+        lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_weird_route(),
+        LocationGroups.chapter1.value,
+    ),
+    Ch1Locations.lost_rudinn_ranger.value: ConditionalLocationData(
+        LocationIDs.ch1_lost_rudinn_ranger.value,
+        Ch1Regions.card_castle.value,
+        lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_weird_route(),
+        LocationGroups.chapter1.value,
+    ),
+    Ch1Locations.lost_head_hathy.value: ConditionalLocationData(
+        LocationIDs.ch1_lost_head_hathy.value,
+        Ch1Regions.card_castle.value,
+        lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_weird_route(),
+        LocationGroups.chapter1.value,
+    ),
+}
 
 chapter1_end_region = Ch1Regions.light_world.value
 

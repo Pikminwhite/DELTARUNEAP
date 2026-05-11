@@ -283,6 +283,15 @@ class LocationIDs(Enum):
     ch1_throw_away_manual_again = 245
     ch2_cyber_field_fun_gang_actions_unlock = 246
 
+    ch1_recruit_rudinn = 247
+    ch1_recruit_hathy = 248
+    ch1_recruit_ponman = 249
+    ch1_recruit_rabbick = 250
+    ch1_recruit_bloxer = 251
+    ch1_recruit_jigsawry = 252
+    ch1_recruit_rudinn_ranger = 253
+    ch1_recruit_head_hathy = 254
+
     ch2_lost_werewire = 1049
     ch2_lost_tasque = 1054
     ch2_lost_virovirokun = 1055
@@ -307,6 +316,14 @@ class LocationIDs(Enum):
     ch4_lost_wicabel = 1222
     ch4_lost_winglade = 1223
     ch4_lost_organikk = 1224
+    ch1_lost_rudinn = 1247
+    ch1_lost_hathy = 1248
+    ch1_lost_ponman = 1249
+    ch1_lost_rabbick = 1250
+    ch1_lost_bloxer = 1251
+    ch1_lost_jigsawry = 1252
+    ch1_lost_rudinn_ranger = 1253
+    ch1_lost_head_hathy = 1254
 
 
 def get_location_groups(locations: dict[str, LocationData | ConditionalLocationData]):
