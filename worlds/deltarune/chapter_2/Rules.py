@@ -33,15 +33,11 @@ def set_rules(world: "DeltaruneWorld"):
             or state.has(CCItems.ralsei, player),
         )
 
-        if world.is_fun_gang_actions_unlockable():
-            set_rule(
-                multiworld.get_entrance(Ch2Entrances.cyber_field_post_dj_entrance, player),
-                lambda state: state.has(CCItems.kris, player)
-                or (
-                    state.has(CCItems.s_r_n_actions, player)
-                    and (state.has(CCItems.ralsei, player) or state.has(CCItems.susie, player))
-                ),
-            )
+    if world.is_fun_gang_actions_unlockable():
+        set_rule(
+            multiworld.get_entrance(Ch2Entrances.cyber_field_post_dj_entrance, player),
+            lambda state: state.has(CCItems.s_r_n_actions, player) or state.has(glitched_item_name, player),
+        )
 
     # Chapter unlock
     if not world.is_all_chapters_unlocked():

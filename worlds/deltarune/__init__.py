@@ -314,13 +314,16 @@ class DeltaruneWorld(World):
         return self.options.unlock_characters == UnlockCharactersOptions.true
 
     def is_fun_gang_actions_unlockable(self):
-        return self.options.unlock_fun_gang_actions == 1
+        return self.options.unlock_fun_gang_actions.value == 1
 
     def is_unused_items_included(self):
-        return self.options.include_unused_items == IncludeUnusedItemsOptions.true or self.is_everybodyweapon_included()
+        return (
+            self.options.include_unused_items == IncludeUnusedItemsOptions.true_without_everybodyweapon
+            or self.is_everybodyweapon_included()
+        )
 
     def is_everybodyweapon_included(self):
-        return self.options.include_unused_items == IncludeUnusedItemsOptions.true_without_everybodyweapon
+        return self.options.include_unused_items == IncludeUnusedItemsOptions.true
 
     # Check if you have at least one chapter that give you access to fusions
     def can_access_fusion(self) -> bool:

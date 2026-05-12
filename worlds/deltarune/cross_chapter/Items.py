@@ -99,7 +99,7 @@ cross_chapter_items = {
 cross_chapter_conditional_items = {
     CCItems.s_r_n_actions.value: ConditionalItemData(
         ItemIDs.s_r_n_actions.value,
-        ItemClassification.useful,
+        ItemClassification.progression,
         lambda world: world.is_fun_gang_actions_unlockable(),
     ),
     # Characters
