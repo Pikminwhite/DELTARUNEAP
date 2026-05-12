@@ -250,13 +250,13 @@ chapter1_locations = {
 chapter1_conditional_locations: dict = {
     Ch1Locations.recruit_rudinn.value: ConditionalLocationData(
         LocationIDs.ch1_recruit_rudinn.value,
-        Ch1Regions.fields.value,
+        Ch1Regions.fields_post_hathy.value,
         lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_all_recruits(),
         LocationGroups.chapter1.value,
     ),
     Ch1Locations.recruit_hathy.value: ConditionalLocationData(
         LocationIDs.ch1_recruit_hathy.value,
-        Ch1Regions.fields.value,
+        Ch1Regions.fields_post_hathy.value,
         lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_all_recruits(),
         LocationGroups.chapter1.value,
     ),
@@ -292,13 +292,13 @@ chapter1_conditional_locations: dict = {
     ),
     Ch1Locations.lost_rudinn.value: ConditionalLocationData(
         LocationIDs.ch1_lost_rudinn.value,
-        Ch1Regions.fields.value,
+        Ch1Regions.fields_post_hathy.value,
         lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_weird_route(),
         LocationGroups.chapter1.value,
     ),
     Ch1Locations.lost_hathy.value: ConditionalLocationData(
         LocationIDs.ch1_lost_hathy.value,
-        Ch1Regions.fields.value,
+        Ch1Regions.fields_post_hathy.value,
         lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_weird_route(),
         LocationGroups.chapter1.value,
     ),

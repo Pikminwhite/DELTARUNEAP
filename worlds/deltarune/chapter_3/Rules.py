@@ -42,26 +42,93 @@ def set_rules(world: "DeltaruneWorld"):
 
     # Special rules for lost shadowguys, pippins and shuttah during all routes
     if world.is_all_routes():
-        set_rule(
-            multiworld.get_location(Ch3Locations.lost_shadowguy, player),
-            lambda state: state.can_reach_region(Ch3Regions.tv_world, player) or state.has(glitched_item_name, player),
-        )
-        set_rule(
-            multiworld.get_location(Ch3Locations.lost_pippins, player),
-            lambda state: state.can_reach_region(Ch3Regions.tv_world, player) or state.has(glitched_item_name, player),
-        )
-        set_rule(
-            multiworld.get_location(Ch3Locations.lost_shuttah, player),
-            lambda state: state.can_reach_region(Ch3Regions.tv_world, player) or state.has(glitched_item_name, player),
-        )
-        set_rule(
-            multiworld.get_location(Ch3Locations.lost_water_cooler, player),
-            lambda state: state.can_reach_region(Ch3Regions.tv_world, player) or state.has(glitched_item_name, player),
-        )
-        set_rule(
-            multiworld.get_location(Ch3Locations.lost_zapper, player),
-            lambda state: state.can_reach_region(Ch3Regions.tv_world, player) or state.has(glitched_item_name, player),
-        )
+        if world.is_kris_unlockable():
+            set_rule(
+                multiworld.get_location(Ch3Locations.lost_shadowguy, player),
+                lambda state: state.can_reach_region(Ch3Regions.tv_world, player)
+                or (
+                    state.has(glitched_item_name, player)
+                    and (
+                        state.has(CCItems.kris, player)
+                        or state.has(CCItems.ralsei, player)
+                        or state.has(CCItems.susie, player)
+                    )
+                ),
+            ),
+            set_rule(
+                multiworld.get_location(Ch3Locations.lost_pippins, player),
+                lambda state: state.can_reach_region(Ch3Regions.tv_world, player)
+                or (
+                    state.has(glitched_item_name, player)
+                    and (
+                        state.has(CCItems.kris, player)
+                        or state.has(CCItems.ralsei, player)
+                        or state.has(CCItems.susie, player)
+                    )
+                ),
+            ),
+            set_rule(
+                multiworld.get_location(Ch3Locations.lost_shuttah, player),
+                lambda state: state.can_reach_region(Ch3Regions.tv_world, player)
+                or (
+                    state.has(glitched_item_name, player)
+                    and (
+                        state.has(CCItems.kris, player)
+                        or state.has(CCItems.ralsei, player)
+                        or state.has(CCItems.susie, player)
+                    )
+                ),
+            ),
+            set_rule(
+                multiworld.get_location(Ch3Locations.lost_water_cooler, player),
+                lambda state: state.can_reach_region(Ch3Regions.tv_world, player)
+                or (
+                    state.has(glitched_item_name, player)
+                    and (
+                        state.has(CCItems.kris, player)
+                        or state.has(CCItems.ralsei, player)
+                        or state.has(CCItems.susie, player)
+                    )
+                ),
+            ),
+            set_rule(
+                multiworld.get_location(Ch3Locations.lost_zapper, player),
+                lambda state: state.can_reach_region(Ch3Regions.tv_world, player)
+                or (
+                    state.has(glitched_item_name, player)
+                    and (
+                        state.has(CCItems.kris, player)
+                        or state.has(CCItems.ralsei, player)
+                        or state.has(CCItems.susie, player)
+                    )
+                ),
+            ),
+        else:
+            set_rule(
+                multiworld.get_location(Ch3Locations.lost_shadowguy, player),
+                lambda state: state.can_reach_region(Ch3Regions.tv_world, player)
+                or state.has(glitched_item_name, player),
+            )
+            set_rule(
+                multiworld.get_location(Ch3Locations.lost_pippins, player),
+                lambda state: state.can_reach_region(Ch3Regions.tv_world, player)
+                or state.has(glitched_item_name, player),
+            )
+            set_rule(
+                multiworld.get_location(Ch3Locations.lost_shuttah, player),
+                lambda state: state.can_reach_region(Ch3Regions.tv_world, player)
+                or state.has(glitched_item_name, player),
+            )
+            set_rule(
+                multiworld.get_location(Ch3Locations.lost_water_cooler, player),
+                lambda state: state.can_reach_region(Ch3Regions.tv_world, player)
+                or state.has(glitched_item_name, player),
+            )
+            set_rule(
+                multiworld.get_location(Ch3Locations.lost_zapper, player),
+                lambda state: state.can_reach_region(Ch3Regions.tv_world, player)
+                or state.has(glitched_item_name, player),
+            )
 
     # Macguffin
     if world.is_secret_bosses_mandatory():
