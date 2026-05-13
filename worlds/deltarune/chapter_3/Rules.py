@@ -35,6 +35,13 @@ def set_rules(world: "DeltaruneWorld"):
         multiworld.get_entrance(Ch3Entrances.board_2_entrance, player),
         lambda state: state.has(Ch3Items.board_2_cartridge, player),
     )
+
+    if world.is_characters_unlockables():
+        set_rule(
+            multiworld.get_entrance(Ch3Entrances.doom_board_entrance, player),
+            lambda state: state.has(CCItems.susie, player) and state.has(CCItems.ralsei, player),
+        )
+
     set_rule(
         multiworld.get_entrance(Ch3Entrances.tv_world_entrance, player),
         lambda state: state.has(Ch3Items.vip_pass, player),

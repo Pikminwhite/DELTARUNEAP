@@ -111,6 +111,7 @@ class Ch3Regions(StrEnum):
     lost_zapper = "CH3: Lost Zapper"
     green_room = "CH3: Green Room"
     board_2 = "CH3: Board 2"
+    doom_board = "CH3: Doom board"
     tv_world = "CH3: TV World"
     goulden_sam = "CH3: Goulden Sam"
     cold_place = "CH3: Cold Place"
@@ -126,6 +127,7 @@ class Ch3Entrances(StrEnum):
     lost_zapper = "CH3: Lost Zapper Entrance"
     green_room_entrance = "CH3: Green Room Entrance"
     board_2_entrance = "CH3: Board 2 Entrance"
+    doom_board_entrance = "CH3: Doom board Entrance"
     tv_world_entrance = "CH3: TV World Entrance"
     goulden_sam_entrance = "CH3: Goulden Sam Entrance"
     cold_place_entrance = "CH3: Cold Place Entrance"
@@ -302,7 +304,7 @@ chapter3_locations = {
         LocationIDs.ch3_green_room_warp_door.value, Ch3Regions.green_room, LocationGroups.chapter3.value
     ),
     Ch3Locations.tv_world_entrance_warp_door.value: LocationData(
-        LocationIDs.ch3_tv_world_entrance_warp_door.value, Ch3Regions.board_2, LocationGroups.chapter3.value
+        LocationIDs.ch3_tv_world_entrance_warp_door.value, Ch3Regions.doom_board, LocationGroups.chapter3.value
     ),
     Ch3Locations.tv_world_goulden_sam_warp_door.value: LocationData(
         LocationIDs.ch3_tv_world_goulden_sam_warp_door.value, Ch3Regions.goulden_sam, LocationGroups.chapter3.value
@@ -460,8 +462,12 @@ chapter3_regions = [
     (Ch3Regions.lost_water_cooler, []),
     (
         Ch3Regions.board_2.value,
+        [Ch3Entrances.doom_board_entrance.value],
+    ),
+    (
+        Ch3Regions.doom_board,
         [
-            Ch3Entrances.tv_world_entrance.value,
+            Ch3Entrances.tv_world_entrance,
             Ch3Entrances.lost_shuttah,
             Ch3Entrances.lost_pippins,
             Ch3Entrances.lost_zapper,
@@ -482,6 +488,7 @@ chapter3_mandatory_connections = [
     (Ch3Entrances.green_room_entrance.value, Ch3Regions.green_room),
     (Ch3Entrances.lost_water_cooler, Ch3Regions.lost_water_cooler),
     (Ch3Entrances.board_2_entrance.value, Ch3Regions.board_2),
+    (Ch3Entrances.doom_board_entrance.value, Ch3Regions.doom_board),
     (Ch3Entrances.lost_pippins.value, Ch3Regions.lost_pippins),
     (Ch3Entrances.lost_shuttah.value, Ch3Regions.lost_shuttah),
     (Ch3Entrances.lost_zapper.value, Ch3Regions.lost_zapper),
