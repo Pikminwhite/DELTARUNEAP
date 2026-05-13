@@ -291,12 +291,12 @@ class DeltaruneWorld(World):
 
     def is_unused_items_included(self):
         return (
-            self.options.include_unused_items.value == IncludeUnusedItemsOptions.true
-            or self.options.include_unused_items.value == IncludeUnusedItemsOptions.true_without_everybodyweapon
+            self.options.include_unused_items == IncludeUnusedItemsOptions.true
+            or self.options.include_unused_items == IncludeUnusedItemsOptions.true_without_everybodyweapon
         )
 
     def is_everybodyweapon_included(self):
-        return self.options.include_unused_items.value == IncludeUnusedItemsOptions.true
+        return self.options.include_unused_items == IncludeUnusedItemsOptions.true
 
     # Check if you have at least one chapter that give you access to fusions
     def can_access_fusion(self) -> bool:
