@@ -111,7 +111,7 @@ class ItemIDs(Enum):
     # nothing
     keygen = 10012
     shadowcrystal = 10013
-    purecrystal = 1015
+    purecrystal = 10015
 
     oddcontroller = 10016
     # nothing

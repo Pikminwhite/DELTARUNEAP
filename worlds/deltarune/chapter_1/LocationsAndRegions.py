@@ -260,6 +260,12 @@ chapter1_conditional_locations: dict = {
         lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_all_recruits(),
         LocationGroups.chapter1.value,
     ),
+    Ch1Locations.recruit_jigsawry.value: ConditionalLocationData(
+        LocationIDs.ch1_recruit_jigsawry.value,
+        Ch1Regions.fields_post_hathy.value,
+        lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_all_recruits(),
+        LocationGroups.chapter1.value,
+    ),
     Ch1Locations.recruit_ponman.value: ConditionalLocationData(
         LocationIDs.ch1_recruit_ponman.value,
         Ch1Regions.fields_post_hathy.value,
@@ -298,6 +304,12 @@ chapter1_conditional_locations: dict = {
     ),
     Ch1Locations.lost_hathy.value: ConditionalLocationData(
         LocationIDs.ch1_lost_hathy.value,
+        Ch1Regions.fields_post_hathy.value,
+        lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_weird_route(),
+        LocationGroups.chapter1.value,
+    ),
+    Ch1Locations.lost_jigsawry.value: ConditionalLocationData(
+        LocationIDs.ch1_lost_jigsawry.value,
         Ch1Regions.fields_post_hathy.value,
         lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_weird_route(),
         LocationGroups.chapter1.value,
