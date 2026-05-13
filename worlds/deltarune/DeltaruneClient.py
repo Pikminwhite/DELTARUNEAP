@@ -13,7 +13,7 @@ from worlds import deltarune
 from MultiServer import mark_raw, Context, Client
 from Utils import async_start
 
-ap_world_version = "v2.0.0+beta2d"
+ap_world_version = "v2.0.0+beta2e"
 
 # Try importing gui_enabled in Utils first before trying to import them from CommonClient
 # Core AP will be officially moving it to Utils in the future, so this is in accommodation for that
