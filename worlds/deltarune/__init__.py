@@ -141,7 +141,7 @@ class DeltaruneWorld(World):
                 "macguffin_chapter_1": int(self.options.macguffin_chapter_1.value),
                 "macguffin_chapter_2": int(self.options.macguffin_chapter_2.value),
                 "macguffin_chapter_3": int(self.options.macguffin_chapter_3.value),
-                "macguffin_chapter_4": int(0),
+                "macguffin_chapter_4": int(self.options.macguffin_chapter_4.value),
                 "macguffin_extra": int(self.options.macguffin_extra.value),
                 "remove_starting_equipment": bool(self.options.remove_starting_equipment.value),
                 "include_chapter_1": bool(self.options.include_chapter_1.value),
@@ -225,8 +225,6 @@ class DeltaruneWorld(World):
                     setattr(self.options, key, opt.from_any(value))
 
     def include_chapter(self, chapter: int) -> bool:
-        if chapter == 4:
-            return False
         return getattr(self.options, f"include_chapter_{chapter}").value == 1
 
     def is_chapters_in_order(self):
@@ -384,7 +382,6 @@ class DeltaruneWorld(World):
         return -1
 
     def create_regions(self):
-        self.options.include_chapter_4.value = 0
         every_connections = CCLocationsAndRegions.get_cross_chapter_mandatory_connection(self)
 
         CCLocationsAndRegions.create_regions(self)
