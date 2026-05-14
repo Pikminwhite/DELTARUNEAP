@@ -23,6 +23,13 @@ def set_rules(world: "DeltaruneWorld"):
             or state.has(CCItems.ralsei, player),
         )
 
+        set_rule(
+            multiworld.get_entrance(Ch3Entrances.lost_shadowguy, player),
+            lambda state: state.has(CCItems.kris, player)
+            or state.has(CCItems.susie, player)
+            or state.has(CCItems.ralsei, player),
+        )
+
     # Chapter unlock
     if not world.is_all_chapters_unlocked():
         set_rule(
