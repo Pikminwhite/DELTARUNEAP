@@ -26,6 +26,7 @@ from .Options import (
     IncludeUnusedItemsOptions,
     UnlockCharactersOptions,
     deltarune_option_groups,
+    options_presets,
 )
 from worlds.AutoWorld import World, WebWorld
 from worlds.LauncherComponents import components, Component, Type, icon_paths
@@ -112,6 +113,8 @@ class DeltaruneWeb(WebWorld):
     ]
 
     option_groups = deltarune_option_groups
+    options_presets = options_presets
+    rich_text_options_doc = True
 
 
 class DeltaruneWorld(World):
@@ -366,10 +369,10 @@ class DeltaruneWorld(World):
         return -1
 
     def is_t_rank_included(self):
-        return self.options.include_t_rank.value == IncludeTRankOptions.true or self.is_t_rank_excluded_from_logic()
+        return self.options.include_t_rank == IncludeTRankOptions.true or self.is_t_rank_excluded_from_logic()
 
     def is_t_rank_excluded_from_logic(self):
-        return self.options.include_t_rank.value == IncludeTRankOptions.excluded_from_logic
+        return self.options.include_t_rank == IncludeTRankOptions.excluded_from_logic
 
     def get_next_in_order_chapter(self, chapter: int):
         if chapter > max_deltarune_chapter:

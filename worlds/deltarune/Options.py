@@ -3,410 +3,14 @@ from enum import StrEnum
 from Options import Choice, Toggle, Range, PerGameCommonOptions, NamedRange, OptionGroup
 from dataclasses import dataclass
 
-class ChosenRoute(Choice):
-    """
-    CHOOSE THE ROUTE
-    THAT YOU PREFER.
-
-    (All Recruits - Progress through the story by recruiting everyone.)
-    (Weird Route - Proceed through the "Weird Route" storyline while losing all possible recruits.)
-    (Neutral Route - Proceed through the story normally.)
-    (Losing/Gaining recruits have been turned into checks.)"""
-
-    display_name = "Chosen Route"
-    option_all_recruits = 0
-    option_weird_route = 1
-    option_all_routes = 2
-    option_neutral_route = 3
-    default = option_all_recruits
-
-
-class ChosenRouteOptions(StrEnum):
-    all_recruits = "all_recruits"
-    weird_route = "weird_route"
-    all_routes = "all_routes"
-    neutral_route = "neutral_route"
-
-class RandomizeChapters(Choice):
-    """
-    HOW WILL YOU PROGRESS
-    THROUGH THE CHAPTERS?
-
-    (In Order - The next chapter will be unlocked once you complete the one you're in. This is the recommended option.)
-    (Randomized Chapters - Chapters are unlocked through getting checks. In Multiplayer, be prepared to wait a while!)
-    (All Unlocked - All chapters are unlocked from the start. You will be expected to play through another chapter once stuck.)
-
-    AS A REMINDER,
-
-    YOUR GOAL IS
-    TO SEE THE END
-    OF ALL CHAPTERS."""
-
-    display_name = "Randomize Chapters"
-    option_in_order = 0
-    option_randomized = 1
-    option_all_unlocked = 2
-    default = option_in_order
-
-
-class RandomizeChapterOptions(StrEnum):
-    in_order = "in_order"
-    randomized = "randomized"
-    all_unlocked = "all_unlocked"
-
-
-class RandomizeSecretBosses(Choice):
-    """
-    ITEMS GIVEN BY THOSE
-    POSSESSING SHADOW CRYSTALS
-    WILL BE RANDOMIZED.
-
-    OTHERWISE, THEY WILL REMAIN
-    IN THEIR DEFAULT LOCATIONS.
-
-    SHOULD THE OPTION
-    BE SET TO "MANDATORY",
-
-    DEFEATING THESE CHALLENGES
-    WILL BE REQUIRED TO PROGRESS.
-
-    (If you don't choose "Mantleless" for the next option,)
-    (The Shadow Mantle will also be included as a mandatory boss.)"""
-
-    display_name = "Randomize Secret Bosses"
-    option_false = 0
-    option_true = 1
-    option_mandatory = 2
-    default = option_false
-
-
-class RandomizeSecretBossesOptions(StrEnum):
-    false = "false"
-    true = "true"
-    mandatory = "mandatory"
-
-
-class RandomizeMANTLE(Choice):
-    """
-    CHECKS RECIEVED
-    IN THE ORIGINAL GAME
-    OF THE THIRD CHAPTER
-    WILL BE RANDOMIZED.
-
-    OTHERWISE, THEY WILL REMAIN
-    IN THEIR DEFAULT LOCATIONS.
-
-    SHOULD THE OPTION
-    BE SET TO "MANTLELESS",
-
-    THE CHECKS OF THE ORIGINAL GAME
-    WILL STILL BE RANDOMIZED,
-
-    HOWEVER
-
-    CHECK LOCATIONS SPECIFICALLY
-    LOCKED BEHIND DEFEATING THE MANTLE
-    WILL BE REMOVED.
-
-    (So basically, if you choose "Mantleless", the game's still randomized, you just won't have to fight the Mantle.)
-    (You can still get the items normally locked behind the boss fight from other checks, though.)
-    (And of course, this only applies if you play Chapter 3.)"""
-
-    display_name = "Randomize MANTLE"
-    option_false = 0
-    option_true = 1
-    option_mantleless = 2
-    default = option_false
-
-
-class RandomizeMANTLEOptions(StrEnum):
-    false = "false"
-    true = "true"
-    mantleless = "mantleless"
-
-
-class IncludeShadowMantle(Toggle):
-    """
-    THE SHADOW MANTLE WILL BE
-    IN THE ITEM POOL
-    OF THE THIRD CHAPTER.
-
-    SHOULD THE OPTION
-    BE SET TO "FALSE",
-
-    THE SHADOW MANTLE WILL
-    BE REMOVED ENTIRELY
-
-    AND THE SHADOW MANTLE WILL NOT
-    BE IN LOGIC FOR THE DUEL
-    WITH THE KNIGHT.
-
-    (Of course, this only applies if you play Chapter 3.)"""
-
-    display_name = "Include Shadow Mantle"
-    default = 1
-
-
-class IncludeTraps(Choice):
-    """
-    SOME CHECKS RECIEVED
-    WILL ACTUALLY BE TRAPS.
-
-
-    SHOULD THE OPTION
-    BE SET TO "ALL TRAPS",
-
-    THE JUNK POOL WILL
-    BE ENTIRELY REPLACED
-    BY TRAPS."""
-
-    display_name = "Include Traps"
-    option_false = 0
-    option_true = 1
-    option_all_traps = 2
-    default = option_false
-
-
-class IncludeTRank(Choice):
-    """
-    GETTING THE HIGHEST RANK
-    OF THE THIRD CHAPTER
-    WILL BE EXPECTED.
-
-    (Of course, this only applies if you play Chapter 3.)"""
-
-    display_name = "Include T Rank"
-    option_false = 0
-    option_true = 1
-    option_excluded_from_logic = 2
-    default = option_false
-
-
-class IncludeTRankOptions(StrEnum):
-    false = "false"
-    true = "true"
-    excluded_from_logic = "excluded_from_logic"
-
-
-class ItemBalancing(Toggle):
-    """
-    IF AN ITEM IS
-    OBTAINED EARLY,
-
-    ITS POWER WILL
-    BE SCALED DOWN.
-
-    (For example, Chapter 4's AbsorbAx in chapter 1 will only give +3 attack instead of +8.)"""
-
-    display_name = "ItemBalancing"
-    default = 0
-
-class IncludeHiddenItems(Toggle):
-    """
-    RANDOMIZES ITEMS
-    THAT ARE CONSIDERABLY MORE
-    DIFFICULT TO FIND
-    OR TEDIOUS TO OBTAIN.
-
-    OTHERWISE, THEY WILL REMAIN
-    IN THEIR DEFAULT LOCATIONS.
-
-    (Examples:)
-    - (The Golden Prizes in Chapter 3)
-    - (The Eggs)
-    - (Items Needed for Secret Bosses)
-    - (Dog Dollars)
-    - (Moss)"""
-
-    display_name = "Randomize Grindy/Hidden Items"
-    default = 0
-
-
-class RemoveStartingEquipment(Toggle):
-    """DO YOU WISH
-    TO REMOVE THE STARTING EQUIPMENT
-    FOR EACH CHAPTER?"""
-
-    display_name = "Remove Starting Equipment"
-    default = 1
-
-
-class IncludeChapter1(Toggle):
-    """DO YOU WISH
-    TO PLAY CHAPTER 1?"""
-
-    display_name = "Include Chapter 1"
-    default = 1
-
-
-class Chapter1Recruit(Toggle):
-    """
-    DO YOU WISH
-    TO HAVE THR RECRUIT/LOSE SYSTEM
-    FOR CHAPTER 1 ?
-    """
-
-    display_name = "Recruits/Lost for chapter 1"
-    default = 1
-
-
-class IncludeChapter2(Toggle):
-    """
-    DO YOU WISH
-    TO PLAY CHAPTER 2?"""
-
-    display_name = "Include Chapter 2"
-    default = 1
-
-
-class IncludeLoseSwatchling(Toggle):
-    """
-    Would lose swatchling be include if you are doing weird route or all routes ?
-    Technically, without reloading a save you need use wrong warp to do it in weird route.
-    """
-
-    display_name = "Include Lose Swatchling"
-    default = 0
-
-
-class IncludeChapter3(Toggle):
-    """
-    DO YOU WISH
-    TO PLAY CHAPTER 3?"""
-
-    display_name = "Include Chapter 3"
-    default = 1
-
-
-class IncludeChapter4(Toggle):
-    """
-    DO YOU WISH
-    TO PLAY CHAPTER 4?"""
-
-    display_name = "Include Chapter 4"
-    default = 1
-
-
-class MacGuffinChapter1(Range):
-    """
-    A NEW ROADBLACK WILL
-    APPEAR BEFORE THE
-    FINAL BOSS OF CHAPTER 1
-
-    THIS OPTION DETERMINES
-    HOW MANY OF THESE ITEMS
-    WILL BE REQUIRED
-    TO PROGRESS.
-
-    (King-Shaped Key Pieces)
-    """
-
-    display_name = "Macguffin Chapter 1 Amount"
-    default = 3
-    range_start = 0
-    range_end = 10
-
-
-class MacGuffinChapter2(Range):
-    """
-    A NEW ROADBLACK WILL
-    APPEAR BEFORE THE
-    FINAL BOSS OF CHAPTER 2
-
-    THIS OPTION DETERMINES
-    HOW MANY OF THESE ITEMS
-    WILL BE REQUIRED
-    TO PROGRESS.
-
-    (KeyGen 2 Segments)
-    """
-
-    display_name = "Macguffin Chapter 2 Amount"
-    default = 3
-    range_start = 0
-    range_end = 10
-
-
-class MacGuffinChapter3(Range):
-    """
-    A NEW ROADBLACK WILL
-    APPEAR BEFORE THE
-    FINAL BOSS OF CHAPTER 3
-
-    THIS OPTION DETERMINES
-    HOW MANY OF THESE ITEMS
-    WILL BE REQUIRED
-    TO PROGRESS.
-
-    (Remote Batteries)
-    """
-
-    display_name = "Macguffin Chapter 3 Amount"
-    default = 3
-    range_start = 0
-    range_end = 10
-
-
-class MacGuffinChapter4(Range):
-    """
-    A NEW ROADBLACK WILL
-    APPEAR BEFORE THE
-    FINAL BOSS OF CHAPTER 4
-
-    THIS OPTION DETERMINES
-    HOW MANY OF THESE ITEMS
-    WILL BE REQUIRED
-    TO PROGRESS.
-
-    (Combination Lock Digits)
-    """
-
-    display_name = "Macguffin Chapter 4 Amount"
-    default = 3
-    range_start = 0
-    range_end = 10
-
-
-class MacGuffinExtra(Range):
-    """
-    Amount of extra macguffins added in the item pool that are not required to progress.
-    """
-
-    display_name = "Extra MacGuffin Amount"
-    default = 1
-    range_start = 0
-    range_end = 5
-
-
-class DeathLink(Toggle):
-    """
-    YOUR FAILURE
-    CAUSES THE FAILURE
-    OF EVERYONE
-    WHO HAS ENABLED
-    THIS OPTION.
-
-    TO COMPLIMENT,
-    THE REVERSE
-    IS TRUE AS WELL."""
-
-    display_name = "Death Link"
-    default = 0
-
 
 class ProgressionBalancing(NamedRange):
     """
-    ATTEMPTS TO BALANCE
-    THE PROGRESSION
-    OF YOUR ITEMS.
+    ATTEMPTS TO BALANCE THE PROGRESSION OF YOUR ITEMS.
 
-    SETTING THE VALUE LOWER
-    WILL RESULT IN MORE WAITING
-    TO RECIEVE ITEMS.
+    SETTING THE VALUE LOWER WILL RESULT IN MORE WAITING TO RECIEVE ITEMS.
 
-    SETTING THE VALUE HIGHER
-    WILL RESULT IN LESS WAITING
-    TO RECIEVE ITEMS.
+    SETTING THE VALUE HIGHER WILL RESULT IN LESS WAITING TO RECIEVE ITEMS.
     """
 
     default = 50
@@ -423,13 +27,11 @@ class ProgressionBalancing(NamedRange):
 
 class Accessibility(Choice):
     """
-    SETS THE RULES
-    FOR THE ABILITY
-    TO REACH ALL ITEMS.
+    SETS THE RULES FOR THE ABILITY TO REACH ALL ITEMS.
 
-    **Full:** GUARANTEES THAT ALL ITEMS CAN BE OBTAINED.
+    - **Full** *GUARANTEES THAT ALL ITEMS CAN BE OBTAINED.*
 
-    **Minimal:** GUARANTEES ONLY WHAT IS NECESSARY, BUT NO MORE.
+    - **Minimal** *GUARANTEES ONLY WHAT IS NECESSARY, BUT NO MORE.*
     """
 
     display_name = "Accessibility"
@@ -442,18 +44,332 @@ class Accessibility(Choice):
     default = 0
 
 
+class BetterOdds(Toggle):
+    """
+    SHOULD RNG-DEPENDING THINGS HAVE BETTER ODDS TO HAPPEN?
+
+    - **Chapter 1&2 Eggs**
+    """
+
+    display_name = "Better Odds"
+    default = 0
+
+
+class ChosenRoute(Choice):
+    """
+    CHOOSE THE ROUTE YOU WANT TO GO THROUGH
+
+    - **Neutral Route** *Proceed through the story normally.*
+    - **Weird Route** *Proceed through the "Weird Route" storyline while losing all possible recruits.*
+    - **All Recruits** *Progress through the story by recruiting everyone.*
+    - **All Routes** *Both All Recruits and Weird Route at the same times.*
+      *(Doesn't require to finish multiple times chapter, either ending would count as completing a chapter)*
+
+    *The chosen route only choose if recruiting or loosing recruits are included or not.
+    This doesn't require you to finish a chapter with a specific route.*
+    """
+
+    display_name = "Chosen Route"
+    option_all_recruits = 0
+    option_weird_route = 1
+    option_all_routes = 2
+    option_neutral_route = 3
+    default = option_all_recruits
+
+
+class ChosenRouteOptions(StrEnum):
+    all_recruits = "all_recruits"
+    weird_route = "weird_route"
+    all_routes = "all_routes"
+    neutral_route = "neutral_route"
+
+
+class RandomizeChapters(Choice):
+    """
+    HOW WILL YOU PROGRESS THROUGH THE CHAPTERS?
+
+    - **In Order** *The next chapter will be unlocked once you complete the one you're in.*
+    - **Randomized** *Chapters are unlocked through getting items. In Multiplayer, be prepared to wait a while!*
+    - **All Unlocked** *All chapters are unlocked from the start. You will be expected to play through another chapter once stuck.*
+
+    *(The goal is closing the final fountain of each chapter whatever the option chosen.)*
+    """
+
+    display_name = "Randomize Chapters"
+    option_in_order = 0
+    option_randomized = 1
+    option_all_unlocked = 2
+    default = option_in_order
+
+
+class RandomizeChapterOptions(StrEnum):
+    in_order = "in_order"
+    randomized = "randomized"
+    all_unlocked = "all_unlocked"
+
+
+class RandomizeSecretBosses(Choice):
+    """
+    ITEMS GIVEN BY THOSE POSSESSING SHADOW CRYSTALS WILL BE RANDOMIZED OR EVEN REQUIRED.
+
+    - **Mandatory** *Secret Bosses rewards will be randomized and required to do to complete chapter*
+
+    *Secret bosses are: Jevil, Spamton Neo, Mantle/ERAM, Knight, Gerson*
+    """
+
+    display_name = "Randomize Secret Bosses"
+    option_false = 0
+    option_true = 1
+    option_mandatory = 2
+    default = option_false
+
+
+class RandomizeSecretBossesOptions(StrEnum):
+    false = "false"
+    true = "true"
+    mandatory = "mandatory"
+
+
+class RandomizeMANTLE(Choice):
+    """
+    CHECKS RECIEVED IN THE ORIGINAL GAME OF THE THIRD CHAPTER WILL BE RANDOMIZED.
+    MANTLE/ERAM CAN ALSO BE EXCLUDED FROM MANDATORY SECRET BOSSES
+
+    - **Mantleless** *Items in the ORIGINAL GAME will be randomized and Mantle/ERAM isn't mandatory if secret bosses is set to mandatory*
+    """
+
+    display_name = "Randomize MANTLE"
+    option_false = 0
+    option_true = 1
+    option_mantleless = 2
+    default = option_false
+
+
+class RandomizeMANTLEOptions(StrEnum):
+    false = "false"
+    true = "true"
+    mantleless = "mantleless"
+
+
+class IncludeShadowMantle(Toggle):
+    """
+    THE SHADOW MANTLE WILL BE IN THE ITEM POOL OF THE THIRD CHAPTER.
+
+    - **False** *The Shadow Mantle is the reward for beating Mantle/ERAM*
+    - **True** *The Shadow Mantle will be in the itempool in logic before Knight fight*
+    """
+
+    display_name = "Include Shadow Mantle"
+    default = 1
+
+
+class IncludeTRank(Choice):
+    """
+    GETTING THE HIGHEST RANK OF THE THIRD CHAPTER WILL BE EXPECTED.
+
+    - **Excluded from logic** *Will be included but does only hold an filler/trap item*
+    """
+
+    display_name = "Include T Rank"
+    option_false = 0
+    option_true = 1
+    option_excluded_from_logic = 2
+    default = option_false
+
+
+class IncludeTRankOptions(StrEnum):
+    false = "false"
+    true = "true"
+    excluded_from_logic = "excluded_from_logic"
+
+
+class ItemBalancing(Toggle):
+    """
+    IF AN ITEM IS OBTAINED EARLY, ITS POWER WILL BE SCALED DOWN.
+
+    *For example, Chapter 4's AbsorbAx in chapter 1 will only give +3 attack instead of +8.*
+    """
+
+    display_name = "(FIXED SOON) ItemBalancing"
+    default = 0
+
+
+class IncludeHiddenItems(Toggle):
+    """
+    RANDOMIZES ITEMS THAT ARE CONSIDERABLY MORE DIFFICULT TO FIND OR TEDIOUS TO OBTAIN.
+
+    - **Golden Prizes**
+    - **Eggs**
+    - **Broken Keys, Door Key, KeyGen, Empty Disk**
+    - **Dog Dollars**
+    - **Moss**
+    """
+
+    display_name = "Randomize Grindy/Hidden Items"
+    default = 0
+
+
+class RemoveStartingEquipment(Toggle):
+    """
+    DO YOU WISH TO REMOVE THE STARTING EQUIPMENT FOR EACH CHAPTER?
+    """
+
+    display_name = "Remove Starting Equipment"
+    default = 1
+
+
+class IncludeChapter1(Toggle):
+    """
+    DO YOU WISH TO PLAY CHAPTER 1?
+
+    *Items from this chapter will also be included*
+    """
+
+    display_name = "Include Chapter 1"
+    default = 1
+
+
+class Chapter1Recruit(Toggle):
+    """
+    DO YOU WISH TO HAVE THE RECRUIT/LOSE SYSTEM FOR CHAPTER 1?
+    """
+
+    display_name = "Recruits/Lost for chapter 1"
+    default = 1
+
+
+class IncludeChapter2(Toggle):
+    """
+    DO YOU WISH TO PLAY CHAPTER 2?
+
+    *Items from this chapter will also be included*
+    """
+
+    display_name = "Include Chapter 2"
+    default = 1
+
+
+class IncludeLoseSwatchling(Toggle):
+    """
+    DO YOU WISH TO INCLUDE LOSE SWATCHLING?
+
+    *It requires either reloading your save in all routes or doing Singapore Wrong Warps in weird route.*
+    """
+
+    display_name = "Include Lose Swatchling"
+    default = 0
+
+
+class IncludeChapter3(Toggle):
+    """
+    DO YOU WISH TO PLAY CHAPTER 3?
+
+    *Items from this chapter will also be included*
+    """
+
+    display_name = "Include Chapter 3"
+    default = 1
+
+
+class IncludeChapter4(Toggle):
+    """
+    DO YOU WISH TO PLAY CHAPTER 4?
+
+    *Items from this chapter will also be included*
+    """
+
+    display_name = "Include Chapter 4"
+    default = 1
+
+
+class MacGuffinChapter1(Range):
+    """
+    A NEW ROADBLACK WILL APPEAR BEFORE THE FINAL BOSS OF CHAPTER 1
+
+    THIS OPTION DETERMINES HOW MANY OF THESE ITEMS WILL BE REQUIRED TO PROGRESS.
+
+    (King-Shaped Key Pieces)
+    """
+
+    display_name = "Macguffin Chapter 1 Amount"
+    default = 3
+    range_start = 0
+    range_end = 10
+
+
+class MacGuffinChapter2(Range):
+    """
+    A NEW ROADBLACK WILL APPEAR BEFORE THE FINAL BOSS OF CHAPTER 2
+
+    THIS OPTION DETERMINES HOW MANY OF THESE ITEMS WILL BE REQUIRED TO PROGRESS.
+
+    (KeyGen 2 Segments)
+    """
+
+    display_name = "Macguffin Chapter 2 Amount"
+    default = 3
+    range_start = 0
+    range_end = 10
+
+
+class MacGuffinChapter3(Range):
+    """
+    A NEW ROADBLACK WILL APPEAR BEFORE THE FINAL BOSS OF CHAPTER 3
+
+    THIS OPTION DETERMINES HOW MANY OF THESE ITEMS WILL BE REQUIRED TO PROGRESS.
+
+    (Remote Batteries)
+    """
+
+    display_name = "Macguffin Chapter 3 Amount"
+    default = 3
+    range_start = 0
+    range_end = 10
+
+
+class MacGuffinChapter4(Range):
+    """
+    A NEW ROADBLACK WILL APPEAR BEFORE THE FINAL BOSS OF CHAPTER 4
+
+    THIS OPTION DETERMINES HOW MANY OF THESE ITEMS WILL BE REQUIRED TO PROGRESS.
+
+    (Combination Lock Digits)
+    """
+
+    display_name = "Macguffin Chapter 4 Amount"
+    default = 3
+    range_start = 0
+    range_end = 10
+
+
+class MacGuffinExtra(Range):
+    """
+    THE AMOUNT OF EXTRA ITEM IS IN THE ITEMPOOL TO UNBLOCK THE ROAD TO FINAL BOSSES
+    """
+
+    display_name = "Extra MacGuffin Amount"
+    default = 1
+    range_start = 0
+    range_end = 5
+
+
+class DeathLink(Toggle):
+    """
+    YOUR FAILURE CAUSES THE FAILURE OF EVERYONE WHO HAS ENABLED THIS OPTION.
+
+    TO COMPLIMENT, THE REVERSE IS TRUE AS WELL.
+    """
+
+    display_name = "Death Link"
+    default = 0
+
+
 filler_weight_range_names = {"common": 50, "uncommon": 25, "rare": 10, "very rare": 5, "extremely rare": 1}
 
 
 class FillerHealingWeight(NamedRange):
     """
-    DETERMINES HOW OFTEN
-    COMMON HEALING ITEMS WILL APPEAR
-    COMPARED TO OTHERS ITEMS.
-
-    REGARDLESS OF THIS SETTING,
-    EACH WILL BE GUARANTEED
-    TO APPEAR AT LEAST ONCE.
+    DETERMINES HOW OFTEN HEALING ITEMS WILL APPEAR COMPARED TO OTHERS ITEMS.
     """
 
     display_name = "Healing Items Weights"
@@ -466,13 +382,7 @@ class FillerHealingWeight(NamedRange):
 
 class FillerCurrencyWeight(NamedRange):
     """
-    DETERMINES HOW OFTEN
-    ALL CURRENCIES WILL APPEAR
-    COMPARED TO OTHERS ITEMS.
-
-    REGARDLESS OF THIS SETTING,
-    EACH AMOUNT WILL BE GUARANTEED
-    TO APPEAR AT LEAST ONCE.
+    DETERMINES HOW OFTEN ALL CURRENCIES WILL APPEAR COMPARED TO OTHERS ITEMS.
     """
 
     display_name = "Currency Weights"
@@ -485,13 +395,7 @@ class FillerCurrencyWeight(NamedRange):
 
 class TrapWeight(NamedRange):
     """
-    DETERMINES HOW OFTEN
-    TRAPS WILL APPEAR
-    COMPARED TO OTHERS ITEMS.
-
-    REGARDLESS OF THIS SETTING,
-    EACH TRAP WILL BE GUARANTEED
-    TO APPEAR AT LEAST ONCE.
+    DETERMINES HOW OFTEN TRAPS WILL APPEAR COMPARED TO OTHERS ITEMS.
     """
 
     display_name = "(Coming Soon) Trap Weights"
@@ -504,13 +408,7 @@ class TrapWeight(NamedRange):
 
 class FillerArmorWeight(NamedRange):
     """
-    DETERMINES HOW OFTEN
-    ARMOR ITEMS WILL APPEAR
-    COMPARED TO OTHERS ITEMS.
-
-    REGARDLESS OF THIS SETTING,
-    EACH WILL BE GUARANTEED
-    TO APPEAR AT LEAST ONCE.
+    DETERMINES HOW OFTEN ARMOR ITEMS WILL APPEAR COMPARED TO OTHERS ITEMS.
     """
 
     display_name = "Armors Weights"
@@ -523,13 +421,7 @@ class FillerArmorWeight(NamedRange):
 
 class FillerTensionWeight(NamedRange):
     """
-    DETERMINES HOW OFTEN
-    TENSION ITEMS WILL APPEAR
-    COMPARED TO OTHERS ITEMS.
-
-    REGARDLESS OF THIS SETTING,
-    EACH WILL BE GUARANTEED
-    TO APPEAR AT LEAST ONCE.
+    DETERMINES HOW OFTEN TENSION ITEMS WILL APPEAR COMPARED TO OTHERS ITEMS.
     """
 
     display_name = "Tension Items Weights"
@@ -542,16 +434,7 @@ class FillerTensionWeight(NamedRange):
 
 class FillerSMILEWeight(NamedRange):
     """
-    DETERMINES HOW OFTEN
-    IT WILL SMILE.
-
-    REGARDLESS OF THIS SETTING,
-    IT WILL BE GUARANTEED
-    TO SMILE AT LEAST ONCE.
-
-    (SMILE only sends you a silly message.)
-    
-    (...Right?)
+    DETERMINES HOW OFTEN IT WILL SMILE.
     """
 
     display_name = "SMILE Weight"
@@ -564,55 +447,43 @@ class FillerSMILEWeight(NamedRange):
 
 class ProgressiveKrisWeapons(Toggle):
     """
-    THE WEAPONS RECEIVED
-    FOR THE CAGE
-    WILL BE IN SEQUENTIAL ORDER
-    OF RISING POWER.
+    THE WEAPONS RECEIVED FOR THE CAGE WILL BE IN SEQUENTIAL ORDER OF RISING POWER.
     """
 
     display_name = "(COMING SOON) Progressive Kris Weapons"
-    default = 0
+    default = 1
 
 
 class ProgressiveSusieWeapons(Toggle):
     """
-    THE WEAPONS RECEIVED
-    FOR THE GIRL
-    WILL BE IN SEQUENTIAL ORDER
-    OF RISING POWER.
+    THE WEAPONS RECEIVED FOR THE GIRL WILL BE IN SEQUENTIAL ORDER OF RISING POWER.
     """
 
     display_name = "(COMING SOON) Progressive Susie Weapons"
-    default = 0
+    default = 1
 
 
 class ProgressiveRalseiWeapons(Toggle):
     """
-    THE WEAPONS RECEIVED
-    FOR THE PRINCE
-    WILL BE IN SEQUENTIAL ORDER
-    OF RISING POWER.
+    THE WEAPONS RECEIVED FOR THE PRINCE WILL BE IN SEQUENTIAL ORDER OF RISING POWER.
     """
 
     display_name = "(COMING SOON) Progressive Ralsei Weapons"
-    default = 0
+    default = 1
 
 
 class ProgressiveNoelleWeapons(Toggle):
     """
-    THE FORBIDDEN RINGS
-    WILL BE IN SEQUENTIAL ORDER
-    OF RISING POWER.
+    THE FORBIDDEN RINGS WILL BE IN SEQUENTIAL ORDER OF RISING POWER.
     """
 
     display_name = "(COMING SOON) Progressive Noelle Weapons"
+    default = 1
 
 
 class UnlockCharacters(Choice):
     """
-    YOU WILL HAVE TO UNLOCK
-    CHARACTERS OTHERWISE
-    THEY WILL BE -1HP
+    YOU WILL HAVE TO UNLOCK CHARACTERS OTHERWISE THEY WILL BE -666HP
     """
 
     display_name = "Unlock Characters"
@@ -630,14 +501,10 @@ class UnlockCharactersOptions(StrEnum):
 
 class IncludeUnusedItems(Choice):
     """
-    CERTAIN ITEMS ARE
-    NOT NORMALLY PRESENT.
+    CERTAIN ITEMS ARE NOT NORMALLY PRESENT.
+    WILL THEY NOW BE WITH THE REST.
 
-    WILL THEY NOW
-    BE WITH THE REST?
-    
-    (EverybodyWeapon is pretty over-powered, and it's probably for testing purposes.)
-    (Set this option to "True Without EverybodyWeapon" if you'd rather not have it.)
+    - **True without EveryBodyWeapon** *Include unused items without EveryBodyWeapon that is a super powerfull unbalanced item probably used by the dev team for debug*
     """
 
     display_name = "Include Unused Items"
@@ -655,10 +522,7 @@ class IncludeUnusedItemsOptions(StrEnum):
 
 class IncludeMike(Choice):
     """
-    WILL THE DEFEAT
-    OF THE MICROPHONE
-    AS WELL AS THEIR GAMES
-    COUNT AS CHECK LOCATIONS?
+    WILL THE DEFEAT OF THE MICROPHONE AS WELL AS THEIR GAMES COUNT AS CHECK LOCATIONS?
     """
 
     display_name = "(COMING SOON) Include Mike"
@@ -674,20 +538,9 @@ class IncludeMikeOptions(StrEnum):
     battle_and_games = "battle_and_games"
 
 
-class BetterOdds(Toggle):
-    """
-    Should rng-depending things have better odds to happen ?
-
-    (Chapter 1/2 eggs)
-    """
-
-    display_name = "Better Odds"
-    default = 0
-
-
 class UnlockFunGangActions(Toggle):
     """
-    Should Susie/Ralsei/Noelle-Actions be an item ?
+    ACTIONS OF THE GIRL, THE PRINCE AND THE WHITE CLOAK WILL BE AN ITEM
     """
 
     display_name = "Unlock S/R/N-Actions"
@@ -700,14 +553,22 @@ deltarune_option_groups = [
         [
             RandomizeChapters,
             RemoveStartingEquipment,
-            IncludeChapter1,
-            Chapter1Recruit,
-            IncludeChapter2,
-            IncludeLoseSwatchling,
-            IncludeChapter3,
-            IncludeChapter4,
+            MacGuffinExtra,
         ],
     ),
+    OptionGroup("Chapter 1", [IncludeChapter1, MacGuffinChapter1, Chapter1Recruit]),
+    OptionGroup("Chapter 2", [IncludeChapter2, MacGuffinChapter2, IncludeLoseSwatchling]),
+    OptionGroup(
+        "Chapter 3",
+        [
+            IncludeChapter3,
+            MacGuffinChapter3,
+            RandomizeMANTLE,
+            IncludeShadowMantle,
+            IncludeTRank,
+        ],
+    ),
+    OptionGroup("Chapter 4", [IncludeChapter4, MacGuffinChapter4, IncludeMike]),
     OptionGroup(
         "Fillers",
         [
@@ -723,19 +584,12 @@ deltarune_option_groups = [
         "Goal",
         [
             ChosenRoute,
-            MacGuffinChapter1,
-            MacGuffinChapter2,
-            MacGuffinChapter3,
-            MacGuffinChapter4,
-            MacGuffinExtra,
             RandomizeSecretBosses,
-            RandomizeMANTLE,
         ],
     ),
     OptionGroup(
         "Items",
         [
-            IncludeShadowMantle,
             IncludeHiddenItems,
             IncludeUnusedItems,
             ProgressiveKrisWeapons,
@@ -746,8 +600,6 @@ deltarune_option_groups = [
             UnlockFunGangActions,
         ],
     ),
-    OptionGroup("Locations", [IncludeTRank, IncludeMike]),
-    OptionGroup("Other", [BetterOdds]),
 ]
 
 
@@ -792,4 +644,33 @@ class DeltaruneOptions(PerGameCommonOptions):
     unlock_fun_gang_actions: UnlockFunGangActions
     chapter_1_recruit: Chapter1Recruit
 
+
 #    include_traps: IncludeTraps
+
+options_presets = {
+    "Complete Experience": {
+        "remove_starting_equipment": True,
+        "randomize_chapters": "randomized",
+        "chosen_route": "all_routes",
+        "macguffin_chapter_1": 10,
+        "macguffin_chapter_2": 10,
+        "macguffin_chapter_3": 10,
+        "macguffin_chapter_4": 10,
+        "macguffin_extra": 0,
+        "randomize_secret_bosses": "mandatory",
+        "randomize_mantle": "true",
+        "include_t_rank": "true",
+        "include_hidden_items": True,
+        "include_unused_items": "true",
+        "death_link": True,
+        "filler_healing_weight": "random",
+        "filler_currency_weight": "random",
+        "trap_weight": "random",
+        "filler_armor_weight": "random",
+        "filler_tension_weight": "random",
+        "filler_smile_weight": "random",
+        "unlock_characters": "true",
+        "include_mike": True,
+        "chapter_1_recruits": True,
+    }
+}
