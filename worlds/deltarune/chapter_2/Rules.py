@@ -32,7 +32,7 @@ def set_rules(world: "DeltaruneWorld"):
         world.get_entrance(Ch2Entrances.cyber_city_entrance), Has(Ch2Items.safety_vest) | Has(glitched_item_name)
     )
     world.set_rule(
-        Ch2Entrances.mansion_lobby_entrance,
+        world.get_entrance(Ch2Entrances.mansion_lobby_entrance),
         can_proceed_weird_route
         | (
             CanReachRegion(Ch2Regions.cyber_city)
