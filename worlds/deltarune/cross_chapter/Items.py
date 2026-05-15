@@ -100,7 +100,7 @@ cross_chapter_conditional_items = {
     CCItems.s_r_n_actions.value: ConditionalItemData(
         ItemIDs.s_r_n_actions.value,
         ItemClassification.progression,
-        lambda world: world.is_fun_gang_actions_unlockable(),
+        lambda world: world.is_fun_gang_actions_unlockable() and world.has_at_least_one_chapter_included([2, 3, 4]),
     ),
     # Characters
     CCItems.kris.value: ConditionalItemData(

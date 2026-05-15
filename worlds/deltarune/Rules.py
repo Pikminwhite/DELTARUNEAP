@@ -1,3 +1,7 @@
+from rule_builder.options import OptionFilter
+from rule_builder.rules import Has
+from worlds.deltarune.Options import UnlockCharacters, UnlockFunGangActions
+from worlds.deltarune.cross_chapter.Items import CCItems
 from worlds.generic.Rules import set_rule, add_rule
 from typing import TYPE_CHECKING
 from .chapter_1.LocationsAndRegions import chapter1_end_region
@@ -40,3 +44,42 @@ def set_completion_rules(world: "DeltaruneWorld"):
     # set the multiworld completion condition of the player
     # to the completion condition that was just defined above
     multiworld.completion_condition[player] = completion_condition
+
+have_kris = Has(CCItems.kris, options=[OptionFilter(UnlockCharacters, UnlockCharacters.option_true)])
+
+have_ralsei = Has(
+    CCItems.ralsei,
+    options=[
+        OptionFilter(
+            UnlockCharacters, [UnlockCharacters.option_true, UnlockCharacters.option_except_kris], operator="in"
+        )
+    ],
+    filtered_resolution=True,
+)
+
+have_susie = Has(
+    CCItems.susie,
+    options=[
+        OptionFilter(
+            UnlockCharacters, [UnlockCharacters.option_true, UnlockCharacters.option_except_kris], operator="in"
+        )
+    ],
+    filtered_resolution=True,
+)
+
+have_noelle = Has(
+    CCItems.noelle,
+    options=[
+        OptionFilter(
+            UnlockCharacters, [UnlockCharacters.option_true, UnlockCharacters.option_except_kris], operator="in"
+        )
+    ],
+    filtered_resolution=True,
+)
+
+have_kris_or_susie = have_kris | have_susie
+have_kris_or_ralsei = have_kris | have_ralsei
+have_kris_susie_or_ralsei = have_kris | have_susie | have_ralsei
+have_kris_susie_and_ralsei = have_kris & have_susie & have_ralsei
+
+have_actions = Has(CCItems.s_r_n_actions, options=[OptionFilter(UnlockFunGangActions, 1)], filtered_resolution=True)

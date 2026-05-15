@@ -1,96 +1,64 @@
+from rule_builder.options import OptionFilter
+from rule_builder.rules import CanReachRegion, Has
+from worlds.deltarune.Options import RandomizeChapters, RandomizeSecretBosses
 from worlds.generic.Rules import set_rule
 from typing import TYPE_CHECKING
 from .LocationsAndRegions import Ch1Entrances, Ch1Regions, Ch1Locations
 from .Items import Ch1Items
 from ..cross_chapter.LocationsAndRegions import CCEntrances
 from ..cross_chapter.Items import CCItems
+from ..Rules import have_kris_or_ralsei
 
 if TYPE_CHECKING:
     from .. import DeltaruneWorld
 
 
 def set_rules(world: "DeltaruneWorld"):
-    player = world.player
-    multiworld = world.multiworld
-
-    # Chapter unlock
-    if not world.is_all_chapters_unlocked():
-        set_rule(
-            multiworld.get_entrance(CCEntrances.chapter_1_entrance, player),
-            lambda state: state.has(Ch1Items.chapter_1_unlock, player),
-        )
-
-    if world.is_kris_unlockable():
-        set_rule(
-            multiworld.get_entrance(Ch1Entrances.fields_post_hathy_entrance, player),
-            lambda state: state.has(CCItems.kris, player) or state.has(CCItems.ralsei, player),
-        )
-
-    # Region lockers
-    set_rule(
-        multiworld.get_entrance(Ch1Entrances.bake_sale_entrance, player),
-        lambda state: state.has(Ch1Items.bake_sale_ticket, player),
-    )
-    set_rule(
-        multiworld.get_entrance(Ch1Entrances.card_castle_entrance, player),
-        lambda state: state.has(Ch1Items.castle_key, player),
+    world.set_rule(
+        world.get_entrance(CCEntrances.chapter_1_entrance),
+        Has(
+            Ch1Items.chapter_1_unlock,
+            options=[OptionFilter(RandomizeChapters, RandomizeChapters.option_all_unlocked, operator="ne")],
+            filtered_resolution=True,
+        ),
     )
 
-    # Mandatory Secret boss option and macguffin
-    if world.is_secret_bosses_mandatory():
-        set_rule(
-            multiworld.get_entrance(Ch1Entrances.light_world_entrance, player),
-            lambda state: state.has(Ch1Items.king_shape_key_piece, player, world.options.macguffin_chapter_1.value)
-            and state.has(Ch1Items.door_key, player),
-        )
-    else:
-        set_rule(
-            multiworld.get_entrance(Ch1Entrances.light_world_entrance, player),
-            lambda state: state.has(Ch1Items.king_shape_key_piece, player, world.options.macguffin_chapter_1.value),
-        )
+    world.set_rule(Ch1Entrances.fields_post_hathy_entrance, have_kris_or_ralsei)
+
+    # Region blockers
+    world.set_rule(world.get_entrance(Ch1Entrances.bake_sale_entrance), Has(Ch1Items.bake_sale_ticket))
+    world.set_rule(world.get_entrance(Ch1Entrances.card_castle_entrance), Has(Ch1Items.castle_key))
+
+    secret_boss_mandatory = Has(
+        Ch1Items.door_key,
+        options=[OptionFilter(RandomizeSecretBosses, RandomizeSecretBosses.option_mandatory)],
+        filtered_resolution=True,
+    )
+
+    world.set_rule(
+        world.get_entrance(Ch1Entrances.light_world_entrance),
+        secret_boss_mandatory & Has(Ch1Items.king_shape_key_piece, world.options.macguffin_chapter_1.value),
+    )
 
     # Jevil quest
-    set_rule(
-        multiworld.get_location(Ch1Locations.bake_sale_repair_door_key, player),
-        lambda state: state.has_all({Ch1Items.broken_key_a, Ch1Items.broken_key_b, Ch1Items.broken_key_c}, player),
+    world.set_rule(
+        world.get_location(Ch1Locations.bake_sale_repair_door_key),
+        Has(Ch1Items.broken_key_a) & Has(Ch1Items.broken_key_b) & Has(Ch1Items.broken_key_c),
     )
-    set_rule(
-        multiworld.get_location(Ch1Locations.card_castle_jevil_1, player),
-        lambda state: state.has(Ch1Items.door_key, player),
-    )
-    set_rule(
-        multiworld.get_location(Ch1Locations.card_castle_jevil_2, player),
-        lambda state: state.has(Ch1Items.door_key, player),
-    )
-    set_rule(
-        multiworld.get_location(Ch1Locations.card_castle_jevil_3, player),
-        lambda state: state.has(Ch1Items.door_key, player),
-    )
-    set_rule(
-        multiworld.get_location(Ch1Locations.seam_seap_talk_about_strange_prisoner, player),
-        lambda state: state.can_reach(Ch1Regions.card_castle, "Region", player),
+    world.set_rule(world.get_location(Ch1Locations.card_castle_jevil_1), Has(Ch1Items.door_key))
+    world.set_rule(world.get_location(Ch1Locations.card_castle_jevil_2), Has(Ch1Items.door_key))
+    world.set_rule(world.get_location(Ch1Locations.card_castle_jevil_3), Has(Ch1Items.door_key))
+    world.set_rule(
+        world.get_location(Ch1Locations.seam_seap_talk_about_strange_prisoner), CanReachRegion(Ch1Regions.castle_town)
     )
 
     # Cake quest
-    set_rule(
-        multiworld.get_location(Ch1Locations.bake_sale_repair_top_cake, player),
-        lambda state: state.has(Ch1Items.brokencake, player),
-    )
-    set_rule(
-        multiworld.get_location(Ch1Locations.field_return_top_cake, player),
-        lambda state: state.has(Ch1Items.top_cake, player),
-    )
+    world.set_rule(world.get_location(Ch1Locations.bake_sale_repair_top_cake), Has(Ch1Items.brokencake))
+    world.set_rule(world.get_location(Ch1Locations.field_return_top_cake), Has(Ch1Items.top_cake))
 
-    set_rule(
-        multiworld.get_location(Ch1Locations.throw_away_manual, player),
-        lambda state: state.has(Ch1Items.manual, player),
-    )
-
-    set_rule(
-        multiworld.get_location(Ch1Locations.throw_away_manual_again, player),
-        lambda state: state.has(Ch1Items.manual, player, 2),
-    )
-
+    # Manuals
+    world.set_rule(world.get_location(Ch1Locations.throw_away_manual), Has(Ch1Items.manual))
+    world.set_rule(world.get_location(Ch1Locations.throw_away_manual_again), Has(Ch1Items.manual, 2))
 
 def handle_locked_items(world: "DeltaruneWorld"):
     player = world.player
