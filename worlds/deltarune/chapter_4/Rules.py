@@ -5,6 +5,7 @@ from .LocationsAndRegions import Ch4Entrances, Ch4Regions, Ch4Locations
 from .Items import Ch4Items
 from ..cross_chapter.LocationsAndRegions import CCEntrances
 from ..cross_chapter.Items import CCItems
+from ..Items import glitched_item_name
 
 if TYPE_CHECKING:
     from .. import DeltaruneWorld
@@ -20,6 +21,23 @@ def set_rules(world: "DeltaruneWorld"):
             lambda state: state.has(CCItems.kris, player)
             or state.has(CCItems.susie, player)
             or state.has(CCItems.ralsei, player),
+        )
+        set_rule(
+            multiworld.get_location(Ch4Locations.castle_town_lanino_elnina_challenge, player),
+            lambda state: state.has(CCItems.kris, player)
+            or state.has(CCItems.susie, player)
+            or state.has(CCItems.ralsei, player)
+            or state.has(glitched_item_name, player),
+        )
+
+    if world.is_characters_unlockables():
+        set_rule(
+            multiworld.get_location(Ch4Locations.dark_sanctuary_hammer_of_justice_defeat_item_1, player),
+            lambda state: state.has(CCItems.susie, player) or state.has(glitched_item_name, player),
+        )
+        set_rule(
+            multiworld.get_location(Ch4Locations.dark_sanctuary_hammer_of_justice_defeat_item_1, player),
+            lambda state: state.has(CCItems.susie, player) or state.has(glitched_item_name, player),
         )
 
     # Chapter unlock
