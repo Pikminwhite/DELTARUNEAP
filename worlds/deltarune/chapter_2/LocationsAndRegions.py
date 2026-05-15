@@ -1,4 +1,3 @@
-from BaseClasses import Location
 from enum import StrEnum
 from ..Locations import LocationIDs, LocationData, ConditionalLocationData, LocationGroups
 from ..Regions import generic_create_regions, fusion_access_region
@@ -111,7 +110,10 @@ class Ch2Regions(StrEnum):
     cyber_field = "CH2: Cyber Field"
     cyber_field_post_dj = "CH2: Cyber Field (Post-DJ)"
     cyber_city = "CH2: Cyber City"
+    mansion_lobby = "CH2: Mansion Lobby"
     mansion = "CH2: Mansion"
+    mansion_basement = "CH2: Mansion Basement"
+    spamton_neo = "CH2: Spamton Neo"
     post_chapter_castle_town = "CH2: Post-Chapter Castle Town"
 
 
@@ -121,7 +123,10 @@ class Ch2Entrances(StrEnum):
     cyber_field_entrance = "CH2: Cyber Field Entrance"
     cyber_field_post_dj_entrance = "CH2: Cyber Field (Post-DJ) Entrance"
     cyber_city_entrance = "CH2: Cyber City Entrance"
+    mansion_lobby_entrance = "CH2: Mansion Lobby Entrance"
     mansion_entrance = "CH2: Mansion Entrance"
+    mansion_basement_entrance = "CH2: Mansion Basement Entrance"
+    spamton_neo_entrance = "CH2: Spamton Neo"
     post_chapter_castle_town_entrance = "CH2: Post-Chapter Castle Town Entrance"
 
 
@@ -222,10 +227,14 @@ chapter2_locations = {
         LocationIDs.ch2_cyber_city_trash_can_5.value, Ch2Regions.cyber_city.value, LocationGroups.chapter2.value
     ),
     Ch2Locations.mansion_spamton_neo_defeat_item_1.value: LocationData(
-        LocationIDs.ch2_mansion_spamton_neo_defeat_item_1.value, Ch2Regions.mansion.value, LocationGroups.chapter2.value
+        LocationIDs.ch2_mansion_spamton_neo_defeat_item_1.value,
+        Ch2Regions.spamton_neo.value,
+        LocationGroups.chapter2.value,
     ),
     Ch2Locations.mansion_spamton_neo_defeat_item_2.value: LocationData(
-        LocationIDs.ch2_mansion_spamton_neo_defeat_item_2.value, Ch2Regions.mansion.value, LocationGroups.chapter2.value
+        LocationIDs.ch2_mansion_spamton_neo_defeat_item_2.value,
+        Ch2Regions.spamton_neo.value,
+        LocationGroups.chapter2.value,
     ),
     Ch2Locations.fountain_sealed.value: LocationData(
         LocationIDs.ch2_fountain_sealed.value, Ch2Regions.post_chapter_castle_town, LocationGroups.chapter2.value
@@ -237,7 +246,7 @@ chapter2_locations = {
         LocationIDs.ch2_trash_zone_warp_door.value, Ch2Regions.cyber_city.value, LocationGroups.chapter2.value
     ),
     Ch2Locations.mansion_warp_door.value: LocationData(
-        LocationIDs.ch2_mansion_warp_door.value, Ch2Regions.cyber_city.value, LocationGroups.chapter2.value
+        LocationIDs.ch2_mansion_warp_door.value, Ch2Regions.mansion_lobby.value, LocationGroups.chapter2.value
     ),
 }
 
@@ -359,13 +368,13 @@ chapter2_conditional_locations = {
     ),
     Ch2Locations.mansion_basement_chest.value: ConditionalLocationData(
         LocationIDs.ch2_mansion_basement_chest.value,
-        Ch2Regions.mansion.value,
+        Ch2Regions.mansion_basement.value,
         lambda world: world.is_not_weird_route_only(),
         LocationGroups.chapter2.value,
     ),
     Ch2Locations.mansion_basement_mechanism.value: ConditionalLocationData(
         LocationIDs.ch2_mansion_basement_mechanism.value,
-        Ch2Regions.mansion.value,
+        Ch2Regions.mansion_basement.value,
         lambda world: world.is_not_weird_route_only(),
         LocationGroups.chapter2.value,
     ),
@@ -390,25 +399,25 @@ chapter2_conditional_locations = {
     ),
     Ch2Locations.swatch_cafe_1.value: ConditionalLocationData(
         LocationIDs.ch2_swatchs_cafe_1.value,
-        Ch2Regions.cyber_city.value,
+        Ch2Regions.mansion_lobby.value,
         lambda world: world.is_not_weird_route_only(),
         LocationGroups.chapter2.value,
     ),
     Ch2Locations.swatch_cafe_2.value: ConditionalLocationData(
         LocationIDs.ch2_swatchs_cafe_2.value,
-        Ch2Regions.cyber_city.value,
+        Ch2Regions.mansion_lobby.value,
         lambda world: world.is_not_weird_route_only(),
         LocationGroups.chapter2.value,
     ),
     Ch2Locations.swatch_cafe_3.value: ConditionalLocationData(
         LocationIDs.ch2_swatchs_cafe_3.value,
-        Ch2Regions.cyber_city.value,
+        Ch2Regions.mansion_lobby.value,
         lambda world: world.is_not_weird_route_only(),
         LocationGroups.chapter2.value,
     ),
     Ch2Locations.swatch_cafe_4.value: ConditionalLocationData(
         LocationIDs.ch2_swatchs_cafe_4.value,
-        Ch2Regions.cyber_city.value,
+        Ch2Regions.mansion_lobby.value,
         lambda world: world.is_not_weird_route_only(),
         LocationGroups.chapter2.value,
     ),
@@ -456,7 +465,7 @@ chapter2_conditional_locations = {
     ),
     Ch2Locations.mansion_spamton_neo_defeat_item_3.value: ConditionalLocationData(
         LocationIDs.ch2_mansion_spamton_neo_defeat_item_3.value,
-        Ch2Regions.mansion.value,
+        Ch2Regions.spamton_neo.value,
         lambda world: world.is_not_weird_route_only(),
         LocationGroups.chapter2.value,
     ),
@@ -541,8 +550,18 @@ chapter2_regions = [
     (Ch2Regions.castle_town, [Ch2Entrances.cyber_field_entrance]),
     (Ch2Regions.cyber_field, [Ch2Entrances.cyber_field_post_dj_entrance]),
     (Ch2Regions.cyber_field_post_dj, [Ch2Entrances.cyber_city_entrance]),
-    (Ch2Regions.cyber_city, [Ch2Entrances.mansion_entrance]),
-    (Ch2Regions.mansion, [Ch2Entrances.post_chapter_castle_town_entrance]),
+    (Ch2Regions.cyber_city, [Ch2Entrances.mansion_lobby_entrance]),
+    (Ch2Regions.mansion_lobby, [Ch2Entrances.mansion_entrance]),
+    (
+        Ch2Regions.mansion,
+        [
+            Ch2Entrances.post_chapter_castle_town_entrance,
+            Ch2Entrances.mansion_basement_entrance,
+            Ch2Entrances.spamton_neo_entrance,
+        ],
+    ),
+    (Ch2Regions.mansion_basement, []),
+    (Ch2Regions.spamton_neo, []),
     (Ch2Regions.post_chapter_castle_town, []),
 ]
 
@@ -552,7 +571,10 @@ chapter2_mandatory_connections = [
     (Ch2Entrances.cyber_field_entrance.value, Ch2Regions.cyber_field.value),
     (Ch2Entrances.cyber_field_post_dj_entrance.value, Ch2Regions.cyber_field_post_dj.value),
     (Ch2Entrances.cyber_city_entrance.value, Ch2Regions.cyber_city.value),
+    (Ch2Entrances.mansion_lobby_entrance.value, Ch2Regions.mansion_lobby.value),
     (Ch2Entrances.mansion_entrance.value, Ch2Regions.mansion.value),
+    (Ch2Entrances.mansion_basement_entrance.value, Ch2Regions.mansion_basement.value),
+    (Ch2Entrances.spamton_neo_entrance.value, Ch2Regions.spamton_neo.value),
     (Ch2Entrances.post_chapter_castle_town_entrance.value, Ch2Regions.post_chapter_castle_town.value),
 ]
 

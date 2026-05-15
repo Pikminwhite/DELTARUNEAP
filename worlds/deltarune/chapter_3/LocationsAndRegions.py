@@ -316,13 +316,13 @@ chapter3_conditional_locations = {
     Ch3Locations.tv_world_man.value: ConditionalLocationData(
         LocationIDs.ch3_tv_world_man.value,
         Ch3Regions.goulden_sam,
-        lambda world: (not world.is_weird_route()) or world.is_all_routes(),
+        lambda world: world.is_not_weird_route_only(),
         LocationGroups.chapter3.value,
     ),
     Ch3Locations.tv_world_tripticket.value: ConditionalLocationData(
         LocationIDs.ch3_tv_world_tripticket.value,
         Ch3Regions.goulden_sam,
-        lambda world: (not world.is_weird_route()) or world.is_all_routes(),
+        lambda world: world.is_not_weird_route_only(),
         LocationGroups.chapter3.value,
     ),
     Ch3Locations.mantle_defeat.value: ConditionalLocationData(
@@ -455,8 +455,8 @@ chapter3_conditional_locations = {
 
 chapter3_regions = [
     (Ch3Regions.chapter_3.value, [Ch3Entrances.couch_cliffs_entrance.value]),
-    (Ch3Regions.couch_cliffs.value, [Ch3Entrances.board_1_entrance.value, Ch3Entrances.lost_shadowguy.value]),
-    (Ch3Regions.board_1.value, [Ch3Entrances.green_room_entrance.value]),
+    (Ch3Regions.couch_cliffs.value, [Ch3Entrances.board_1_entrance.value]),
+    (Ch3Regions.board_1.value, [Ch3Entrances.green_room_entrance.value, Ch3Entrances.lost_shadowguy.value]),
     (Ch3Regions.lost_shadowguy, []),
     (Ch3Regions.green_room.value, [Ch3Entrances.board_2_entrance.value, Ch3Entrances.lost_water_cooler]),
     (Ch3Regions.lost_water_cooler, []),
@@ -464,19 +464,19 @@ chapter3_regions = [
         Ch3Regions.board_2.value,
         [Ch3Entrances.doom_board_entrance.value],
     ),
+    (Ch3Regions.doom_board, [Ch3Entrances.tv_world_entrance]),
+    (Ch3Regions.lost_pippins, []),
+    (Ch3Regions.lost_shuttah, []),
+    (Ch3Regions.lost_zapper, []),
     (
-        Ch3Regions.doom_board,
+        Ch3Regions.tv_world.value,
         [
-            Ch3Entrances.tv_world_entrance,
+            Ch3Entrances.goulden_sam_entrance.value,
             Ch3Entrances.lost_shuttah,
             Ch3Entrances.lost_pippins,
             Ch3Entrances.lost_zapper,
         ],
     ),
-    (Ch3Regions.lost_pippins, []),
-    (Ch3Regions.lost_shuttah, []),
-    (Ch3Regions.lost_zapper, []),
-    (Ch3Regions.tv_world.value, [Ch3Entrances.goulden_sam_entrance.value]),
     (Ch3Regions.goulden_sam.value, [Ch3Entrances.cold_place_entrance.value]),
     (Ch3Regions.cold_place.value, []),
 ]

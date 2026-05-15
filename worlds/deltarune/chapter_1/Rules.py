@@ -1,6 +1,7 @@
+from rule_builder.field_resolvers import FromOption
 from rule_builder.options import OptionFilter
-from rule_builder.rules import CanReachRegion, Has
-from worlds.deltarune.Options import RandomizeChapters, RandomizeSecretBosses
+from rule_builder.rules import CanReachLocation, CanReachRegion, Has
+from worlds.deltarune.Options import MacGuffinChapter1, RandomizeChapters, RandomizeSecretBosses
 from worlds.generic.Rules import set_rule
 from typing import TYPE_CHECKING
 from .LocationsAndRegions import Ch1Entrances, Ch1Regions, Ch1Locations
@@ -16,28 +17,22 @@ if TYPE_CHECKING:
 def set_rules(world: "DeltaruneWorld"):
     world.set_rule(
         world.get_entrance(CCEntrances.chapter_1_entrance),
-        Has(
-            Ch1Items.chapter_1_unlock,
-            options=[OptionFilter(RandomizeChapters, RandomizeChapters.option_all_unlocked, operator="ne")],
-            filtered_resolution=True,
-        ),
+        Has(Ch1Items.chapter_1_unlock) | [OptionFilter(RandomizeChapters, RandomizeChapters.option_all_unlocked)],
     )
 
-    world.set_rule(Ch1Entrances.fields_post_hathy_entrance, have_kris_or_ralsei)
+    world.set_rule(world.get_entrance(Ch1Entrances.fields_post_hathy_entrance), have_kris_or_ralsei)
 
     # Region blockers
     world.set_rule(world.get_entrance(Ch1Entrances.bake_sale_entrance), Has(Ch1Items.bake_sale_ticket))
     world.set_rule(world.get_entrance(Ch1Entrances.card_castle_entrance), Has(Ch1Items.castle_key))
 
-    secret_boss_mandatory = Has(
-        Ch1Items.door_key,
-        options=[OptionFilter(RandomizeSecretBosses, RandomizeSecretBosses.option_mandatory)],
-        filtered_resolution=True,
-    )
+    secret_boss_mandatory = CanReachLocation(Ch1Locations.card_castle_jevil_1) | [
+        OptionFilter(RandomizeSecretBosses, RandomizeSecretBosses.option_mandatory, operator="ne")
+    ]
 
     world.set_rule(
         world.get_entrance(Ch1Entrances.light_world_entrance),
-        secret_boss_mandatory & Has(Ch1Items.king_shape_key_piece, world.options.macguffin_chapter_1.value),
+        secret_boss_mandatory & Has(Ch1Items.king_shape_key_piece, FromOption(MacGuffinChapter1)),
     )
 
     # Jevil quest

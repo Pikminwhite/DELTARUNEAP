@@ -45,41 +45,17 @@ def set_completion_rules(world: "DeltaruneWorld"):
     # to the completion condition that was just defined above
     multiworld.completion_condition[player] = completion_condition
 
-have_kris = Has(CCItems.kris, options=[OptionFilter(UnlockCharacters, UnlockCharacters.option_true)])
+have_kris = Has(CCItems.kris) | [OptionFilter(UnlockCharacters, UnlockCharacters.option_true, operator="ne")]
 
-have_ralsei = Has(
-    CCItems.ralsei,
-    options=[
-        OptionFilter(
-            UnlockCharacters, [UnlockCharacters.option_true, UnlockCharacters.option_except_kris], operator="in"
-        )
-    ],
-    filtered_resolution=True,
-)
+have_ralsei = Has(CCItems.ralsei) | [OptionFilter(UnlockCharacters, UnlockCharacters.option_false, operator="eq")]
 
-have_susie = Has(
-    CCItems.susie,
-    options=[
-        OptionFilter(
-            UnlockCharacters, [UnlockCharacters.option_true, UnlockCharacters.option_except_kris], operator="in"
-        )
-    ],
-    filtered_resolution=True,
-)
+have_susie = Has(CCItems.susie) | [OptionFilter(UnlockCharacters, UnlockCharacters.option_false, operator="eq")]
 
-have_noelle = Has(
-    CCItems.noelle,
-    options=[
-        OptionFilter(
-            UnlockCharacters, [UnlockCharacters.option_true, UnlockCharacters.option_except_kris], operator="in"
-        )
-    ],
-    filtered_resolution=True,
-)
+have_noelle = Has(CCItems.noelle) | [OptionFilter(UnlockCharacters, UnlockCharacters.option_false, operator="eq")]
 
 have_kris_or_susie = have_kris | have_susie
 have_kris_or_ralsei = have_kris | have_ralsei
 have_kris_susie_or_ralsei = have_kris | have_susie | have_ralsei
 have_kris_susie_and_ralsei = have_kris & have_susie & have_ralsei
 
-have_actions = Has(CCItems.s_r_n_actions, options=[OptionFilter(UnlockFunGangActions, 1)], filtered_resolution=True)
+have_actions = Has(CCItems.s_r_n_actions) | [OptionFilter(UnlockFunGangActions, 0)]

@@ -1,4 +1,13 @@
-from BaseClasses import CollectionState
+from rule_builder.field_resolvers import FromOption
+from rule_builder.options import OptionFilter
+from rule_builder.rules import CanReachLocation, CanReachRegion, Has
+from worlds.deltarune.Options import (
+    ChosenRoute,
+    MacGuffinChapter2,
+    RandomizeChapters,
+    RandomizeSecretBosses,
+    UnlockFunGangActions,
+)
 from worlds.generic.Rules import set_rule
 from typing import TYPE_CHECKING
 from .LocationsAndRegions import Ch2Entrances, Ch2Regions, Ch2Locations
@@ -6,192 +15,108 @@ from .Items import Ch2Items
 from ..cross_chapter.LocationsAndRegions import CCEntrances
 from ..cross_chapter.Items import CCItems
 from ..Items import glitched_item_name
+from ..Rules import have_kris_or_susie, have_kris_susie_or_ralsei, have_noelle, have_actions
 
 if TYPE_CHECKING:
     from .. import DeltaruneWorld
 
 
 def set_rules(world: "DeltaruneWorld"):
-    player = world.player
-    multiworld = world.multiworld
+    world.set_rule(
+        world.get_entrance(CCEntrances.chapter_2_entrance),
+        Has(Ch2Items.chapter_2_unlock) | [OptionFilter(RandomizeChapters, RandomizeChapters.option_all_unlocked)],
+    )
 
-    if world.is_kris_unlockable():
-        set_rule(
-            multiworld.get_entrance(Ch2Entrances.cyber_field_entrance, player),
-            lambda state: state.has(CCItems.kris, player) or state.has(CCItems.susie, player),
+    # Region Blockers
+    world.set_rule(
+        world.get_entrance(Ch2Entrances.cyber_city_entrance), Has(Ch2Items.safety_vest) | Has(glitched_item_name)
+    )
+    world.set_rule(
+        Ch2Entrances.mansion_lobby_entrance,
+        can_proceed_weird_route
+        | (
+            CanReachRegion(Ch2Regions.cyber_city)
+            & [OptionFilter(ChosenRoute, ChosenRoute.option_weird_route, operator="ne")]
         )
-        set_rule(
-            multiworld.get_location(Ch2Locations.castle_town_jigsaw_joe_challenge, player),
-            lambda state: state.has(CCItems.kris, player)
-            or state.has(CCItems.susie, player)
-            or state.has(CCItems.ralsei, player),
-        )
-        set_rule(
-            multiworld.get_location(Ch2Locations.castle_town_clover_rematch_challenge, player),
-            lambda state: state.has(CCItems.kris, player)
-            or state.has(CCItems.susie, player)
-            or state.has(CCItems.ralsei, player),
-        )
+        | Has(glitched_item_name),
+    )
+    world.set_rule(
+        world.get_entrance(Ch2Entrances.mansion_entrance), can_proceed_weird_route | Has(Ch2Items.mansion_reservation)
+    )
+
+    secret_boss_mandatory = CanReachLocation(Ch2Locations.mansion_spamton_neo_defeat_item_1) | [
+        OptionFilter(RandomizeSecretBosses, RandomizeSecretBosses.option_mandatory, operator="ne")
+    ]
+
+    world.set_rule(
+        world.get_entrance(Ch2Entrances.post_chapter_castle_town_entrance),
+        secret_boss_mandatory & Has(Ch2Items.keygen_2_segment, FromOption(MacGuffinChapter2)),
+    )
+
+    # Character requirement
+    world.set_rule(world.get_entrance(Ch2Entrances.cyber_field_entrance), have_kris_or_susie)
+    world.set_rule(world.get_location(Ch2Locations.castle_town_jigsaw_joe_challenge), have_kris_susie_or_ralsei)
+    world.set_rule(world.get_location(Ch2Locations.castle_town_clover_rematch_challenge), have_kris_susie_or_ralsei)
+
+    # Actions requirement
+    world.set_rule(
+        world.get_entrance(Ch2Entrances.cyber_field_post_dj_entrance),
+        have_actions | Has(glitched_item_name),
+    )
 
     if world.is_fun_gang_actions_unlockable():
-        set_rule(
-            multiworld.get_entrance(Ch2Entrances.cyber_field_post_dj_entrance, player),
-            lambda state: state.has(CCItems.s_r_n_actions, player) or state.has(glitched_item_name, player),
-        )
+        world.set_rule(world.get_location(Ch2Locations.cyber_field_fun_gang_actions_unlock), Has(CCItems.s_r_n_actions))
 
-    # Chapter unlock
-    if not world.is_all_chapters_unlocked():
-        set_rule(
-            multiworld.get_entrance(CCEntrances.chapter_2_entrance, player),
-            lambda state: state.has(Ch2Items.chapter_2_unlock, player),
-        )
+    # Spamton quest
+    world.set_rule(
+        world.get_entrance(Ch2Entrances.mansion_basement_entrance),
+        Has(Ch2Items.keygen),
+    )
 
-    if world.is_all_routes():
-        set_all_routes_rules(world)
-    elif world.is_weird_route():
-        set_weird_route_rules(world)
-    elif world.is_all_recruits() or world.is_neutral_route():
-        set_all_recruits_rules(world)
+    spamton_neo_weird_route = can_proceed_weird_route
+    spamton_neo = Has(Ch2Items.mansion_reservation) & Has(Ch2Items.keygen) & Has(Ch2Items.emptydisk)
+
+    world.set_rule(world.get_entrance(Ch2Entrances.spamton_neo_entrance), spamton_neo | spamton_neo_weird_route)
+
+    # Weird Route
+    if world.is_weird_route():
+        # Lost recruits
+        world.set_rule(
+            world.get_location(Ch2Locations.lost_ambyulance), can_proceed_weird_route | Has(glitched_item_name)
+        )
+        world.set_rule(world.get_location(Ch2Locations.lost_poppup), can_proceed_weird_route | Has(glitched_item_name))
+        world.set_rule(world.get_location(Ch2Locations.lost_maus), can_proceed_weird_route | Has(glitched_item_name))
+        world.set_rule(
+            world.get_location(Ch2Locations.lost_mauswheel), can_proceed_weird_route | Has(glitched_item_name)
+        )
+        world.set_rule(
+            world.get_location(Ch2Locations.lost_tasque_manager), can_proceed_weird_route | Has(glitched_item_name)
+        )
+        world.set_rule(
+            world.get_location(Ch2Locations.lost_werewerewire), can_proceed_weird_route | Has(glitched_item_name)
+        )
+        if world.options.include_lose_swatchling.value == 1:
+            world.set_rule(
+                world.get_location(Ch2Locations.lost_swatchlings), can_proceed_weird_route | Has(glitched_item_name)
+            )
 
     if world.is_all_recruits():
-        set_rule(
-            multiworld.get_entrance(Ch2Entrances.mansion_entrance, player),
-            lambda state: state.has(Ch2Items.mansion_reservation, player),
+        # Recruit recruits
+        world.set_rule(
+            world.get_location(Ch2Locations.recruit_mauswheel),
+            Has(Ch2Items.mansion_reservation) | Has(glitched_item_name),
         )
-        set_rule(
-            multiworld.get_location(Ch2Locations.mansion_basement_chest, player),
-            lambda state: state.has(Ch2Items.keygen, player),
+        world.set_rule(
+            world.get_location(Ch2Locations.recruit_tasque_manager),
+            Has(Ch2Items.mansion_reservation) | Has(glitched_item_name),
         )
-        set_rule(
-            multiworld.get_location(Ch2Locations.mansion_basement_mechanism, player),
-            lambda state: state.has(Ch2Items.keygen, player),
+        world.set_rule(
+            world.get_location(Ch2Locations.recruit_werewerewire),
+            Has(Ch2Items.mansion_reservation) | Has(glitched_item_name),
         )
-
-    # Region lockers
-    set_rule(
-        multiworld.get_entrance(Ch2Entrances.cyber_city_entrance, player),
-        lambda state: state.has(Ch2Items.safety_vest, player) or state.has(glitched_item_name, player),
-    )
-    # Mansion have special logic, need either thornring or mansion reservation depending of the route
-
-
-def set_weird_route_rules(world: "DeltaruneWorld"):
-    player = world.player
-    multiworld = world.multiworld
-
-    if world.is_characters_unlockables():
-        handle_cyber_city_weird_route_having_noelle(world)
-
-    set_rule(
-        multiworld.get_entrance(Ch2Entrances.mansion_entrance, player),
-        lambda state: handle_thornring(world, state),
-    )
-
-    set_rule(
-        multiworld.get_location(Ch2Locations.mansion_warp_door, player),
-        lambda state: handle_thornring(world, state) or state.has(glitched_item_name, player),
-    )
-
-    set_rule(
-        multiworld.get_entrance(Ch2Entrances.post_chapter_castle_town_entrance, player),
-        lambda state: state.has(Ch2Items.keygen_2_segment, player, world.options.macguffin_chapter_2.value)
-        and handle_thornring(world, state),
-    )
-    set_rule(
-        multiworld.get_location(Ch2Locations.mansion_spamton_neo_defeat_item_1, player),
-        lambda state: state.has(Ch2Items.keygen_2_segment, player, world.options.macguffin_chapter_2.value)
-        and handle_thornring(world, state),
-    )
-    set_rule(
-        multiworld.get_location(Ch2Locations.mansion_spamton_neo_defeat_item_2, player),
-        lambda state: state.has(Ch2Items.keygen_2_segment, player, world.options.macguffin_chapter_2.value)
-        and handle_thornring(world, state),
-    )
-
-
-def set_all_recruits_rules(world: "DeltaruneWorld"):
-    player = world.player
-    multiworld = world.multiworld
-
-    set_rule(
-        multiworld.get_location(Ch2Locations.mansion_spamton_neo_defeat_item_1, player),
-        lambda state: state.has(Ch2Items.emptydisk, player) and state.has(Ch2Items.keygen, player),
-    )
-    set_rule(
-        multiworld.get_location(Ch2Locations.mansion_spamton_neo_defeat_item_2, player),
-        lambda state: state.has(Ch2Items.emptydisk, player) and state.has(Ch2Items.keygen, player),
-    )
-    set_rule(
-        multiworld.get_location(Ch2Locations.mansion_spamton_neo_defeat_item_3, player),
-        lambda state: state.has(Ch2Items.emptydisk, player) and state.has(Ch2Items.keygen, player),
-    )
-
-    if world.is_secret_bosses_mandatory():
-        set_rule(
-            multiworld.get_entrance(Ch2Entrances.post_chapter_castle_town_entrance, player),
-            lambda state: state.has(Ch2Items.keygen_2_segment, player, world.options.macguffin_chapter_2.value)
-            and state.has(Ch2Items.emptydisk, player)
-            and state.has(Ch2Items.keygen, player),
-        )
-    else:
-        set_rule(
-            multiworld.get_entrance(Ch2Entrances.post_chapter_castle_town_entrance, player),
-            lambda state: state.has(Ch2Items.keygen_2_segment, player, world.options.macguffin_chapter_2.value),
-        )
-
-
-def set_all_routes_rules(world: "DeltaruneWorld"):
-    player = world.player
-    multiworld = world.multiworld
-
-    if world.is_characters_unlockables():
-        handle_cyber_city_weird_route_having_noelle(world)
-
-    set_rule(
-        multiworld.get_entrance(Ch2Entrances.mansion_entrance, player),
-        lambda state: state.has(Ch2Items.mansion_reservation, player) or handle_thornring(world, state),
-    )
-
-    set_rule(
-        multiworld.get_location(Ch2Locations.mansion_spamton_neo_defeat_item_1, player),
-        lambda state: state.has(Ch2Items.keygen_2_segment, player, world.options.macguffin_chapter_2.value)
-        and (
-            handle_thornring(world, state)
-            or (state.has(Ch2Items.emptydisk, player) and state.has(Ch2Items.keygen, player))
-        ),
-    )
-    set_rule(
-        multiworld.get_location(Ch2Locations.mansion_spamton_neo_defeat_item_2, player),
-        lambda state: state.has(Ch2Items.keygen_2_segment, player, world.options.macguffin_chapter_2.value)
-        and (
-            handle_thornring(world, state)
-            or (state.has(Ch2Items.emptydisk, player) and state.has(Ch2Items.keygen, player))
-        ),
-    )
-    set_rule(
-        multiworld.get_location(Ch2Locations.mansion_spamton_neo_defeat_item_3, player),
-        lambda state: lambda state: state.has(
-            Ch2Items.keygen_2_segment, player, world.options.macguffin_chapter_2.value
-        )
-        and (
-            handle_thornring(world, state)
-            or (state.has(Ch2Items.emptydisk, player) and state.has(Ch2Items.keygen, player))
-        ),
-    )
-
-    if world.is_secret_bosses_mandatory():
-        set_rule(
-            multiworld.get_entrance(Ch2Entrances.post_chapter_castle_town_entrance, player),
-            lambda state: state.has(Ch2Items.keygen_2_segment, player, world.options.macguffin_chapter_2.value)
-            and (
-                handle_thornring(world, state)
-                or (state.has(Ch2Items.emptydisk, player) and state.has(Ch2Items.keygen, player))
-            ),
-        )
-    else:
-        set_rule(
-            multiworld.get_entrance(Ch2Entrances.post_chapter_castle_town_entrance, player),
-            lambda state: state.has(Ch2Items.keygen_2_segment, player, world.options.macguffin_chapter_2.value),
+        world.set_rule(
+            world.get_location(Ch2Locations.recruit_swatchling),
+            Has(Ch2Items.mansion_reservation) | Has(glitched_item_name),
         )
 
 
@@ -210,12 +135,6 @@ def handle_locked_items(world: "DeltaruneWorld"):
             multiworld.get_location(Ch2Locations.mansion_spamton_neo_defeat_item_3, player).place_locked_item(
                 world.create_item(Ch2Items.dealmaker)
             )
-
-    # if not world.is_warps_randomized():
-    # if True:
-    #       multiworld.get_location(Ch2Locations.cyber_field_warp_door, player).place_locked_item(world.create_item(Ch2Items.cyber_field_warp))
-    #       multiworld.get_location(Ch2Locations.trash_zone_warp_door, player).place_locked_item(world.create_item(Ch2Items.trash_zone_warp))
-    #       multiworld.get_location(Ch2Locations.mansion_warp_door, player).place_locked_item(world.create_item(Ch2Items.mansion_warp))
 
     # Hidden items
     if not world.is_hidden_items_randomized():
@@ -236,54 +155,4 @@ def handle_locked_items(world: "DeltaruneWorld"):
                 world.create_item(CCItems.dogdollard)
             )
 
-
-def handle_thornring(world: "DeltaruneWorld", state: CollectionState):
-    player = world.player
-
-    if world.is_noelle_weapons_progressive():
-        return state.has(CCItems.progressive_noelle_weapons, player, 2) and handle_having_noelle(world, state)
-    else:
-        return state.has(Ch2Items.thornring, player) and handle_having_noelle(world, state)
-
-
-def handle_having_noelle(world: "DeltaruneWorld", state: CollectionState):
-    player = world.player
-
-    if world.is_characters_unlockables():
-        return state.has(CCItems.noelle, player)
-    else:
-        return True
-
-
-def handle_cyber_city_weird_route_having_noelle(world: "DeltaruneWorld"):
-    player = world.player
-    multiworld = world.multiworld
-
-    set_rule(
-        multiworld.get_location(Ch2Locations.lost_ambyulance, player),
-        lambda state: state.has(CCItems.noelle, player) or state.has(glitched_item_name, player),
-    )
-    set_rule(
-        multiworld.get_location(Ch2Locations.lost_poppup, player),
-        lambda state: state.has(CCItems.noelle, player) or state.has(glitched_item_name, player),
-    )
-    set_rule(
-        multiworld.get_location(Ch2Locations.lost_maus, player),
-        lambda state: state.has(CCItems.noelle, player) or state.has(glitched_item_name, player),
-    )
-
-
-def handle_lose_mansion_recruit_all_routes(world: "DeltaruneWorld"):
-    locations = [Ch2Locations.lost_werewerewire, Ch2Locations.lost_tasque_manager, Ch2Locations.lost_mauswheel]
-
-    for location in locations:
-        set_rule(
-            world.multiworld.get_location(location, world.player),
-            lambda state: handle_thornring(world, state) or state.has(glitched_item_name, world.player),
-        )
-
-    if world.options.include_lose_swatchling.value == 1:
-        set_rule(
-            world.multiworld.get_location(Ch2Locations.lost_swatchlings, world.player),
-            lambda state: handle_thornring(world, state) or state.has(glitched_item_name, world.player),
-        )
+can_proceed_weird_route = (Has(Ch2Items.thornring) | Has(CCItems.progressive_noelle_weapons, 2)) & have_noelle

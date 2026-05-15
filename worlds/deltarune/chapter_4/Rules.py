@@ -1,3 +1,7 @@
+from rule_builder.field_resolvers import FromOption
+from rule_builder.options import OptionFilter
+from rule_builder.rules import Has
+from worlds.deltarune.Options import MacGuffinChapter4, RandomizeChapters
 from worlds.generic.Rules import set_rule
 from BaseClasses import CollectionState
 from typing import TYPE_CHECKING
@@ -6,61 +10,40 @@ from .Items import Ch4Items
 from ..cross_chapter.LocationsAndRegions import CCEntrances
 from ..cross_chapter.Items import CCItems
 from ..Items import glitched_item_name
+from ..Rules import have_kris_susie_or_ralsei, have_kris_or_susie, have_susie
 
 if TYPE_CHECKING:
     from .. import DeltaruneWorld
 
 
 def set_rules(world: "DeltaruneWorld"):
-    player = world.player
-    multiworld = world.multiworld
-
-    if world.is_kris_unlockable():
-        set_rule(
-            multiworld.get_entrance(Ch4Entrances.dark_sanctuary_entrance, player),
-            lambda state: state.has(CCItems.kris, player)
-            or state.has(CCItems.susie, player)
-            or state.has(CCItems.ralsei, player),
-        )
-        set_rule(
-            multiworld.get_location(Ch4Locations.castle_town_lanino_elnina_challenge, player),
-            lambda state: state.has(CCItems.kris, player)
-            or state.has(CCItems.susie, player)
-            or state.has(CCItems.ralsei, player)
-            or state.has(glitched_item_name, player),
-        )
-
-    if world.is_characters_unlockables():
-        set_rule(
-            multiworld.get_location(Ch4Locations.dark_sanctuary_hammer_of_justice_defeat_item_1, player),
-            lambda state: state.has(CCItems.susie, player) or state.has(glitched_item_name, player),
-        )
-        set_rule(
-            multiworld.get_location(Ch4Locations.dark_sanctuary_hammer_of_justice_defeat_item_1, player),
-            lambda state: state.has(CCItems.susie, player) or state.has(glitched_item_name, player),
-        )
-
-    # Chapter unlock
-    if not world.is_all_chapters_unlocked():
-        set_rule(
-            multiworld.get_entrance(CCEntrances.chapter_4_entrance, player),
-            lambda state: state.has(Ch4Items.chapter_4_unlock, player),
-        )
-
-    # Region lockers
-    set_rule(
-        multiworld.get_entrance(Ch4Entrances.dark_sanctuary_claimbclaws_entrance, player),
-        lambda state: state.has(Ch4Items.claimbclaws, player),
-    )
-    set_rule(
-        multiworld.get_entrance(Ch4Entrances.second_sanctuary_entrance, player),
-        lambda state: state.has(Ch4Items.sheetmusic, player),
+    world.set_rule(
+        world.get_entrance(CCEntrances.chapter_4_entrance),
+        Has(Ch4Items.chapter_4_unlock) | [OptionFilter(RandomizeChapters, RandomizeChapters.option_all_unlocked)],
     )
 
-    # Macguffin
-    set_rule(
-        multiworld.get_entrance(Ch4Entrances.titan_fight_entrance, player),
-        lambda state: state.has(Ch4Items.combination_lock_digit, player, world.options.macguffin_chapter_4.value),
+    # Character requirement
+    world.set_rule(world.get_entrance(Ch4Entrances.dark_sanctuary_entrance), have_kris_susie_or_ralsei)
+    world.set_rule(
+        world.get_entrance(Ch4Entrances.third_sanctuary_entrance), have_kris_or_susie | Has(glitched_item_name)
+    )
+    world.set_rule(
+        world.get_location(Ch4Locations.dark_sanctuary_hammer_of_justice_defeat_item_1),
+        have_susie | Has(glitched_item_name),
+    )
+    world.set_rule(
+        world.get_location(Ch4Locations.dark_sanctuary_hammer_of_justice_defeat_item_2),
+        have_susie | Has(glitched_item_name),
+    )
+
+    # Region blockers
+    world.set_rule(world.get_entrance(Ch4Entrances.dark_sanctuary_claimbclaws_entrance), Has(Ch4Items.claimbclaws))
+    world.set_rule(
+        world.get_entrance(Ch4Entrances.second_sanctuary_entrance), have_kris_or_susie & Has(Ch4Items.sheetmusic)
+    )
+    world.set_rule(
+        world.get_entrance(Ch4Entrances.titan_fight_entrance),
+        Has(Ch4Items.combination_lock_digit, FromOption(MacGuffinChapter4)),
     )
 
 
