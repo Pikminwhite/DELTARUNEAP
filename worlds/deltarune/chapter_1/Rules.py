@@ -44,7 +44,7 @@ def set_rules(world: "DeltaruneWorld"):
     world.set_rule(world.get_location(Ch1Locations.card_castle_jevil_2), Has(Ch1Items.door_key))
     world.set_rule(world.get_location(Ch1Locations.card_castle_jevil_3), Has(Ch1Items.door_key))
     world.set_rule(
-        world.get_location(Ch1Locations.seam_seap_talk_about_strange_prisoner), CanReachRegion(Ch1Regions.castle_town)
+        world.get_location(Ch1Locations.seam_seap_talk_about_strange_prisoner), CanReachRegion(Ch1Regions.card_castle)
     )
 
     # Cake quest
