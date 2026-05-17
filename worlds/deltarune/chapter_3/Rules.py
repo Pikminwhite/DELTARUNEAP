@@ -51,7 +51,7 @@ def set_rules(world: "DeltaruneWorld"):
 
     shadow_mantle = (
         Has(Ch3Items.shadowmantle)
-        | [OptionFilter(IncludeShadowMantle, IncludeShadowMantle.option_false)]
+        | OptionFilter(IncludeShadowMantle, IncludeShadowMantle.option_false)
         | Has(glitched_item_name)
     )
 

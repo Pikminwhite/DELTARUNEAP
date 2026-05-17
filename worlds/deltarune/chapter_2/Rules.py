@@ -24,7 +24,7 @@ if TYPE_CHECKING:
 def set_rules(world: "DeltaruneWorld"):
     world.set_rule(
         world.get_entrance(CCEntrances.chapter_2_entrance),
-        Has(Ch2Items.chapter_2_unlock) | [OptionFilter(RandomizeChapters, RandomizeChapters.option_all_unlocked)],
+        Has(Ch2Items.chapter_2_unlock) | OptionFilter(RandomizeChapters, RandomizeChapters.option_all_unlocked),
     )
 
     # Region Blockers
@@ -36,7 +36,7 @@ def set_rules(world: "DeltaruneWorld"):
         can_proceed_weird_route
         | (
             CanReachRegion(Ch2Regions.cyber_city)
-            & [OptionFilter(ChosenRoute, ChosenRoute.option_weird_route, operator="ne")]
+            & OptionFilter(ChosenRoute, ChosenRoute.option_weird_route, operator="ne")
         )
         | Has(glitched_item_name),
     )

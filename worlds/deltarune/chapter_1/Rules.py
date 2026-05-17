@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 def set_rules(world: "DeltaruneWorld"):
     world.set_rule(
         world.get_entrance(CCEntrances.chapter_1_entrance),
-        Has(Ch1Items.chapter_1_unlock) | [OptionFilter(RandomizeChapters, RandomizeChapters.option_all_unlocked)],
+        Has(Ch1Items.chapter_1_unlock) | OptionFilter(RandomizeChapters, RandomizeChapters.option_all_unlocked),
     )
 
     world.set_rule(world.get_entrance(Ch1Entrances.fields_post_hathy_entrance), have_kris_or_ralsei)
@@ -26,9 +26,9 @@ def set_rules(world: "DeltaruneWorld"):
     world.set_rule(world.get_entrance(Ch1Entrances.bake_sale_entrance), Has(Ch1Items.bake_sale_ticket))
     world.set_rule(world.get_entrance(Ch1Entrances.card_castle_entrance), Has(Ch1Items.castle_key))
 
-    secret_boss_mandatory = CanReachLocation(Ch1Locations.card_castle_jevil_1) | [
-        OptionFilter(RandomizeSecretBosses, RandomizeSecretBosses.option_mandatory, operator="ne")
-    ]
+    secret_boss_mandatory = CanReachLocation(Ch1Locations.card_castle_jevil_1) | OptionFilter(
+        RandomizeSecretBosses, RandomizeSecretBosses.option_mandatory, operator="ne"
+    )
 
     world.set_rule(
         world.get_entrance(Ch1Entrances.light_world_entrance),
