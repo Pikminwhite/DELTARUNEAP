@@ -3,7 +3,7 @@ from BaseClasses import CollectionState
 from typing import TYPE_CHECKING
 from .LocationsAndRegions import Ch5Entrances, Ch5Regions, Ch5Locations
 from .Items import Ch5Items
-from ..cross_chapter.LocationsAndRegions import CCEntrances
+from ..cross_chapter.Locations import CCEntrances
 from ..cross_chapter.Items import CCItems
 
 if TYPE_CHECKING:

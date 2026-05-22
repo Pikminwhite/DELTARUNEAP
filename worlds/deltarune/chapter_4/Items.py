@@ -1,128 +1,79 @@
-from ..Items import (
+from typing import TYPE_CHECKING
+from BaseClasses import ItemClassification
+
+from worlds.deltarune.Items import (
     ItemIDs,
     ItemData,
-    ConditionalItemData,
+    ItemData,
     generic_create_items,
     generic_get_filler_and_trap_items,
     DeltaruneItem,
     ItemGroups,
 )
-from ..cross_chapter.Items import CCItems
-from typing import TYPE_CHECKING
-from BaseClasses import ItemClassification
-from enum import StrEnum
 
 if TYPE_CHECKING:
     from .. import DeltaruneWorld
 
-
-class Ch4Items(StrEnum):
-    chapter_4_unlock = "Chapter 4 Unlock"
-
-    egg = "CH4 Egg"
-    holy_moss = "Sacred Moss"
-
-    # Healing
-    rhapsotea = "Rhapsotea"
-    scarlixir = "Scarlixir"
-    bittertear = "BitterTear"
-
-    # Armors
-    mysticband = "MysticBand"
-    powerband = "PowerBand"
-    princessrbn = "PrincessRBN"
-    goldwidow = "GoldWidow"
-
-    # Weapons
-    scarfmark = "ScarfMark"
-    absobax = "AbsorbAx"
-    wingblade = "Winglade"
-    justiceaxe = "JusticeAxe"
-
-    # Macguffin
-    combination_lock_digit = "Combination Lock Digit"
-
-    claimbclaws = "ClaimbClaws"
-    sheetmusic = "SheetMusic"
-
-
-chapter4_macguffin_item = Ch4Items.combination_lock_digit.value
-
-chapter4_items = {
-    # Darker candy
-    CCItems.dark_candy.value: ItemData(ItemIDs.dark_candy.value, ItemClassification.filler, [ItemGroups.healing_item]),
-    Ch4Items.rhapsotea.value: ItemData(ItemIDs.rhapsotea.value, ItemClassification.filler, [ItemGroups.healing_item]),
-    Ch4Items.scarlixir.value: ItemData(ItemIDs.scarlixir.value, ItemClassification.filler, [ItemGroups.healing_item]),
-    Ch4Items.bittertear.value: ItemData(ItemIDs.bittertear.value, ItemClassification.filler, [ItemGroups.healing_item]),
-    CCItems.tensiongem.value: ItemData(ItemIDs.tensiongem.value, ItemClassification.filler, [ItemGroups.tension_items]),
-    CCItems.dogdollard.value: ItemData(ItemIDs.dogdollar.value, ItemClassification.filler, [ItemGroups.currencies], 0),
-    Ch4Items.mysticband.value: ItemData(ItemIDs.mysticband.value, ItemClassification.useful, [ItemGroups.armors]),
-    Ch4Items.powerband.value: ItemData(ItemIDs.powerband.value, ItemClassification.useful, [ItemGroups.armors]),
-    Ch4Items.princessrbn.value: ItemData(ItemIDs.princessrbn.value, ItemClassification.useful, [ItemGroups.armors]),
-    Ch4Items.goldwidow.value: ItemData(ItemIDs.goldwidow.value, ItemClassification.useful, [ItemGroups.armors]),
-    Ch4Items.scarfmark.value: ItemData(
-        ItemIDs.scarfmark.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.ralsei_weapons]
-    ),
-    Ch4Items.absobax.value: ItemData(
-        ItemIDs.absorbaxe.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.susie_weapons]
-    ),
-    Ch4Items.wingblade.value: ItemData(
-        ItemIDs.wingblade.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.kris_weapons]
-    ),
-    Ch4Items.claimbclaws.value: ItemData(
-        ItemIDs.claimbclaws.value, ItemClassification.progression, [ItemGroups.region_blockers]
-    ),
-    Ch4Items.sheetmusic.value: ItemData(
-        ItemIDs.sheetmusic.value, ItemClassification.progression, [ItemGroups.region_blockers]
-    ),
-    # Amount is handle in __init__.py handle_macguffins_items()
-    Ch4Items.combination_lock_digit.value: ItemData(
-        ItemIDs.combinaison_lock_digit.value,
+chapter4_items = [
+    ItemData(ItemIDs.dark_candy, ItemClassification.filler, groups=[ItemGroups.healing_item]),
+    ItemData(ItemIDs.rhapsotea, ItemClassification.filler, groups=[ItemGroups.healing_item]),
+    ItemData(ItemIDs.scarlixir, ItemClassification.filler, groups=[ItemGroups.healing_item]),
+    ItemData(ItemIDs.bittertear, ItemClassification.filler, groups=[ItemGroups.healing_item]),
+    ItemData(ItemIDs.tensiongem, ItemClassification.filler, groups=[ItemGroups.tension_items]),
+    ItemData(ItemIDs.dogdollar, ItemClassification.filler, groups=[ItemGroups.currencies], amount=0),
+    ItemData(ItemIDs.mysticband, ItemClassification.useful, groups=[ItemGroups.armors]),
+    ItemData(ItemIDs.powerband, ItemClassification.useful, groups=[ItemGroups.armors]),
+    ItemData(ItemIDs.princessrbn, ItemClassification.useful, groups=[ItemGroups.armors]),
+    ItemData(ItemIDs.goldwidow, ItemClassification.useful, groups=[ItemGroups.armors]),
+    ItemData(ItemIDs.scarfmark, ItemClassification.useful, groups=[ItemGroups.weapons, ItemGroups.ralsei_weapons]),
+    ItemData(ItemIDs.absorbax, ItemClassification.useful, groups=[ItemGroups.weapons, ItemGroups.susie_weapons]),
+    ItemData(ItemIDs.wingblade, ItemClassification.useful, groups=[ItemGroups.weapons, ItemGroups.kris_weapons]),
+    ItemData(ItemIDs.claimbclaws, ItemClassification.progression, groups=[ItemGroups.region_blockers]),
+    ItemData(ItemIDs.sheetmusic, ItemClassification.progression, groups=[ItemGroups.region_blockers]),
+    ItemData(
+        ItemIDs.combination_lock_digit,
         ItemClassification.progression_skip_balancing,
-        [ItemGroups.region_blockers],
-        0,
+        groups=[ItemGroups.region_blockers],
+        amount=0,
     ),
-}
-
-chapter4_conditional_items = {
-    Ch4Items.justiceaxe.value: ConditionalItemData(
-        ItemIDs.justiceaxe.value,
+    ItemData(
+        ItemIDs.justiceaxe,
         ItemClassification.useful,
-        lambda world: world.is_secret_bosses_randomized(),
-        [ItemGroups.weapons, ItemGroups.susie_weapons],
+        should_be_included=lambda world: world.is_secret_bosses_randomized(),
+        groups=[ItemGroups.weapons, ItemGroups.susie_weapons],
     ),
-    CCItems.shadowcrystal.value: ConditionalItemData(
-        ItemIDs.shadowcrystal.value,
+    ItemData(
+        ItemIDs.shadowcrystal,
         ItemClassification.filler,
-        lambda world: world.is_secret_bosses_randomized(),
+        should_be_included=lambda world: world.is_secret_bosses_randomized(),
         blacklist_filler=True,
     ),
-    Ch4Items.egg.value: ConditionalItemData(
-        ItemIDs.chapter_4_egg.value,
+    ItemData(
+        ItemIDs.chapter_4_egg,
         ItemClassification.filler,
-        lambda world: world.is_hidden_items_randomized(),
-        [ItemGroups.eggs],
+        should_be_included=lambda world: world.is_hidden_items_randomized(),
+        groups=[ItemGroups.eggs],
         blacklist_filler=True,
     ),
-    Ch4Items.holy_moss.value: ConditionalItemData(
-        ItemIDs.sacred_moss.value,
+    ItemData(
+        ItemIDs.sacred_moss,
         ItemClassification.filler,
-        lambda world: world.is_hidden_items_randomized(),
-        [ItemGroups.moss],
+        should_be_included=lambda world: world.is_hidden_items_randomized(),
+        groups=[ItemGroups.moss],
         blacklist_filler=True,
     ),
-    Ch4Items.chapter_4_unlock.value: ConditionalItemData(
-        ItemIDs.chapter_4_unlock.value,
+    ItemData(
+        ItemIDs.chapter_4_unlock,
         ItemClassification.progression,
-        lambda world: world.is_chapters_randomized(),
-        [ItemGroups.region_blockers],
+        should_be_included=lambda world: world.is_chapters_randomized(),
+        groups=[ItemGroups.region_blockers],
     ),
-}
+]
 
 
 def create_items(world: "DeltaruneWorld") -> list[DeltaruneItem]:
-    return generic_create_items(world, chapter4_items, chapter4_conditional_items)
+    return generic_create_items(world, chapter4_items)
 
 
 def get_filler_and_trap_items(world: "DeltaruneWorld"):
-    return generic_get_filler_and_trap_items(world, chapter4_items, chapter4_conditional_items)
+    return generic_get_filler_and_trap_items(world, chapter4_items)

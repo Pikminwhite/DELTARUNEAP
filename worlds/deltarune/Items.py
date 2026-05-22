@@ -1,6 +1,6 @@
 from BaseClasses import Item, ItemClassification
-from enum import Enum, StrEnum
-from typing import TYPE_CHECKING, NamedTuple, Optional, Callable
+from enum import IntEnum, Enum
+from typing import TYPE_CHECKING, NamedTuple, Callable
 
 if TYPE_CHECKING:
     from . import DeltaruneWorld, DeltaruneOptions
@@ -8,7 +8,8 @@ if TYPE_CHECKING:
 glitched_item_name = "Deltarune is an episodic role-playing video game by American indie developer Toby Fox."
 progressive_weapon_name = "Progressive Weapon"
 
-class ItemGroups(StrEnum):
+
+class ItemGroups(str, Enum):
     healing_item = "Healing Items"
     fusion_ingredient = "Fusion Ingredients"
     armors = "Armors"
@@ -29,31 +30,21 @@ class ItemGroups(StrEnum):
     traps = "Traps"
     characters = "Characters"
 
+
 class ItemData(NamedTuple):
-    code: Optional[int]
+    code: int
     classification: ItemClassification
-    groups: Optional[list[ItemGroups]] = []
-    amount: Optional[int] = 1
-    blacklist_filler: Optional[bool] = False
-
-
-class ConditionalItemData(NamedTuple):
-    code: Optional[int]
-    classification: ItemClassification
-    should_be_included: Callable[["DeltaruneWorld"], bool]
-    groups: Optional[list[ItemGroups]] = []
-    amount: Optional[int] = 1
-    blacklist_filler: Optional[bool] = False
+    should_be_included: Callable[["DeltaruneWorld"], bool] = lambda world: True
+    groups: list[ItemGroups] = []
+    amount: int = 1
+    blacklist_filler: bool = False
 
 
 class DeltaruneItem(Item):
     game: str = "Deltarune"
 
 
-class ItemIDs(Enum):
-    # UT Integration
-    glitched_item = -1
-
+class ItemIDs(IntEnum):
     dark_candy = 1
     revivemint = 2
     glowshard = 3
@@ -61,7 +52,7 @@ class ItemIDs(Enum):
     brokencake_consumable = 5
     # nothing = 6
     spincake = 7
-    darkburger = 8
+    dark_burger = 8
     lancer_cookie = 9
     gigasalad = 10
     clubsandwich = 11
@@ -113,7 +104,7 @@ class ItemIDs(Enum):
     shadowcrystal = 10013
     purecrystal = 10015
 
-    oddcontroller = 10016
+    odd_controller = 10016
     # nothing
     tripticket = 10018
 
@@ -208,7 +199,7 @@ class ItemIDs(Enum):
     scarfmark = 30051
     justiceaxe = 30052
     wingblade = 30053
-    absorbaxe = 30054
+    absorbax = 30054
 
     dark_dollar_1 = 40001
     dark_dollars_20 = 40020
@@ -230,9 +221,9 @@ class ItemIDs(Enum):
     what_interesting_behavior = 66666
 
     king_shape_key_piece = 70000
-    key_gen_2_segment = 70001
+    keygen_2_segment = 70001
     remote_battery = 70002
-    combinaison_lock_digit = 70003
+    combination_lock_digit = 70003
 
     point_1 = 80001
     points_2 = 80002
@@ -251,60 +242,206 @@ class ItemIDs(Enum):
     s_r_n_actions = 100000
 
 
-def generic_create_items(
-    world: "DeltaruneWorld", items: dict[str, ItemData], conditional_items: dict[str, ConditionalItemData]
-) -> list[str]:
-    item_pool: list[str] = []
+items = {
+    ItemIDs.chapter_1_unlock: "Chapter 1 Unlock",
+    ItemIDs.heartsdonut: "HeartsDonut",
+    ItemIDs.chocdiamond: "ChocDiamond",
+    ItemIDs.rouxlsroux: "RouxlsRoux",
+    ItemIDs.brokencake_consumable: "BrokenCake (Consumable)",
+    ItemIDs.gigasalad: "GigaSalad",
+    ItemIDs.favsandwich: "FavSandwich",
+    ItemIDs.dice_brace: "Dice Bracelet",
+    ItemIDs.ironshackle: "IronShackle",
+    ItemIDs.jevilstail: "JevilsTail",
+    ItemIDs.mouse_token: "Mouse Token",
+    ItemIDs.spookysword: "Spookysword",
+    ItemIDs.trefoil: "Trefoil",
+    ItemIDs.brave_ax: "Brave Ax",
+    ItemIDs.devilsknife: "Devilsknife",
+    ItemIDs.ragger: "Ragger",
+    ItemIDs.daintyscarf: "DaintyScarf",
+    ItemIDs.chapter_1_egg: "CH1 Egg",
+    ItemIDs.castle_moss: "Castle Moss",
+    ItemIDs.manual: "Manual",
+    ItemIDs.brokencake: "BrokenCake",
+    ItemIDs.top_cake: "Top Cake",
+    ItemIDs.broken_key_a: "Broken Key A",
+    ItemIDs.broken_key_b: "Broken Key B",
+    ItemIDs.broken_key_c: "Broken Key C",
+    ItemIDs.bake_sale_ticket: "Bake Sale Ticket",
+    ItemIDs.castle_key: "Castle Key",
+    ItemIDs.door_key: "Door Key",
+    ItemIDs.king_shape_key_piece: "King-Shaped Key Piece",
+    ItemIDs.chapter_2_unlock: "Chapter 2 Unlock",
+    ItemIDs.cd_bagel: "CD Bagel",
+    ItemIDs.kris_tea: "Kris Tea",
+    ItemIDs.noelle_tea: "Noelle Tea",
+    ItemIDs.ralsei_tea: "Ralsei Tea",
+    ItemIDs.susie_tea: "Susie Tea",
+    ItemIDs.lightcandy: "LightCandy",
+    ItemIDs.butjuice: "ButJuice",
+    ItemIDs.spagetticode: "SpagettiCode",
+    ItemIDs.revivedust: "ReviveDust",
+    ItemIDs.javacookie: "JavaCookie",
+    ItemIDs.revivebrite: "ReviveBrite",
+    ItemIDs.mannequin_consumable: "Mannequin (Consumable)",
+    ItemIDs.darkgoldband: "DarkGoldBand",
+    ItemIDs.spoison: "S.POISON",
+    ItemIDs.tensionbit: "TensionBit",
+    ItemIDs.glowwrist: "GlowWrist",
+    ItemIDs.dealmaker: "DealMaker",
+    ItemIDs.mannequin: "Mannequin",
+    ItemIDs.royalpin: "RoyalPin",
+    ItemIDs.chainmail: "ChainMail",
+    ItemIDs.frayedbowtie: "FrayedBowtie",
+    ItemIDs.bshotbowtie: "B.ShotBowtie",
+    ItemIDs.skymantle: "SkyMantle",
+    ItemIDs.spikeshackle: "SpikeShackle",
+    ItemIDs.mechasaber: "MechaSaber",
+    ItemIDs.bounceblade: "BounceBlade",
+    ItemIDs.autoaxe: "AutoAxe",
+    ItemIDs.fiberscarf: "FiberScarf",
+    ItemIDs.ragger2: "Ragger2",
+    ItemIDs.puppetscarf: "PuppetScarf",
+    ItemIDs.cheerscarf: "CheerScarf",
+    ItemIDs.brokenswd: "BrokenSwd",
+    ItemIDs.freezering: "FreezeRing",
+    ItemIDs.thornring: "ThornRing",
+    ItemIDs.chapter_2_egg: "CH2 Egg",
+    ItemIDs.joe_life_savings: "Jigsaw Joe's Life Savings",
+    ItemIDs.city_moss: "City Moss",
+    ItemIDs.dogdollar: "DogDollar",
+    ItemIDs.emptydisk: "EmptyDisk",
+    ItemIDs.keygen: "KeyGen",
+    ItemIDs.safety_vest: "Safety Vest",
+    ItemIDs.mansion_reservation: "Mansion Reservation",
+    ItemIDs.keygen_2_segment: "KeyGen 2 Segment",
+    ItemIDs.chapter_3_unlock: "Chapter 3 Unlock",
+    ItemIDs.point_1: "1 POINT",
+    ItemIDs.points_2: "2 POINTs",
+    ItemIDs.points_10: "10 POINTs",
+    ItemIDs.points_50: "50 POINTs",
+    ItemIDs.points_120: "120 POINTs",
+    ItemIDs.points_300: "300 POINTs",
+    ItemIDs.points_500: "500 POINTs",
+    ItemIDs.board_moss: "Board Moss",
+    ItemIDs.chapter_3_egg: "CH3 Egg",
+    ItemIDs.smile: "SMILE",
+    ItemIDs.tvslop: "TVSlop",
+    ItemIDs.tvdinner: "TVDinner",
+    ItemIDs.deluxedinner: "DeluxeDinner",
+    ItemIDs.flatsoda: "FlatSoda",
+    ItemIDs.tensionmax: "TensionMax",
+    ItemIDs.saber10: "Saber10",
+    ItemIDs.toxicaxe: "ToxicAxe",
+    ItemIDs.flexscarf: "FlexScarf",
+    ItemIDs.blackshard: "BlackShard",
+    ItemIDs.shadowmantle: "ShadowMantle",
+    ItemIDs.lodestone: "LodeStone",
+    ItemIDs.gingerguard: "GingerGuard",
+    ItemIDs.blue_ribbon: "Blue Ribbon",
+    ItemIDs.tennatie: "TennaTie",
+    ItemIDs.board_2_cartridge: "Board 2 Cartridge",
+    ItemIDs.vip_pass: "VIP Pass",
+    ItemIDs.odd_controller: "Odd Controller",
+    ItemIDs.ice_key: "ICE KEY",
+    ItemIDs.shelter_key: "SHELTER KEY",
+    ItemIDs.tripticket: "TripTicket",
+    ItemIDs.remote_battery: "Remote Battery",
+    ItemIDs.chapter_4_unlock: "Chapter 4 Unlock",
+    ItemIDs.chapter_4_egg: "CH4 Egg",
+    ItemIDs.sacred_moss: "Sacred Moss",
+    ItemIDs.rhapsotea: "Rhapsotea",
+    ItemIDs.scarlixir: "Scarlixir",
+    ItemIDs.bittertear: "BitterTear",
+    ItemIDs.mysticband: "MysticBand",
+    ItemIDs.powerband: "PowerBand",
+    ItemIDs.princessrbn: "PrincessRBN",
+    ItemIDs.goldwidow: "GoldWidow",
+    ItemIDs.scarfmark: "ScarfMark",
+    ItemIDs.absorbax: "AbsorbAx",
+    ItemIDs.wingblade: "Winglade",
+    ItemIDs.justiceaxe: "JusticeAxe",
+    ItemIDs.combination_lock_digit: "Combination Lock Digit",
+    ItemIDs.claimbclaws: "ClaimbClaws",
+    ItemIDs.sheetmusic: "SheetMusic",
+    ItemIDs.what_interesting_behavior: "WHAT INTERESTING BEHAVIOR.",
+    ItemIDs.s_r_n_actions: "S/R/N-Action",
+    ItemIDs.kris: "Kris",
+    ItemIDs.susie: "Susie",
+    ItemIDs.ralsei: "Ralsei",
+    ItemIDs.noelle: "Noelle",
+    ItemIDs.dark_candy: "Dark Candy",
+    ItemIDs.clubsandwich: "ClubsSandwich",
+    ItemIDs.dark_burger: "Dark Burger",
+    ItemIDs.dd_burger: "DD-Burger",
+    ItemIDs.lancer_cookie: "Lancer Cookie",
+    ItemIDs.spincake: "Spincake",
+    ItemIDs.revivemint: "Revive Mint",
+    ItemIDs.execbuffet: "ExecBuffet",
+    ItemIDs.tensiongem: "TensionGem",
+    ItemIDs.glowshard: "Glowshard",
+    ItemIDs.dogdollar: "DogDollar",
+    ItemIDs.dark_dollar_1: "1 Dark Dollar",
+    ItemIDs.dark_dollars_20: "20 Dark Dollars",
+    ItemIDs.dark_dollars_40: "40 Dark Dollars",
+    ItemIDs.dark_dollars_80: "80 Dark Dollars",
+    ItemIDs.dark_dollars_100: "100 Dark Dollars",
+    ItemIDs.dark_dollars_250: "250 Dark Dollars",
+    ItemIDs.dark_dollars_500: "500 Dark Dollars",
+    ItemIDs.progressive_kris_weapons: "Progressive Kris Weapons",
+    ItemIDs.progressive_susie_weapons: "Progressive Susie Weapons",
+    ItemIDs.progressive_ralsei_weapons: "Progressive Ralsei Weapons",
+    ItemIDs.progressive_noelle_weapons: "Progressive Noelle Weapons",
+    ItemIDs.twistedswd: "TwistedSwd",
+    ItemIDs.everybodyweapon: "EverybodyWeapon",
+    ItemIDs.amber_card: "Amber Card",
+    ItemIDs.pink_ribbon: "Pink Ribbon",
+    ItemIDs.white_ribbon: "White Ribbon",
+    ItemIDs.silver_card: "Silver Card",
+    ItemIDs.spikeband: "SpikeBand",
+    ItemIDs.twin_ribbon: "Twin Ribbon",
+    ItemIDs.tensionbow: "TensionBow",
+    ItemIDs.shadowcrystal: "ShadowCrystal",
+    ItemIDs.purecrystal: "PureCrystal",
+}
 
-    for item_name, item_data in items.items():
-        item_pool += [item_name] * item_data.amount
 
-    for item_name, item_data in conditional_items.items():
+def generic_create_items(world: "DeltaruneWorld", items: list[ItemData]) -> list[ItemData]:
+    item_pool: list[ItemData] = []
+
+    for item_data in items:
         if item_data.should_be_included(world):
-            item_pool += [item_name] * item_data.amount
+            item_pool.append(item_data)
 
     return item_pool
 
 
-def generic_get_filler_and_trap_items(
-    world: "DeltaruneWorld", items: dict[str, ItemData], conditional_items: dict[str, ConditionalItemData]
-) -> dict[str, ItemData | ConditionalItemData]:
-    filler_items: dict[str, ItemData | ConditionalItemData] = {}
+def generic_get_filler_and_trap_items(world: "DeltaruneWorld", items: list[ItemData]) -> list[ItemData]:
+    filler_items: list[ItemData] = []
 
-    filler_items |= {
-        item_name: item_data
-        for item_name, item_data in items.items()
-        if (item_data.classification == ItemClassification.filler and not item_data.blacklist_filler)
-        or item_data.classification == ItemClassification.trap
-    }
-    filler_items |= {
-        item_name: item_data
-        for item_name, item_data in conditional_items.items()
+    filler_items += [
+        item_data
+        for item_data in items
         if (
             (item_data.classification == ItemClassification.filler and not item_data.blacklist_filler)
             or item_data.classification == ItemClassification.trap
         )
         and item_data.should_be_included(world)
-    }
+    ]
 
     return filler_items
 
 
-def convert_filler_and_trap_to_weights(items: dict[str, ItemData | ConditionalItemData], options: "DeltaruneOptions"):
+def convert_filler_and_trap_to_weights(items: list[ItemData], options: "DeltaruneOptions"):
     fillers_with_weights = {}
 
-    healing_fillers = [
-        item_name for item_name, item_data in items.items() if ItemGroups.healing_item in item_data.groups
-    ]
-    armor_fillers = [item_name for item_name, item_data in items.items() if ItemGroups.armors in item_data.groups]
-    tension_fillers = [
-        item_name for item_name, item_data in items.items() if ItemGroups.tension_items in item_data.groups
-    ]
-    currency_fillers = [
-        item_name for item_name, item_data in items.items() if ItemGroups.currencies in item_data.groups
-    ]
-    traps = [item_name for item_name, item_data in items.items() if item_data.classification == ItemClassification.trap]
-    smile_fillers = [item_name for item_name, item_data in items.items() if item_data.code == ItemIDs.smile.value]
+    healing_fillers = [item_data.code for item_data in items if ItemGroups.healing_item in item_data.groups]
+    armor_fillers = [item_data.code for item_data in items if ItemGroups.armors in item_data.groups]
+    tension_fillers = [item_data.code for item_data in items if ItemGroups.tension_items in item_data.groups]
+    currency_fillers = [item_data.code for item_data in items if ItemGroups.currencies in item_data.groups]
+    traps = [item_data.code for item_data in items if item_data.classification == ItemClassification.trap]
+    smile_fillers = [item_data.code for item_data in items if item_data.code == ItemIDs.smile.value]
 
     healing_adjusted_weight = (
         options.filler_healing_weight.value / len(healing_fillers) if len(healing_fillers) > 0 else 0
@@ -319,27 +456,27 @@ def convert_filler_and_trap_to_weights(items: dict[str, ItemData | ConditionalIt
     trap_adjusted_weight = options.trap_weight.value / len(traps) if len(traps) > 0 else 0
     smile_adjusted_weight = options.filler_smile_weight.value / len(smile_fillers) if len(smile_fillers) > 0 else 0
 
-    for item_name in healing_fillers:
-        fillers_with_weights[item_name] = healing_adjusted_weight
-    for item_name in armor_fillers:
-        fillers_with_weights[item_name] = armor_adjusted_weight
-    for item_name in tension_fillers:
-        fillers_with_weights[item_name] = tension_adjusted_weight
-    for item_name in currency_fillers:
-        fillers_with_weights[item_name] = currency_adjusted_weight
-    for item_name in traps:
-        fillers_with_weights[item_name] = trap_adjusted_weight
-    for item_name in smile_fillers:
-        fillers_with_weights[item_name] = smile_adjusted_weight
+    for item_id in healing_fillers:
+        fillers_with_weights[item_id] = healing_adjusted_weight
+    for item_id in armor_fillers:
+        fillers_with_weights[item_id] = armor_adjusted_weight
+    for item_id in tension_fillers:
+        fillers_with_weights[item_id] = tension_adjusted_weight
+    for item_id in currency_fillers:
+        fillers_with_weights[item_id] = currency_adjusted_weight
+    for item_id in traps:
+        fillers_with_weights[item_id] = trap_adjusted_weight
+    for item_id in smile_fillers:
+        fillers_with_weights[item_id] = smile_adjusted_weight
 
     return fillers_with_weights
 
 
-def get_item_groups(items: dict[str, ItemData | ConditionalItemData]):
+def get_item_groups(items_data: list[ItemData]):
     groups: dict[str : set[str]] = {}
 
-    for item_name, item_data in items:
+    for item_data in items_data:
         for group_name in item_data.groups:
-            groups.setdefault(group_name.value, set()).add(item_name)
+            groups.setdefault(group_name.value, set()).add(items[ItemIDs(item_data.code)])
 
     return groups

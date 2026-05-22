@@ -450,7 +450,7 @@ class ProgressiveKrisWeapons(Toggle):
     THE WEAPONS RECEIVED FOR THE CAGE WILL BE IN SEQUENTIAL ORDER OF RISING POWER.
     """
 
-    display_name = "(COMING SOON) Progressive Kris Weapons"
+    display_name = "Progressive Kris Weapons"
     default = 1
 
 
@@ -459,7 +459,7 @@ class ProgressiveSusieWeapons(Toggle):
     THE WEAPONS RECEIVED FOR THE GIRL WILL BE IN SEQUENTIAL ORDER OF RISING POWER.
     """
 
-    display_name = "(COMING SOON) Progressive Susie Weapons"
+    display_name = "Progressive Susie Weapons"
     default = 1
 
 
@@ -468,7 +468,7 @@ class ProgressiveRalseiWeapons(Toggle):
     THE WEAPONS RECEIVED FOR THE PRINCE WILL BE IN SEQUENTIAL ORDER OF RISING POWER.
     """
 
-    display_name = "(COMING SOON) Progressive Ralsei Weapons"
+    display_name = "Progressive Ralsei Weapons"
     default = 1
 
 
@@ -477,7 +477,7 @@ class ProgressiveNoelleWeapons(Toggle):
     THE FORBIDDEN RINGS WILL BE IN SEQUENTIAL ORDER OF RISING POWER.
     """
 
-    display_name = "(COMING SOON) Progressive Noelle Weapons"
+    display_name = "Progressive Noelle Weapons"
     default = 1
 
 
@@ -525,7 +525,7 @@ class IncludeMike(Choice):
     WILL THE DEFEAT OF THE MICROPHONE AS WELL AS THEIR GAMES COUNT AS CHECK LOCATIONS?
     """
 
-    display_name = "(COMING SOON) Include Mike"
+    display_name = "Include Mike"
     option_false = 0
     option_battle_only = 1
     option_battle_and_games = 2

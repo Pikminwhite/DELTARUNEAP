@@ -1,6 +1,6 @@
 from BaseClasses import Location
 from enum import StrEnum
-from ..Locations import LocationIDs, LocationData, ConditionalLocationData, LocationGroups
+from ..Locations import LocationIDs, LocationData, LocationData, LocationGroups
 from ..Regions import generic_create_regions, fusion_access_region
 from typing import TYPE_CHECKING
 
