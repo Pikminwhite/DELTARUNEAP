@@ -31,15 +31,6 @@ class ItemGroups(str, Enum):
     characters = "Characters"
 
 
-class ItemData(NamedTuple):
-    code: int
-    classification: ItemClassification
-    should_be_included: Callable[["DeltaruneWorld"], bool] = lambda world: True
-    groups: list[ItemGroups] = []
-    amount: int = 1
-    blacklist_filler: bool = False
-
-
 class DeltaruneItem(Item):
     game: str = "Deltarune"
 
@@ -405,6 +396,15 @@ items = {
     ItemIDs.shadowcrystal: "ShadowCrystal",
     ItemIDs.purecrystal: "PureCrystal",
 }
+
+
+class ItemData(NamedTuple):
+    code: ItemIDs
+    classification: ItemClassification
+    should_be_included: Callable[["DeltaruneWorld"], bool] = lambda world: True
+    groups: list[ItemGroups] = []
+    amount: int = 1
+    blacklist_filler: bool = False
 
 
 def generic_create_items(world: "DeltaruneWorld", items: list[ItemData]) -> list[ItemData]:

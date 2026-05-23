@@ -65,4 +65,6 @@ class Regions(StrEnum):
 def add_location_to_region(region: Region, locations: list[LocationData], world: "DeltaruneWorld"):
     for location in locations:
         if location.should_be_included(world):
-            region.locations.append(DeltaruneLocation(region.player, all_locations[location.id], location.id, region))
+            region.locations.append(
+                DeltaruneLocation(region.player, all_locations[location.id], location.id.value, region)
+            )

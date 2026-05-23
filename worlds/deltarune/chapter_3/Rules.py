@@ -1,4 +1,5 @@
 from typing import TYPE_CHECKING
+from BaseClasses import LocationProgressType
 from rule_builder.rules import CanReachRegion, Has
 
 from worlds.deltarune.Locations import locations, LocationIDs
@@ -35,6 +36,10 @@ def set_rules(world: "DeltaruneWorld"):
 
     if world.is_not_weird_route_only():
         world.set_rule(world.get_location(locations[LocationIDs.ch3_tv_world_man]), Has(items[ItemIDs.tripticket]))
+
+    if world.is_t_rank_excluded_from_logic():
+        world.get_location(locations[LocationIDs.ch3_board_1_t_rank]).progress_type = LocationProgressType.EXCLUDED
+        world.get_location(locations[LocationIDs.ch3_board_2_t_rank]).progress_type = LocationProgressType.EXCLUDED
 
 
 def handle_locked_items(world: "DeltaruneWorld"):

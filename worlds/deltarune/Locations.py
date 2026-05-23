@@ -14,14 +14,6 @@ class LocationGroups(str, Enum):
     chapter4 = "Chapter 4"
 
 
-class LocationData(NamedTuple):
-    id: int
-    region: str
-    group: Optional[LocationGroups]
-    should_be_included: Callable[["DeltaruneWorld"], bool] = lambda world: True
-    progress_type: LocationProgressType = LocationProgressType.DEFAULT
-
-
 class DeltaruneLocation(Location):
     game: str = "Deltarune"
 
@@ -602,6 +594,14 @@ locations = {
     LocationIDs.ch4_mike_pluey_gold: "CH4: Mike - Pluey (Gold Rank)",
     LocationIDs.ch4_mike_pluey_platinum: "CH4: Mike - Pluey (Platinum Rank)",
 }
+
+
+class LocationData(NamedTuple):
+    id: LocationIDs
+    region: str
+    group: Optional[LocationGroups]
+    should_be_included: Callable[["DeltaruneWorld"], bool] = lambda world: True
+    progress_type: LocationProgressType = LocationProgressType.DEFAULT
 
 
 def get_location_groups(locations_data: list[LocationData]):

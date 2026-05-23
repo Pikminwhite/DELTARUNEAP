@@ -94,13 +94,18 @@ from worlds.deltarune.cross_chapter.Locations import cross_chapter_locations
 
 all_item_data: list[ItemData] = chapter1_items + chapter2_items + chapter3_items + chapter4_items + cross_chapter_items
 
-all_locations = (
-    list(chapter1_locations.values())[0]
-    + list(chapter2_locations.values())[0]
-    + list(chapter3_locations.values())[0]
-    + list(chapter4_locations.values())[0]
-    + list(cross_chapter_locations.values())[0]
-)
+all_locations = []
+
+for region, location in cross_chapter_locations.items():
+    all_locations += location
+for region, location in chapter1_locations.items():
+    all_locations += location
+for region, location in chapter2_locations.items():
+    all_locations += location
+for region, location in chapter3_locations.items():
+    all_locations += location
+for region, location in chapter4_locations.items():
+    all_locations += location
 
 
 def run_client():
@@ -222,7 +227,7 @@ class DeltaruneWorld(World):
         if item_data is None:
             raise ValueError(f"Item name '{name}' not found in item data.")
 
-        return DeltaruneItem(name, item_data.classification, item_data.code, self.player)
+        return DeltaruneItem(name, item_data.classification, item_data.code.value, self.player)
 
     def get_filler_item_name(self):
         if len(self.cached_filler_and_trap_weights) == 0:
