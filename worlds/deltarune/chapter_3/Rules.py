@@ -4,6 +4,7 @@ from rule_builder.rules import CanReachRegion, Has
 
 from worlds.deltarune.Locations import locations, LocationIDs
 from worlds.deltarune.Items import items, ItemIDs, glitched_item_name
+from worlds.deltarune.Regions import Regions
 
 if TYPE_CHECKING:
     from .. import DeltaruneWorld
@@ -15,29 +16,29 @@ def set_rules(world: "DeltaruneWorld"):
         # Special rules for lost in all routes
         world.set_rule(
             world.get_location(locations[LocationIDs.ch3_lost_shadowguy]),
-            CanReachRegion(locations[LocationIDs.ch3_tv_world]) | Has(glitched_item_name),
+            CanReachRegion(Regions.ch3_tv_world) | Has(glitched_item_name),
         )
         world.set_rule(
             world.get_location(locations[LocationIDs.ch3_lost_pippins]),
-            CanReachRegion(locations[LocationIDs.ch3_tv_world]) | Has(glitched_item_name),
+            CanReachRegion(Regions.ch3_tv_world) | Has(glitched_item_name),
         )
         world.set_rule(
             world.get_location(locations[LocationIDs.ch3_lost_shuttah]),
-            CanReachRegion(locations[LocationIDs.ch3_tv_world]) | Has(glitched_item_name),
+            CanReachRegion(Regions.ch3_tv_world) | Has(glitched_item_name),
         )
         world.set_rule(
             world.get_location(locations[LocationIDs.ch3_lost_water_cooler]),
-            CanReachRegion(locations[LocationIDs.ch3_tv_world]) | Has(glitched_item_name),
+            CanReachRegion(Regions.ch3_tv_world) | Has(glitched_item_name),
         )
         world.set_rule(
             world.get_location(locations[LocationIDs.ch3_lost_zapper]),
-            CanReachRegion(locations[LocationIDs.ch3_tv_world]) | Has(glitched_item_name),
+            CanReachRegion(Regions.ch3_tv_world) | Has(glitched_item_name),
         )
 
     if world.is_not_weird_route_only():
         world.set_rule(world.get_location(locations[LocationIDs.ch3_tv_world_man]), Has(items[ItemIDs.tripticket]))
 
-    if world.is_t_rank_excluded_from_logic():
+    if world.is_t_rank_excluded():
         world.get_location(locations[LocationIDs.ch3_board_1_t_rank]).progress_type = LocationProgressType.EXCLUDED
         world.get_location(locations[LocationIDs.ch3_board_2_t_rank]).progress_type = LocationProgressType.EXCLUDED
 

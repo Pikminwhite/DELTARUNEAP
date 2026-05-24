@@ -6,7 +6,7 @@ from worlds.AutoWorld import World, WebWorld
 from worlds.LauncherComponents import components, Component, Type, icon_paths
 from multiprocessing import Process
 
-from worlds.deltarune.Locations import LocationData, get_location_groups, locations
+from worlds.deltarune.Locations import get_location_groups, locations
 from worlds.deltarune.Items import (
     DeltaruneItem,
     ItemData,
@@ -27,7 +27,6 @@ from worlds.deltarune.Options import (
     RandomizeSecretBossesOptions,
     RandomizeMANTLEOptions,
     IncludeMikeOptions,
-    IncludeTRankOptions,
     UnlockCharactersOptions,
     IncludeUnusedItemsOptions,
 )
@@ -182,34 +181,35 @@ class DeltaruneWorld(World):
 
     def _get_deltarune_data(self):
         return {
-            "options": {
-                "randomize_secret_bosses": self.options.randomize_secret_bosses.current_key,
-                "macguffin_chapter_1": int(self.options.macguffin_chapter_1.value),
-                "macguffin_chapter_2": int(self.options.macguffin_chapter_2.value),
-                "macguffin_chapter_3": int(self.options.macguffin_chapter_3.value),
-                "macguffin_chapter_4": int(self.options.macguffin_chapter_4.value),
-                "macguffin_extra": int(self.options.macguffin_extra.value),
-                "remove_starting_equipment": bool(self.options.remove_starting_equipment.value),
-                "include_chapter_1": bool(self.options.include_chapter_1.value),
-                "include_chapter_2": bool(self.options.include_chapter_2.value),
-                "include_chapter_3": bool(self.options.include_chapter_3.value),
-                "include_chapter_4": bool(self.options.include_chapter_4.value),
-                "include_t_rank": self.options.include_t_rank.current_key,
-                "chosen_route": self.options.chosen_route.current_key,
-                "include_lose_swatchling": bool(self.options.include_lose_swatchling),
-                "randomize_chapters": self.options.randomize_chapters.current_key,
-                "include_hidden_items": bool(self.options.include_hidden_items.value),
-                "death_link": bool(self.options.death_link.value),
-                "item_balancing": bool(self.options.item_balancing.value),
-                "include_shadow_mantle": bool(self.options.include_shadow_mantle.value),
-                "randomize_mantle": self.options.randomize_mantle.current_key,
-                "include_unused_items": bool(self.options.include_unused_items.value),
-                "include_mike": bool(self.options.include_mike.value),
-                "unlock_characters": self.options.unlock_characters.current_key,
-                "better_odds": bool(self.options.better_odds.value),
-                "unlock_fun_gang_actions": bool(self.options.unlock_fun_gang_actions),
-                "chapter_1_recruit": bool(self.options.chapter_1_recruit),
-            },
+            "options": self.options.as_dict(
+                "randomize_secret_bosses",
+                "macguffin_chapter_1",
+                "macguffin_chapter_2",
+                "macguffin_chapter_3",
+                "macguffin_chapter_4",
+                "macguffin_extra",
+                "remove_starting_equipment",
+                "include_chapter_1",
+                "include_chapter_2",
+                "include_chapter_3",
+                "include_chapter_4",
+                "exclude_t_rank",
+                "chosen_route",
+                "include_lose_swatchling",
+                "randomize_chapters",
+                "include_hidden_items",
+                "death_link",
+                "item_balancing",
+                "include_shadow_mantle",
+                "randomize_mantle",
+                "include_unused_items",
+                "include_mike",
+                "unlock_characters",
+                "better_odds",
+                "unlock_fun_gang_actions",
+                "chapter_1_recruit",
+                toggles_as_bools=True,
+            ),
             "world_seed": self.random.getrandbits(32),
             "seed_name": self.multiworld.seed_name,
             "player_name": self.multiworld.get_player_name(self.player),
@@ -411,11 +411,8 @@ class DeltaruneWorld(World):
 
         return -1
 
-    def is_t_rank_included(self):
-        return self.options.include_t_rank == IncludeTRankOptions.true or self.is_t_rank_excluded_from_logic()
-
-    def is_t_rank_excluded_from_logic(self):
-        return self.options.include_t_rank == IncludeTRankOptions.excluded_from_logic
+    def is_t_rank_excluded(self):
+        return self.options.exclude_t_rank == 1
 
     def get_next_in_order_chapter(self, chapter: int):
         if chapter > max_deltarune_chapter:
@@ -537,7 +534,8 @@ class DeltaruneWorld(World):
         item_name = f"Chapter {starting_chapter} Unlock"
 
         if self.is_chapters_randomized():
-            item_pool.remove(item_name)
+            item_id = self.item_name_to_id[item_name]
+            item_pool.remove(next((item_data for item_data in item_pool if item_data.code == item_id), None))
 
         self.multiworld.push_precollected(self.create_item(item_name))
 

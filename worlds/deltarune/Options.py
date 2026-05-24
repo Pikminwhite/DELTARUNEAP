@@ -99,7 +99,7 @@ class RandomizeChapters(Choice):
     option_in_order = 0
     option_randomized = 1
     option_all_unlocked = 2
-    default = option_in_order
+    default = option_all_unlocked
 
 
 class RandomizeChapterOptions(StrEnum):
@@ -163,18 +163,13 @@ class IncludeShadowMantle(Toggle):
     default = 1
 
 
-class IncludeTRank(Choice):
+class ExcludeTRank(Toggle):
     """
-    GETTING THE HIGHEST RANK OF THE THIRD CHAPTER WILL BE EXPECTED.
-
-    - **Excluded from logic** *Will be included but does only hold an filler/trap item*
+    GETTING THE HIGHEST RANK OF THE THIRD CHAPTER WILL BE EXCLUDED FROM CONTAINING IMPORTANT ITEM.
     """
 
-    display_name = "Include T Rank"
-    option_false = 0
-    option_true = 1
-    option_excluded_from_logic = 2
-    default = option_false
+    display_name = "Exclude T Rank"
+    default = 0
 
 
 class IncludeTRankOptions(StrEnum):
@@ -565,7 +560,7 @@ deltarune_option_groups = [
             MacGuffinChapter3,
             RandomizeMANTLE,
             IncludeShadowMantle,
-            IncludeTRank,
+            ExcludeTRank,
         ],
     ),
     OptionGroup("Chapter 4", [IncludeChapter4, MacGuffinChapter4, IncludeMike]),
@@ -624,7 +619,7 @@ class DeltaruneOptions(PerGameCommonOptions):
     randomize_secret_bosses: RandomizeSecretBosses
     randomize_mantle: RandomizeMANTLE
     include_shadow_mantle: IncludeShadowMantle
-    include_t_rank: IncludeTRank
+    exclude_t_rank: ExcludeTRank
     include_hidden_items: IncludeHiddenItems
     include_unused_items: IncludeUnusedItems
     death_link: DeathLink

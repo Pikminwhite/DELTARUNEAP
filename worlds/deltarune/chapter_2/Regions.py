@@ -1,12 +1,13 @@
 from typing import TYPE_CHECKING
 
 from BaseClasses import Region
+from rule_builder.field_resolvers import FromOption
 from rule_builder.options import OptionFilter
 from rule_builder.rules import CanReachLocation, Has
-from worlds.deltarune.Options import ChosenRoute, RandomizeSecretBosses
+from worlds.deltarune.Options import ChosenRoute, MacGuffinChapter2, RandomizeSecretBosses
 from worlds.deltarune.Regions import Regions, add_location_to_region
 from worlds.deltarune.chapter_2.Locations import chapter2_locations
-from worlds.deltarune.Rules import have_actions, have_kris_or_susie, have_thornring
+from worlds.deltarune.Rules import have_actions, have_kris_or_susie, have_thornring, have_kris
 from worlds.deltarune.Items import items, ItemIDs, glitched_item_name
 from worlds.deltarune.Locations import LocationIDs, locations
 
@@ -64,18 +65,20 @@ def create_regions(world: "DeltaruneWorld"):
     mansion.connect(
         post_chapter_castle_town,
         "Access to chapter 2 completion",
-        secret_boss_mandatory & Has(items[ItemIDs.keygen_2_segment]),
+        secret_boss_mandatory & Has(items[ItemIDs.keygen_2_segment], FromOption(MacGuffinChapter2)),
     )
 
     mansion_weird_route.connect(
         post_chapter_castle_town,
         "Access to chapter 2 completion Weird Route",
-        Has(items[ItemIDs.keygen_2_segment]),
+        Has(items[ItemIDs.keygen_2_segment], FromOption(MacGuffinChapter2)) & have_kris,
     )
 
-    mansion_lobby.connect(
+    mansion_weird_route.connect(
         spamton_neo,
         "Spamton Neo Weird Route",
-        OptionFilter(ChosenRoute, [ChosenRoute.option_all_routes, ChosenRoute.option_weird_route], operator="in")
-        & have_thornring,
+        Has(items[ItemIDs.keygen_2_segment], FromOption(MacGuffinChapter2))
+        & OptionFilter(ChosenRoute, [ChosenRoute.option_all_routes, ChosenRoute.option_weird_route], operator="in")
+        & have_thornring
+        & have_kris,
     )
