@@ -47,7 +47,6 @@ def create_regions(world: "DeltaruneWorld"):
 
     world.get_region(Regions.chapter_2).connect(castle_town)
     world.get_region(Regions.chapter_2).connect(cyber_field, "Cyber Field Entrance", have_kris_or_susie)
-    castle_town.connect(cyber_field)
     cyber_field.connect(cyber_field_post_dj, "Cyber Field (Post-DJ) Entrance", have_actions | Has(glitched_item_name))
     cyber_field_post_dj.connect(
         cyber_city, "Cyber City Entrance", Has(items[ItemIDs.safety_vest]) | Has(glitched_item_name)

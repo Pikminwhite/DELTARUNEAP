@@ -1,7 +1,7 @@
 from typing import Any, Optional
 
 from BaseClasses import ItemClassification, Tutorial
-from Options import Option
+from Options import Option, OptionError
 from worlds.AutoWorld import World, WebWorld
 from worlds.LauncherComponents import components, Component, Type, icon_paths
 from multiprocessing import Process
@@ -263,6 +263,8 @@ class DeltaruneWorld(World):
         return self._get_deltarune_data()
 
     def generate_early(self) -> None:
+        if len(self.get_playable_chapters()) == 0:
+            raise OptionError("WHAT INTERESTING BEHAVIOR. (You forgot to include at least one chapter to play.)")
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
         if re_gen_passthrough and self.game in re_gen_passthrough:
             # Get the passed through slot data from the real generation
