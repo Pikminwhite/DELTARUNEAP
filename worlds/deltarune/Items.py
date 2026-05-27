@@ -82,7 +82,6 @@ class ItemIDs(IntEnum):
     scarlixir = 62
     bittertear = 63
 
-    chapter_1_egg = 10002
     brokencake = 10003
     broken_key_a = 10004
     door_key = 10005
@@ -102,6 +101,11 @@ class ItemIDs(IntEnum):
     sheetmusic = 10030
     claimbclaws = 10031
 
+    chapter_1_egg = 10950
+    chapter_2_egg = 10951
+    chapter_3_egg = 10952
+    chapter_4_egg = 10953
+
     # great_door_key = 11000
     bake_sale_ticket = 11001
     # king_chess_piece = 11002
@@ -113,8 +117,6 @@ class ItemIDs(IntEnum):
     # susie_pencil = 11008
     safety_vest = 11009
     mansion_reservation = 11010
-    chapter_2_egg = 11011
-    chapter_3_egg = 11012
     board_2_cartridge = 11013
     vip_pass = 11014
     # nothing = 11015
@@ -123,7 +125,6 @@ class ItemIDs(IntEnum):
     ice_key = 11018
     shelter_key = 11019
     sacred_moss = 11020
-    chapter_4_egg = 11021
 
     amber_card = 20001
     dice_brace = 20002
