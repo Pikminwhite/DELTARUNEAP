@@ -182,10 +182,10 @@ class ItemBalancing(Toggle):
     """
     IF AN ITEM IS OBTAINED EARLY, ITS POWER WILL BE SCALED DOWN.
 
-    *For example, Chapter 4's AbsorbAx in chapter 1 will only give +3 attack instead of +8.*
+    *Formula is basically `item_stat * (current_chapter / item_chapter)`, only scalling down*
     """
 
-    display_name = "(FIXED SOON) ItemBalancing"
+    display_name = "ItemBalancing"
     default = 0
 
 
