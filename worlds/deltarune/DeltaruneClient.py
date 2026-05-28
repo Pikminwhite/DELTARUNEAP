@@ -13,7 +13,7 @@ from worlds import deltarune
 from MultiServer import mark_raw, Context, Client
 from Utils import async_start
 
-ap_world_version = "v2.0.0+pre-release-1c"
+ap_world_version = "v2.0.0+pre-release-1d"
 
 # Try importing gui_enabled in Utils first before trying to import them from CommonClient
 # Core AP will be officially moving it to Utils in the future, so this is in accommodation for that
@@ -28,7 +28,7 @@ except ImportError:
 tracker_loaded = False
 try:
     from worlds.tracker.TrackerClient import (
-        ClientCommandProcessor,
+        TrackerCommandProcessor as ClientCommandProcessor,
         TrackerGameContext as SuperContext,
         get_base_parser,
         server_loop,
@@ -126,6 +126,7 @@ Both gaining and losing recruits have been turned into checks."""
                 shutil.copytree(pathInstall, Utils.user_path("DELTARUNE"), dirs_exist_ok=True)
                 self.ctx.patch_game()
                 self.output("Patching successful!")
+
 
 class DeltaruneContext(SuperContext):
     tags = {"TextOnly"}
