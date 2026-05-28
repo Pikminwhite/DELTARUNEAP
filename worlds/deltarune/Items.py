@@ -5,9 +5,7 @@ from typing import TYPE_CHECKING, NamedTuple, Callable
 if TYPE_CHECKING:
     from . import DeltaruneWorld, DeltaruneOptions
 
-glitched_item_name = "Deltarune is an episodic role-playing video game by American indie developer Toby Fox."
-progressive_weapon_name = "Progressive Weapon"
-
+glitched_item_name = "Glitches"
 
 class ItemGroups(str, Enum):
     healing_item = "Healing Items"

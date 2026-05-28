@@ -8,7 +8,7 @@ from worlds.deltarune.Options import (
 )
 from worlds.deltarune.Regions import Regions, add_location_to_region
 from worlds.deltarune.chapter_4.Locations import chapter4_locations
-from worlds.deltarune.Rules import have_kris_susie_or_ralsei
+from worlds.deltarune.Rules import have_kris_susie_or_ralsei, have_kris_or_susie
 from worlds.deltarune.Items import items, ItemIDs, glitched_item_name
 
 if TYPE_CHECKING:
@@ -43,16 +43,25 @@ def create_regions(world: "DeltaruneWorld"):
 
     world.get_region(Regions.chapter_4).connect(castle_town)
     castle_town.connect(mike_room)
+    castle_town.connect(
+        second_sanctuary,
+        "Second Sanctuary Early Entrance",
+        Has(items[ItemIDs.claimbclaws]) & Has(glitched_item_name) & have_kris_or_susie,
+    )
+    castle_town.connect(
+        third_sanctuary,
+        "Third Sanctuary Early Entrance (Skipping Second Sanctuary)",
+        Has(items[ItemIDs.claimbclaws]) & Has(glitched_item_name),
+    )
     castle_town.connect(dark_sanctuary, "Dark Sanctuary Entrance", have_kris_susie_or_ralsei)
     dark_sanctuary.connect(dark_sanctuary_claimbclaws, "ClaimbClaws Required", Has(items[ItemIDs.claimbclaws]))
-    dark_sanctuary.connect(
-        second_sanctuary, "Second Sanctuary Early Entrance", Has(items[ItemIDs.claimbclaws]) & Has(glitched_item_name)
+    dark_sanctuary_claimbclaws.connect(
+        second_sanctuary, "Second Sanctuary Entrance", Has(items[ItemIDs.sheetmusic]) & have_kris_or_susie
     )
-    dark_sanctuary_claimbclaws.connect(second_sanctuary, "Second Sanctuary Entrance", Has(items[ItemIDs.sheetmusic]))
     second_sanctuary.connect(third_sanctuary)
     third_sanctuary.connect(
         titan_fight,
         "Access to Chapter 4 Completion",
-        Has(items[ItemIDs.combination_lock_digit], FromOption(MacGuffinChapter4)),
+        Has(items[ItemIDs.combination_lock_digit], FromOption(MacGuffinChapter4)) & have_kris_susie_or_ralsei,
     )
     titan_fight.connect(light_world)

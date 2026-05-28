@@ -230,7 +230,7 @@ class LocationIDs(IntEnum):
     ch4_second_sanctuary_man = 211
     ch4_second_sanctuary_gallery_prophecy_chest = 212
     ch4_second_sanctuary_fountain_sealed = 213
-    ch4_dark_sanctuary_annoying_dog = 214
+    ch4_third_sanctuary_annoying_dog = 214
     ch4_third_sanctuary_speed_climbing_chest = 215
     ch4_third_sanctuary_dark_area_chest = 216
     ch4_recruit_guei = 217
@@ -548,7 +548,6 @@ locations = {
     LocationIDs.ch4_dark_sanctuary_hammer_of_justice_defeat_item_1: "CH4: Dark Sanctuary - Hammer of Justice Defeat Item #1",
     LocationIDs.ch4_dark_sanctuary_hammer_of_justice_defeat_item_2: "CH4: Dark Sanctuary - Hammer of Justice Defeat Item #2",
     LocationIDs.ch4_dark_sanctuary_fountain_sealed: "CH4: Dark Sanctuary - Fountain Sealed",
-    LocationIDs.ch4_dark_sanctuary_annoying_dog: "CH4: Dark Sanctuary - Annoying Dog...?",
     LocationIDs.ch4_second_sanctuary_wall_climbing_chest: "CH4: Second Sanctuary - Wall Climbing Chest",
     LocationIDs.ch4_second_sanctuary_waterfall_chest: "CH4: Second Sanctuary - Waterfall Chest",
     LocationIDs.ch4_second_sanctuary_destroyed_piano_block_chest: "CH4: Second Sanctuary - Destroyed Piano Block Chest",
@@ -556,6 +555,7 @@ locations = {
     LocationIDs.ch4_second_sanctuary_gallery_prophecy_chest: "CH4: Second Sanctuary - Gallery Prophecy Chest",
     LocationIDs.ch4_second_sanctuary_moss: "CH4: Second Sanctuary - Moss",
     LocationIDs.ch4_second_sanctuary_fountain_sealed: "CH4: Second Sanctuary - Fountain Sealed",
+    LocationIDs.ch4_third_sanctuary_annoying_dog: "CH4: Third Sanctuary - Annoying Dog...?",
     LocationIDs.ch4_third_sanctuary_speed_climbing_chest: "CH4: Third Sanctuary - Speed Climbing Chest",
     LocationIDs.ch4_third_sanctuary_dark_area_chest: "CH4: Third Sanctuary - Dark Area Chest",
     LocationIDs.ch4_third_sanctuary_titan_defeat: "CH4: Third Sanctuary - Titan Defeat",

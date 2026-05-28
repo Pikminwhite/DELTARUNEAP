@@ -318,7 +318,7 @@ chapter4_locations = {
     ],
     Regions.ch4_third_sanctuary: [
         LocationData(
-            LocationIDs.ch4_dark_sanctuary_annoying_dog,
+            LocationIDs.ch4_third_sanctuary_annoying_dog,
             Regions.ch4_third_sanctuary,
             group=LocationGroups.chapter4,
         ),
