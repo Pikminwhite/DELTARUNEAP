@@ -24,12 +24,14 @@ def set_rules(world: "DeltaruneWorld"):
         world.get_location(locations[LocationIDs.ch4_third_sanctuary_annoying_dog]), Has(items[ItemIDs.sheetmusic])
     )
 
-    world.set_rule(world.get_location(locations[LocationIDs.ch4_recruit_organikk]), have_kris_susie_or_ralsei)
-    world.set_rule(world.get_location(locations[LocationIDs.ch4_recruit_wicabel]), have_kris_susie_or_ralsei)
-    world.set_rule(world.get_location(locations[LocationIDs.ch4_recruit_winglade]), have_kris_susie_or_ralsei)
-    world.set_rule(world.get_location(locations[LocationIDs.ch4_lost_organikk]), have_kris_susie_or_ralsei)
-    world.set_rule(world.get_location(locations[LocationIDs.ch4_lost_wicabel]), have_kris_susie_or_ralsei)
-    world.set_rule(world.get_location(locations[LocationIDs.ch4_lost_winglade]), have_kris_susie_or_ralsei)
+    if world.is_all_recruits():
+        world.set_rule(world.get_location(locations[LocationIDs.ch4_recruit_organikk]), have_kris_susie_or_ralsei)
+        world.set_rule(world.get_location(locations[LocationIDs.ch4_recruit_wicabel]), have_kris_susie_or_ralsei)
+        world.set_rule(world.get_location(locations[LocationIDs.ch4_recruit_winglade]), have_kris_susie_or_ralsei)
+    if world.is_weird_route():
+        world.set_rule(world.get_location(locations[LocationIDs.ch4_lost_organikk]), have_kris_susie_or_ralsei)
+        world.set_rule(world.get_location(locations[LocationIDs.ch4_lost_wicabel]), have_kris_susie_or_ralsei)
+        world.set_rule(world.get_location(locations[LocationIDs.ch4_lost_winglade]), have_kris_susie_or_ralsei)
 
 
 def handle_locked_items(world: "DeltaruneWorld"):
