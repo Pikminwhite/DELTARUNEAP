@@ -287,7 +287,7 @@ class MacGuffinChapter1(Range):
     """
 
     display_name = "Macguffin Chapter 1 Amount"
-    default = 3
+    default = 0
     range_start = 0
     range_end = 10
 
@@ -302,7 +302,7 @@ class MacGuffinChapter2(Range):
     """
 
     display_name = "Macguffin Chapter 2 Amount"
-    default = 3
+    default = 0
     range_start = 0
     range_end = 10
 
@@ -317,7 +317,7 @@ class MacGuffinChapter3(Range):
     """
 
     display_name = "Macguffin Chapter 3 Amount"
-    default = 3
+    default = 0
     range_start = 0
     range_end = 10
 
