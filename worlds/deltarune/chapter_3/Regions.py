@@ -56,7 +56,7 @@ def create_regions(world: "DeltaruneWorld"):
     board_1.connect(sword_1, "Sword 1 Entrance", Has(items[ItemIDs.odd_controller]))
     green_room.connect(board_2, "Board 2 Entrance", Has(items[ItemIDs.board_2_cartridge]))
     board_2.connect(doom_board, "Doom Board Entrance", have_kris_susie_and_ralsei)
-    board_2.connect(sword_2, "Sword 2 Entrance", Has(items[ItemIDs.ice_key]))
+    board_2.connect(sword_2, "Sword 2 Entrance", Has(items[ItemIDs.ice_key]) & Has(items[ItemIDs.odd_controller]))
     doom_board.connect(tv_world, "TV World Entrance", Has(items[ItemIDs.vip_pass]))
 
     mantle_mandatory = CanReachLocation(
@@ -80,4 +80,8 @@ def create_regions(world: "DeltaruneWorld"):
         mantle_mandatory & shadow_mantle & Has(items[ItemIDs.remote_battery], FromOption(MacGuffinChapter3)),
     )
 
-    tv_world.connect(sword_3, "Sword 3 Entrance", Has(items[ItemIDs.shelter_key]))
+    tv_world.connect(
+        sword_3,
+        "Sword 3 Entrance",
+        Has(items[ItemIDs.shelter_key]) & Has(items[ItemIDs.ice_key]) & Has(items[ItemIDs.odd_controller]),
+    )
