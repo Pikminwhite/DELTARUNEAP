@@ -175,8 +175,6 @@ class ExcludeTRank(Toggle):
 class ExcludeZRank(Toggle):
     """
     GETTING THE LOWEST RANK OF THE THIRD CHAPTER WILL BE EXCLUDED FROM CONTAINING IMPORTANT ITEM.
-
-    (Getting Z-Rank check all ranks and extras for the board)
     """
 
     display_name = "Exclude Z Rank"
