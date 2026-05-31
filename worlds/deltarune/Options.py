@@ -582,7 +582,7 @@ deltarune_option_groups = [
         ],
     ),
     OptionGroup("Chapter 1", [IncludeChapter1, MacGuffinChapter1, Chapter1Recruit]),
-    OptionGroup("Chapter 2", [IncludeChapter2, MacGuffinChapter2, IncludeLoseSwatchling]),
+    OptionGroup("Chapter 2", [IncludeChapter2, MacGuffinChapter2, IncludeLoseSwatchling, ExcludePostChapter2Locations]),
     OptionGroup(
         "Chapter 3",
         [
