@@ -70,7 +70,7 @@ def create_regions(world: "DeltaruneWorld"):
     mansion_weird_route.connect(
         post_chapter_castle_town,
         "Access to chapter 2 completion Weird Route",
-        Has(items[ItemIDs.keygen_2_segment], FromOption(MacGuffinChapter2)) & have_kris,
+        Has(items[ItemIDs.keygen_2_segment], FromOption(MacGuffinChapter2)) & have_kris & have_thornring,
     )
 
     mansion_weird_route.connect(
