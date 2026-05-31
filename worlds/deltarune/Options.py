@@ -255,6 +255,18 @@ class IncludeLoseSwatchling(Toggle):
     default = 0
 
 
+class ExcludePostChapter2Locations(Toggle):
+    """
+    WILL POST-CHAPTER 2 LOCATIONS BE KEEP AWAY FROM HOLDING IMPORTANT ITEMS?
+
+    - CH2: Castle Town - Tasque Manager Says Challenge
+    - CH2: Castle Town - Ch2 All Stars Challenge
+    """
+
+    display_name = "Exclude Post-Chapter 2 Locations"
+    default = 0
+
+
 class IncludeChapter3(Toggle):
     """
     DO YOU WISH TO PLAY CHAPTER 3?
@@ -527,6 +539,15 @@ class IncludeMike(Choice):
     default = option_false
 
 
+class ExcludeMikePlatinum(Toggle):
+    """
+    WILL THE PLATINUM TROPHY BE KEEP AWAY FROM HOLDING IMPORTANT ITEM?
+    """
+
+    display_name = "Exclude Platinum trophy"
+    default = 0
+
+
 class IncludeMikeOptions(StrEnum):
     false = "false"
     battle_only = "battle_only"
@@ -563,7 +584,7 @@ deltarune_option_groups = [
             ExcludeTRank,
         ],
     ),
-    OptionGroup("Chapter 4", [IncludeChapter4, MacGuffinChapter4, IncludeMike]),
+    OptionGroup("Chapter 4", [IncludeChapter4, MacGuffinChapter4, IncludeMike, ExcludeMikePlatinum]),
     OptionGroup(
         "Fillers",
         [
@@ -610,6 +631,7 @@ class DeltaruneOptions(PerGameCommonOptions):
     randomize_chapters: RandomizeChapters
     chosen_route: ChosenRoute
     include_lose_swatchling: IncludeLoseSwatchling
+    exclude_post_chapter_2_locations: ExcludePostChapter2Locations
     item_balancing: ItemBalancing
     macguffin_chapter_1: MacGuffinChapter1
     macguffin_chapter_2: MacGuffinChapter2
@@ -635,6 +657,7 @@ class DeltaruneOptions(PerGameCommonOptions):
     progressive_noelle_weapons: ProgressiveNoelleWeapons
     unlock_characters: UnlockCharacters
     include_mike: IncludeMike
+    exclude_mike_platinum: ExcludeMikePlatinum
     better_odds: BetterOdds
     unlock_fun_gang_actions: UnlockFunGangActions
     chapter_1_recruit: Chapter1Recruit

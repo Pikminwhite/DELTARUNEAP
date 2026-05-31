@@ -1,3 +1,4 @@
+from BaseClasses import LocationProgressType
 from rule_builder.rules import Has
 
 from typing import TYPE_CHECKING
@@ -72,6 +73,14 @@ def set_rules(world: "DeltaruneWorld"):
             world.get_location(locations[LocationIDs.ch2_recruit_swatchling]),
             Has(items[ItemIDs.mansion_reservation]) | Has(glitched_item_name),
         )
+
+        if world.options.exclude_post_chapter_2_locations.value == 1:
+            world.get_location(locations[LocationIDs.ch2_castle_town_tasque_manager_says_challenge]).progress_type = (
+                LocationProgressType.EXCLUDED
+            )
+            world.get_location(locations[LocationIDs.ch2_castle_town_all_stars_challenge]).progress_type = (
+                LocationProgressType.EXCLUDED
+            )
 
 
 def handle_locked_items(world: "DeltaruneWorld"):

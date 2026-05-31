@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING
 
+from BaseClasses import LocationProgressType
 from rule_builder.rules import Has
 
 from worlds.deltarune.Locations import locations, LocationIDs
@@ -23,6 +24,15 @@ def set_rules(world: "DeltaruneWorld"):
     world.set_rule(
         world.get_location(locations[LocationIDs.ch4_third_sanctuary_annoying_dog]), Has(items[ItemIDs.sheetmusic])
     )
+
+    if world.is_mike_games_included() and world.options.exclude_mike_platinum.value == 1:
+        world.get_location(locations[LocationIDs.ch4_mike_pluey_platinum]).progress_type = LocationProgressType.EXCLUDED
+        world.get_location(locations[LocationIDs.ch4_mike_battat_platinum]).progress_type = (
+            LocationProgressType.EXCLUDED
+        )
+        world.get_location(locations[LocationIDs.ch4_mike_jongler_platinum]).progress_type = (
+            LocationProgressType.EXCLUDED
+        )
 
     if world.is_all_recruits():
         world.set_rule(world.get_location(locations[LocationIDs.ch4_recruit_organikk]), have_kris_susie_or_ralsei)
