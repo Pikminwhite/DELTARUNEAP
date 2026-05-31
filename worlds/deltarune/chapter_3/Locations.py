@@ -24,6 +24,7 @@ chapter3_locations = {
         LocationData(LocationIDs.ch3_board_1_extra_key, Regions.ch3_board_1, group=LocationGroups.chapter3),
         LocationData(LocationIDs.ch3_board_1_extra_extra_key, Regions.ch3_board_1, group=LocationGroups.chapter3),
         LocationData(LocationIDs.ch3_board_1_t_rank, Regions.ch3_board_1, group=LocationGroups.chapter3),
+        LocationData(LocationIDs.ch3_board_1_z_rank, Regions.ch3_board_1, group=LocationGroups.chapter3),
         LocationData(
             LocationIDs.ch3_lost_shadowguy,
             Regions.ch3_board_1,
@@ -148,6 +149,7 @@ chapter3_locations = {
         LocationData(LocationIDs.ch3_board_2_moss, Regions.ch3_board_2, group=LocationGroups.chapter3),
         LocationData(LocationIDs.ch3_green_room_board_2_ramb_gift, Regions.ch3_board_2, group=LocationGroups.chapter3),
         LocationData(LocationIDs.ch3_board_2_t_rank, Regions.ch3_board_2, group=LocationGroups.chapter3),
+        LocationData(LocationIDs.ch3_board_2_z_rank, Regions.ch3_board_2, group=LocationGroups.chapter3),
         LocationData(
             LocationIDs.ch3_recruit_water_cooler,
             Regions.ch3_board_2,

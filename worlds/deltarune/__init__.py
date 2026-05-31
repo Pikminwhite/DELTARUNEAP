@@ -194,6 +194,7 @@ class DeltaruneWorld(World):
                 "include_chapter_3",
                 "include_chapter_4",
                 "exclude_t_rank",
+                "exclude_z_rank",
                 "chosen_route",
                 "include_lose_swatchling",
                 "exclude_post_chapter_2_locations",

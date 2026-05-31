@@ -272,6 +272,8 @@ class LocationIDs(IntEnum):
     ch1_recruit_rudinn_ranger = 253
     ch1_recruit_head_hathy = 254
     ch1_recruit_rudinn = 255
+    ch3_board_1_z_rank = 256
+    ch3_board_2_z_rank = 257
     ch2_lost_werewire = 1049
     ch2_lost_tasque = 1054
     ch2_lost_virovirokun = 1055

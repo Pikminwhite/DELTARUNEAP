@@ -172,6 +172,17 @@ class ExcludeTRank(Toggle):
     default = 0
 
 
+class ExcludeZRank(Toggle):
+    """
+    GETTING THE LOWEST RANK OF THE THIRD CHAPTER WILL BE EXCLUDED FROM CONTAINING IMPORTANT ITEM.
+
+    (Getting Z-Rank check all ranks and extras for the board)
+    """
+
+    display_name = "Exclude Z Rank"
+    default = 1
+
+
 class IncludeTRankOptions(StrEnum):
     false = "false"
     true = "true"
@@ -582,6 +593,7 @@ deltarune_option_groups = [
             RandomizeMANTLE,
             IncludeShadowMantle,
             ExcludeTRank,
+            ExcludeZRank,
         ],
     ),
     OptionGroup("Chapter 4", [IncludeChapter4, MacGuffinChapter4, IncludeMike, ExcludeMikePlatinum]),
@@ -642,6 +654,7 @@ class DeltaruneOptions(PerGameCommonOptions):
     randomize_mantle: RandomizeMANTLE
     include_shadow_mantle: IncludeShadowMantle
     exclude_t_rank: ExcludeTRank
+    exclude_z_rank: ExcludeZRank
     include_hidden_items: IncludeHiddenItems
     include_unused_items: IncludeUnusedItems
     death_link: DeathLink
