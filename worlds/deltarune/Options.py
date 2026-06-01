@@ -701,6 +701,6 @@ options_presets = {
         "filler_smile_weight": "random",
         "unlock_characters": "true",
         "include_mike": "battle_and_games",
-        "chapter_1_recruits": True,
+        "chapter_1_recruit": True,
     }
 }
