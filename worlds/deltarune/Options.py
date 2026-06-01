@@ -688,7 +688,8 @@ options_presets = {
         "macguffin_extra": 0,
         "randomize_secret_bosses": "mandatory",
         "randomize_mantle": "true",
-        "include_t_rank": "true",
+        "exclude_t_rank": False,
+        "exclude_z_rank": False,
         "include_hidden_items": True,
         "include_unused_items": "true",
         "death_link": True,
@@ -699,7 +700,7 @@ options_presets = {
         "filler_tension_weight": "random",
         "filler_smile_weight": "random",
         "unlock_characters": "true",
-        "include_mike": True,
+        "include_mike": "battle_and_games",
         "chapter_1_recruits": True,
     }
 }
