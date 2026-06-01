@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any, ClassVar, Optional
 
 from BaseClasses import ItemClassification, Tutorial
 from Options import Option, OptionError
@@ -178,6 +178,12 @@ class DeltaruneWorld(World):
     origin_region_name = Regions.chapter_select
 
     cached_filler_and_trap_weights: dict[int, float] = {}
+
+    tracker_world: ClassVar = {
+        "map_page_folder": "tracker",
+        "map_page_maps": "maps/maps.json",
+        "map_page_locations": "locations/locations.json",
+    }
 
     def _get_deltarune_data(self):
         return {

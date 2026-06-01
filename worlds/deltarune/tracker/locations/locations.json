@@ -1,0 +1,414 @@
+[
+  {
+    "name": "Chapter 1",
+    "overlay_background": "#000000",
+    "children": [
+      {
+        "name": "Chapter 1 - ??????",
+        "sections": [
+          {
+            "name": "CH1: ?????? - Hidden Item"
+          }
+        ],
+        "map_locations": [
+          {
+            "map": "Overview",
+            "x": 150,
+            "y": 160
+          }
+        ]
+      },
+      {
+        "name": "Chapter 1 - Castle Town",
+        "sections": [
+          {
+            "name": "CH1: Castle Town - Manual"
+          },
+          {
+            "name": "CH1: Throw Away Manual"
+          },
+          {
+            "name": "CH1: Throw Away Manual (Again...)"
+          }
+        ],
+        "map_locations": [
+          {
+            "map": "Overview",
+            "x": 150,
+            "y": 350
+          }
+        ]
+      },
+      {
+        "name": "Chapter 1 - Fields",
+        "children": [
+          {
+            "name": "Chapter 1 - Fields - Candy Trees 1&2",
+            "sections": [
+              {
+                "name": "CH1: Field - Dark Candy Tree 1"
+              },
+              {
+                "name": "CH1: Field - Dark Candy Tree 2"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 55,
+                "y": 450
+              }
+            ]
+          },
+          {
+            "name": "Chapter 1 - Fields - Candy Trees 3&4",
+            "sections": [
+              {
+                "name": "CH1: Field - Dark Candy Tree 3"
+              },
+              {
+                "name": "CH1: Field - Dark Candy Tree 4"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 55,
+                "y": 500
+              }
+            ]
+          },
+          {
+            "name": "Chapter 1 - Fields - Maze of Death Chest",
+            "sections": [
+              {
+                "name": "CH1: Field - Maze of Death Chest"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 55,
+                "y": 550
+              }
+            ]
+          },
+          {
+            "name": "Chapter 1 - Fields - Chest Before Great Board",
+            "sections": [
+              {
+                "name": "CH1: Field - Chest Before Great Board"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 105,
+                "y": 550
+              }
+            ]
+          },
+          {
+            "name": "Chapter 1 - Fields - Cake",
+            "sections": [
+              {
+                "name": "CH1: Field - BrokenCake"
+              },
+              {
+                "name": "CH1: Field - Return Top Cake"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 105,
+                "y": 450
+              }
+            ]
+          },
+          {
+            "name": "Chapter 1 - Fields - Seam's Seap",
+            "sections": [
+              {
+                "name": "CH1: Seam's Seap 1"
+              },
+              {
+                "name": "CH1: Seam's Seap 2"
+              },
+              {
+                "name": "CH1: Seam's Seap 3"
+              },
+              {
+                "name": "CH1: Seam's Seap 4"
+              },
+              {
+                "name": "CH1: Seam's Seap - Talk About Strange Prisoner"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 225,
+                "y": 475
+              }
+            ]
+          },
+          {
+            "name": "Chapter 1 - Fields - Warp Door",
+            "sections": [
+              {
+                "name": "CH1: Forest - Warp Door"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 105,
+                "y": 500
+              }
+            ]
+          },
+          {
+            "name": "Chapter 1 - Fields - Recruits",
+            "sections": [
+              {
+                "name": "CH1: Fields - Recruit Rudinn"
+              },
+              {
+                "name": "CH1: Fields - Recruit Hathy"
+              },
+              {
+                "name": "CH1: Fields - Recruit Jigsawry"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 155,
+                "y": 550
+              }
+            ]
+          },
+          {
+            "name": "Chapter 1 - Fields - Loses",
+            "sections": [
+              {
+                "name": "CH1: Fields - Lost Rudinn"
+              },
+              {
+                "name": "CH1: Fields - Lost Hathy"
+              },
+              {
+                "name": "CH1: Fields - Lost Jigsawry"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 205,
+                "y": 550
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Chapter 1 - Great Board",
+        "children": [
+          {
+            "name": "Chapter 1 - Great Board - Recruits",
+            "sections": [
+              {
+                "name": "CH1: Great Board - Recruit Ponman"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 55,
+                "y": 750
+              }
+            ]
+          },
+          {
+            "name": "Chapter 1 - Great Board - Loses",
+            "sections": [
+              {
+                "name": "CH1: Great Board - Lost Ponman"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 105,
+                "y": 750
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Chapter 1 - Forest",
+        "children": [
+          {
+            "name": "Chapter 1 - Forest - Recruits",
+            "sections": [
+              {
+                "name": "CH1: Forest - Recruit Rabbick"
+              },
+              {
+                "name": "CH1: Forest - Recruit Bloxer"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 155,
+                "y": 750
+              }
+            ]
+          },
+          {
+            "name": "Chapter 1 - Forest - Loses",
+            "sections": [
+              {
+                "name": "CH1: Forest - Lost Rabbick"
+              },
+              {
+                "name": "CH1: Forest - Lost Bloxer"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 205,
+                "y": 750
+              }
+            ]
+          },
+          {
+            "name": "Chapter 1 - Forest - Warp Door",
+            "sections": [
+              {
+                "name": "CH1: Forest - Warp Door"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 155,
+                "y": 650
+              }
+            ]
+          },
+          {
+            "name": "Chapter 1 - Forest - Scissor Dancers Chest",
+            "sections": [
+              {
+                "name": "CH1: Forest - Scissor Dancers Chest"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 205,
+                "y": 650
+              }
+            ]
+          },
+          {
+            "name": "Chapter 1 - Forest - Hidden Chest Near Dancers",
+            "sections": [
+              {
+                "name": "CH1: Forest - Hidden Chest Near Dancers"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 255,
+                "y": 650
+              }
+            ]
+          },
+          {
+            "name": "Chapter 1 - Forest - Coat Rack's Chest",
+            "sections": [
+              {
+                "name": "CH1: Forest - Coat Rack's Chest"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 155,
+                "y": 700
+              }
+            ]
+          },
+          {
+            "name": "Chapter 1 - Forest - Letter Block Chest",
+            "sections": [
+              {
+                "name": "CH1: Forest - Letter Block Chest"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 205,
+                "y": 700
+              }
+            ]
+          },
+          {
+            "name": "Chapter 1 - Forest - Chest Near Worm",
+            "sections": [
+              {
+                "name": "CH1: Forest - Chest Near Worm"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 255,
+                "y": 700
+              }
+            ]
+          },
+          {
+            "name": "Chapter 1 - Forest - Man",
+            "sections": [
+              {
+                "name": "CH1: Forest - Man"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 105,
+                "y": 700
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Chapter 1 - Bake Sale",
+        "children": [
+          {
+            "name": "Chapter 1 - Bake Sale - Malius",
+            "sections": [
+              {
+                "name": "CH1: Bake Sale - Repair Top Cake"
+              },
+              {
+                "name": "CH1: Bake Sale - Repair Door Key"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
