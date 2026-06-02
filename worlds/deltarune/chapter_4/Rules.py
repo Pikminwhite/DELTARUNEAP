@@ -22,10 +22,8 @@ def set_rules(world: "DeltaruneWorld"):
     )
 
     world.set_rule(
-        world.get_location(
-            locations[LocationIDs.ch4_castle_town_lanino_elnina_challenge],
-            have_kris_susie_or_ralsei | Has(glitched_item_name),
-        )
+        world.get_location(locations[LocationIDs.ch4_castle_town_lanino_elnina_challenge]),
+        have_kris_susie_or_ralsei | Has(glitched_item_name),
     )
 
     world.set_rule(
