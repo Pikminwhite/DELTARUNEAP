@@ -89,6 +89,12 @@ chapter2_locations = {
             should_be_included=lambda world: world.is_weird_route(),
             group=LocationGroups.chapter2,
         ),
+        LocationData(
+            LocationIDs.ch2_lost_virovirokun,
+            Regions.ch2_cyber_field,
+            should_be_included=lambda world: world.is_weird_route(),
+            group=LocationGroups.chapter2,
+        ),
     ],
     Regions.ch2_cyber_field_post_dj: [
         LocationData(
@@ -272,12 +278,6 @@ chapter2_locations = {
             LocationIDs.ch2_spamton_shop_4,
             Regions.ch2_cyber_city,
             should_be_included=lambda world: world.is_not_weird_route_only(),
-            group=LocationGroups.chapter2,
-        ),
-        LocationData(
-            LocationIDs.ch2_lost_virovirokun,
-            Regions.ch2_cyber_field,
-            should_be_included=lambda world: world.is_weird_route(),
             group=LocationGroups.chapter2,
         ),
         LocationData(
