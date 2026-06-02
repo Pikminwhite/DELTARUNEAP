@@ -561,7 +561,7 @@
         "map_locations": [
           {
             "map": "Overview",
-            "x": 150,
+            "x": 420,
             "y": 110
           }
         ]
@@ -638,8 +638,8 @@
             "map_locations": [
               {
                 "map": "Overview",
-                "x": 350,
-                "y": 350
+                "x": 400,
+                "y": 400
               }
             ]
           },
@@ -681,7 +681,7 @@
               {
                 "map": "Overview",
                 "x": 350,
-                "y": 400
+                "y": 350
               }
             ]
           },
@@ -701,8 +701,432 @@
             "map_locations": [
               {
                 "map": "Overview",
-                "x": 490,
+                "x": 350,
                 "y": 400
+              }
+            ]
+          },
+          {
+            "name": "Chapter 2 - Cyber Fields - Warp Door",
+            "sections": [
+              {
+                "name": "CH2: Cyber Field - Warp Door"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 450,
+                "y": 350
+              }
+            ]
+          },
+          {
+            "name": "Chapter 2 - Cyber Fields - Music Shop",
+            "sections": [
+              {
+                "name": "CH2: Music Shop 1"
+              },
+              {
+                "name": "CH2: Music Shop 2"
+              },
+              {
+                "name": "CH2: Music Shop 3"
+              },
+              {
+                "name": "CH2: Music Shop 4"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 480,
+                "y": 300
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Chapter 2 - Trash Zone",
+    "children": [
+      {
+        "name": "Chapter 2 - Trash Zone - Trash",
+        "sections": [
+          {
+            "name": "CH2: Trash Zone - Trash Can"
+          }
+        ],
+        "map_locations": [
+          {
+            "map": "Overview",
+            "x": 350,
+            "y": 550
+          }
+        ]
+      },
+      {
+        "name": "Chapter 2 - Trash Zone - Warp Door",
+        "sections": [
+          {
+            "name": "CH2: Trash Zone - Warp Door"
+          }
+        ],
+        "map_locations": [
+          {
+            "map": "Overview",
+            "x": 350,
+            "y": 500
+          }
+        ]
+      },
+      {
+        "name": "Chapter 2 - Trash Zone - Spamton Shop",
+        "sections": [
+          {
+            "name": "CH2: Spamton's Shop 1"
+          },
+          {
+            "name": "CH2: Spamton's Shop 2"
+          },
+          {
+            "name": "CH2: Spamton's Shop 3"
+          },
+          {
+            "name": "CH2: Spamton's Shop 4"
+          }
+        ],
+        "map_locations": [
+          {
+            "map": "Overview",
+            "x": 480,
+            "y": 470
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Chapter 2 - Cyber City",
+    "children": [
+      {
+        "name": "Chapter 2 - Cyber City - Recruits",
+        "sections": [
+          {
+            "name": "CH2: Recruit Poppup"
+          },
+          {
+            "name": "CH2: Recruit Ambyu-lance"
+          },
+          {
+            "name": "CH2: Recruit Maus"
+          }
+        ],
+        "map_locations": [
+          {
+            "map": "Overview",
+            "x": 400,
+            "y": 500
+          }
+        ]
+      },
+      {
+        "name": "Chapter 2 - Cyber City - Loses",
+        "sections": [
+          {
+            "name": "CH2: Lost Poppup"
+          },
+          {
+            "name": "CH2: Lost Ambyu-lance"
+          },
+          {
+            "name": "CH2: Lost Maus"
+          },
+          {
+            "name": "CH2: Cyber City - \"Purchase\" FreezeRing"
+          },
+          {
+            "name": "CH2: Cyber City - Purchase ThornRing"
+          }
+        ],
+        "map_locations": [
+          {
+            "map": "Overview",
+            "x": 400,
+            "y": 550
+          }
+        ]
+      },
+      {
+        "name": "Chapter 2 - Cyber City - Teas",
+        "sections": [
+          {
+            "name": "CH2: Cyber City - Purchase Kris Tea"
+          },
+          {
+            "name": "CH2: Cyber City - Purchase Noelle Tea"
+          },
+          {
+            "name": "CH2: Cyber City - Purchase Susie Tea"
+          },
+          {
+            "name": "CH2: Cyber City - Purchase Ralsei Tea"
+          }
+        ],
+        "map_locations": [
+          {
+            "map": "Overview",
+            "x": 450,
+            "y": 500
+          }
+        ]
+      },
+      {
+        "name": "Chapter 2 - Cyber City - Chests",
+        "sections": [
+          {
+            "name": "CH2: Cyber City - Trash Can #1"
+          },
+          {
+            "name": "CH2: Cyber City - Trash Can #2"
+          },
+          {
+            "name": "CH2: Cyber City - Trash Can #3"
+          },
+          {
+            "name": "CH2: Cyber City - Trash Can #4"
+          },
+          {
+            "name": "CH2: Cyber City - Trash Can #5"
+          },
+          {
+            "name": "CH2: Cyber City - Queen Poster Chest"
+          },
+          {
+            "name": "CH2: Cyber City - Chest Guarded By Virovirokun"
+          },
+          {
+            "name": "CH2: Cyber City - Purchase Mannequin"
+          },
+          {
+            "name": "CH2: Cyber City - Annoying Dog...?"
+          },
+          {
+            "name": "CH2: Cyber City - Man"
+          },
+          {
+            "name": "CH2: Cyber City - Moss"
+          }
+        ],
+        "map_locations": [
+          {
+            "map": "Overview",
+            "x": 450,
+            "y": 550
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Chapter 2 - Mansion",
+    "children": [
+      {
+        "name": "Chapter 2 - Mansion - Chests",
+        "sections": [
+          {
+            "name": "CH2: Mansion - Painting Chest"
+          },
+          {
+            "name": "CH2: Mansion - Sculpture Room Chest"
+          },
+          {
+            "name": "CH2: Mansion - Platter Chest"
+          },
+          {
+            "name": "CH2: Mansion - Tunnel of Love Chest"
+          }
+        ],
+        "map_locations": [
+          {
+            "map": "Overview",
+            "x": 350,
+            "y": 750
+          }
+        ]
+      },
+      {
+        "name": "Chapter 2 - Mansion - Warp Door",
+        "sections": [
+          {
+            "name": "CH2: Mansion - Warp Door"
+          }
+        ],
+        "map_locations": [
+          {
+            "map": "Overview",
+            "x": 350,
+            "y": 700
+          }
+        ]
+      },
+      {
+        "name": "Chapter 2 - Mansion - Spamton NEO",
+        "sections": [
+          {
+            "name": "CH2: Mansion - Basement Chest"
+          },
+          {
+            "name": "CH2: Mansion - Basement Mechanism"
+          },
+          {
+            "name": "CH2: Mansion - Spamton NEO Defeat Item #1"
+          },
+          {
+            "name": "CH2: Mansion - Spamton NEO Defeat Item #2"
+          },
+          {
+            "name": "CH2: Mansion - Spamton NEO Defeat Item #3"
+          }
+        ],
+        "map_locations": [
+          {
+            "map": "Overview",
+            "x": 450,
+            "y": 750
+          }
+        ]
+      },
+      {
+        "name": "Chapter 2 - Mansion - Recruits",
+        "sections": [
+          {
+            "name": "CH2: Recruit Swatchling"
+          },
+          {
+            "name": "CH2: Recruit Tasque Manager"
+          },
+          {
+            "name": "CH2: Recruit Mauswheel"
+          },
+          {
+            "name": "CH2: Recruit Werewerewire"
+          }
+        ],
+        "map_locations": [
+          {
+            "map": "Overview",
+            "x": 400,
+            "y": 700
+          }
+        ]
+      },
+      {
+        "name": "Chapter 2 - Mansion - Loses",
+        "sections": [
+          {
+            "name": "CH2: Lost Swatchling"
+          },
+          {
+            "name": "CH2: Lost Tasque Manager"
+          },
+          {
+            "name": "CH2: Lost Mauswheel"
+          },
+          {
+            "name": "CH2: Lost Werewerewire"
+          }
+        ],
+        "map_locations": [
+          {
+            "map": "Overview",
+            "x": 400,
+            "y": 750
+          }
+        ]
+      },
+      {
+        "name": "Chapter 2 - Mansion - Swatch's Cafe",
+        "sections": [
+          {
+            "name": "CH2: Swatch's Cafe 1"
+          },
+          {
+            "name": "CH2: Swatch's Cafe 2"
+          },
+          {
+            "name": "CH2: Swatch's Cafe 3"
+          },
+          {
+            "name": "CH2: Swatch's Cafe 4"
+          }
+        ],
+        "map_locations": [
+          {
+            "map": "Overview",
+            "x": 500,
+            "y": 650
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Chapter 4",
+    "children": [
+      {
+        "name": "Chapter 4 - Castle Town",
+        "children": [
+          {
+            "name": "Chapter 4 - Castle Town - Mike",
+            "sections": [
+              {
+                "name": "CH4: Castle Town - Defeat Mike"
+              },
+              {
+                "name": "CH4: Mike - Battat (Bronze Rank)"
+              },
+              {
+                "name": "CH4: Mike - Battat (Silver Rank)"
+              },
+              {
+                "name": "CH4: Mike - Battat (Gold Rank)"
+              },
+              {
+                "name": "CH4: Mike - Battat (Platinum Rank)"
+              },
+              {
+                "name": "CH4: Mike - Jongler (Bronze Rank)"
+              },
+              {
+                "name": "CH4: Mike - Jongler (Silver Rank)"
+              },
+              {
+                "name": "CH4: Mike - Jongler (Gold Rank)"
+              },
+              {
+                "name": "CH4: Mike - Jongler (Platinum Rank)"
+              },
+              {
+                "name": "CH4: Mike - Pluey (Bronze Rank)"
+              },
+              {
+                "name": "CH4: Mike - Pluey (Silver Rank)"
+              },
+              {
+                "name": "CH4: Mike - Pluey (Gold Rank)"
+              },
+              {
+                "name": "CH4: Mike - Pluey (Platinum Rank)"
+              }
+            ],
+            "map_locations": [
+              {
+                "map": "Overview",
+                "x": 1100,
+                "y": 200
               }
             ]
           }
