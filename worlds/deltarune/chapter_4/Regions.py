@@ -42,7 +42,7 @@ def create_regions(world: "DeltaruneWorld"):
         world.multiworld.regions.append(region)
 
     world.get_region(Regions.chapter_4).connect(castle_town)
-    castle_town.connect(mike_room)
+    castle_town.connect(mike_room, "Mike Room Entrance", have_kris_susie_or_ralsei | Has(glitched_item_name))
     castle_town.connect(
         second_sanctuary,
         "Second Sanctuary Early Entrance",
