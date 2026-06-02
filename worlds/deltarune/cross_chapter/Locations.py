@@ -38,7 +38,13 @@ cross_chapter_locations: dict = {
             Regions.fusion,
             should_be_included=lambda world: world.can_access_fusion()
             and world.include_chapter(1)
-            and (world.include_chapter(2) or (not world.is_starting_equipment_removed() and world.include_chapter(4))),
+            and (
+                world.include_chapter(2)
+                or (
+                    not world.is_starting_equipment_removed()
+                    and (world.include_chapter(4) or world.have_all_chapters_included([3, 4]))
+                )
+            ),
             group=LocationGroups.castle_town,
         ),
         LocationData(
