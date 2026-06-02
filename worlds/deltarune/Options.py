@@ -102,6 +102,20 @@ class RandomizeChapters(Choice):
     default = option_all_unlocked
 
 
+class StartingChapter(Choice):
+    """
+    IF CHAPTER ARE RANDOMIZED, WHICH CHAPTER WOULD YOU START WITH?
+    """
+
+    display_name = "Starting Random Chapter"
+    option_random_chapter = 0
+    option_chapter_1 = 1
+    option_chapter_2 = 2
+    option_chapter_3 = 3
+    option_chapter_4 = 4
+    default = option_random_chapter
+
+
 class RandomizeChapterOptions(StrEnum):
     in_order = "in_order"
     randomized = "randomized"
@@ -577,6 +591,7 @@ deltarune_option_groups = [
         "Chapters",
         [
             RandomizeChapters,
+            StartingChapter,
             RemoveStartingEquipment,
             MacGuffinExtra,
         ],
@@ -639,6 +654,7 @@ class DeltaruneOptions(PerGameCommonOptions):
     include_chapter_3: IncludeChapter3
     include_chapter_4: IncludeChapter4
     randomize_chapters: RandomizeChapters
+    starting_chapter: StartingChapter
     chosen_route: ChosenRoute
     include_lose_swatchling: IncludeLoseSwatchling
     exclude_post_chapter_2_locations: ExcludePostChapter2Locations

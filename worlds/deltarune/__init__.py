@@ -272,8 +272,18 @@ class DeltaruneWorld(World):
         return self._get_deltarune_data()
 
     def generate_early(self) -> None:
+        if (
+            self.options.randomize_chapters == RandomizeChapterOptions.randomized
+            and self.options.starting_chapter.value != 0
+        ):
+            if getattr(self.options, f"include_chapter_{self.options.starting_chapter.value}").value == 0:
+                raise OptionError(
+                    f"Your random starting chapter is set to {self.options.starting_chapter.value} but it isn't included"
+                )
+
         if len(self.get_playable_chapters()) == 0:
             raise OptionError("WHAT INTERESTING BEHAVIOR. (You forgot to include at least one chapter to play.)")
+
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
         if re_gen_passthrough and self.game in re_gen_passthrough:
             # Get the passed through slot data from the real generation
@@ -537,7 +547,10 @@ class DeltaruneWorld(World):
         if self.is_chapters_in_order():
             starting_chapter = self.get_first_chapter()
         elif self.is_chapters_randomized():
-            starting_chapter = self.random.choice(self.get_playable_chapters())
+            if self.options.starting_chapter.value == 0:
+                starting_chapter = self.random.choice(self.get_playable_chapters())
+            else:
+                starting_chapter = self.options.starting_chapter.value
 
         if starting_chapter == -1:
             return
