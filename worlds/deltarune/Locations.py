@@ -536,7 +536,6 @@ locations = {
     LocationIDs.ch3_fountain_sealed: "CH3: TV World - Fountain Sealed",
     LocationIDs.ch4_castle_town_lanino_elnina_challenge: "CH4: Castle Town - Lanino&Elnina Challenge",
     LocationIDs.ch4_castle_town_top_chef_gift: "CH4: Castle Town - Top Chef Gift",
-    LocationIDs.ch4_castle_town_mike_defeat: "CH4: Castle Town - Mike",
     LocationIDs.ch4_dark_sanctuary_jockington_prophecy_chest: "CH4: Dark Sanctuary - Jockington Prophecy Chest",
     LocationIDs.ch4_dark_sanctuary_chest_in_first_dark_area: "CH4: Dark Sanctuary - Chest in First Dark Area",
     LocationIDs.ch4_dark_sanctuary_worship_room_chest: "CH4: Dark Sanctuary - Worship Room Chest",
