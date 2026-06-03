@@ -428,7 +428,7 @@ class TrapWeight(NamedRange):
     DETERMINES HOW OFTEN TRAPS WILL APPEAR COMPARED TO OTHERS ITEMS.
     """
 
-    display_name = "(Coming Soon) Trap Weights"
+    display_name = "Trap Weights"
     range_start = 0
     range_end = 99
     default = filler_weight_range_names["uncommon"]
