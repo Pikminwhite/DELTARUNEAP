@@ -4,10 +4,10 @@ from BaseClasses import Region
 from rule_builder.field_resolvers import FromOption
 from rule_builder.options import OptionFilter
 from rule_builder.rules import CanReachLocation, Has
-from worlds.deltarune.Items import ItemIDs, items
+from worlds.deltarune.Items import ItemIDs, items, glitched_item_name
 from worlds.deltarune.Options import MacGuffinChapter1, RandomizeSecretBosses
 from worlds.deltarune.Regions import add_location_to_region, Regions
-from worlds.deltarune.Rules import have_kris_or_ralsei
+from worlds.deltarune.Rules import have_kris_or_ralsei, have_kris_susie_or_ralsei
 from worlds.deltarune.Locations import LocationIDs, locations
 from worlds.deltarune.chapter_1.Locations import chapter1_locations
 
@@ -34,10 +34,21 @@ def create_regions(world: "DeltaruneWorld"):
 
     world.get_region(Regions.chapter_1).connect(castle_town)
     castle_town.connect(fields)
+    # Kris or Ralsei required for Triple Hathy fight
     fields.connect(fields_post_hathy, "Fields (Post-Hathy) Entrance", have_kris_or_ralsei)
-    fields_post_hathy.connect(forest)
-    forest.connect(bake_sale, "Bake Sale Entrance", Has(items[ItemIDs.bake_sale_ticket]))
-    bake_sale.connect(card_castle, "Card Castle Entrance", Has(items[ItemIDs.castle_key]))
+    # Kris or Ralsei required for K.Round fight
+    fields_post_hathy.connect(forest, "Forest Etrance", have_kris_or_ralsei)
+    # Bake Sale Ticket is required to enter and Kris or Ralsei is required for Clover fight unless you do ARMS glitch
+    forest.connect(
+        bake_sale,
+        "Bake Sale Entrance",
+        Has(items[ItemIDs.bake_sale_ticket]) & (have_kris_or_ralsei | Has(glitched_item_name)),
+    )
+    # Castle key is required with Kris or Ralsei to Vs. Susie and lancer fight
+    bake_sale.connect(card_castle, "Card Castle Entrance", Has(items[ItemIDs.castle_key] & have_kris_or_ralsei))
+
+    # Door key is required with Kris, Susie or Ralsei
+    card_castle.connect(jevil, "Access to Jevil", Has(items[ItemIDs.door_key]) & have_kris_susie_or_ralsei)
 
     secret_boss_mandatory = CanReachLocation(locations[LocationIDs.ch1_card_castle_jevil_1]) | OptionFilter(
         RandomizeSecretBosses, RandomizeSecretBosses.option_mandatory, operator="ne"
@@ -48,5 +59,3 @@ def create_regions(world: "DeltaruneWorld"):
         "Access to chapter 1 completion",
         secret_boss_mandatory & Has(items[ItemIDs.king_shape_key_piece], FromOption(MacGuffinChapter1)),
     )
-
-    card_castle.connect(jevil, "Access to Jevil", Has(items[ItemIDs.door_key]))

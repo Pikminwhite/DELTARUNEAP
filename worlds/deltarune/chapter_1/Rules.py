@@ -3,6 +3,11 @@ from rule_builder.rules import CanReachRegion, Has
 from worlds.deltarune.Items import ItemIDs, items
 from worlds.deltarune.Locations import LocationIDs, locations
 from worlds.deltarune.Regions import Regions
+from worlds.deltarune.Rules import (
+    can_recruit_chapter1,
+    have_kris_susie_or_ralsei,
+    can_lost_chapter1_pre_castle,
+)
 
 if TYPE_CHECKING:
     from .. import DeltaruneWorld
@@ -29,6 +34,26 @@ def set_rules(world: "DeltaruneWorld"):
     world.set_rule(
         world.get_location(locations[LocationIDs.ch1_throw_away_manual_again]), Has(items[ItemIDs.manual], 2)
     )
+
+    if world.is_all_recruits():
+        world.set_rule(world.get_location(locations[LocationIDs.ch1_recruit_rudinn]), can_recruit_chapter1)
+        world.set_rule(world.get_location(locations[LocationIDs.ch1_recruit_hathy]), can_recruit_chapter1)
+        world.set_rule(world.get_location(locations[LocationIDs.ch1_recruit_jigsawry]), can_recruit_chapter1)
+        world.set_rule(world.get_location(locations[LocationIDs.ch1_recruit_ponman]), can_recruit_chapter1)
+        world.set_rule(world.get_location(locations[LocationIDs.ch1_recruit_rabbick]), can_recruit_chapter1)
+        world.set_rule(world.get_location(locations[LocationIDs.ch1_recruit_bloxer]), can_recruit_chapter1)
+        world.set_rule(world.get_location(locations[LocationIDs.ch1_recruit_head_hathy]), can_recruit_chapter1)
+        world.set_rule(world.get_location(locations[LocationIDs.ch1_recruit_rudinn_ranger]), can_recruit_chapter1)
+
+    if world.is_weird_route():
+        world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_rudinn]), can_lost_chapter1_pre_castle)
+        world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_hathy]), can_lost_chapter1_pre_castle)
+        world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_jigsawry]), can_lost_chapter1_pre_castle)
+        world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_ponman]), can_lost_chapter1_pre_castle)
+        world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_rabbick]), can_lost_chapter1_pre_castle)
+        world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_bloxer]), can_lost_chapter1_pre_castle)
+        world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_head_hathy]), have_kris_susie_or_ralsei)
+        world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_rudinn_ranger]), have_kris_susie_or_ralsei)
 
 def handle_locked_items(world: "DeltaruneWorld"):
     player = world.player
