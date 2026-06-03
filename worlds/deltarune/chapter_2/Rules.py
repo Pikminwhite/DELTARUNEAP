@@ -4,11 +4,7 @@ from rule_builder.rules import Has
 from typing import TYPE_CHECKING
 from worlds.deltarune.Locations import locations, LocationIDs
 from worlds.deltarune.Items import ItemIDs, items, glitched_item_name
-from worlds.deltarune.Rules import (
-    have_kris_susie_or_ralsei,
-    have_noelle,
-    have_thornring,
-)
+from worlds.deltarune.Rules import have_kris_susie_or_ralsei, have_noelle, have_thornring, can_snowgrave
 
 if TYPE_CHECKING:
     from .. import DeltaruneWorld
@@ -28,31 +24,29 @@ def set_rules(world: "DeltaruneWorld"):
         # Lost recruits
         world.set_rule(
             world.get_location(locations[LocationIDs.ch2_lost_ambyu_lance]),
-            can_proceed_weird_route | Has(glitched_item_name),
+            have_noelle | Has(glitched_item_name),
         )
         world.set_rule(
             world.get_location(locations[LocationIDs.ch2_lost_poppup]),
-            can_proceed_weird_route | Has(glitched_item_name),
+            have_noelle | Has(glitched_item_name),
         )
-        world.set_rule(
-            world.get_location(locations[LocationIDs.ch2_lost_maus]), can_proceed_weird_route | Has(glitched_item_name)
-        )
+        world.set_rule(world.get_location(locations[LocationIDs.ch2_lost_maus]), have_noelle | Has(glitched_item_name))
         world.set_rule(
             world.get_location(locations[LocationIDs.ch2_lost_mauswheel]),
-            can_proceed_weird_route | Has(glitched_item_name),
+            can_snowgrave | Has(glitched_item_name),
         )
         world.set_rule(
             world.get_location(locations[LocationIDs.ch2_lost_tasque_manager]),
-            can_proceed_weird_route | Has(glitched_item_name),
+            can_snowgrave | Has(glitched_item_name),
         )
         world.set_rule(
             world.get_location(locations[LocationIDs.ch2_lost_werewerewire]),
-            can_proceed_weird_route | Has(glitched_item_name),
+            can_snowgrave | Has(glitched_item_name),
         )
         if world.options.include_lose_swatchling.value == 1:
             world.set_rule(
                 world.get_location(locations[LocationIDs.ch2_lost_swatchlings]),
-                can_proceed_weird_route | Has(glitched_item_name),
+                can_snowgrave | Has(glitched_item_name),
             )
 
     if world.is_all_recruits():
@@ -117,5 +111,3 @@ def handle_locked_items(world: "DeltaruneWorld"):
             multiworld.get_location(locations[LocationIDs.ch2_cyber_city_annoying_dog], player).place_locked_item(
                 world.create_item(items[ItemIDs.dogdollar])
             )
-
-can_proceed_weird_route = have_thornring & have_noelle

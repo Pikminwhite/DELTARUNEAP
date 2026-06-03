@@ -15,3 +15,5 @@ have_kris_susie_and_ralsei = have_kris & have_susie & have_ralsei
 
 have_actions = Has(items[ItemIDs.s_r_n_actions]) | OptionFilter(UnlockFunGangActions, 0)
 have_thornring = Has(items[ItemIDs.thornring]) | Has(items[ItemIDs.progressive_noelle_weapons], 2)
+
+can_snowgrave = have_noelle & have_thornring

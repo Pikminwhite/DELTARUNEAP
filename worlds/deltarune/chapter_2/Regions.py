@@ -7,7 +7,7 @@ from rule_builder.rules import CanReachLocation, Has
 from worlds.deltarune.Options import ChosenRoute, MacGuffinChapter2, RandomizeSecretBosses
 from worlds.deltarune.Regions import Regions, add_location_to_region
 from worlds.deltarune.chapter_2.Locations import chapter2_locations
-from worlds.deltarune.Rules import have_actions, have_kris_or_susie, have_thornring, have_kris
+from worlds.deltarune.Rules import have_actions, have_kris_or_susie, have_kris, can_snowgrave
 from worlds.deltarune.Items import items, ItemIDs, glitched_item_name
 from worlds.deltarune.Locations import LocationIDs, locations
 
@@ -51,7 +51,8 @@ def create_regions(world: "DeltaruneWorld"):
     cyber_field_post_dj.connect(
         cyber_city, "Cyber City Entrance", Has(items[ItemIDs.safety_vest]) | Has(glitched_item_name)
     )
-    cyber_city.connect(mansion_lobby)
+    cyber_city.connect(mansion_lobby, "Mansion Lobby Normal Route Entrance", have_kris | Has(glitched_item_name))
+    cyber_city.connect(mansion_lobby, "Mansion Lobny Weird Route Entrance", can_snowgrave)
     mansion_lobby.connect(mansion, "Mansion Entrance", Has(items[ItemIDs.mansion_reservation]))
     mansion.connect(mansion_basement, "Mansion Basement Entrance", Has(items[ItemIDs.keygen]))
     mansion_basement.connect(spamton_neo, "Spamton Neo Entrance", Has(items[ItemIDs.emptydisk]))
@@ -70,7 +71,7 @@ def create_regions(world: "DeltaruneWorld"):
     mansion_weird_route.connect(
         post_chapter_castle_town,
         "Access to chapter 2 completion Weird Route",
-        Has(items[ItemIDs.keygen_2_segment], FromOption(MacGuffinChapter2)) & have_kris & have_thornring,
+        Has(items[ItemIDs.keygen_2_segment], FromOption(MacGuffinChapter2)) & have_kris & can_snowgrave,
     )
 
     mansion_weird_route.connect(
@@ -78,6 +79,6 @@ def create_regions(world: "DeltaruneWorld"):
         "Spamton Neo Weird Route",
         Has(items[ItemIDs.keygen_2_segment], FromOption(MacGuffinChapter2))
         & OptionFilter(ChosenRoute, [ChosenRoute.option_all_routes, ChosenRoute.option_weird_route], operator="in")
-        & have_thornring
+        & can_snowgrave
         & have_kris,
     )
