@@ -12,8 +12,12 @@ have_kris_or_susie = have_kris | have_susie
 have_kris_or_ralsei = have_kris | have_ralsei
 have_kris_susie_or_ralsei = have_kris | have_susie | have_ralsei
 have_kris_susie_and_ralsei = have_kris & have_susie & have_ralsei
+have_kris_or_noelle = have_kris | have_noelle
 
 have_actions = Has(items[ItemIDs.s_r_n_actions]) | OptionFilter(UnlockFunGangActions, 0)
 have_thornring = Has(items[ItemIDs.thornring]) | Has(items[ItemIDs.progressive_noelle_weapons], 2)
 
 can_snowgrave = have_noelle & have_thornring
+
+can_recruit_chapter1 = have_kris | have_ralsei
+can_recruit = have_kris | have_ralsei | (have_susie & Has(items[ItemIDs.s_r_n_actions]))

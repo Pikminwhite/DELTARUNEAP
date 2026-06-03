@@ -601,7 +601,6 @@ locations = {
 
 class LocationData(NamedTuple):
     id: LocationIDs
-    region: str
     group: Optional[LocationGroups]
     should_be_included: Callable[["DeltaruneWorld"], bool] = lambda world: True
     progress_type: LocationProgressType = LocationProgressType.DEFAULT

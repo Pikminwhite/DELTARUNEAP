@@ -12,19 +12,16 @@ cross_chapter_locations: dict = {
     Regions.fusion: [
         LocationData(
             LocationIDs.cc_castle_town_dd_burger_fusion,
-            Regions.fusion,
             should_be_included=lambda world: world.can_access_fusion(),
             group=LocationGroups.castle_town,
         ),
         LocationData(
             LocationIDs.cc_castle_town_silver_card_fusion,
-            Regions.fusion,
             should_be_included=lambda world: world.can_access_fusion(),
             group=LocationGroups.castle_town,
         ),
         LocationData(
             LocationIDs.cc_castle_town_twin_ribbon_fusion,
-            Regions.fusion,
             should_be_included=lambda world: world.can_access_fusion()
             and world.has_at_least_one_chapter_included([2, 3])
             and (
@@ -35,7 +32,6 @@ cross_chapter_locations: dict = {
         ),
         LocationData(
             LocationIDs.cc_castle_town_spike_band_fusion,
-            Regions.fusion,
             should_be_included=lambda world: world.can_access_fusion()
             and world.include_chapter(1)
             and (
@@ -49,7 +45,6 @@ cross_chapter_locations: dict = {
         ),
         LocationData(
             LocationIDs.cc_castle_town_tensionbow_fusion,
-            Regions.fusion,
             should_be_included=lambda world: world.can_access_fusion()
             and world.include_chapter(2)
             and (not world.is_weird_route() or world.is_all_routes()),
@@ -57,7 +52,6 @@ cross_chapter_locations: dict = {
         ),
         LocationData(
             LocationIDs.cc_castle_town_twistedsword_fusion,
-            Regions.fusion,
             should_be_included=lambda world: world.can_access_fusion()
             and world.include_chapter(2)
             and world.is_unused_items_included()
