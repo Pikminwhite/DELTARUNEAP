@@ -14,6 +14,7 @@ from worlds.deltarune.Rules import (
     can_snowgrave,
     have_kris_or_noelle,
     have_kris_or_ralsei,
+    have_kris_susie_or_ralsei,
 )
 from worlds.deltarune.Items import items, ItemIDs, glitched_item_name
 from worlds.deltarune.Locations import LocationIDs, locations
@@ -59,14 +60,31 @@ def create_regions(world: "DeltaruneWorld"):
         world.multiworld.regions.append(region)
 
     world.get_region(Regions.chapter_2).connect(castle_town)
+    # Require Kris or Susie for the werewire fight
     world.get_region(Regions.chapter_2).connect(cyber_field, "Cyber Field Entrance", have_kris_or_susie)
-    cyber_field.connect(cyber_field_post_dj, "Cyber Field (Post-DJ) Entrance", have_actions | Has(glitched_item_name))
-    cyber_field_post_dj.connect(
-        trash_zone, "Trash Zone Entrance", Has(items[ItemIDs.safety_vest]) | Has(glitched_item_name)
+
+    # Require actions and at least one character for DJ-fight unless you ww into the fight (but can't end it) or Bagel Overflow to mansion and come back with plot value updated
+    cyber_field.connect(
+        cyber_field_post_dj,
+        "Cyber Field (Post-DJ) Entrance",
+        (have_actions & have_kris_susie_or_ralsei) | Has(glitched_item_name),
     )
+
+    cyber_field.connect(mansion_lobby, "Cyber Field Bagel Overflow to Mansion", Has(glitched_item_name))
+
+    # Require Safety vest and at least one character for berdly fight or Bagel Overflow to Trash Zone
+    cyber_field_post_dj.connect(
+        trash_zone,
+        "Trash Zone Entrance",
+        (Has(items[ItemIDs.safety_vest]) & have_kris_susie_or_ralsei) | Has(glitched_item_name),
+    )
+
+    # Require Kris or Noelle for the Virovirokun after noelle
     trash_zone.connect(cyber_city, "Cyber City Entrance", have_kris_or_noelle)
 
+    # Require Kris for Spamton fight unless you skip it with an Interaction Slide
     cyber_city.connect(mansion_lobby, "Mansion Lobby Normal Route Entrance", have_kris | Has(glitched_item_name))
+    # Require the ability to snowgrave to process the weird route
     cyber_city.connect(mansion_lobby, "Mansion Lobby Weird Route Entrance", can_snowgrave)
 
     mansion_lobby.connect(mansion, "Mansion Entrance", Has(items[ItemIDs.mansion_reservation]))

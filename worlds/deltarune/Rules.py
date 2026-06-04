@@ -1,7 +1,7 @@
 from rule_builder.options import OptionFilter
 from rule_builder.rules import CanReachRegion, Has
 from worlds.deltarune.Options import UnlockCharacters, UnlockFunGangActions
-from worlds.deltarune.Items import items, ItemIDs
+from worlds.deltarune.Items import items, ItemIDs, glitched_item_name
 from worlds.deltarune.Regions import Regions
 
 have_kris = Has(items[ItemIDs.kris]) | OptionFilter(UnlockCharacters, UnlockCharacters.option_true, operator="ne")
@@ -21,7 +21,10 @@ have_thornring = Has(items[ItemIDs.thornring]) | Has(items[ItemIDs.progressive_n
 can_snowgrave = have_noelle & have_thornring
 
 can_recruit_chapter1 = have_kris | have_ralsei
-can_recruit = have_kris | have_ralsei | (have_susie & Has(items[ItemIDs.s_r_n_actions]))
+can_susie_recruit = have_susie & Has(items[ItemIDs.s_r_n_actions])
+can_recruit = have_kris | have_ralsei | can_susie_recruit
 can_recruit_with_noelle = have_kris | have_noelle
+can_recruit_with_kris_susie = have_kris | can_susie_recruit
 
 can_lost_chapter1_pre_castle = have_kris | have_ralsei | (CanReachRegion(Regions.ch1_card_castle) & have_susie)
+can_lost_chapter2_with_noelle = have_noelle | (have_kris & Has(glitched_item_name))

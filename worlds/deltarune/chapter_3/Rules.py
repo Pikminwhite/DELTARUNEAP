@@ -5,34 +5,53 @@ from rule_builder.rules import CanReachRegion, Has
 from worlds.deltarune.Locations import locations, LocationIDs
 from worlds.deltarune.Items import items, ItemIDs, glitched_item_name
 from worlds.deltarune.Regions import Regions
+from worlds.deltarune.Rules import can_recruit, have_kris_susie_or_ralsei
 
 if TYPE_CHECKING:
     from .. import DeltaruneWorld
 
 
 def set_rules(world: "DeltaruneWorld"):
+    if world.is_all_recruits():
+        world.set_rule(world.get_location(locations[LocationIDs.ch3_recruit_shadowguy]), can_recruit)
+        world.set_rule(world.get_location(locations[LocationIDs.ch3_recruit_pippins]), can_recruit)
+        world.set_rule(world.get_location(locations[LocationIDs.ch3_recruit_shuttah]), can_recruit)
+        world.set_rule(world.get_location(locations[LocationIDs.ch3_recruit_water_cooler]), can_recruit)
+        world.set_rule(world.get_location(locations[LocationIDs.ch3_recruit_zapper]), can_recruit)
+        world.set_rule(world.get_location(locations[LocationIDs.ch3_recruit_shadowguy]), can_recruit)
+
+    if world.is_weird_route() and not world.is_all_routes():
+        world.set_rule(world.get_location(locations[LocationIDs.ch3_lost_shadowguy]), have_kris_susie_or_ralsei)
+        world.set_rule(world.get_location(locations[LocationIDs.ch3_lost_pippins]), have_kris_susie_or_ralsei)
+        world.set_rule(world.get_location(locations[LocationIDs.ch3_lost_shuttah]), have_kris_susie_or_ralsei)
+        world.set_rule(world.get_location(locations[LocationIDs.ch3_lost_water_cooler]), have_kris_susie_or_ralsei)
+        world.set_rule(world.get_location(locations[LocationIDs.ch3_lost_zapper]), have_kris_susie_or_ralsei)
+        world.set_rule(world.get_location(locations[LocationIDs.ch3_lost_shadowguy]), have_kris_susie_or_ralsei)
 
     if world.is_all_routes():
-        # Special rules for lost in all routes
         world.set_rule(
             world.get_location(locations[LocationIDs.ch3_lost_shadowguy]),
-            CanReachRegion(Regions.ch3_tv_world) | Has(glitched_item_name),
+            have_kris_susie_or_ralsei & (CanReachRegion(Regions.ch3_tv_world) | Has(glitched_item_name)),
         )
         world.set_rule(
             world.get_location(locations[LocationIDs.ch3_lost_pippins]),
-            CanReachRegion(Regions.ch3_tv_world) | Has(glitched_item_name),
+            have_kris_susie_or_ralsei & (CanReachRegion(Regions.ch3_tv_world) | Has(glitched_item_name)),
         )
         world.set_rule(
             world.get_location(locations[LocationIDs.ch3_lost_shuttah]),
-            CanReachRegion(Regions.ch3_tv_world) | Has(glitched_item_name),
+            have_kris_susie_or_ralsei & (CanReachRegion(Regions.ch3_tv_world) | Has(glitched_item_name)),
         )
         world.set_rule(
             world.get_location(locations[LocationIDs.ch3_lost_water_cooler]),
-            CanReachRegion(Regions.ch3_tv_world) | Has(glitched_item_name),
+            have_kris_susie_or_ralsei & (CanReachRegion(Regions.ch3_tv_world) | Has(glitched_item_name)),
         )
         world.set_rule(
             world.get_location(locations[LocationIDs.ch3_lost_zapper]),
-            CanReachRegion(Regions.ch3_tv_world) | Has(glitched_item_name),
+            have_kris_susie_or_ralsei & (CanReachRegion(Regions.ch3_tv_world) | Has(glitched_item_name)),
+        )
+        world.set_rule(
+            world.get_location(locations[LocationIDs.ch3_lost_shadowguy]),
+            have_kris_susie_or_ralsei & (CanReachRegion(Regions.ch3_tv_world) | Has(glitched_item_name)),
         )
 
     if world.is_not_weird_route_only():

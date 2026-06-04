@@ -74,6 +74,11 @@ chapter2_locations = {
             should_be_included=lambda world: world.is_weird_route(),
             group=LocationGroups.chapter2,
         ),
+        LocationData(
+            LocationIDs.ch2_lost_virovirokun,
+            should_be_included=lambda world: world.is_weird_route(),
+            group=LocationGroups.chapter2,
+        ),
     ],
     Regions.ch2_cyber_field_post_dj: [
         LocationData(

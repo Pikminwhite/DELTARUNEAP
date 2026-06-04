@@ -51,12 +51,19 @@ def create_regions(world: "DeltaruneWorld"):
         world.multiworld.regions.append(region)
 
     world.get_region(Regions.chapter_3).connect(couch_cliffs)
+
+    # Require at least one character for Elnina Lanino and shadowguy fights
     couch_cliffs.connect(board_1, "Board 1 Entrance", have_kris_susie_or_ralsei)
+
     board_1.connect(green_room)
     board_1.connect(sword_1, "Sword 1 Entrance", Has(items[ItemIDs.odd_controller]))
+
     green_room.connect(board_2, "Board 2 Entrance", Has(items[ItemIDs.board_2_cartridge]))
+
+    # Require all characters for Turning off Zapper during Doom Board
     board_2.connect(doom_board, "Doom Board Entrance", have_kris_susie_and_ralsei)
     board_2.connect(sword_2, "Sword 2 Entrance", Has(items[ItemIDs.ice_key]) & Has(items[ItemIDs.odd_controller]))
+
     doom_board.connect(tv_world, "TV World Entrance", Has(items[ItemIDs.vip_pass]))
 
     mantle_mandatory = CanReachLocation(

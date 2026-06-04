@@ -45,7 +45,7 @@ def create_regions(world: "DeltaruneWorld"):
         Has(items[ItemIDs.bake_sale_ticket]) & (have_kris_or_ralsei | Has(glitched_item_name)),
     )
     # Castle key is required with Kris or Ralsei to Vs. Susie and lancer fight
-    bake_sale.connect(card_castle, "Card Castle Entrance", Has(items[ItemIDs.castle_key] & have_kris_or_ralsei))
+    bake_sale.connect(card_castle, "Card Castle Entrance", Has(items[ItemIDs.castle_key]) & have_kris_or_ralsei)
 
     # Door key is required with Kris, Susie or Ralsei
     card_castle.connect(jevil, "Access to Jevil", Has(items[ItemIDs.door_key]) & have_kris_susie_or_ralsei)
