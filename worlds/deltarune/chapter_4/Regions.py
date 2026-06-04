@@ -10,7 +10,7 @@ from worlds.deltarune.Options import (
 )
 from worlds.deltarune.Regions import Regions, add_location_to_region
 from worlds.deltarune.chapter_4.Locations import chapter4_locations
-from worlds.deltarune.Rules import have_kris_susie_or_ralsei, have_kris_or_susie
+from worlds.deltarune.Rules import have_kris_susie_or_ralsei, have_kris_or_susie, have_kris
 from worlds.deltarune.Items import items, ItemIDs, glitched_item_name
 from worlds.deltarune.Locations import locations, LocationIDs
 
@@ -81,6 +81,7 @@ def create_regions(world: "DeltaruneWorld"):
         "Access to Chapter 4 Completion",
         secret_boss_mandatory
         & Has(items[ItemIDs.combination_lock_digit], FromOption(MacGuffinChapter4))
-        & have_kris_susie_or_ralsei,
+        & have_kris_susie_or_ralsei
+        & (have_kris | Has(glitched_item_name)),
     )
     titan_fight.connect(light_world)
