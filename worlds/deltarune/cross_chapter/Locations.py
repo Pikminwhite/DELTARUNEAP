@@ -62,10 +62,8 @@ cross_chapter_locations: dict = {
     Regions.lost_rabbick: [
         LocationData(
             LocationIDs.cc_lost_rabbick,
-            should_be_included=lambda world: world.is_weird_route()
-            and (
-                world.include_chapter(3) or (world.include_chapter(1) and world.is_chapter_1_recruit_system_enabled())
-            ),
+            should_be_included=lambda world: (world.include_chapter(3) and world.is_all_routes())
+            or (world.include_chapter(1) and world.is_weird_route() and world.is_chapter_1_recruit_system_enabled()),
             group=LocationGroups.cross_chapter,
         ),
     ],
