@@ -13,17 +13,14 @@ if TYPE_CHECKING:
 
 def set_rules(world: "DeltaruneWorld"):
     world.set_rule(
-        world.get_location(locations[LocationIDs.ch4_dark_sanctuary_hammer_of_justice_defeat_item_1]),
-        have_susie | Has(glitched_item_name),
+        world.get_location(locations[LocationIDs.ch4_dark_sanctuary_hammer_of_justice_defeat_item_1]), have_susie
     )
     world.set_rule(
-        world.get_location(locations[LocationIDs.ch4_dark_sanctuary_hammer_of_justice_defeat_item_2]),
-        have_susie | Has(glitched_item_name),
+        world.get_location(locations[LocationIDs.ch4_dark_sanctuary_hammer_of_justice_defeat_item_2]), have_susie
     )
 
     world.set_rule(
-        world.get_location(locations[LocationIDs.ch4_castle_town_lanino_elnina_challenge]),
-        have_kris_susie_or_ralsei | Has(glitched_item_name),
+        world.get_location(locations[LocationIDs.ch4_castle_town_lanino_elnina_challenge]), have_kris_susie_or_ralsei
     )
 
     world.set_rule(

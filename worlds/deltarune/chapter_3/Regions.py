@@ -12,7 +12,13 @@ from worlds.deltarune.Options import (
 )
 from worlds.deltarune.Regions import Regions, add_location_to_region, get_entrance_name
 from worlds.deltarune.chapter_3.Locations import chapter3_locations
-from worlds.deltarune.Rules import have_actions, have_kris_susie_and_ralsei, have_kris_susie_or_ralsei
+from worlds.deltarune.Rules import (
+    have_actions,
+    have_kris_susie_and_ralsei,
+    have_kris_susie_or_ralsei,
+    have_kris,
+    have_susie_or_ralsei,
+)
 from worlds.deltarune.Items import items, ItemIDs, glitched_item_name
 from worlds.deltarune.Locations import LocationIDs, locations
 
@@ -53,7 +59,7 @@ def create_regions(world: "DeltaruneWorld"):
     world.get_region(Regions.chapter_3).connect(couch_cliffs)
 
     # Require at least one character for Elnina Lanino and shadowguy fights
-    couch_cliffs.connect(board_1, rule=have_kris_susie_or_ralsei)
+    couch_cliffs.connect(board_1, rule=have_kris | (have_susie_or_ralsei & have_actions))
 
     board_1.connect(green_room)
     board_1.connect(sword_1, rule=Has(items[ItemIDs.odd_controller]))
