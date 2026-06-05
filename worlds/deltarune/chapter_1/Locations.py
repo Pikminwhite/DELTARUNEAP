@@ -109,11 +109,7 @@ chapter1_locations = {
             should_be_included=lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_all_recruits(),
             group=LocationGroups.chapter1,
         ),
-        LocationData(
-            LocationIDs.ch1_lost_rabbick,
-            should_be_included=lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_weird_route(),
-            group=LocationGroups.chapter1,
-        ),
+        # lost Rabbick is in cross chapter
         LocationData(
             LocationIDs.ch1_lost_bloxer,
             should_be_included=lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_weird_route(),

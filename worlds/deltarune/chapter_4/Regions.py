@@ -10,7 +10,13 @@ from worlds.deltarune.Options import (
 )
 from worlds.deltarune.Regions import Regions, add_location_to_region
 from worlds.deltarune.chapter_4.Locations import chapter4_locations
-from worlds.deltarune.Rules import have_kris_susie_or_ralsei, have_kris_or_susie, have_kris, have_kris_and_susie
+from worlds.deltarune.Rules import (
+    have_kris_susie_or_ralsei,
+    have_kris_or_susie,
+    have_kris,
+    have_kris_and_susie,
+    have_susie,
+)
 from worlds.deltarune.Items import items, ItemIDs, glitched_item_name
 from worlds.deltarune.Locations import locations, LocationIDs
 
@@ -20,9 +26,12 @@ if TYPE_CHECKING:
 
 def create_regions(world: "DeltaruneWorld"):
     castle_town = Region(Regions.ch4_castle_town, world.player, world.multiworld)
+    dojo = Region(Regions.ch4_dojo, world.player, world.multiworld)
     mike_room = Region(Regions.ch4_mike_room, world.player, world.multiworld)
     dark_sanctuary = Region(Regions.ch4_dark_sanctuary, world.player, world.multiworld)
+    old_man_shop = Region(Regions.ch4_old_man_shop, world.player, world.multiworld)
     dark_sanctuary_claimbclaws = Region(Regions.ch4_dark_sanctuary_claimbclaws, world.player, world.multiworld)
+    gerson = Region(Regions.ch4_gerson, world.player, world.multiworld)
     second_sanctuary = Region(Regions.ch4_second_sanctuary, world.player, world.multiworld)
     third_sanctuary = Region(Regions.ch4_third_sanctuary, world.player, world.multiworld)
     titan_fight = Region(Regions.ch4_titan_fight, world.player, world.multiworld)
@@ -30,9 +39,12 @@ def create_regions(world: "DeltaruneWorld"):
 
     regions = [
         castle_town,
+        dojo,
         mike_room,
         dark_sanctuary,
+        old_man_shop,
         dark_sanctuary_claimbclaws,
+        gerson,
         second_sanctuary,
         third_sanctuary,
         titan_fight,
@@ -46,6 +58,7 @@ def create_regions(world: "DeltaruneWorld"):
 
     world.get_region(Regions.chapter_4).connect(castle_town)
 
+    castle_town.connect(dojo)
     # Require at least one character until you go for no-hit
     castle_town.connect(mike_room, "Mike Room Entrance", have_kris_susie_or_ralsei | Has(glitched_item_name))
     # Require at least one character for Guei fight
@@ -53,23 +66,24 @@ def create_regions(world: "DeltaruneWorld"):
     # If you get the claimbclaws, you can recreate a save to skip Dark Sanctuary but require Kris or Susie for Wingblade fight
     castle_town.connect(
         second_sanctuary,
-        "Second Sanctuary Early Entrance",
-        Has(items[ItemIDs.claimbclaws]) & have_kris_or_susie & Has(glitched_item_name),
+        rule=Has(items[ItemIDs.claimbclaws]) & have_kris_or_susie & Has(glitched_item_name),
     )
     # If you can go to the Second Sanctuary with the previous rule, then you can Wrong Warp to skip Second Sanctuary
     castle_town.connect(
         third_sanctuary,
-        "Third Sanctuary Early Entrance (Skipping Second Sanctuary)",
-        Has(items[ItemIDs.claimbclaws]) & Has(glitched_item_name),
+        rule=Has(items[ItemIDs.claimbclaws]) & Has(glitched_item_name),
     )
 
-    dark_sanctuary.connect(dark_sanctuary_claimbclaws, "ClaimbClaws Required", Has(items[ItemIDs.claimbclaws]))
+    dark_sanctuary.connect(old_man_shop)
+    dark_sanctuary.connect(dark_sanctuary_claimbclaws, rule=Has(items[ItemIDs.claimbclaws]))
+
     # Require Kris or Susie for the Wingblade fight
-    dark_sanctuary_claimbclaws.connect(
-        second_sanctuary, "Second Sanctuary Entrance", Has(items[ItemIDs.sheetmusic]) & have_kris_or_susie
-    )
+    dark_sanctuary_claimbclaws.connect(second_sanctuary, rule=Has(items[ItemIDs.sheetmusic]) & have_kris_or_susie)
+    dark_sanctuary_claimbclaws.connect(gerson, rule=have_susie | Has(glitched_item_name))
 
     second_sanctuary.connect(third_sanctuary)
+
+    third_sanctuary.connect(gerson, rule=have_susie | Has(glitched_item_name))
 
     secret_boss_mandatory = CanReachLocation(
         locations[LocationIDs.ch4_dark_sanctuary_hammer_of_justice_defeat_item_1]
@@ -78,9 +92,9 @@ def create_regions(world: "DeltaruneWorld"):
     # As you can access Third Sanctuary out of logic without any character, it's required for Titan
     third_sanctuary.connect(
         titan_fight,
-        "Access to Chapter 4 Completion",
-        secret_boss_mandatory
+        rule=secret_boss_mandatory
         & Has(items[ItemIDs.combination_lock_digit], FromOption(MacGuffinChapter4))
         & have_kris_and_susie,
     )
+
     titan_fight.connect(light_world)

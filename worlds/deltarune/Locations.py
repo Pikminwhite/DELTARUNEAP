@@ -8,6 +8,7 @@ if TYPE_CHECKING:
 
 class LocationGroups(str, Enum):
     castle_town = "Castle Town"
+    cross_chapter = "Cross Chapter"
     chapter1 = "Chapter 1"
     chapter2 = "Chapter 2"
     chapter3 = "Chapter 3"
@@ -300,7 +301,7 @@ class LocationIDs(IntEnum):
     ch4_lost_organikk = 1224
     ch1_lost_hathy = 1248
     ch1_lost_ponman = 1249
-    ch1_lost_rabbick = 1250
+    cc_lost_rabbick = 1250
     ch1_lost_bloxer = 1251
     ch1_lost_jigsawry = 1252
     ch1_lost_rudinn_ranger = 1253
@@ -372,7 +373,7 @@ locations = {
     LocationIDs.ch1_lost_hathy: "CH1: Fields - Lost Hathy",
     LocationIDs.ch1_lost_jigsawry: "CH1: Fields - Lost Jigsawry",
     LocationIDs.ch1_lost_ponman: "CH1: Great Board - Lost Ponman",
-    LocationIDs.ch1_lost_rabbick: "CH1: Forest - Lost Rabbick",
+    LocationIDs.cc_lost_rabbick: "Cross Chapter - Lost Rabbick",
     LocationIDs.ch1_lost_bloxer: "CH1: Forest - Lost Bloxer",
     LocationIDs.ch1_lost_rudinn_ranger: "CH1: Card Castle - Lost Rudinn Ranger",
     LocationIDs.ch1_lost_head_hathy: "CH1: Card Castle - Lost Head Hathy",

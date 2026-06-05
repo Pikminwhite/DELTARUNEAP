@@ -19,6 +19,10 @@ def create_regions(world: "DeltaruneWorld"):
 
     regions = [chapter_select, fusion]
 
+    if world.has_at_least_one_chapter_included([1, 3]):
+        lost_rabbick = Region(Regions.lost_rabbick, world.player, world.multiworld)
+        regions.append(lost_rabbick)
+
     if world.include_chapter(1):
         chapter_1 = Region(Regions.chapter_1, world.player, world.multiworld)
         chapter_select.connect(

@@ -58,5 +58,15 @@ cross_chapter_locations: dict = {
             and world.is_weird_route(),
             group=LocationGroups.castle_town,
         ),
-    ]
+    ],
+    Regions.lost_rabbick: [
+        LocationData(
+            LocationIDs.cc_lost_rabbick,
+            should_be_included=lambda world: world.is_weird_route()
+            and (
+                world.include_chapter(3) or (world.include_chapter(1) and world.is_chapter_1_recruit_system_enabled())
+            ),
+            group=LocationGroups.cross_chapter,
+        ),
+    ],
 }

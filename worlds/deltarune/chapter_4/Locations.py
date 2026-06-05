@@ -10,11 +10,13 @@ if TYPE_CHECKING:
 chapter4_locations = {
     Regions.ch4_castle_town: [
         LocationData(
-            LocationIDs.ch4_castle_town_lanino_elnina_challenge,
+            LocationIDs.ch4_castle_town_top_chef_gift,
             group=LocationGroups.chapter4,
         ),
+    ],
+    Regions.ch4_dojo: [
         LocationData(
-            LocationIDs.ch4_castle_town_top_chef_gift,
+            LocationIDs.ch4_castle_town_lanino_elnina_challenge,
             group=LocationGroups.chapter4,
         ),
     ],
@@ -95,10 +97,6 @@ chapter4_locations = {
             group=LocationGroups.chapter4,
         ),
         LocationData(
-            LocationIDs.ch4_dark_sanctuary_library_chest_1,
-            group=LocationGroups.chapter4,
-        ),
-        LocationData(
             LocationIDs.ch4_dark_sanctuary_worship_room_chest,
             group=LocationGroups.chapter4,
         ),
@@ -107,13 +105,13 @@ chapter4_locations = {
             group=LocationGroups.chapter4,
         ),
         LocationData(
+            LocationIDs.ch4_dark_sanctuary_library_chest_1,
+            group=LocationGroups.chapter4,
+        ),
+        LocationData(
             LocationIDs.ch4_dark_sanctuary_library_chest_2,
             group=LocationGroups.chapter4,
         ),
-        LocationData(LocationIDs.ch4_old_man_shop_1, group=LocationGroups.chapter4),
-        LocationData(LocationIDs.ch4_old_man_shop_2, group=LocationGroups.chapter4),
-        LocationData(LocationIDs.ch4_old_man_shop_3, group=LocationGroups.chapter4),
-        LocationData(LocationIDs.ch4_old_man_shop_4, group=LocationGroups.chapter4),
         LocationData(
             LocationIDs.ch4_recruit_guei,
             should_be_included=lambda world: world.is_all_recruits(),
@@ -155,6 +153,12 @@ chapter4_locations = {
             group=LocationGroups.chapter4,
         ),
     ],
+    Regions.ch4_old_man_shop: [
+        LocationData(LocationIDs.ch4_old_man_shop_1, group=LocationGroups.chapter4),
+        LocationData(LocationIDs.ch4_old_man_shop_2, group=LocationGroups.chapter4),
+        LocationData(LocationIDs.ch4_old_man_shop_3, group=LocationGroups.chapter4),
+        LocationData(LocationIDs.ch4_old_man_shop_4, group=LocationGroups.chapter4),
+    ],
     Regions.ch4_dark_sanctuary_claimbclaws: [
         LocationData(
             LocationIDs.ch4_dark_sanctuary_jackenstein_gift,
@@ -181,14 +185,6 @@ chapter4_locations = {
             group=LocationGroups.chapter4,
         ),
         LocationData(
-            LocationIDs.ch4_dark_sanctuary_hammer_of_justice_defeat_item_1,
-            group=LocationGroups.chapter4,
-        ),
-        LocationData(
-            LocationIDs.ch4_dark_sanctuary_hammer_of_justice_defeat_item_2,
-            group=LocationGroups.chapter4,
-        ),
-        LocationData(
             LocationIDs.ch4_recruit_miss_mizzle,
             should_be_included=lambda world: world.is_all_recruits(),
             group=LocationGroups.chapter4,
@@ -196,6 +192,16 @@ chapter4_locations = {
         LocationData(
             LocationIDs.ch4_lost_miss_mizzle,
             should_be_included=lambda world: world.is_weird_route(),
+            group=LocationGroups.chapter4,
+        ),
+    ],
+    Regions.ch4_gerson: [
+        LocationData(
+            LocationIDs.ch4_dark_sanctuary_hammer_of_justice_defeat_item_1,
+            group=LocationGroups.chapter4,
+        ),
+        LocationData(
+            LocationIDs.ch4_dark_sanctuary_hammer_of_justice_defeat_item_2,
             group=LocationGroups.chapter4,
         ),
     ],

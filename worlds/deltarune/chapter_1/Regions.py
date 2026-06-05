@@ -72,6 +72,7 @@ def create_regions(world: "DeltaruneWorld"):
         bake_sale,
         rule=Has(items[ItemIDs.bake_sale_ticket]) & (have_kris_or_ralsei | Has(glitched_item_name)),
     )
+    forest.connect(world.get_region(Regions.lost_rabbick))
 
     bake_sale.connect(forest_post_bake_sale)
 

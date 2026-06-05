@@ -11,6 +11,7 @@ if TYPE_CHECKING:
 class Regions(StrEnum):
     chapter_select = "Chapter Select"
     fusion = "Fusion"
+    lost_rabbick = "Cross Chapter: Lost Rabbick"
 
     chapter_1 = "Chapter 1"
     ch1_unknown = "CH1: ??????"
@@ -67,9 +68,12 @@ class Regions(StrEnum):
 
     chapter_4 = "Chapter 4"
     ch4_castle_town = "CH4: Castle Town"
+    ch4_dojo = "CH4: Dojo"
     ch4_mike_room = "CH4: Mike Room"
     ch4_dark_sanctuary = "CH4: Dark Sanctuary"
+    ch4_old_man_shop = "CH4: Old Man's Shop"
     ch4_dark_sanctuary_claimbclaws = "CH4: Dark Sanctuary (ClaimbClaws Required)"
+    ch4_gerson = "CH4: Gerson"
     ch4_second_sanctuary = "CH4: Second Sanctuary"
     ch4_third_sanctuary = "CH4: Third Sanctuary"
     ch4_titan_fight = "CH4: Titan Fight"

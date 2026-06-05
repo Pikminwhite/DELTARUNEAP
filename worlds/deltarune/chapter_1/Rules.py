@@ -51,7 +51,7 @@ def set_rules(world: "DeltaruneWorld"):
             world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_hathy]), can_lost_chapter1_pre_castle)
             world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_jigsawry]), can_lost_chapter1_pre_castle)
             world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_ponman]), can_lost_chapter1_pre_castle)
-            world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_rabbick]), can_lost_chapter1_pre_castle)
+            world.set_rule(world.get_location(locations[LocationIDs.cc_lost_rabbick]), can_lost_chapter1_pre_castle)
             world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_bloxer]), can_lost_chapter1_pre_castle)
             world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_head_hathy]), have_kris_susie_or_ralsei)
             world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_rudinn_ranger]), have_kris_susie_or_ralsei)
