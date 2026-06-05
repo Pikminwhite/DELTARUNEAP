@@ -4,11 +4,13 @@ from worlds.deltarune.Locations import LocationData, LocationData, LocationGroup
 from worlds.deltarune.Regions import Regions
 
 chapter1_locations = {
-    Regions.ch1_castle_town: [
+    Regions.ch1_unknown: [
         LocationData(
             LocationIDs.ch1_unknown_hidden_item,
             group=LocationGroups.chapter1,
         ),
+    ],
+    Regions.ch1_castle_town: [
         LocationData(LocationIDs.ch1_castle_town_manual, group=LocationGroups.chapter1),
         LocationData(LocationIDs.ch1_throw_away_manual, group=LocationGroups.chapter1),
         LocationData(
@@ -38,14 +40,6 @@ chapter1_locations = {
             group=LocationGroups.chapter1,
         ),
         LocationData(
-            LocationIDs.ch1_seam_seap_talk_about_strange_prisoner,
-            group=LocationGroups.chapter1,
-        ),
-        LocationData(LocationIDs.ch1_seam_seap_1, group=LocationGroups.chapter1),
-        LocationData(LocationIDs.ch1_seam_seap_2, group=LocationGroups.chapter1),
-        LocationData(LocationIDs.ch1_seam_seap_3, group=LocationGroups.chapter1),
-        LocationData(LocationIDs.ch1_seam_seap_4, group=LocationGroups.chapter1),
-        LocationData(
             LocationIDs.ch1_recruit_rudinn,
             should_be_included=lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_all_recruits(),
             group=LocationGroups.chapter1,
@@ -57,11 +51,6 @@ chapter1_locations = {
         ),
         LocationData(
             LocationIDs.ch1_recruit_jigsawry,
-            should_be_included=lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_all_recruits(),
-            group=LocationGroups.chapter1,
-        ),
-        LocationData(
-            LocationIDs.ch1_recruit_ponman,
             should_be_included=lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_all_recruits(),
             group=LocationGroups.chapter1,
         ),
@@ -78,6 +67,23 @@ chapter1_locations = {
         LocationData(
             LocationIDs.ch1_lost_jigsawry,
             should_be_included=lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_weird_route(),
+            group=LocationGroups.chapter1,
+        ),
+    ],
+    Regions.ch1_seam_seap: [
+        LocationData(LocationIDs.ch1_seam_seap_1, group=LocationGroups.chapter1),
+        LocationData(LocationIDs.ch1_seam_seap_2, group=LocationGroups.chapter1),
+        LocationData(LocationIDs.ch1_seam_seap_3, group=LocationGroups.chapter1),
+        LocationData(LocationIDs.ch1_seam_seap_4, group=LocationGroups.chapter1),
+        LocationData(
+            LocationIDs.ch1_seam_seap_talk_about_strange_prisoner,
+            group=LocationGroups.chapter1,
+        ),
+    ],
+    Regions.ch1_great_board: [
+        LocationData(
+            LocationIDs.ch1_recruit_ponman,
+            should_be_included=lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_all_recruits(),
             group=LocationGroups.chapter1,
         ),
         LocationData(
@@ -136,6 +142,8 @@ chapter1_locations = {
             LocationIDs.ch1_bake_sale_spade_stand,
             group=LocationGroups.chapter1,
         ),
+    ],
+    Regions.ch1_forest_post_bake_sale: [
         LocationData(
             LocationIDs.ch1_forest_scissor_dancers_chest,
             group=LocationGroups.chapter1,
@@ -173,22 +181,6 @@ chapter1_locations = {
             group=LocationGroups.chapter1,
         ),
         LocationData(
-            LocationIDs.ch1_card_castle_jevil_1,
-            group=LocationGroups.chapter1,
-        ),
-        LocationData(
-            LocationIDs.ch1_card_castle_jevil_2,
-            group=LocationGroups.chapter1,
-        ),
-        LocationData(
-            LocationIDs.ch1_card_castle_jevil_3,
-            group=LocationGroups.chapter1,
-        ),
-        LocationData(LocationIDs.ch1_rouxls_shop_1, group=LocationGroups.chapter1),
-        LocationData(LocationIDs.ch1_rouxls_shop_2, group=LocationGroups.chapter1),
-        LocationData(LocationIDs.ch1_rouxls_shop_3, group=LocationGroups.chapter1),
-        LocationData(LocationIDs.ch1_rouxls_shop_4, group=LocationGroups.chapter1),
-        LocationData(
             LocationIDs.ch1_recruit_rudinn_ranger,
             should_be_included=lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_all_recruits(),
             group=LocationGroups.chapter1,
@@ -206,6 +198,26 @@ chapter1_locations = {
         LocationData(
             LocationIDs.ch1_lost_head_hathy,
             should_be_included=lambda world: world.is_chapter_1_recruit_system_enabled() and world.is_weird_route(),
+            group=LocationGroups.chapter1,
+        ),
+    ],
+    Regions.ch1_rouxls: [
+        LocationData(LocationIDs.ch1_rouxls_shop_1, group=LocationGroups.chapter1),
+        LocationData(LocationIDs.ch1_rouxls_shop_2, group=LocationGroups.chapter1),
+        LocationData(LocationIDs.ch1_rouxls_shop_3, group=LocationGroups.chapter1),
+        LocationData(LocationIDs.ch1_rouxls_shop_4, group=LocationGroups.chapter1),
+    ],
+    Regions.ch1_jevil: [
+        LocationData(
+            LocationIDs.ch1_card_castle_jevil_1,
+            group=LocationGroups.chapter1,
+        ),
+        LocationData(
+            LocationIDs.ch1_card_castle_jevil_2,
+            group=LocationGroups.chapter1,
+        ),
+        LocationData(
+            LocationIDs.ch1_card_castle_jevil_3,
             group=LocationGroups.chapter1,
         ),
     ],

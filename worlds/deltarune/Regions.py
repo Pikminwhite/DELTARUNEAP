@@ -1,7 +1,7 @@
 from enum import StrEnum
 
 from BaseClasses import Region
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 from worlds.deltarune.Locations import DeltaruneLocation, LocationData, locations as all_locations
 
 if TYPE_CHECKING:
@@ -13,22 +13,33 @@ class Regions(StrEnum):
     fusion = "Fusion"
 
     chapter_1 = "Chapter 1"
+    ch1_unknown = "CH1: ??????"
     ch1_castle_town = "CH1: Castle Town"
     ch1_fields = "CH1: Fields"
     ch1_fields_post_hathy = "CH1: Fields (Post-Hathy)"
+    ch1_seam_seap = "CH1: Seam's Seap"
+    ch1_great_board = "CH1: Great Board"
     ch1_forest = "CH1: Forest"
     ch1_bake_sale = "CH1: Bake Sale"
+    ch1_forest_post_bake_sale = "CH1: Forest (Post-Bake Sale)"
     ch1_card_castle = "CH1: Card Castle"
+    ch1_rouxls = "CH1: Rouxls' shop"
     ch1_jevil = "CH1: Jevil"
     ch1_light_world = "CH1: Light World"
 
     chapter_2 = "Chapter 2"
     ch2_castle_town = "CH2: Castle Town"
+    ch2_dojo = "CH2: Dojo"
     ch2_cyber_field = "CH2: Cyber Field"
     ch2_cyber_field_post_dj = "CH2: Cyber Field (Post-DJ)"
-    ch2_trash_zone = "CH2 : Trash Zone"
+    ch2_music_shop = "CH2: Music Shop"
+    ch2_trash_zone = "CH2: Trash Zone"
+    ch2_spamton_shop = "CH2: Spamton's Shop"
     ch2_cyber_city = "CH2: Cyber City"
+    ch2_cyber_city_spamton_fight = "CH2: Cyber City (Spamton fight)"
+    ch2_cyber_city_post_spamton = "CH2: Cyber City (Post-Spamton)"
     ch2_mansion_lobby = "CH2: Mansion Lobby"
+    ch2_swatch_cafe = "CH2: Swatch's Cafe"
     ch2_mansion = "CH2: Mansion"
     ch2_mansion_basement = "CH2: Mansion Basement"
     ch2_tunnel_of_love = "CH2: Tunnel of love"
@@ -71,3 +82,12 @@ def add_location_to_region(region: Region, locations: list[LocationData], world:
             region.locations.append(
                 DeltaruneLocation(region.player, all_locations[location.id], location.id.value, region)
             )
+
+
+def get_entrance_name(origin: Region, destination: Region, complement: str = None):
+    text = f"{origin.name.replace(":", "")} -> {destination.name.replace(":", "")}"
+
+    if complement != None:
+        text += f" ({complement})"
+
+    return text
