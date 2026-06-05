@@ -599,6 +599,12 @@ class DeltaruneWorld(World):
 
         set_completion_goal(self)
 
+        # from Utils import visualize_regions
+
+        # state = self.multiworld.get_all_state(False)
+        # state.update_reachable_regions(self.player)
+        # visualize_regions(self.get_region(self.origin_region_name), f"deltarune_regions{self.player}.puml")
+
     def handle_progressive_weapon(
         self,
         itempool: list[ItemData],
