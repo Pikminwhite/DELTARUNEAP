@@ -7,7 +7,7 @@ from rule_builder.rules import CanReachLocation, Has
 from worlds.deltarune.Items import ItemIDs, items, glitched_item_name
 from worlds.deltarune.Options import MacGuffinChapter1, RandomizeSecretBosses
 from worlds.deltarune.Regions import add_location_to_region, Regions, get_entrance_name
-from worlds.deltarune.Rules import have_kris_or_ralsei, have_kris_susie_or_ralsei
+from worlds.deltarune.Rules import have_kris_or_ralsei, have_kris_susie_or_ralsei, have_kris
 from worlds.deltarune.Locations import LocationIDs, locations
 from worlds.deltarune.chapter_1.Locations import chapter1_locations
 
@@ -64,8 +64,8 @@ def create_regions(world: "DeltaruneWorld"):
     # Any character is required for the Jigsawry fight
     fields_post_hathy.connect(great_board, rule=have_kris_susie_or_ralsei)
 
-    # Kris or Ralsei required for K.Round fight
-    great_board.connect(forest, rule=have_kris_or_ralsei)
+    # Kris required for K.Round fight
+    great_board.connect(forest, rule=have_kris)
 
     # Bake Sale Ticket is required to enter and Kris or Ralsei is required for Clover fight unless you do ARMS glitch
     forest.connect(
@@ -92,5 +92,7 @@ def create_regions(world: "DeltaruneWorld"):
 
     card_castle.connect(
         light_world,
-        rule=secret_boss_mandatory & Has(items[ItemIDs.king_shape_key_piece], FromOption(MacGuffinChapter1)),
+        rule=secret_boss_mandatory
+        & Has(items[ItemIDs.king_shape_key_piece], FromOption(MacGuffinChapter1))
+        & have_kris,
     )
