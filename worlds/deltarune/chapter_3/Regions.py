@@ -10,7 +10,7 @@ from worlds.deltarune.Options import (
     RandomizeMANTLE,
     RandomizeSecretBosses,
 )
-from worlds.deltarune.Regions import Regions, add_location_to_region
+from worlds.deltarune.Regions import Regions, add_location_to_region, get_entrance_name
 from worlds.deltarune.chapter_3.Locations import chapter3_locations
 from worlds.deltarune.Rules import have_actions, have_kris_susie_and_ralsei, have_kris_susie_or_ralsei
 from worlds.deltarune.Items import items, ItemIDs, glitched_item_name
@@ -53,18 +53,23 @@ def create_regions(world: "DeltaruneWorld"):
     world.get_region(Regions.chapter_3).connect(couch_cliffs)
 
     # Require at least one character for Elnina Lanino and shadowguy fights
-    couch_cliffs.connect(board_1, "Board 1 Entrance", have_kris_susie_or_ralsei)
+    couch_cliffs.connect(board_1, rule=have_kris_susie_or_ralsei)
 
     board_1.connect(green_room)
-    board_1.connect(sword_1, "Sword 1 Entrance", Has(items[ItemIDs.odd_controller]))
+    board_1.connect(sword_1, rule=Has(items[ItemIDs.odd_controller]))
 
-    green_room.connect(board_2, "Board 2 Entrance", Has(items[ItemIDs.board_2_cartridge]))
+    green_room.connect(board_2, rule=Has(items[ItemIDs.board_2_cartridge]))
 
     # Require all characters for Turning off Zapper during Doom Board
-    board_2.connect(doom_board, "Doom Board Entrance", have_kris_susie_and_ralsei)
-    board_2.connect(sword_2, "Sword 2 Entrance", Has(items[ItemIDs.ice_key]) & Has(items[ItemIDs.odd_controller]))
+    board_2.connect(doom_board, rule=have_kris_susie_and_ralsei)
+    board_2.connect(sword_2, rule=Has(items[ItemIDs.ice_key]) & Has(items[ItemIDs.odd_controller]))
 
-    doom_board.connect(tv_world, "TV World Entrance", Has(items[ItemIDs.vip_pass]))
+    doom_board.connect(tv_world, rule=Has(items[ItemIDs.vip_pass]))
+
+    tv_world.connect(
+        sword_3,
+        rule=Has(items[ItemIDs.shelter_key]) & Has(items[ItemIDs.ice_key]) & Has(items[ItemIDs.odd_controller]),
+    )
 
     mantle_mandatory = CanReachLocation(
         locations[LocationIDs.ch3_mantle_defeat],
@@ -83,12 +88,5 @@ def create_regions(world: "DeltaruneWorld"):
 
     tv_world.connect(
         cold_place,
-        "Access to Chapter 3 Completion",
-        mantle_mandatory & shadow_mantle & Has(items[ItemIDs.remote_battery], FromOption(MacGuffinChapter3)),
-    )
-
-    tv_world.connect(
-        sword_3,
-        "Sword 3 Entrance",
-        Has(items[ItemIDs.shelter_key]) & Has(items[ItemIDs.ice_key]) & Has(items[ItemIDs.odd_controller]),
+        rule=mantle_mandatory & shadow_mantle & Has(items[ItemIDs.remote_battery], FromOption(MacGuffinChapter3)),
     )

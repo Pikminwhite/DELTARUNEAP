@@ -16,14 +16,18 @@ chapter3_locations = {
         LocationData(LocationIDs.ch3_couch_cliffs_warp_door, group=LocationGroups.chapter3),
     ],
     Regions.ch3_board_1: [
+        LocationData(LocationIDs.ch3_board_1_z_rank, group=LocationGroups.chapter3),
         LocationData(LocationIDs.ch3_board_1_c_rank, group=LocationGroups.chapter3),
         LocationData(LocationIDs.ch3_board_1_b_rank, group=LocationGroups.chapter3),
         LocationData(LocationIDs.ch3_board_1_a_rank, group=LocationGroups.chapter3),
         LocationData(LocationIDs.ch3_board_1_s_rank, group=LocationGroups.chapter3),
+        LocationData(LocationIDs.ch3_board_1_t_rank, group=LocationGroups.chapter3),
         LocationData(LocationIDs.ch3_board_1_extra_key, group=LocationGroups.chapter3),
         LocationData(LocationIDs.ch3_board_1_extra_extra_key, group=LocationGroups.chapter3),
-        LocationData(LocationIDs.ch3_board_1_t_rank, group=LocationGroups.chapter3),
-        LocationData(LocationIDs.ch3_board_1_z_rank, group=LocationGroups.chapter3),
+        LocationData(
+            LocationIDs.ch3_green_room_board_1_ramb_gift,
+            group=LocationGroups.chapter3,
+        ),
         LocationData(
             LocationIDs.ch3_lost_shadowguy,
             should_be_included=lambda world: world.is_weird_route(),
@@ -64,10 +68,6 @@ chapter3_locations = {
         ),
         LocationData(
             LocationIDs.ch3_green_room_vending_machine_8,
-            group=LocationGroups.chapter3,
-        ),
-        LocationData(
-            LocationIDs.ch3_green_room_board_1_ramb_gift,
             group=LocationGroups.chapter3,
         ),
         LocationData(
@@ -113,26 +113,26 @@ chapter3_locations = {
         LocationData(LocationIDs.ch3_s_rank_room_oddcontroller, group=LocationGroups.chapter3),
         LocationData(LocationIDs.ch3_green_room_warp_door, group=LocationGroups.chapter3),
         LocationData(
+            LocationIDs.ch3_recruit_water_cooler,
+            should_be_included=lambda world: world.is_all_recruits(),
+            group=LocationGroups.chapter3,
+        ),
+        LocationData(
             LocationIDs.ch3_lost_water_cooler,
             should_be_included=lambda world: world.is_weird_route(),
             group=LocationGroups.chapter3,
         ),
     ],
     Regions.ch3_board_2: [
+        LocationData(LocationIDs.ch3_board_2_z_rank, group=LocationGroups.chapter3),
         LocationData(LocationIDs.ch3_board_2_c_rank, group=LocationGroups.chapter3),
         LocationData(LocationIDs.ch3_board_2_b_rank, group=LocationGroups.chapter3),
         LocationData(LocationIDs.ch3_board_2_a_rank, group=LocationGroups.chapter3),
         LocationData(LocationIDs.ch3_board_2_s_rank, group=LocationGroups.chapter3),
+        LocationData(LocationIDs.ch3_board_2_t_rank, group=LocationGroups.chapter3),
         LocationData(LocationIDs.ch3_board_2_extra_photo, group=LocationGroups.chapter3),
         LocationData(LocationIDs.ch3_board_2_moss, group=LocationGroups.chapter3),
         LocationData(LocationIDs.ch3_green_room_board_2_ramb_gift, group=LocationGroups.chapter3),
-        LocationData(LocationIDs.ch3_board_2_t_rank, group=LocationGroups.chapter3),
-        LocationData(LocationIDs.ch3_board_2_z_rank, group=LocationGroups.chapter3),
-        LocationData(
-            LocationIDs.ch3_recruit_water_cooler,
-            should_be_included=lambda world: world.is_all_recruits(),
-            group=LocationGroups.chapter3,
-        ),
         LocationData(
             LocationIDs.ch3_recruit_pippins,
             should_be_included=lambda world: world.is_all_recruits(),
@@ -250,7 +250,7 @@ chapter3_locations = {
             group=LocationGroups.chapter3,
         ),
         LocationData(
-            LocationIDs.ch3_s_rank_room_susie_gift,
+            LocationIDs.ch3_mantle_susie_gift,
             should_be_included=lambda world: not world.is_mantleless(),
             group=LocationGroups.chapter3,
         ),

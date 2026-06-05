@@ -200,7 +200,7 @@ class LocationIDs(IntEnum):
     ch3_board_2_moss = 181
     ch3_mantle_out_of_bounds_chest = 182
     ch3_mantle_northern_light_item = 183
-    ch3_s_rank_room_susie_gift = 184
+    ch3_mantle_susie_gift = 184
     ch1_fountain_sealed = 185
     ch2_fountain_sealed = 186
     ch3_fountain_sealed = 187
@@ -485,7 +485,6 @@ locations = {
     LocationIDs.ch3_s_rank_room_vending_machine_3: "CH3: S-Rank Room - Vending Machine 3",
     LocationIDs.ch3_s_rank_room_vending_machine_4: "CH3: S-Rank Room - Vending Machine 4",
     LocationIDs.ch3_s_rank_room_oddcontroller: "CH3: S-Rank Room - OddController",
-    LocationIDs.ch3_s_rank_room_susie_gift: "CH3: S-Rank Room - Susie's Gift",
     LocationIDs.ch3_board_2_c_rank: "CH3: Board 2 - C-Rank",
     LocationIDs.ch3_board_2_b_rank: "CH3: Board 2 - B-Rank",
     LocationIDs.ch3_board_2_a_rank: "CH3: Board 2 - A-Rank",
@@ -527,6 +526,7 @@ locations = {
     LocationIDs.ch3_mantle_out_of_bounds_chest: "CH3: MANTLE - Out of Bounds Chest",
     LocationIDs.ch3_mantle_northern_light_item: "CH3: MANTLE - Northern Light Item",
     LocationIDs.ch3_mantle_defeat: "CH3: MANTLE - Defeat",
+    LocationIDs.ch3_mantle_susie_gift: "CH3: MANTLE - Susie's Gift",
     LocationIDs.ch3_cold_place_knight_defeat_item_1: "CH3: Cold Place - Knight Defeat Item #1",
     LocationIDs.ch3_cold_place_knight_defeat_item_2: "CH3: Cold Place - Knight Defeat Item #2",
     LocationIDs.ch3_couch_cliffs_warp_door: "CH3: Couch Cliffs - Warp Door",

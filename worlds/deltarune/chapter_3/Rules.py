@@ -75,7 +75,7 @@ def handle_locked_items(world: "DeltaruneWorld"):
             multiworld.get_location(locations[LocationIDs.ch3_mantle_defeat], player).place_locked_item(
                 world.create_item(items[ItemIDs.shadowmantle])
             )
-        multiworld.get_location(locations[LocationIDs.ch3_s_rank_room_susie_gift], player).place_locked_item(
+        multiworld.get_location(locations[LocationIDs.ch3_mantle_susie_gift], player).place_locked_item(
             world.create_item(items[ItemIDs.flatsoda])
         )
         multiworld.get_location(locations[LocationIDs.ch3_mantle_out_of_bounds_chest], player).place_locked_item(

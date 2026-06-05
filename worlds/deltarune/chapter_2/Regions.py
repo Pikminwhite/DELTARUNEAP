@@ -73,19 +73,16 @@ def create_regions(world: "DeltaruneWorld"):
 
     world.get_region(Regions.chapter_2).connect(castle_town)
     # Require Kris or Susie for the werewire fight
-    world.get_region(Regions.chapter_2).connect(
-        cyber_field, get_entrance_name(world.get_region(Regions.chapter_2), cyber_field), have_kris_or_susie
-    )
+    world.get_region(Regions.chapter_2).connect(cyber_field, rule=have_kris_or_susie)
 
     castle_town.connect(dojo)
     # Require Kris or Susie for the werewire fight
-    castle_town.connect(cyber_field, get_entrance_name(castle_town, cyber_field), have_kris_or_susie)
+    castle_town.connect(cyber_field, rule=have_kris_or_susie)
 
     # Require actions and at least one character for DJ-fight unless you ww into the fight (but can't end it) or Bagel Overflow to mansion and come back with plot value updated
     cyber_field.connect(
         cyber_field_post_dj,
-        get_entrance_name(cyber_field, cyber_field_post_dj),
-        (have_actions & have_kris_susie_or_ralsei),
+        rule=(have_actions & have_kris_susie_or_ralsei),
     )
     cyber_field.connect(
         trash_zone, get_entrance_name(cyber_field_post_dj, trash_zone, "BagelOverflow"), Has(glitched_item_name)
@@ -102,16 +99,15 @@ def create_regions(world: "DeltaruneWorld"):
     # Require Safety vest and at least one character for berdly fight or Bagel Overflow to Trash Zone
     cyber_field_post_dj.connect(
         trash_zone,
-        get_entrance_name(cyber_field_post_dj, trash_zone),
-        (Has(items[ItemIDs.safety_vest]) & have_kris_susie_or_ralsei),
+        rule=(Has(items[ItemIDs.safety_vest]) & have_kris_susie_or_ralsei),
     )
 
     # Require Kris or Noelle for the Virovirokun after noelle
-    trash_zone.connect(cyber_city, get_entrance_name(trash_zone, cyber_city), have_kris_or_noelle)
+    trash_zone.connect(cyber_city, rule=have_kris_or_noelle)
 
     # Require Kris for Spamton fight unless you skip it with an Interaction Slide
-    cyber_city.connect(cyber_city_spamton_fight, get_entrance_name(cyber_city, cyber_city_spamton_fight), have_kris)
-    cyber_city.connect(mansion_lobby, get_entrance_name(cyber_city, mansion_lobby), can_snowgrave)
+    cyber_city.connect(cyber_city_spamton_fight, rule=have_kris)
+    cyber_city.connect(mansion_lobby, rule=can_snowgrave)
     cyber_city.connect(
         cyber_city_post_spamton,
         get_entrance_name(cyber_city, cyber_city_post_spamton, "Interaction Slide"),
@@ -126,33 +122,28 @@ def create_regions(world: "DeltaruneWorld"):
     # Require you to being able to spare spamton
     mansion_lobby.connect(
         spamton_shop,
-        get_entrance_name(mansion_lobby, spamton_shop),
-        CanReachRegion(Regions.ch2_cyber_city_post_spamton),
+        rule=CanReachRegion(Regions.ch2_cyber_city_post_spamton),
     )
-    mansion_lobby.connect(mansion, get_entrance_name(mansion_lobby, mansion), Has(items[ItemIDs.mansion_reservation]))
-    mansion_lobby.connect(mansion_recruits, get_entrance_name(mansion_lobby, mansion_recruits), can_snowgrave)
-    mansion_lobby.connect(werewerewire, get_entrance_name(mansion_lobby, werewerewire), can_snowgrave)
+    mansion_lobby.connect(mansion, rule=Has(items[ItemIDs.mansion_reservation]))
+    mansion_lobby.connect(mansion_recruits, rule=can_snowgrave)
+    mansion_lobby.connect(werewerewire, rule=can_snowgrave)
     mansion_lobby.connect(
         spamton_neo,
-        get_entrance_name(mansion_lobby, spamton_neo),
-        Has(items[ItemIDs.keygen_2_segment], FromOption(MacGuffinChapter2)) & can_snowgrave & have_kris,
+        rule=Has(items[ItemIDs.keygen_2_segment], FromOption(MacGuffinChapter2)) & can_snowgrave & have_kris,
     )
 
     spamton_neo.connect(
         post_chapter_castle_town,
-        get_entrance_name(spamton_neo, post_chapter_castle_town),
-        can_snowgrave,
+        rule=can_snowgrave,
     )
 
     mansion.connect(mansion_recruits)
-    mansion.connect(mansion_basement, get_entrance_name(mansion, mansion_basement), Has(items[ItemIDs.keygen]))
-    mansion.connect(tunnel_of_love, get_entrance_name(mansion, tunnel_of_love), have_kris_or_ralsei)
+    mansion.connect(mansion_basement, rule=Has(items[ItemIDs.keygen]))
+    mansion.connect(tunnel_of_love, rule=have_kris_or_ralsei)
 
     tunnel_of_love.connect(werewerewire)
 
-    mansion_basement.connect(
-        spamton_neo, get_entrance_name(mansion_basement, spamton_neo), Has(items[ItemIDs.emptydisk])
-    )
+    mansion_basement.connect(spamton_neo, rule=Has(items[ItemIDs.emptydisk]))
 
     secret_boss_mandatory = CanReachLocation(locations[LocationIDs.ch2_mansion_spamton_neo_defeat_item_1]) | [
         OptionFilter(RandomizeSecretBosses, RandomizeSecretBosses.option_mandatory, operator="ne")
@@ -160,6 +151,5 @@ def create_regions(world: "DeltaruneWorld"):
 
     tunnel_of_love.connect(
         post_chapter_castle_town,
-        get_entrance_name(tunnel_of_love, post_chapter_castle_town),
-        secret_boss_mandatory & Has(items[ItemIDs.keygen_2_segment], FromOption(MacGuffinChapter2)),
+        rule=secret_boss_mandatory & Has(items[ItemIDs.keygen_2_segment], FromOption(MacGuffinChapter2)),
     )
