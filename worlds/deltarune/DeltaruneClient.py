@@ -5,6 +5,7 @@ import typing
 import bsdiff4
 import shutil
 import json
+import hashlib
 
 import Utils
 
@@ -123,9 +124,57 @@ Both gaining and losing recruits have been turned into checks."""
                     ' command. "/auto_patch (Steam directory)".'
                 )
             else:
-                shutil.copytree(pathInstall, Utils.user_path("DELTARUNE"), dirs_exist_ok=True)
-                self.ctx.patch_game()
-                self.output("Patching successful!")
+                error = False
+                matching_hash = [
+                    "9D1FEA9DE81219EA7304F32F1AE7A878",
+                    "276441245F2F9C11061E36370E6E9C9D",
+                    "F0ECF91309E55E93C1A9D6E10AF1064F",
+                    "A3CC0CE00949C538DEC395BC07097069",
+                    "300559ED63E1009FD694DEB2784BF1C6",
+                ]
+                matching_hash_1_05 = [
+                    "5D3E158DBE6888FBF24471019FBDE3C9",
+                    "F2CA0969E982C9DEDC77EA5EC0DB0972",
+                    "D96E6AFD0B40F8B4A39CAE86D0F89A0B",
+                    "A3D804E9B101C0D1A6C71117DA214F71",
+                    "591BF5321C70F17818559B8A50A99A7F",
+                ]
+                matching_hash_1_05_30TBPS = [
+                    "7A0DDC20059BDFB56E7E5523B0B65ABF",
+                    "DEE4F1831C7438AEDD375DBE1B587C3F",
+                    "51ABC72791C0AFA533F2DB1D7BE3D44E",
+                    "085C34120F7E25B0766E105A56B14B0B",
+                    "E5DA918F0C064AAE5068F871E5885605",
+                ]
+                for chapter in range(0, 5):
+                    additional_path = ""
+                    file_name = "data.win"
+
+                    if chapter > 0:
+                        additional_path = f"chapter{chapter}_windows/"
+
+                    hash = ""
+
+                    with open(f"{pathInstall}/{additional_path}{file_name}", "rb") as f:
+                        hash = hashlib.file_digest(f, "md5").hexdigest().upper()
+
+                    if hash != matching_hash[chapter]:
+                        self.output(
+                            f"{pathInstall}/{additional_path}{file_name} is not DELTARUNE 1.04 Vanilla. (Is your game 1.05 or modded ?)"
+                        )
+                        if hash == matching_hash_1_05[chapter]:
+                            self.output("Detected as 1.05")
+                        elif hash == matching_hash_1_05_30TBPS[chapter]:
+                            self.output("Are you a speedrunner ? Because 1.05 30TBPS is detected")
+                        else:
+                            self.output(f"Expected: {matching_hash[chapter]}, got {hash}")
+
+                        error = True
+
+                if not error:
+                    shutil.copytree(pathInstall, Utils.user_path("DELTARUNE"), dirs_exist_ok=True)
+                    self.ctx.patch_game()
+                    self.output("Patching successful!")
 
 
 class DeltaruneContext(SuperContext):
