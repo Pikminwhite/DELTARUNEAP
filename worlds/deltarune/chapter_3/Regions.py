@@ -90,6 +90,7 @@ def create_regions(world: "DeltaruneWorld"):
     shadow_mantle = (
         Has(items[ItemIDs.shadowmantle])
         | OptionFilter(IncludeShadowMantle, IncludeShadowMantle.option_false)
+        | OptionFilter(RandomizeSecretBosses, RandomizeSecretBosses.option_mandatory, operator="ne")
         | Has(glitched_item_name)
     )
 
