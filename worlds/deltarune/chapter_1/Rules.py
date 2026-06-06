@@ -79,10 +79,11 @@ def handle_locked_items(world: "DeltaruneWorld"):
         multiworld.get_location(locations[LocationIDs.ch1_card_castle_moss], player).place_locked_item(
             world.create_item(items[ItemIDs.castle_moss])
         )
+
+    if not world.is_secret_bosses_items_requirement_randomized():
         multiworld.get_location(
             locations[LocationIDs.ch1_seam_seap_talk_about_strange_prisoner], player
         ).place_locked_item(world.create_item(items[ItemIDs.broken_key_a]))
-
         multiworld.get_location(locations[LocationIDs.ch1_forest_hidden_chest_near_dancers], player).place_locked_item(
             world.create_item(items[ItemIDs.broken_key_b])
         )

@@ -189,13 +189,15 @@ chapter2_items = [
     ItemData(
         ItemIDs.emptydisk,
         ItemClassification.progression,
-        should_be_included=lambda world: world.is_not_weird_route_only() and world.is_hidden_items_randomized(),
+        should_be_included=lambda world: world.is_not_weird_route_only()
+        and world.is_secret_bosses_items_requirement_randomized(),
         groups=[ItemGroups.spamton_access],
     ),
     ItemData(
         ItemIDs.keygen,
         ItemClassification.progression,
-        should_be_included=lambda world: world.is_not_weird_route_only() and world.is_hidden_items_randomized(),
+        should_be_included=lambda world: world.is_not_weird_route_only()
+        and world.is_secret_bosses_items_requirement_randomized(),
         groups=[ItemGroups.spamton_access],
     ),
     ItemData(

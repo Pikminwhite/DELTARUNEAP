@@ -218,13 +218,28 @@ class IncludeHiddenItems(Toggle):
 
     - **Golden Prizes**
     - **Eggs**
-    - **Broken Keys, Door Key, KeyGen, Empty Disk**
     - **Dog Dollars**
     - **Moss**
     """
 
     display_name = "Randomize Grindy/Hidden Items"
     default = 0
+
+
+class IncludeSecretBossesItemsRequirement(Toggle):
+    """
+    RANDOMIZES ITEMS THAT ARE NEEDED TO FIGHT SECRET BOSSES.
+
+    - **Broken Keys**
+    - **Door Key**
+    - **KeyGen**
+    - **Empty Disk**
+
+    *(For MANTLE items, see the mantle option)*
+    """
+
+    display_name = "Randomize Items required for Secret Bosses"
+    default = 1
 
 
 class RemoveStartingEquipment(Toggle):
@@ -632,6 +647,7 @@ deltarune_option_groups = [
         "Items",
         [
             IncludeHiddenItems,
+            IncludeSecretBossesItemsRequirement,
             IncludeUnusedItems,
             ProgressiveKrisWeapons,
             ProgressiveSusieWeapons,
@@ -670,6 +686,7 @@ class DeltaruneOptions(PerGameCommonOptions):
     exclude_t_rank: ExcludeTRank
     exclude_z_rank: ExcludeZRank
     include_hidden_items: IncludeHiddenItems
+    include_secret_bosses_items_requirement: IncludeSecretBossesItemsRequirement
     include_unused_items: IncludeUnusedItems
     death_link: DeathLink
     filler_healing_weight: FillerHealingWeight

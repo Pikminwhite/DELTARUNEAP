@@ -70,25 +70,25 @@ chapter1_items = [
     ItemData(
         ItemIDs.broken_key_a,
         ItemClassification.progression,
-        should_be_included=lambda world: world.is_hidden_items_randomized(),
+        should_be_included=lambda world: world.is_secret_bosses_items_requirement_randomized(),
         groups=[ItemGroups.jevil_keys],
     ),
     ItemData(
         ItemIDs.broken_key_b,
         ItemClassification.progression,
-        should_be_included=lambda world: world.is_hidden_items_randomized(),
+        should_be_included=lambda world: world.is_secret_bosses_items_requirement_randomized(),
         groups=[ItemGroups.jevil_keys],
     ),
     ItemData(
         ItemIDs.broken_key_c,
         ItemClassification.progression,
-        should_be_included=lambda world: world.is_hidden_items_randomized(),
+        should_be_included=lambda world: world.is_secret_bosses_items_requirement_randomized(),
         groups=[ItemGroups.jevil_keys],
     ),
     ItemData(
         ItemIDs.door_key,
         ItemClassification.progression,
-        should_be_included=lambda world: world.is_hidden_items_randomized(),
+        should_be_included=lambda world: world.is_secret_bosses_items_requirement_randomized(),
         groups=[ItemGroups.jevil_keys],
     ),
     ItemData(

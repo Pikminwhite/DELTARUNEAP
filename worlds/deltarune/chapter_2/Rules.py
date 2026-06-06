@@ -96,14 +96,8 @@ def handle_locked_items(world: "DeltaruneWorld"):
             ).place_locked_item(world.create_item(items[ItemIDs.dealmaker]))
 
     # Hidden items
-    if not world.is_hidden_items_randomized():
-        if world.is_not_weird_route_only():
-            multiworld.get_location(locations[LocationIDs.ch2_spamton_shop_1], player).place_locked_item(
-                world.create_item(items[ItemIDs.keygen])
-            )
-            multiworld.get_location(locations[LocationIDs.ch2_mansion_basement_mechanism], player).place_locked_item(
-                world.create_item(items[ItemIDs.emptydisk])
-            )
+    if world.is_not_weird_route_only():
+        if not world.is_hidden_items_randomized():
             multiworld.get_location(locations[LocationIDs.ch2_cyber_city_man], player).place_locked_item(
                 world.create_item(items[ItemIDs.chapter_2_egg])
             )
@@ -112,4 +106,12 @@ def handle_locked_items(world: "DeltaruneWorld"):
             )
             multiworld.get_location(locations[LocationIDs.ch2_cyber_city_annoying_dog], player).place_locked_item(
                 world.create_item(items[ItemIDs.dogdollar])
+            )
+
+        if not world.is_secret_bosses_items_requirement_randomized():
+            multiworld.get_location(locations[LocationIDs.ch2_spamton_shop_1], player).place_locked_item(
+                world.create_item(items[ItemIDs.keygen])
+            )
+            multiworld.get_location(locations[LocationIDs.ch2_mansion_basement_mechanism], player).place_locked_item(
+                world.create_item(items[ItemIDs.emptydisk])
             )

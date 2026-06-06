@@ -138,7 +138,7 @@ def create_regions(world: "DeltaruneWorld"):
     )
 
     mansion.connect(mansion_recruits)
-    mansion.connect(mansion_basement, rule=Has(items[ItemIDs.keygen]))
+    mansion.connect(mansion_basement, rule=Has(items[ItemIDs.keygen]) & (have_kris | Has(glitched_item_name)))
     mansion.connect(tunnel_of_love, rule=have_kris_or_ralsei)
 
     tunnel_of_love.connect(werewerewire)

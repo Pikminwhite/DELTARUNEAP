@@ -206,6 +206,7 @@ class DeltaruneWorld(World):
                 "exclude_post_chapter_2_locations",
                 "randomize_chapters",
                 "include_hidden_items",
+                "include_secret_bosses_items_requirement",
                 "death_link",
                 "item_balancing",
                 "include_shadow_mantle",
@@ -347,6 +348,9 @@ class DeltaruneWorld(World):
 
     def is_hidden_items_randomized(self):
         return self.options.include_hidden_items.value == 1
+
+    def is_secret_bosses_items_requirement_randomized(self):
+        return self.options.include_secret_bosses_items_requirement.value == 1
 
     def is_chapter_1_recruit_system_enabled(self):
         return self.options.chapter_1_recruit.value == 1
