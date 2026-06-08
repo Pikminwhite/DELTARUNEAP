@@ -582,7 +582,7 @@ locations = {
     LocationIDs.ch4_lost_mizzle: "CH4: Lost Mizzle",
     LocationIDs.ch4_lost_miss_mizzle: "CH4: Lost Miss Mizzle",
     LocationIDs.ch4_lost_wicabel: "CH4: Lost Wicabel",
-    LocationIDs.ch4_lost_winglade: "CH4: Lost Wingblade",
+    LocationIDs.ch4_lost_winglade: "CH4: Lost Winglade",
     LocationIDs.ch4_lost_organikk: "CH4: Lost Organikk",
     LocationIDs.ch4_castle_town_mike_defeat: "CH4: Mike - Defeat Mike",
     LocationIDs.ch4_mike_battat_bronze: "CH4: Mike - Battat (Bronze Rank)",
