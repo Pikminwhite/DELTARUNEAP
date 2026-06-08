@@ -5,6 +5,7 @@ from rule_builder.field_resolvers import FromOption
 from rule_builder.options import OptionFilter
 from rule_builder.rules import CanReachLocation, Has
 from worlds.deltarune.Options import (
+    ChosenRoute,
     MacGuffinChapter4,
     RandomizeSecretBosses,
 )
@@ -16,6 +17,7 @@ from worlds.deltarune.Rules import (
     have_kris,
     have_kris_and_susie,
     have_susie,
+    can_recruit,
 )
 from worlds.deltarune.Items import items, ItemIDs, glitched_item_name
 from worlds.deltarune.Locations import locations, LocationIDs
@@ -62,7 +64,15 @@ def create_regions(world: "DeltaruneWorld"):
     # Require at least one character until you go for no-hit
     castle_town.connect(mike_room, "Mike Room Entrance", have_kris_susie_or_ralsei | Has(glitched_item_name))
     # Require at least one character for Guei fight
-    castle_town.connect(dark_sanctuary, "Dark Sanctuary Entrance", have_kris_susie_or_ralsei)
+    castle_town.connect(
+        dark_sanctuary,
+        "Dark Sanctuary Entrance",
+        can_recruit
+        | have_kris_susie_or_ralsei
+        & [
+            OptionFilter(ChosenRoute, [ChosenRoute.option_weird_route, ChosenRoute.option_neutral_route], operator="in")
+        ],
+    )
     # If you get the claimbclaws, you can recreate a save to skip Dark Sanctuary but require Kris or Susie for Wingblade fight
     castle_town.connect(
         second_sanctuary,
