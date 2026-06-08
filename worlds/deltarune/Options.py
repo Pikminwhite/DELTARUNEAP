@@ -46,7 +46,7 @@ class Accessibility(Choice):
 
 class BetterOdds(Toggle):
     """
-    SHOULD RNG-DEPENDING THINGS HAVE BETTER ODDS TO HAPPEN?
+    SHOULD EVENTS RELIANT ON LUCK HAVE BETTER ODDS TO HAPPEN?
 
     - **Chapter 1&2 Eggs**
     """
@@ -57,7 +57,7 @@ class BetterOdds(Toggle):
 
 class ChosenRoute(Choice):
     """
-    CHOOSE THE ROUTE YOU WANT TO GO THROUGH
+    CHOOSE THE ROUTE THAT YOU PREFER.
 
     - **Neutral Route** *Proceed through the story normally.*
     - **Weird Route** *Proceed through the "Weird Route" storyline while losing all possible recruits.*
@@ -65,8 +65,8 @@ class ChosenRoute(Choice):
     - **All Routes** *Both All Recruits and Weird Route at the same times.*
       *(Doesn't require to finish multiple times chapter, either ending would count as completing a chapter)*
 
-    *The chosen route only choose if recruiting or loosing recruits are included or not.
-    This doesn't require you to finish a chapter with a specific route.*
+    (The chosen route only chooses if recruiting or loosing recruits are included or not.)
+    (This doesn't require you to finish a chapter with a specific route yet, but will in the future.)
     """
 
     display_name = "Chosen Route"
@@ -89,10 +89,10 @@ class RandomizeChapters(Choice):
     HOW WILL YOU PROGRESS THROUGH THE CHAPTERS?
 
     - **In Order** *The next chapter will be unlocked once you complete the one you're in.*
-    - **Randomized** *Chapters are unlocked through getting items. In Multiplayer, be prepared to wait a while!*
+    - **Randomized** *Chapters are unlocked through getting items. You'll be expected to move in-between chapters a lot.*
     - **All Unlocked** *All chapters are unlocked from the start. You will be expected to play through another chapter once stuck.*
 
-    *(The goal is closing the final fountain of each chapter whatever the option chosen.)*
+    (The goal is closing the final fountain of each chapter whatever the option chosen.)
     """
 
     display_name = "Randomize Chapters"
@@ -104,7 +104,9 @@ class RandomizeChapters(Choice):
 
 class StartingChapter(Choice):
     """
-    IF CHAPTER ARE RANDOMIZED, WHICH CHAPTER WOULD YOU START WITH?
+    WHICH CHAPTER WILL BEGIN THE JOURNEY?
+
+    (This only applies if you set Randomize Chapters to random.)
     """
 
     display_name = "Starting Random Chapter"
@@ -124,11 +126,11 @@ class RandomizeChapterOptions(StrEnum):
 
 class RandomizeSecretBosses(Choice):
     """
-    ITEMS GIVEN BY THOSE POSSESSING SHADOW CRYSTALS WILL BE RANDOMIZED OR EVEN REQUIRED.
+    ITEMS GIVEN BY SECRET BOSSES WILL BE RANDOMIZED OR EVEN REQUIRED.
 
-    - **Mandatory** *Secret Bosses rewards will be randomized and required to do to complete chapter*
+    - **Mandatory** *Secret Bosses rewards will be randomized and required to do to access the fountain*
 
-    *Secret bosses are: Jevil, Spamton Neo, Mantle/ERAM, Knight, Gerson*
+    *Secret bosses are: Jevil, Spamton Neo, Mantle/ERAM, Chapter 3 Knight, Hammer of Justice*
     """
 
     display_name = "Randomize Secret Bosses"
@@ -147,9 +149,8 @@ class RandomizeSecretBossesOptions(StrEnum):
 class RandomizeMANTLE(Choice):
     """
     CHECKS RECIEVED IN THE ORIGINAL GAME OF THE THIRD CHAPTER WILL BE RANDOMIZED.
-    MANTLE/ERAM CAN ALSO BE EXCLUDED FROM MANDATORY SECRET BOSSES
 
-    - **Mantleless** *Items in the ORIGINAL GAME will be randomized and Mantle/ERAM isn't mandatory if secret bosses is set to mandatory*
+    - **Mantleless** *Items in the Original Game will be randomized but the Shadow Mantle/ERAM fight isn't mandatory if secret bosses is set to mandatory*
     """
 
     display_name = "Randomize MANTLE"
@@ -167,9 +168,9 @@ class RandomizeMANTLEOptions(StrEnum):
 
 class IncludeShadowMantle(Toggle):
     """
-    THE SHADOW MANTLE WILL BE IN THE ITEM POOL OF THE THIRD CHAPTER.
+    THE SHADOW MANTLE WILL BE IN THE RANDOM ITEM POOL OF THE THIRD CHAPTER.
 
-    - **False** *The Shadow Mantle is the reward for beating Mantle/ERAM*
+    - **False** *The Shadow Mantle is the reward for beating the Shadow Mantle/ERAM*
     - **True** *The Shadow Mantle will be in the itempool in logic before Knight fight*
     """
 
@@ -179,16 +180,16 @@ class IncludeShadowMantle(Toggle):
 
 class ExcludeTRank(Toggle):
     """
-    GETTING THE HIGHEST RANK OF THE THIRD CHAPTER WILL BE EXCLUDED FROM CONTAINING IMPORTANT ITEM.
+    THE HIGHEST RANK OF THE THIRD CHAPTER WILL BE EXCLUDED FROM CONTAINING AN IMPORTANT ITEM.
     """
 
     display_name = "Exclude T Rank"
-    default = 0
+    default = 1
 
 
 class ExcludeZRank(Toggle):
     """
-    GETTING THE LOWEST RANK OF THE THIRD CHAPTER WILL BE EXCLUDED FROM CONTAINING IMPORTANT ITEM.
+    THE LOWEST RANK OF THE THIRD CHAPTER WILL BE EXCLUDED FROM CONTAINING AN IMPORTANT ITEM.
     """
 
     display_name = "Exclude Z Rank"
@@ -205,7 +206,7 @@ class ItemBalancing(Toggle):
     """
     IF AN ITEM IS OBTAINED EARLY, ITS POWER WILL BE SCALED DOWN.
 
-    *Formula is basically `item_stat * (current_chapter / item_chapter)`, only scalling down*
+    *Formula is basically `item_stat * (current_chapter / item_chapter)`, only scaling down*
     """
 
     display_name = "ItemBalancing"
@@ -228,14 +229,14 @@ class IncludeHiddenItems(Toggle):
 
 class IncludeSecretBossesItemsRequirement(Toggle):
     """
-    RANDOMIZES ITEMS THAT ARE NEEDED TO FIGHT SECRET BOSSES.
+    RANDOMIZES ITEMS THAT ARE NECESSARY TO ACCESS SECRET BOSSES.
 
     - **Broken Keys**
     - **Door Key**
     - **KeyGen**
     - **Empty Disk**
 
-    *(For MANTLE items, see the mantle option)*
+    *(For MANTLE items, see the RandomizeMANTLE option)*
     """
 
     display_name = "Randomize Items required for Secret Bosses"
@@ -244,7 +245,11 @@ class IncludeSecretBossesItemsRequirement(Toggle):
 
 class RemoveStartingEquipment(Toggle):
     """
-    DO YOU WISH TO REMOVE THE STARTING EQUIPMENT FOR EACH CHAPTER?
+    SHOULD STARTING FROM A CHAPTER MAKE THE HEROES HAVE NOTHING?
+
+    *(Normally if you start a save file on a chapter, you'll start with some equipment from the previous two chapters.)*
+    *(If this option is set to true, you'll start every chapter like chapter 1, with no armors and only the starting weapons.)*
+    *(However, If you're continuing through to the next chapter using completion data, you'll keep your stuff.)*
     """
 
     display_name = "Remove Starting Equipment"
@@ -255,7 +260,7 @@ class IncludeChapter1(Toggle):
     """
     DO YOU WISH TO PLAY CHAPTER 1?
 
-    *Items from this chapter will also be included*
+    *(Items from this chapter will also be included)*
     """
 
     display_name = "Include Chapter 1"
@@ -264,7 +269,7 @@ class IncludeChapter1(Toggle):
 
 class Chapter1Recruit(Toggle):
     """
-    DO YOU WISH TO HAVE THE RECRUIT/LOSE SYSTEM FOR CHAPTER 1?
+    THE SYSTEM TO RECRUIT ENEMIES WILL BE PRESENT IN THE FIRST CHAPTER.
     """
 
     display_name = "Recruits/Lost for chapter 1"
@@ -275,7 +280,7 @@ class IncludeChapter2(Toggle):
     """
     DO YOU WISH TO PLAY CHAPTER 2?
 
-    *Items from this chapter will also be included*
+    *(Items from this chapter will also be included)*
     """
 
     display_name = "Include Chapter 2"
@@ -284,9 +289,10 @@ class IncludeChapter2(Toggle):
 
 class IncludeLoseSwatchling(Toggle):
     """
-    DO YOU WISH TO INCLUDE LOSE SWATCHLING?
+    WILL LOSING THE SWATCHLING RECRUIT BE A CHECK LOCATION?
 
-    *It requires either reloading your save in all routes or doing Singapore Wrong Warps in weird route.*
+    *(Since Swatchlings don't normally appear in weird route, enabling this means you have to do Singapore Wrong Warps.)*
+    *(In All Routes, it requires either reloading your save on a regular route or doing the wrong warp again.)*
     """
 
     display_name = "Include Lose Swatchling"
@@ -295,10 +301,13 @@ class IncludeLoseSwatchling(Toggle):
 
 class ExcludePostChapter2Locations(Toggle):
     """
-    WILL POST-CHAPTER 2 LOCATIONS BE KEEP AWAY FROM HOLDING IMPORTANT ITEMS?
+    WILL LOCATIONS EXCLUSIVE TO THE END OF CHAPTER 2 BE KEPT AWAY FROM HOLDING IMPORTANT ITEMS?
 
     - CH2: Castle Town - Tasque Manager Says Challenge
     - CH2: Castle Town - Ch2 All Stars Challenge
+
+    *(Since you "beat" the chapter after sealing the Cyber World fountain,)*
+    *(enabling this means you can just go to the next chapter afterwards.)*
     """
 
     display_name = "Exclude Post-Chapter 2 Locations"
@@ -309,7 +318,7 @@ class IncludeChapter3(Toggle):
     """
     DO YOU WISH TO PLAY CHAPTER 3?
 
-    *Items from this chapter will also be included*
+    *(Items from this chapter will also be included)*
     """
 
     display_name = "Include Chapter 3"
@@ -320,7 +329,7 @@ class IncludeChapter4(Toggle):
     """
     DO YOU WISH TO PLAY CHAPTER 4?
 
-    *Items from this chapter will also be included*
+    *(Items from this chapter will also be included)*
     """
 
     display_name = "Include Chapter 4"
@@ -329,7 +338,7 @@ class IncludeChapter4(Toggle):
 
 class MacGuffinChapter1(Range):
     """
-    A NEW ROADBLACK WILL APPEAR BEFORE THE FINAL BOSS OF CHAPTER 1
+    A NEW ROADBLACK WILL APPEAR BEFORE THE FINAL BOSS OF CHAPTER 1.
 
     THIS OPTION DETERMINES HOW MANY OF THESE ITEMS WILL BE REQUIRED TO PROGRESS.
 
@@ -337,14 +346,14 @@ class MacGuffinChapter1(Range):
     """
 
     display_name = "Macguffin Chapter 1 Amount"
-    default = 3
+    default = 0
     range_start = 0
     range_end = 10
 
 
 class MacGuffinChapter2(Range):
     """
-    A NEW ROADBLACK WILL APPEAR BEFORE THE FINAL BOSS OF CHAPTER 2
+    A NEW ROADBLACK WILL APPEAR BEFORE THE FINAL BOSS OF CHAPTER 2.
 
     THIS OPTION DETERMINES HOW MANY OF THESE ITEMS WILL BE REQUIRED TO PROGRESS.
 
@@ -352,14 +361,14 @@ class MacGuffinChapter2(Range):
     """
 
     display_name = "Macguffin Chapter 2 Amount"
-    default = 3
+    default = 0
     range_start = 0
     range_end = 10
 
 
 class MacGuffinChapter3(Range):
     """
-    A NEW ROADBLACK WILL APPEAR BEFORE THE FINAL BOSS OF CHAPTER 3
+    A NEW ROADBLACK WILL APPEAR BEFORE THE FINAL BOSS OF CHAPTER 3.
 
     THIS OPTION DETERMINES HOW MANY OF THESE ITEMS WILL BE REQUIRED TO PROGRESS.
 
@@ -367,14 +376,14 @@ class MacGuffinChapter3(Range):
     """
 
     display_name = "Macguffin Chapter 3 Amount"
-    default = 3
+    default = 0
     range_start = 0
     range_end = 10
 
 
 class MacGuffinChapter4(Range):
     """
-    A NEW ROADBLACK WILL APPEAR BEFORE THE FINAL BOSS OF CHAPTER 4
+    A NEW ROADBLACK WILL APPEAR BEFORE THE FINAL BOSS OF CHAPTER 4.
 
     THIS OPTION DETERMINES HOW MANY OF THESE ITEMS WILL BE REQUIRED TO PROGRESS.
 
@@ -389,7 +398,10 @@ class MacGuffinChapter4(Range):
 
 class MacGuffinExtra(Range):
     """
-    THE AMOUNT OF EXTRA ITEM IS IN THE ITEMPOOL TO UNBLOCK THE ROAD TO FINAL BOSSES
+    THE AMOUNT OF EXTRA ITEMS IN THE ITEMPOOL TO UNBLOCK THE ROAD TO FINAL BOSSES.
+
+    *(So, if you choose to have 3 macguffin items in Chapter 1 and set this option to 1,)*
+    *(you'll have 4 macguffin items in the pool, but you'll still only need 3 to progress)*
     """
 
     display_name = "Extra MacGuffin Amount"
@@ -528,7 +540,10 @@ class ProgressiveNoelleWeapons(Toggle):
 
 class UnlockCharacters(Choice):
     """
-    YOU WILL HAVE TO UNLOCK CHARACTERS OTHERWISE THEY WILL BE -666HP
+    THE ABILITY TO USE HEROES IN COMBAT SEQUENCIES WILL NEED TO BE UNLOCKED.
+    
+    *(If someone isn't unlocked, they'll be at -666HP, and you can't use them in battle.)*
+    *(If nobody is unlocked, then it will immediately be the enemy's turn, but you still get one hit to live.)*
     """
 
     display_name = "Unlock Characters"
@@ -547,9 +562,9 @@ class UnlockCharactersOptions(StrEnum):
 class IncludeUnusedItems(Choice):
     """
     CERTAIN ITEMS ARE NOT NORMALLY PRESENT.
-    WILL THEY NOW BE WITH THE REST.
+    WILL THEY NOW BE WITH THE REST?
 
-    - **True without EveryBodyWeapon** *Include unused items without EveryBodyWeapon that is a super powerfull unbalanced item probably used by the dev team for debug*
+    - **True without EveryBodyWeapon** *(Include unused items but without EveryBodyWeapon, which is a super powerful unbalanced item probably used by the dev team for debugging.)*
     """
 
     display_name = "Include Unused Items"
@@ -567,7 +582,7 @@ class IncludeUnusedItemsOptions(StrEnum):
 
 class IncludeMike(Choice):
     """
-    WILL THE DEFEAT OF THE MICROPHONE AS WELL AS THEIR GAMES COUNT AS CHECK LOCATIONS?
+    WILL THE DEFEAT OF THE MICROPHONE IMITATORS AS WELL AS THEIR GAMES COUNT AS CHECK LOCATIONS?
     """
 
     display_name = "Include Mike"
@@ -579,7 +594,7 @@ class IncludeMike(Choice):
 
 class ExcludeMikePlatinum(Toggle):
     """
-    WILL THE PLATINUM TROPHY BE KEEP AWAY FROM HOLDING IMPORTANT ITEM?
+    WILL THE PLATINUM TROPHY IN THE MICROPHONE IMITATORS' GAMES BE KEPT AWAY FROM HOLDING AN IMPORTANT ITEM?
     """
 
     display_name = "Exclude Platinum trophy"
@@ -594,7 +609,7 @@ class IncludeMikeOptions(StrEnum):
 
 class UnlockFunGangActions(Toggle):
     """
-    ACTIONS OF THE GIRL, THE PRINCE AND THE WHITE CLOAK WILL BE AN ITEM
+    THE ABILITY TO USE THE ACTIONS OF THE GIRL, THE PRINCE, AND THE WHITE CLOAK WILL BE AN ITEM.
     """
 
     display_name = "Unlock S/R/N-Actions"
