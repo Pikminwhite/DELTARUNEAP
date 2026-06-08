@@ -78,7 +78,10 @@ def create_regions(world: "DeltaruneWorld"):
     dark_sanctuary.connect(dark_sanctuary_claimbclaws, rule=Has(items[ItemIDs.claimbclaws]))
 
     # Require Kris or Susie for the Wingblade fight
-    dark_sanctuary_claimbclaws.connect(second_sanctuary, rule=Has(items[ItemIDs.sheetmusic]) & have_kris_or_susie)
+    dark_sanctuary_claimbclaws.connect(
+        second_sanctuary,
+        rule=Has(items[ItemIDs.sheetmusic]) & (have_kris | (Has(glitched_item_name) & have_kris_and_susie)),
+    )
     dark_sanctuary_claimbclaws.connect(gerson, rule=have_susie | Has(glitched_item_name))
 
     second_sanctuary.connect(third_sanctuary)
