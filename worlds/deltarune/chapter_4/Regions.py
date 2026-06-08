@@ -62,12 +62,11 @@ def create_regions(world: "DeltaruneWorld"):
 
     castle_town.connect(dojo)
     # Require at least one character until you go for no-hit
-    castle_town.connect(mike_room, "Mike Room Entrance", have_kris_susie_or_ralsei | Has(glitched_item_name))
+    castle_town.connect(mike_room, rule=have_kris_susie_or_ralsei | Has(glitched_item_name))
     # Require at least one character for Guei fight
     castle_town.connect(
         dark_sanctuary,
-        "Dark Sanctuary Entrance",
-        can_recruit
+        rule=can_recruit
         | have_kris_susie_or_ralsei
         & [
             OptionFilter(ChosenRoute, [ChosenRoute.option_weird_route, ChosenRoute.option_neutral_route], operator="in")
