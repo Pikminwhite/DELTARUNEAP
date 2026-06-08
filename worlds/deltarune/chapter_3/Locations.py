@@ -148,16 +148,16 @@ chapter3_locations = {
             should_be_included=lambda world: world.is_weird_route(),
             group=LocationGroups.chapter3,
         ),
-        LocationData(
-            LocationIDs.ch3_lost_zapper,
-            should_be_included=lambda world: world.is_weird_route(),
-            group=LocationGroups.chapter3,
-        ),
     ],
     Regions.ch3_sword_2: [
         LocationData(LocationIDs.ch3_mantle_northern_light_item, group=LocationGroups.chapter3),
     ],
     Regions.ch3_doom_board: [
+        LocationData(
+            LocationIDs.ch3_lost_zapper,
+            should_be_included=lambda world: world.is_weird_route(),
+            group=LocationGroups.chapter3,
+        ),
         LocationData(
             LocationIDs.ch3_tv_world_entrance_warp_door,
             group=LocationGroups.chapter3,
