@@ -15,6 +15,8 @@ from worlds.deltarune.Rules import (
     have_kris_or_noelle,
     have_kris_or_ralsei,
     have_kris_susie_or_ralsei,
+    can_susie_recruit,
+    have_susie,
 )
 from worlds.deltarune.Items import items, ItemIDs, glitched_item_name
 from worlds.deltarune.Locations import LocationIDs, locations
@@ -73,7 +75,19 @@ def create_regions(world: "DeltaruneWorld"):
 
     world.get_region(Regions.chapter_2).connect(castle_town)
     # Require Kris or Susie for the werewire fight
-    world.get_region(Regions.chapter_2).connect(cyber_field, rule=have_kris_or_susie)
+    world.get_region(Regions.chapter_2).connect(
+        cyber_field,
+        rule=have_kris
+        | can_susie_recruit
+        | (
+            have_susie
+            & [
+                OptionFilter(
+                    ChosenRoute, [ChosenRoute.option_weird_route, ChosenRoute.option_neutral_route], operator="in"
+                )
+            ]
+        ),
+    )
 
     castle_town.connect(dojo)
     # Require Kris or Susie for the werewire fight
