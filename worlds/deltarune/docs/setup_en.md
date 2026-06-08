@@ -5,7 +5,7 @@
 - DELTARUNE from the [Steam page](https://store.steampowered.com/app/1671210/)
 - Archipelago from the [Archipelago Releases Page](https://github.com/ArchipelagoMW/Archipelago/releases)
 - DELTARUNE APWorld from the [Releases Page](https://github.com/theemeraldsword85/DELTARUNEAP/releases)
-
+  
 ## Recommended Software
 
 - Universal Tracker APWorld from the [UT Releases Page](https://github.com/FarisTheAncient/Archipelago/releases)
@@ -14,13 +14,19 @@
 
 ### Patching the game
 
-**Require DELTARUNE 1.04 vanilla *(last public branch on Steam)***
+**Requires DELTARUNE 1.04 vanilla *(last public branch on Steam)***
+
+Download the APWorld and place it into archipelago/custom_worlds (Double clicking the APWorld will also work!)
+
+Run the Archipelago Launcher (Or restart the launcher if it's already running)
 
 Start the DELTARUNE client from your Archipelago folder or the Archipelago app and input `/auto_patch <Your DELTARUNE Install Directory>` at the bottom.
 
-If you game is a steam install on you `C:` drive, you can use `/auto_patch steaminstall` or if it's a downloaded depot `/auto_patch steamdepot`
+If you game is a installed on your `C:` drive through Steam, you can use `/auto_patch steaminstall` or if it's a downloaded depot `/auto_patch steamdepot`
 
-If you're not sure, you can easily find the directory by opening the DELTARUNE directory through Steam by right-clicking DELTARUNE in your library and selecting `Manage -> Browse local files`. Then, on Windows you can see the directory that you need at the top of the window that opens.
+If you're not sure, you can easily find the directory by opening the DELTARUNE directory through Steam by right-clicking DELTARUNE in your library and selecting `Manage > Browse local files`. Then, on Windows you can see the directory you need at the top of the window.
+
+Next, go to your Archipelago folder either by finding it yourself or by clicking `Browse Files` in your Archipelago laucher. If everything went according to plan, you will see a folder called `DELTARUNE`. Inside this folder, run the DELTARUNE application. In the bottom left corner, you'll see the version number. If it matches the version in the titlebar of your Client, then you patched the game successfully.
 
 #### Linux users
 
@@ -37,17 +43,17 @@ This downloads the Windows version of DELTARUNE to use instead of the Linux vers
 
 Your YAML file is the settings of your Archipelago world.
 
-You can create it with the `Option Creator` in the Archipelago Launcher or with `Generate Template Options` after what you can find the default YAML and other presets in `<Your Archipelago folder Path>/Players` after what you can manually edit.
+Using `Generate Template Options` you can find the default YAML and other presets in `<Archipelago folder Path>\Players\Templates` which you can edit to your liking. You can also use the `Option Creator` in the Archipelago Launcher, but be warned that using `Options Generator` will make it harder to read some of the option descriptions. Otherwise it works great.
 
 ### Connect to the Multiworld
 
-Open your patched DELTARUNE version and choose `Change  connection info` then input your host, port, slot and password is existing.
+Open your patched DELTARUNE version and choose `Change connection info` to input your host, port, slot and (if applicable) password.
 
-You can copy/paste directly `host:port` into the host slot.
+You can also copy/paste `host:port` directly into the host slot.
 
-If you can to change the preview items color, it's configurable by switching menu with left/right arrow key.
+If you want to change the preview items color, it's configurable by switching menu with left/right arrow key.
 
-You can eventualy open the DELTARUNE Text Client in the Archipelago Launcher to be able to use Text commands and Universal Tracker features.
+Not required, but you can also open the DELTARUNE Text Client in the Archipelago Launcher to use Text commands as well as Universal Tracker features if you have the tracker APWorld installed.
 
 #### Linux users
 
