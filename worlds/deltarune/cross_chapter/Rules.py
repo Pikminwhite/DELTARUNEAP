@@ -1,122 +1,143 @@
+from rule_builder.options import OptionFilter
+from rule_builder.rules import Has, True_
+
+from worlds.deltarune.Options import (
+    IncludeChapter1,
+    IncludeChapter2,
+    IncludeChapter3,
+    IncludeChapter4,
+    RandomizeChapters,
+    RemoveStartingEquipment,
+)
 from worlds.generic.Rules import set_rule
 
 from typing import TYPE_CHECKING
 
-from .Items import CCItems
-from .LocationsAndRegions import CCLocations
-from ..chapter_1.LocationsAndRegions import Ch1Locations
-from ..chapter_1.Items import Ch1Items
-from ..chapter_1.LocationsAndRegions import Ch1Locations
-from ..chapter_2.Items import Ch2Items
-from ..chapter_2.LocationsAndRegions import Ch2Locations
-from ..chapter_3.Items import Ch3Items
-from ..chapter_3.LocationsAndRegions import Ch3Locations
-from ..chapter_4.Items import Ch4Items
-from ..chapter_4.LocationsAndRegions import Ch4Locations
-from ..chapter_5.Items import Ch5Items
-from ..chapter_5.LocationsAndRegions import Ch5Locations
+from worlds.deltarune.Locations import locations, LocationIDs
+from worlds.deltarune.Items import glitched_item_name, items, ItemIDs
+from worlds.deltarune.Rules import have_thornring
 
 if TYPE_CHECKING:
     from .. import DeltaruneWorld
 
 
 def set_rules(world: "DeltaruneWorld"):
-    player = world.player
     multiworld = world.multiworld
+    player = world.player
 
-    # Fusions
     if world.can_access_fusion():
+        have_chapter2_equipment_not_in_order = [
+            OptionFilter(IncludeChapter2, IncludeChapter2.option_true),
+            OptionFilter(RemoveStartingEquipment, RemoveStartingEquipment.option_false),
+            OptionFilter(RandomizeChapters, RandomizeChapters.option_in_order, operator="ne"),
+        ]
 
-        # TwinRibbon
-        if world.has_at_least_one_chapter_included([2, 3]) and world.has_at_least_one_chapter_included([1, 2, 3]):
-            if (not world.include_chapter(2)) or (
-                world.include_chapter(1) and world.is_chapters_in_order
-            ):  # If you play chapter 1 in order then you don't get the white ribbon ralsei starts with
-                set_rule(
-                    multiworld.get_location(CCLocations.castle_town_twin_ribbon_fusion, player),
-                    lambda state: state.has(CCItems.pink_ribbon, player) and state.has(CCItems.white_ribbon, player),
-                )
-            else:
-                set_rule(
-                    multiworld.get_location(CCLocations.castle_town_twin_ribbon_fusion, player),
-                    lambda state: state.has(CCItems.pink_ribbon, player),
-                )
+        have_chapter2_equipment_in_order_glitched = Has(
+            glitched_item_name,
+            options=[
+                OptionFilter(IncludeChapter1, IncludeChapter1.option_true),
+                OptionFilter(IncludeChapter2, IncludeChapter2.option_true),
+                OptionFilter(RemoveStartingEquipment, RemoveStartingEquipment.option_false),
+                OptionFilter(RandomizeChapters, RandomizeChapters.option_in_order),
+            ],
+        )
 
-        # SpikeBand
-        if world.include_chapter(1):
-            if world.include_chapter(4) and world.is_all_chapters_unlocked:
-                    # if all chapters unlock: check for only ironshackle since you can go to chapter 4 immediately
-                set_rule(
-                        multiworld.get_location(CCLocations.castle_town_spike_band_fusion, player),
-                        lambda state: state.has(Ch1Items.ironshackle, player),
-                    )
-            elif world.include_chapter(4) and world.is_chapters_randomized:
-                    # if chapters randomized: check for ironshackle and either glowwrist or chapter 4 unlock
-                set_rule(
-                        multiworld.get_location(CCLocations.castle_town_spike_band_fusion, player),
-                        lambda state: state.has(Ch1Items.ironshackle, player) and
-                        (state.has(Ch4Items.chapter_4_unlock, player) or state.has(Ch2Items.glowwrist, player)),
-                    )
-            else:  # if chapters are in order/ only chapter 2: check for both ironshackle and glowwrist,
-                   # in order should never expect you to make a new save, so maybe add as glitched location?
-                set_rule(
-                    multiworld.get_location(CCLocations.castle_town_spike_band_fusion, player),
-                    lambda state: state.has(Ch1Items.ironshackle, player) and state.has(Ch2Items.glowwrist, player),
-                )
+        have_chapter2_equipment_first_chapter = [
+            OptionFilter(IncludeChapter1, IncludeChapter1.option_false),
+            OptionFilter(IncludeChapter2, IncludeChapter2.option_true),
+            OptionFilter(RandomizeChapters, RandomizeChapters.option_in_order),
+        ]
 
-        # TensionBow
-        if world.include_chapter(2) and (not world.is_weird_route() or world.is_all_routes()):
-            set_rule(
-                multiworld.get_location(CCLocations.castle_town_tensionbow_fusion, player),
-                lambda state: state.has(Ch2Items.bshotbowtie, player) and state.has(Ch2Items.tensionbit, player),
+        have_white_ribbon = (
+            Has(items[ItemIDs.white_ribbon])
+            | have_chapter2_equipment_not_in_order
+            | have_chapter2_equipment_in_order_glitched
+            | have_chapter2_equipment_first_chapter
+        )
+
+        if world.has_at_least_one_chapter_included([2, 3]) and (
+            (world.is_starting_equipment_removed() and world.has_at_least_one_chapter_included([1, 3]))
+            or (not world.is_starting_equipment_removed() and world.has_at_least_one_chapter_included([1, 2, 3]))
+        ):
+            world.set_rule(
+                world.get_location(locations[LocationIDs.cc_castle_town_twin_ribbon_fusion]),
+                have_white_ribbon & Has(items[ItemIDs.pink_ribbon]),
+            )
+
+        have_glowwrist = (
+            Has(items[ItemIDs.glowwrist])
+            | True_(
+                options=[
+                    OptionFilter(IncludeChapter3, IncludeChapter3.option_true),
+                    OptionFilter(RemoveStartingEquipment, RemoveStartingEquipment.option_false),
+                ]
+            )
+            | True_(
+                options=[
+                    OptionFilter(IncludeChapter4, IncludeChapter4.option_true),
+                    OptionFilter(RemoveStartingEquipment, RemoveStartingEquipment.option_false),
+                ]
+            )
+        )
+
+        if world.include_chapter(1) and (
+            world.include_chapter(2)
+            or (
+                not world.is_starting_equipment_removed()
+                and (world.include_chapter(4) or world.have_all_chapters_included([3, 4]))
+            )
+        ):
+            world.set_rule(
+                world.get_location(locations[LocationIDs.cc_castle_town_spike_band_fusion]),
+                have_glowwrist & Has(items[ItemIDs.ironshackle]),
+            )
+
+        if world.include_chapter(2) and world.is_not_weird_route_only():
+            world.set_rule(
+                world.get_location(locations[LocationIDs.cc_castle_town_tensionbow_fusion]),
+                Has(items[ItemIDs.bshotbowtie], player) & Has(items[ItemIDs.tensionbit], player),
             )
 
         # TwistedSwd
-        if False and world.is_unused_items_included() and world.include_chapter(2) and world.is_weird_route():
-            set_rule(
-                multiworld.get_location(CCLocations.castle_town_twistedsword_fusion, player),
-                lambda state: state.has(Ch2Items.thornring, player) and state.has(CCItems.purecrystal, player),
-            )
-            multiworld.get_location(CCLocations.castle_town_twistedsword_fusion, player).place_locked_item(
-                world.create_item(CCItems.twistedswd)
+        if world.is_unused_items_included() and world.include_chapter(2) and world.is_weird_route():
+            world.set_rule(
+                world.get_location(locations[LocationIDs.cc_castle_town_twistedsword_fusion]),
+                have_thornring & Has(items[ItemIDs.purecrystal], player),
             )
 
 
 def get_location(world: "DeltaruneWorld", chapter: int):
     if chapter == 1:
-        return world.multiworld.get_location(Ch1Locations.fountain_sealed, world.player)
+        return world.multiworld.get_location(locations[LocationIDs.ch1_fountain_sealed], world.player)
     if chapter == 2:
-        return world.multiworld.get_location(Ch2Locations.fountain_sealed, world.player)
+        return world.multiworld.get_location(locations[LocationIDs.ch2_fountain_sealed], world.player)
     if chapter == 3:
-        return world.multiworld.get_location(Ch3Locations.fountain_sealed, world.player)
+        return world.multiworld.get_location(locations[LocationIDs.ch3_fountain_sealed], world.player)
     if chapter == 4:
-        return world.multiworld.get_location(Ch4Locations.third_sanctuary_fountain_sealed, world.player)
+        return world.multiworld.get_location(locations[LocationIDs.ch4_third_sanctuary_fountain_sealed], world.player)
 
 
 def get_unlock_item(world: "DeltaruneWorld", chapter: int):
     if chapter == 1:
-        return Ch1Items.chapter_1_unlock
+        return items[ItemIDs.chapter_1_unlock]
     if chapter == 2:
-        return Ch2Items.chapter_2_unlock
+        return items[ItemIDs.chapter_2_unlock]
     if chapter == 3:
-        return Ch3Items.chapter_3_unlock
+        return items[ItemIDs.chapter_3_unlock]
     if chapter == 4:
-        return Ch4Items.chapter_4_unlock
+        return items[ItemIDs.chapter_4_unlock]
     if chapter == 5:
-        return Ch5Items.chapter_5_unlock
+        return items[ItemIDs.chapter_5_unlock]
 
 
 def handle_locked_items(world: "DeltaruneWorld"):
-    player = world.player
-    multiworld = world.multiworld
-
     if world.is_chapters_in_order():
         playable_chapters = world.get_playable_chapters()
 
         for current_chapter in playable_chapters:
             next_chapter = world.get_next_in_order_chapter(current_chapter)
             if next_chapter == -1:
-                next_chapter = current_chapter + 1
+                continue
 
             get_location(world, current_chapter).place_locked_item(
                 world.create_item(get_unlock_item(world, next_chapter))

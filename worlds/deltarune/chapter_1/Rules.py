@@ -1,121 +1,95 @@
-from worlds.generic.Rules import set_rule
 from typing import TYPE_CHECKING
-from .LocationsAndRegions import Ch1Entrances, Ch1Regions, Ch1Locations
-from .Items import Ch1Items
-from ..cross_chapter.LocationsAndRegions import CCEntrances
-from ..cross_chapter.Items import CCItems
+from rule_builder.rules import CanReachRegion, Has
+from worlds.deltarune.Items import ItemIDs, items
+from worlds.deltarune.Locations import LocationIDs, locations
+from worlds.deltarune.Regions import Regions
+from worlds.deltarune.Rules import (
+    can_recruit_chapter1,
+    have_kris_susie_or_ralsei,
+    can_lost_chapter1_pre_castle,
+)
 
 if TYPE_CHECKING:
     from .. import DeltaruneWorld
 
 
 def set_rules(world: "DeltaruneWorld"):
-    player = world.player
-    multiworld = world.multiworld
-
-    # Chapter unlock
-    if not world.is_all_chapters_unlocked():
-        set_rule(
-            multiworld.get_entrance(CCEntrances.chapter_1_entrance, player),
-            lambda state: state.has(Ch1Items.chapter_1_unlock, player),
-        )
-
-    # Region lockers
-    set_rule(
-        multiworld.get_entrance(Ch1Entrances.bake_sale_entrance, player),
-        lambda state: state.has(Ch1Items.bake_sale_ticket, player),
+    world.set_rule(
+        world.get_location(locations[LocationIDs.ch1_bake_sale_repair_door_key]),
+        Has(items[ItemIDs.broken_key_a]) & Has(items[ItemIDs.broken_key_b]) & Has(items[ItemIDs.broken_key_c]),
     )
-    set_rule(
-        multiworld.get_entrance(Ch1Entrances.card_castle_entrance, player),
-        lambda state: state.has(Ch1Items.castle_key, player),
-    )
-
-    # Mandatory Secret boss option and macguffin
-    if world.is_secret_bosses_mandatory():
-        set_rule(
-            multiworld.get_entrance(Ch1Entrances.light_world_entrance, player),
-            lambda state: state.has(Ch1Items.king_shape_key_piece, player, world.options.macguffin_chapter_1.value)
-            and state.has(Ch1Items.door_key, player),
-        )
-    else:
-        set_rule(
-            multiworld.get_entrance(Ch1Entrances.light_world_entrance, player),
-            lambda state: state.has(Ch1Items.king_shape_key_piece, player, world.options.macguffin_chapter_1.value),
-        )
-
-    # Jevil quest
-    set_rule(
-        multiworld.get_location(Ch1Locations.bake_sale_repair_door_key, player),
-        lambda state: state.has_all({Ch1Items.broken_key_a, Ch1Items.broken_key_b, Ch1Items.broken_key_c}, player),
-    )
-    set_rule(
-        multiworld.get_location(Ch1Locations.card_castle_jevil_1, player),
-        lambda state: state.has(Ch1Items.door_key, player),
-    )
-    set_rule(
-        multiworld.get_location(Ch1Locations.card_castle_jevil_2, player),
-        lambda state: state.has(Ch1Items.door_key, player),
-    )
-    set_rule(
-        multiworld.get_location(Ch1Locations.card_castle_jevil_3, player),
-        lambda state: state.has(Ch1Items.door_key, player),
-    )
-    set_rule(
-        multiworld.get_location(Ch1Locations.seam_seap_talk_about_strange_prisoner, player),
-        lambda state: state.can_reach(Ch1Regions.card_castle, "Region", player),
+    world.set_rule(
+        world.get_location(locations[LocationIDs.ch1_seam_seap_talk_about_strange_prisoner]),
+        CanReachRegion(Regions.ch1_card_castle),
     )
 
     # Cake quest
-    set_rule(
-        multiworld.get_location(Ch1Locations.bake_sale_repair_top_cake, player),
-        lambda state: state.has(Ch1Items.brokencake, player),
+    world.set_rule(
+        world.get_location(locations[LocationIDs.ch1_bake_sale_repair_top_cake]), Has(items[ItemIDs.brokencake])
     )
-    set_rule(
-        multiworld.get_location(Ch1Locations.field_return_top_cake, player),
-        lambda state: state.has(Ch1Items.top_cake, player),
+    world.set_rule(world.get_location(locations[LocationIDs.ch1_field_return_top_cake]), Has(items[ItemIDs.top_cake]))
+
+    # Manuals
+    world.set_rule(world.get_location(locations[LocationIDs.ch1_throw_away_manual]), Has(items[ItemIDs.manual]))
+    world.set_rule(
+        world.get_location(locations[LocationIDs.ch1_throw_away_manual_again]), Has(items[ItemIDs.manual], 2)
     )
 
-    set_rule(
-        multiworld.get_location(Ch1Locations.throw_away_manual, player),
-        lambda state: state.has(Ch1Items.manual, player),
-    )
+    if world.is_chapter_1_recruit_system_enabled():
+        if world.is_all_recruits():
+            world.set_rule(world.get_location(locations[LocationIDs.ch1_recruit_rudinn]), can_recruit_chapter1)
+            world.set_rule(world.get_location(locations[LocationIDs.ch1_recruit_hathy]), can_recruit_chapter1)
+            world.set_rule(world.get_location(locations[LocationIDs.ch1_recruit_jigsawry]), can_recruit_chapter1)
+            world.set_rule(world.get_location(locations[LocationIDs.ch1_recruit_ponman]), can_recruit_chapter1)
+            world.set_rule(world.get_location(locations[LocationIDs.ch1_recruit_rabbick]), can_recruit_chapter1)
+            world.set_rule(world.get_location(locations[LocationIDs.ch1_recruit_bloxer]), can_recruit_chapter1)
+            world.set_rule(world.get_location(locations[LocationIDs.ch1_recruit_head_hathy]), can_recruit_chapter1)
+            world.set_rule(world.get_location(locations[LocationIDs.ch1_recruit_rudinn_ranger]), can_recruit_chapter1)
 
-    set_rule(
-        multiworld.get_location(Ch1Locations.throw_away_manual_again, player),
-        lambda state: state.has(Ch1Items.manual, player, 2),
-    )
-
+        if world.is_weird_route():
+            world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_rudinn]), can_lost_chapter1_pre_castle)
+            world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_hathy]), can_lost_chapter1_pre_castle)
+            world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_jigsawry]), can_lost_chapter1_pre_castle)
+            world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_ponman]), can_lost_chapter1_pre_castle)
+            world.set_rule(world.get_location(locations[LocationIDs.cc_lost_rabbick]), can_lost_chapter1_pre_castle)
+            world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_bloxer]), can_lost_chapter1_pre_castle)
+            world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_head_hathy]), have_kris_susie_or_ralsei)
+            world.set_rule(world.get_location(locations[LocationIDs.ch1_lost_rudinn_ranger]), have_kris_susie_or_ralsei)
 
 def handle_locked_items(world: "DeltaruneWorld"):
     player = world.player
     multiworld = world.multiworld
 
     if not world.is_secret_bosses_randomized():
-        multiworld.get_location(Ch1Locations.card_castle_jevil_1, player).place_locked_item(
-            world.create_item(Ch1Items.jevilstail)
+        multiworld.get_location(locations[LocationIDs.ch1_card_castle_jevil_1], player).place_locked_item(
+            world.create_item(items[ItemIDs.jevilstail])
         )
-        multiworld.get_location(Ch1Locations.card_castle_jevil_2, player).place_locked_item(
-            world.create_item(Ch1Items.devilsknife)
+        multiworld.get_location(locations[LocationIDs.ch1_card_castle_jevil_2], player).place_locked_item(
+            world.create_item(items[ItemIDs.devilsknife])
         )
-        multiworld.get_location(Ch1Locations.card_castle_jevil_3, player).place_locked_item(
-            world.create_item(CCItems.shadowcrystal)
+        multiworld.get_location(locations[LocationIDs.ch1_card_castle_jevil_3], player).place_locked_item(
+            world.create_item(items[ItemIDs.shadowcrystal])
         )
 
     # Hidden items
     if not world.is_hidden_items_randomized():
-        multiworld.get_location(Ch1Locations.forest_man, player).place_locked_item(world.create_item(Ch1Items.egg))
-        multiworld.get_location(Ch1Locations.card_castle_moss, player).place_locked_item(
-            world.create_item(Ch1Items.castle_moss)
+        multiworld.get_location(locations[LocationIDs.ch1_forest_man], player).place_locked_item(
+            world.create_item(items[ItemIDs.chapter_1_egg])
         )
-        multiworld.get_location(Ch1Locations.seam_seap_talk_about_strange_prisoner, player).place_locked_item(
-            world.create_item(Ch1Items.broken_key_a)
+        multiworld.get_location(locations[LocationIDs.ch1_card_castle_moss], player).place_locked_item(
+            world.create_item(items[ItemIDs.castle_moss])
         )
-        multiworld.get_location(Ch1Locations.forest_hidden_chest_near_dancers, player).place_locked_item(
-            world.create_item(Ch1Items.broken_key_b)
+
+    if not world.is_secret_bosses_items_requirement_randomized():
+        multiworld.get_location(
+            locations[LocationIDs.ch1_seam_seap_talk_about_strange_prisoner], player
+        ).place_locked_item(world.create_item(items[ItemIDs.broken_key_a]))
+        multiworld.get_location(locations[LocationIDs.ch1_forest_hidden_chest_near_dancers], player).place_locked_item(
+            world.create_item(items[ItemIDs.broken_key_b])
         )
-        multiworld.get_location(Ch1Locations.field_chest_before_great_board, player).place_locked_item(
-            world.create_item(Ch1Items.broken_key_c)
+        multiworld.get_location(locations[LocationIDs.ch1_field_chest_before_great_board], player).place_locked_item(
+            world.create_item(items[ItemIDs.broken_key_c])
         )
-        multiworld.get_location(Ch1Locations.bake_sale_repair_door_key, player).place_locked_item(
-            world.create_item(Ch1Items.door_key)
+        multiworld.get_location(locations[LocationIDs.ch1_bake_sale_repair_door_key], player).place_locked_item(
+            world.create_item(items[ItemIDs.door_key])
         )

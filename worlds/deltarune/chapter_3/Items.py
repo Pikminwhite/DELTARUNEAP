@@ -1,204 +1,142 @@
-from ..Items import (
-    ItemIDs,
-    ItemData,
-    ConditionalItemData,
-    generic_create_items,
-    generic_get_filler_and_trap_items,
-    DeltaruneItem,
-    ItemGroups,
-)
-from ..cross_chapter.Items import CCItems
 from typing import TYPE_CHECKING
 from BaseClasses import ItemClassification
-from enum import StrEnum
+from worlds.deltarune.Items import (
+    DeltaruneItem,
+    ItemData,
+    ItemGroups,
+    ItemIDs,
+    generic_create_items,
+    generic_get_filler_and_trap_items,
+)
 
 if TYPE_CHECKING:
     from .. import DeltaruneWorld
 
-
-class Ch3Items(StrEnum):
-    chapter_3_unlock = "Chapter 3 Unlock"
-
-    point_1 = "1 POINT"
-    points_2 = "2 POINTs"
-    points_10 = "10 POINTs"
-    points_50 = "50 POINTs"
-    points_120 = "120 POINTs"
-    points_300 = "300 POINTs"
-    points_500 = "500 POINTs"
-
-    board_moss = "Board Moss"
-    egg = "CH3 Egg"
-    smile = "SMILE"
-
-    # Heal
-    tvslop = "TVSlop"
-    tvdinner = "TVDinner"
-    deluxedinner = "DeluxeDinner"
-    flatsoda = "FlatSoda"
-    tensionmax = "TensionMax"
-
-    # Weapons
-    saber10 = "Saber10"
-    toxicaxe = "ToxicAxe"
-    flexscarf = "FlexScarf"
-    blackshard = "BlackShard"
-
-    # Armor
-    shadowmantle = "ShadowMantle"
-    lodestone = "LodeStone"
-    gingerguard = "GingerGuard"
-    blue_ribbon = "Blue Ribbon"
-    tennatie = "TennaTie"
-
-    # Blockers
-    board_2_cartridge = "Board 2 Cartridge"
-    vip_pass = "VIP Pass"
-
-    # SWORD GAME
-    odd_controller = "Odd Controller"
-    ice_key = "ICE KEY"
-    shelter_key = "SHELTER KEY"
-
-    tripticket = "TripTicket"
-
-    remote_battery = "Remote Battery"
-
-
-chapter3_macguffin_item = Ch3Items.remote_battery.value
-
-chapter3_items = {
-    Ch3Items.flatsoda.value: ItemData(
-        ItemIDs.flatsoda.value, ItemClassification.filler, [ItemGroups.healing_item], amount=0
+chapter3_items = [
+    ItemData(ItemIDs.flatsoda, ItemClassification.filler, groups=[ItemGroups.healing_item], amount=0),
+    ItemData(ItemIDs.tvslop, ItemClassification.filler, groups=[ItemGroups.healing_item], amount=3),
+    ItemData(ItemIDs.deluxedinner, ItemClassification.filler, groups=[ItemGroups.healing_item]),
+    ItemData(ItemIDs.tvdinner, ItemClassification.filler, groups=[ItemGroups.healing_item], amount=3),
+    ItemData(ItemIDs.revivemint, ItemClassification.filler, groups=[ItemGroups.healing_item], amount=2),
+    ItemData(ItemIDs.execbuffet, ItemClassification.filler, groups=[ItemGroups.healing_item]),
+    ItemData(ItemIDs.dogdollar, ItemClassification.filler, groups=[ItemGroups.currencies], amount=0),
+    ItemData(ItemIDs.point_1, ItemClassification.filler, groups=[ItemGroups.currencies]),
+    ItemData(ItemIDs.points_2, ItemClassification.filler, groups=[ItemGroups.currencies]),
+    ItemData(ItemIDs.points_10, ItemClassification.filler, groups=[ItemGroups.currencies]),
+    ItemData(ItemIDs.points_50, ItemClassification.filler, groups=[ItemGroups.currencies]),
+    ItemData(ItemIDs.points_120, ItemClassification.filler, groups=[ItemGroups.currencies]),
+    ItemData(ItemIDs.points_300, ItemClassification.filler, groups=[ItemGroups.currencies]),
+    ItemData(ItemIDs.points_500, ItemClassification.filler, groups=[ItemGroups.currencies]),
+    ItemData(ItemIDs.tensiongem, ItemClassification.filler, groups=[ItemGroups.tension_items]),
+    ItemData(ItemIDs.tensionmax, ItemClassification.filler, groups=[ItemGroups.tension_items], amount=0),
+    ItemData(ItemIDs.smile, ItemClassification.filler),
+    ItemData(ItemIDs.lodestone, ItemClassification.filler, groups=[ItemGroups.armors]),
+    ItemData(ItemIDs.gingerguard, ItemClassification.filler, groups=[ItemGroups.armors]),
+    ItemData(ItemIDs.toxicaxe, ItemClassification.useful, groups=[ItemGroups.weapons, ItemGroups.susie_weapons]),
+    ItemData(ItemIDs.saber10, ItemClassification.useful, groups=[ItemGroups.weapons, ItemGroups.kris_weapons]),
+    ItemData(ItemIDs.flexscarf, ItemClassification.useful, groups=[ItemGroups.weapons, ItemGroups.ralsei_weapons]),
+    ItemData(ItemIDs.execbuffet, ItemClassification.useful, groups=[ItemGroups.healing_item]),
+    ItemData(
+        ItemIDs.white_ribbon,
+        ItemClassification.progression,
+        groups=[ItemGroups.armors, ItemGroups.fusion_ingredient],
     ),
-    CCItems.revivemint.value: ItemData(
-        ItemIDs.revivemint.value, ItemClassification.filler, [ItemGroups.healing_item], amount=2
+    ItemData(
+        ItemIDs.pink_ribbon,
+        ItemClassification.progression,
+        groups=[ItemGroups.armors, ItemGroups.fusion_ingredient],
     ),
-    CCItems.execbuffet.value: ItemData(ItemIDs.execbuffet.value, ItemClassification.filler, [ItemGroups.healing_item]),
-    CCItems.dogdollard.value: ItemData(
-        ItemIDs.dogdollar.value, ItemClassification.filler, [ItemGroups.currencies], amount=0
-    ),
-    Ch3Items.point_1.value: ItemData(ItemIDs.point_1.value, ItemClassification.filler, [ItemGroups.currencies]),
-    Ch3Items.points_2.value: ItemData(ItemIDs.points_2.value, ItemClassification.filler, [ItemGroups.currencies]),
-    Ch3Items.points_10.value: ItemData(ItemIDs.points_10.value, ItemClassification.filler, [ItemGroups.currencies]),
-    Ch3Items.points_50.value: ItemData(ItemIDs.points_50.value, ItemClassification.filler, [ItemGroups.currencies]),
-    Ch3Items.points_120.value: ItemData(ItemIDs.points_120.value, ItemClassification.filler, [ItemGroups.currencies]),
-    Ch3Items.points_300.value: ItemData(ItemIDs.points_300.value, ItemClassification.filler, [ItemGroups.currencies]),
-    Ch3Items.points_500.value: ItemData(ItemIDs.points_500.value, ItemClassification.filler, [ItemGroups.currencies]),
-    CCItems.tensiongem.value: ItemData(ItemIDs.tensiongem.value, ItemClassification.filler, [ItemGroups.tension_items]),
-    Ch3Items.tensionmax.value: ItemData(
-        ItemIDs.tensionmax.value, ItemClassification.filler, [ItemGroups.tension_items], amount=0
-    ),
-    Ch3Items.smile.value: ItemData(ItemIDs.smile.value, ItemClassification.filler),
-    Ch3Items.lodestone.value: ItemData(ItemIDs.lodestone.value, ItemClassification.filler, [ItemGroups.armors]),
-    Ch3Items.gingerguard.value: ItemData(ItemIDs.gingerguard.value, ItemClassification.filler, [ItemGroups.armors]),
-    Ch3Items.toxicaxe.value: ItemData(
-        ItemIDs.toxicaxe.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.susie_weapons]
-    ),
-    Ch3Items.saber10.value: ItemData(
-        ItemIDs.saber10.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.kris_weapons]
-    ),
-    Ch3Items.flexscarf.value: ItemData(
-        ItemIDs.flexscarf.value, ItemClassification.useful, [ItemGroups.weapons, ItemGroups.ralsei_weapons]
-    ),
-    CCItems.execbuffet.value: ItemData(ItemIDs.execbuffet.value, ItemClassification.useful, [ItemGroups.healing_item]),
-    CCItems.white_ribbon.value: ItemData(
-        ItemIDs.white_ribbon.value, ItemClassification.progression, [ItemGroups.armors, ItemGroups.fusion_ingredient]
-    ),
-    CCItems.pink_ribbon.value: ItemData(
-        ItemIDs.pink_ribbon.value, ItemClassification.progression, [ItemGroups.armors, ItemGroups.fusion_ingredient]
-    ),
-    Ch3Items.board_2_cartridge.value: ItemData(
-        ItemIDs.board_2_cartridge.value, ItemClassification.progression, [ItemGroups.region_blockers]
-    ),
-    Ch3Items.vip_pass.value: ItemData(
-        ItemIDs.vip_pass.value, ItemClassification.progression, [ItemGroups.region_blockers]
-    ),
-    # Amount is handle in __init__.py handle_macguffins_items()
-    Ch3Items.remote_battery.value: ItemData(
-        ItemIDs.remote_battery.value,
+    ItemData(ItemIDs.board_2_cartridge, ItemClassification.progression, groups=[ItemGroups.region_blockers]),
+    ItemData(ItemIDs.vip_pass, ItemClassification.progression, groups=[ItemGroups.region_blockers]),
+    ItemData(
+        ItemIDs.remote_battery,
         ItemClassification.progression_skip_balancing,
-        [ItemGroups.region_blockers],
-        0,
+        groups=[ItemGroups.region_blockers],
+        amount=0,
     ),
-}
-
-chapter3_conditional_items = {
-    # Ball Machine
-    Ch3Items.tennatie.value: ConditionalItemData(
-        ItemIDs.tennatie.value,
+    ItemData(
+        ItemIDs.tennatie,
         ItemClassification.useful,
-        lambda world: world.is_hidden_items_randomized(),
-        [ItemGroups.armors],
+        should_be_included=lambda world: world.is_hidden_items_randomized(),
+        groups=[ItemGroups.armors],
     ),
-    Ch3Items.blue_ribbon.value: ConditionalItemData(
-        ItemIDs.blue_ribbon.value,
+    ItemData(
+        ItemIDs.blue_ribbon,
         ItemClassification.useful,
-        lambda world: world.is_hidden_items_randomized(),
-        [ItemGroups.armors],
+        should_be_included=lambda world: world.is_hidden_items_randomized(),
+        groups=[ItemGroups.armors],
     ),
-    Ch3Items.shadowmantle.value: ConditionalItemData(
-        ItemIDs.shadowmantle.value,
+    ItemData(
+        ItemIDs.shadowmantle,
         ItemClassification.progression,
-        lambda world: world.is_shadow_mantle_included() and (world.is_mantle_randomized() or world.is_mantleless()),
-        [ItemGroups.armors],
+        should_be_included=lambda world: world.is_shadow_mantle_included()
+        and (world.is_mantle_randomized() or world.is_mantleless()),
+        groups=[ItemGroups.armors],
     ),
-    Ch3Items.blackshard.value: ConditionalItemData(
-        ItemIDs.blackshard.value,
+    ItemData(
+        ItemIDs.blackshard,
         ItemClassification.useful,
-        lambda world: world.is_secret_bosses_randomized(),
-        [ItemGroups.weapons, ItemGroups.kris_weapons],
+        should_be_included=lambda world: world.is_secret_bosses_randomized(),
+        groups=[ItemGroups.weapons, ItemGroups.kris_weapons],
     ),
-    CCItems.shadowcrystal.value: ConditionalItemData(
-        ItemIDs.shadowcrystal.value, ItemClassification.useful, lambda world: world.is_secret_bosses_randomized()
+    ItemData(
+        ItemIDs.shadowcrystal,
+        ItemClassification.filler,
+        should_be_included=lambda world: world.is_secret_bosses_randomized(),
+        blacklist_filler=True,
     ),
-    Ch3Items.egg.value: ConditionalItemData(
-        ItemIDs.chapter_3_egg.value,
-        ItemClassification.useful,
-        lambda world: world.is_hidden_items_randomized(),
-        [ItemGroups.eggs],
+    ItemData(
+        ItemIDs.chapter_3_egg,
+        ItemClassification.filler,
+        should_be_included=lambda world: world.is_hidden_items_randomized(),
+        groups=[ItemGroups.eggs],
+        blacklist_filler=True,
     ),
-    Ch3Items.board_moss.value: ConditionalItemData(
-        ItemIDs.board_moss.value,
-        ItemClassification.useful,
-        lambda world: world.is_hidden_items_randomized() and ((not world.is_weird_route()) or world.is_all_routes()),
-        [ItemGroups.moss],
+    ItemData(
+        ItemIDs.board_moss,
+        ItemClassification.filler,
+        should_be_included=lambda world: world.is_hidden_items_randomized()
+        and ((not world.is_weird_route()) or world.is_all_routes()),
+        groups=[ItemGroups.moss],
+        blacklist_filler=True,
     ),
-    Ch3Items.chapter_3_unlock.value: ConditionalItemData(
-        ItemIDs.chapter_3_unlock.value,
+    ItemData(
+        ItemIDs.chapter_3_unlock,
         ItemClassification.progression,
-        lambda world: world.is_chapters_randomized(),
-        [ItemGroups.region_blockers],
+        should_be_included=lambda world: world.is_chapters_randomized(),
+        groups=[ItemGroups.region_blockers],
     ),
-    Ch3Items.odd_controller.value: ConditionalItemData(
-        ItemIDs.oddcontroller.value,
+    ItemData(
+        ItemIDs.odd_controller,
         ItemClassification.progression,
-        lambda world: world.is_mantle_randomized() or world.is_mantleless(),
-        [ItemGroups.mantle_items],
+        should_be_included=lambda world: world.is_mantle_randomized() or world.is_mantleless(),
+        groups=[ItemGroups.mantle_items],
     ),
-    Ch3Items.ice_key.value: ConditionalItemData(
-        ItemIDs.ice_key.value,
+    ItemData(
+        ItemIDs.ice_key,
         ItemClassification.progression,
-        lambda world: world.is_mantle_randomized() or world.is_mantleless(),
-        [ItemGroups.mantle_items],
+        should_be_included=lambda world: world.is_mantle_randomized() or world.is_mantleless(),
+        groups=[ItemGroups.mantle_items],
     ),
-    Ch3Items.shelter_key.value: ConditionalItemData(
-        ItemIDs.shelter_key.value,
+    ItemData(
+        ItemIDs.shelter_key,
         ItemClassification.progression,
-        lambda world: world.is_mantle_randomized() or world.is_mantleless(),
-        [ItemGroups.mantle_items],
+        should_be_included=lambda world: world.is_mantle_randomized() or world.is_mantleless(),
+        groups=[ItemGroups.mantle_items],
     ),
-    Ch3Items.tripticket.value: ConditionalItemData(
-        ItemIDs.tripticket.value,
+    ItemData(
+        ItemIDs.tripticket,
         ItemClassification.progression,
-        lambda world: world.is_hidden_items_randomized() and ((not world.is_weird_route()) or world.is_all_routes()),
+        should_be_included=lambda world: world.is_hidden_items_randomized()
+        and ((not world.is_weird_route()) or world.is_all_routes()),
+        groups=[ItemGroups.mantle_items],
     ),
-}
+]
 
 
 def create_items(world: "DeltaruneWorld") -> list[DeltaruneItem]:
-    return generic_create_items(world, chapter3_items, chapter3_conditional_items)
+    return generic_create_items(world, chapter3_items)
 
 
 def get_filler_and_trap_items(world: "DeltaruneWorld"):
-    return generic_get_filler_and_trap_items(world, chapter3_items, chapter3_conditional_items)
+    return generic_get_filler_and_trap_items(world, chapter3_items)

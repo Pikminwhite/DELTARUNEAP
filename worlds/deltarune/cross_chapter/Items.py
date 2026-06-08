@@ -1,7 +1,7 @@
 from enum import StrEnum
-from ..Items import (
+from worlds.deltarune.Items import (
     ItemData,
-    ConditionalItemData,
+    ItemData,
     ItemIDs,
     generic_create_items,
     generic_get_filler_and_trap_items,
@@ -14,173 +14,138 @@ if TYPE_CHECKING:
     from .. import DeltaruneWorld
 
 
-class CCItems(StrEnum):
-    # Gaster
-    what_interresting_behavior = "WHAT INTERESTING BEHAVIOR."
-
-    # Healing Items
-    dark_candy = "Dark Candy"
-    clubsSandwich = "ClubsSandwich"
-    dark_burger = "Dark Burger"
-    dd_burger = "DD-Burger"
-    lancer_cookie = "Lancer Cookie"
-    spincake = "Spincake"
-    revivemint = "Revive Mint"
-    execbuffet = "ExecBuffet"
-    tensiongem = "TensionGem"
-
-    # Currency
-    glowshard = "Glowshard"
-    dogdollard = "DogDollar"
-    dark_dollar_1 = "1 Dark Dollar"
-    dark_dollars_20 = "20 Dark Dollars"
-    dark_dollars_40 = "40 Dark Dollars"
-    dark_dollars_80 = "80 Dark Dollars"
-    dark_dollars_100 = "100 Dark Dollars"
-    dark_dollars_250 = "250 Dark Dollars"
-    dark_dollars_500 = "500 Dark Dollars"
-
-    # Weapons
-    progressive_kris_weapons = "Progressive Kris Weapons"
-    progressive_susie_weapons = "Progressive Susie Weapons"
-    progressive_ralsei_weapons = "Progressive Ralsei Weapons"
-    progressive_noelle_weapons = "Progressive Noelle Weapons"
-    twistedswd = "TwistedSwd"
-    everybodyweapon = "EverybodyWeapon"
-
-    # Armors
-    amber_card = "Amber Card"
-    pink_ribbon = "Pink Ribbon"
-    white_ribbon = "White Ribbon"
-    silver_card = "Silver Card"
-    spikeband = "SpikeBand"
-    twin_ribbon = "Twin Ribbon"
-    tensionbow = "TensionBow"
-
-    shadowcrystal = "ShadowCrystal"
-    purecrystal = "PureCrystal"
-
-
-cross_chapter_items = {
-    CCItems.dark_dollar_1.value: ItemData(
-        ItemIDs.dark_dollar_1.value, ItemClassification.filler, [ItemGroups.currencies]
-    ),
-    CCItems.dark_dollars_20.value: ItemData(
-        ItemIDs.dark_dollars_20.value, ItemClassification.filler, [ItemGroups.currencies]
-    ),
-    CCItems.dark_dollars_40.value: ItemData(
-        ItemIDs.dark_dollars_40.value, ItemClassification.filler, [ItemGroups.currencies]
-    ),
-    CCItems.dark_dollars_80.value: ItemData(
-        ItemIDs.dark_dollars_80.value, ItemClassification.filler, [ItemGroups.currencies]
-    ),
-    CCItems.dark_dollars_100.value: ItemData(
-        ItemIDs.dark_dollars_100.value, ItemClassification.filler, [ItemGroups.currencies]
-    ),
-    CCItems.dark_dollars_250.value: ItemData(
-        ItemIDs.dark_dollars_250.value, ItemClassification.filler, [ItemGroups.currencies]
-    ),
-    CCItems.dark_dollars_500.value: ItemData(
-        ItemIDs.dark_dollars_500.value, ItemClassification.filler, [ItemGroups.currencies]
-    ),
-    CCItems.what_interresting_behavior.value: ItemData(
-        ItemIDs.what_interesting_behavior.value, ItemClassification.progression | ItemClassification.useful, amount=0
-    ),
-}
-
-cross_chapter_conditional_items = {
-    # Fusions
-    CCItems.dd_burger.value: ConditionalItemData(
-        ItemIDs.dd_burger.value,
+cross_chapter_items = [
+    ItemData(
+        ItemIDs.lancer_cookie,
         ItemClassification.filler,
-        lambda world: world.can_access_fusion(),
-        [ItemGroups.healing_item],
+        should_be_included=lambda world: world.has_at_least_one_chapter_included([1, 2, 4]),
+        groups=[ItemGroups.healing_item],
     ),
-    CCItems.silver_card.value: ConditionalItemData(
-        ItemIDs.silver_card.value,
+    ItemData(ItemIDs.dark_dollar_1, ItemClassification.filler, groups=[ItemGroups.currencies]),
+    ItemData(ItemIDs.dark_dollars_20, ItemClassification.filler, groups=[ItemGroups.currencies]),
+    ItemData(ItemIDs.dark_dollars_40, ItemClassification.filler, groups=[ItemGroups.currencies]),
+    ItemData(ItemIDs.dark_dollars_80, ItemClassification.filler, groups=[ItemGroups.currencies]),
+    ItemData(ItemIDs.dark_dollars_100, ItemClassification.filler, groups=[ItemGroups.currencies]),
+    ItemData(ItemIDs.dark_dollars_250, ItemClassification.filler, groups=[ItemGroups.currencies]),
+    ItemData(ItemIDs.dark_dollars_500, ItemClassification.filler, groups=[ItemGroups.currencies]),
+    ItemData(ItemIDs.what_interesting_behavior, ItemClassification.progression | ItemClassification.useful, amount=0),
+    ItemData(
+        ItemIDs.s_r_n_actions,
+        ItemClassification.progression,
+        should_be_included=lambda world: world.is_fun_gang_actions_unlockable()
+        and world.has_at_least_one_chapter_included([2, 3, 4]),
+    ),
+    ItemData(
+        ItemIDs.kris,
+        ItemClassification.progression | ItemClassification.useful,
+        should_be_included=lambda world: world.is_kris_unlockable(),
+        groups=[ItemGroups.characters],
+    ),
+    ItemData(
+        ItemIDs.susie,
+        ItemClassification.progression | ItemClassification.useful,
+        should_be_included=lambda world: world.is_characters_unlockables(),
+        groups=[ItemGroups.characters],
+    ),
+    ItemData(
+        ItemIDs.ralsei,
+        ItemClassification.progression | ItemClassification.useful,
+        should_be_included=lambda world: world.is_characters_unlockables(),
+        groups=[ItemGroups.characters],
+    ),
+    ItemData(
+        ItemIDs.noelle,
+        ItemClassification.progression | ItemClassification.useful,
+        should_be_included=lambda world: world.include_chapter(2) and world.is_characters_unlockables(),
+        groups=[ItemGroups.characters],
+    ),
+    ItemData(
+        ItemIDs.dd_burger,
         ItemClassification.filler,
-        lambda world: world.can_access_fusion(),
-        [ItemGroups.armors],
+        should_be_included=lambda world: world.can_access_fusion(),
+        groups=[ItemGroups.healing_item],
     ),
-    # Require Pink Ribbon that can be found in chapter 2 and 3 and White Ribbon that can be found in chapter 1 and 3 and starting armor for chapter 2
-    CCItems.twin_ribbon.value: ConditionalItemData(
-        ItemIDs.twin_ribbon.value,
+    ItemData(
+        ItemIDs.silver_card,
+        ItemClassification.filler,
+        should_be_included=lambda world: world.can_access_fusion(),
+        groups=[ItemGroups.armors],
+    ),
+    ItemData(
+        ItemIDs.twin_ribbon,
         ItemClassification.useful,
-        lambda world: world.can_access_fusion()
+        should_be_included=lambda world: world.can_access_fusion()
         and world.has_at_least_one_chapter_included([2, 3])
         and world.has_at_least_one_chapter_included([1, 2, 3]),
-        [ItemGroups.armors],
+        groups=[ItemGroups.armors],
     ),
-    # Require IronShackle that is exclusive to chapter 1 and Glow Wrist to chapter 2 (shop) and chapter 4 (starting armor like chapter 3 but chapter 3 can't fuse)
-    CCItems.spikeband.value: ConditionalItemData(
-        ItemIDs.spikeband.value,
+    ItemData(
+        ItemIDs.spikeband,
         ItemClassification.useful,
-        lambda world: world.can_access_fusion()
+        should_be_included=lambda world: world.can_access_fusion()
         and world.include_chapter(1)
         and world.has_at_least_one_chapter_included([2, 4]),
-        [ItemGroups.armors],
+        groups=[ItemGroups.armors],
     ),
-    # Require B.ShotBowtie that is exclusive to chapter 2 and can't be obtained on weird route
-    CCItems.tensionbow.value: ConditionalItemData(
-        ItemIDs.tensionbow.value,
+    ItemData(
+        ItemIDs.tensionbow,
         ItemClassification.useful,
-        lambda world: world.can_access_fusion() and world.include_chapter(2) and not world.is_weird_route(),
-        [ItemGroups.tension_items, ItemGroups.armors],
+        should_be_included=lambda world: world.can_access_fusion()
+        and world.include_chapter(2)
+        and not world.is_weird_route(),
+        groups=[ItemGroups.tension_items, ItemGroups.armors],
     ),
-    # Progressive weapons
-    CCItems.progressive_kris_weapons.value: ConditionalItemData(
-        ItemIDs.progressive_kris_weapons.value,
+    ItemData(
+        ItemIDs.progressive_kris_weapons,
         ItemClassification.useful,
-        lambda world: world.is_kris_weapons_progressive(),
-        [ItemGroups.weapons],
-        0,
+        should_be_included=lambda world: world.is_kris_weapons_progressive(),
+        groups=[ItemGroups.weapons],
+        amount=0,
     ),
-    CCItems.progressive_susie_weapons.value: ConditionalItemData(
-        ItemIDs.progressive_susie_weapons.value,
+    ItemData(
+        ItemIDs.progressive_susie_weapons,
         ItemClassification.useful,
-        lambda world: world.is_susie_weapons_progressive(),
-        [ItemGroups.weapons],
-        0,
+        should_be_included=lambda world: world.is_susie_weapons_progressive(),
+        groups=[ItemGroups.weapons],
+        amount=0,
     ),
-    CCItems.progressive_ralsei_weapons.value: ConditionalItemData(
-        ItemIDs.progressive_ralsei_weapons.value,
+    ItemData(
+        ItemIDs.progressive_ralsei_weapons,
         ItemClassification.useful,
-        lambda world: world.is_ralsei_weapons_progressive(),
-        [ItemGroups.weapons],
-        0,
+        should_be_included=lambda world: world.is_ralsei_weapons_progressive(),
+        groups=[ItemGroups.weapons],
+        amount=0,
     ),
-    CCItems.progressive_noelle_weapons.value: ConditionalItemData(
-        ItemIDs.progressive_noelle_weapons.value,
+    ItemData(
+        ItemIDs.progressive_noelle_weapons,
         ItemClassification.progression | ItemClassification.useful,
-        lambda world: world.include_chapter(2) and world.is_noelle_weapons_progressive(),
-        [ItemGroups.weapons],
-        0,
+        should_be_included=lambda world: world.include_chapter(2) and world.is_noelle_weapons_progressive(),
+        groups=[ItemGroups.weapons],
+        amount=0,
     ),
-    # Unused
-    CCItems.twistedswd.value: ConditionalItemData(
-        ItemIDs.twistedswd.value,
+    ItemData(
+        ItemIDs.twistedswd,
         ItemClassification.useful,
-        lambda world: world.can_access_fusion()
+        should_be_included=lambda world: world.can_access_fusion()
         and world.include_chapter(2)
         and world.is_unused_items_included()
         and world.is_weird_route(),
-        [ItemGroups.weapons, ItemGroups.kris_weapons, ItemGroups.unused_items],
+        groups=[ItemGroups.weapons, ItemGroups.kris_weapons, ItemGroups.unused_items],
     ),
-    CCItems.purecrystal.value: ConditionalItemData(
-        ItemIDs.purecrystal.value,
+    ItemData(
+        ItemIDs.purecrystal,
         ItemClassification.progression,
-        lambda world: world.can_access_fusion()
-        and False
+        should_be_included=lambda world: world.can_access_fusion()
         and world.include_chapter(2)
         and world.is_unused_items_included()
         and world.is_weird_route(),
-        [ItemGroups.fusion_ingredient, ItemGroups.unused_items],
+        groups=[ItemGroups.fusion_ingredient, ItemGroups.unused_items],
     ),
-    CCItems.everybodyweapon.value: ConditionalItemData(
-        ItemIDs.everybodyweapon.value,
+    ItemData(
+        ItemIDs.everybodyweapon,
         ItemClassification.useful,
-        lambda world: world.is_everybodyweapon_included(),
-        [
+        should_be_included=lambda world: world.is_everybodyweapon_included(),
+        groups=[
             ItemGroups.weapons,
             ItemGroups.kris_weapons,
             ItemGroups.susie_weapons,
@@ -190,12 +155,11 @@ cross_chapter_conditional_items = {
         ],
         amount=4,
     ),
-}
-
+]
 
 def create_items(world: "DeltaruneWorld"):
-    return generic_create_items(world, cross_chapter_items, cross_chapter_conditional_items)
+    return generic_create_items(world, cross_chapter_items)
 
 
 def get_filler_and_trap_items(world: "DeltaruneWorld"):
-    return generic_get_filler_and_trap_items(world, cross_chapter_items, cross_chapter_conditional_items)
+    return generic_get_filler_and_trap_items(world, cross_chapter_items)

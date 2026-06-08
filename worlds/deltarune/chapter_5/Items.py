@@ -1,7 +1,7 @@
 from ..Items import (
     ItemIDs,
     ItemData,
-    ConditionalItemData,
+    ItemData,
     generic_create_items,
     generic_get_filler_and_trap_items,
     DeltaruneItem,
@@ -35,13 +35,13 @@ chapter5_macguffin_item = ""
 chapter5_items = {}
 
 chapter5_conditional_items = {
-    Ch5Items.chapter_5_unlock.value: ConditionalItemData(
+    Ch5Items.chapter_5_unlock.value: ItemData(
         ItemIDs.chapter_5_unlock.value,
         ItemClassification.progression,
         lambda world: world.is_chapters_randomized(),
         [ItemGroups.region_blockers],
     ),
-    # Ch5Items.egg.value:           ConditionalItemData(ItemIDs.chapter_5_egg.value,  ItemClassification.useful, lambda world: world.is_hidden_items_randomized(), [ItemGroups.eggs]),
+    # Ch5Items.egg.value:           ItemData(ItemIDs.chapter_5_egg.value,  ItemClassification.useful, lambda world: world.is_hidden_items_randomized(), [ItemGroups.eggs]),
 }
 
 

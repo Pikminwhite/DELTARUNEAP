@@ -5,6 +5,7 @@ import typing
 import bsdiff4
 import shutil
 import json
+import hashlib
 
 import Utils
 
@@ -13,7 +14,7 @@ from worlds import deltarune
 from MultiServer import mark_raw, Context, Client
 from Utils import async_start
 
-ap_world_version = "v1.2.2a"
+ap_world_version = "v2.0.0+pre-release-3"
 
 # Try importing gui_enabled in Utils first before trying to import them from CommonClient
 # Core AP will be officially moving it to Utils in the future, so this is in accommodation for that
@@ -28,7 +29,7 @@ except ImportError:
 tracker_loaded = False
 try:
     from worlds.tracker.TrackerClient import (
-        ClientCommandProcessor,
+        TrackerCommandProcessor as ClientCommandProcessor,
         TrackerGameContext as SuperContext,
         get_base_parser,
         server_loop,
@@ -43,26 +44,6 @@ except ModuleNotFoundError:
 
     if not gui_loaded_from_utils:
         from CommonClient import gui_enabled
-
-
-def update_deathlink_flag(ctx: DeltaruneContext):
-    filename = f"deathlink.flag"
-    if ctx.deathlink_status == 1:
-        with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-            f.close()
-    else:
-        if os.path.exists(os.path.join(ctx.save_game_folder, filename)):
-            os.remove(os.path.join(ctx.save_game_folder, filename))
-
-def update_receiving_type(ctx: DeltaruneContext):
-    filename = f"receivingtype.start"
-    if ctx.receivingtype == 1:
-        with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-            f.close()
-    else:
-        if os.path.exists(os.path.join(ctx.save_game_folder, filename)):
-            os.remove(os.path.join(ctx.save_game_folder, filename))
-
 
 def guess_deltarune_path(path: str | None):
     tempInstall = ""
@@ -104,32 +85,6 @@ class DeltaruneCommandProcessor(ClientCommandProcessor):
             self.ctx.patch_game()
             self.output("Patched.")
 
-    def _cmd_savepath(self, directory: str):
-        """Redirect to proper save data folder. This is necessary for Linux users to use before connecting."""
-        if isinstance(self.ctx, DeltaruneContext):
-            self.ctx.save_game_folder = directory
-            self.output(
-                """Changed to the following directory: """
-                + self.ctx.save_game_folder
-                + """
-If you're connected, you'll need to reconnect."""
-            )
-
-    def _cmd_savereset(self):
-        """Reset all save data for the Archipelago version of DELTARUNE. Use BEFORE connecting."""
-        if isinstance(self.ctx, DeltaruneContext):
-            path = self.ctx.save_game_folder
-            self.finished_game = False
-            for root, dirs, files in os.walk(path):
-                for file in files:
-                    if "check.spot" == file or "checkbackup.spot" == file or "scout" == file or "scouting.json" == file:
-                        os.remove(os.path.join(root, file))
-                    elif file.endswith((".item", ".victory", ".route", ".mine", ".flag", ".hint", ".complete")):
-                        os.remove(os.path.join(root, file))
-                    elif file.startswith(("filech", "vacationmemories", "dr")):
-                        os.remove(os.path.join(root, file))
-            self.output("Save data reset! If you're connected, you'll need to reconnect.")
-
     def _cmd_chosen_route(self):
         """Use this to figure out your chosen route, if you don't know or have forgotten."""
         if isinstance(self.ctx, DeltaruneContext):
@@ -169,63 +124,61 @@ Both gaining and losing recruits have been turned into checks."""
                     ' command. "/auto_patch (Steam directory)".'
                 )
             else:
-                shutil.copytree(pathInstall, Utils.user_path("DELTARUNE"), dirs_exist_ok=True)
-                self.ctx.patch_game()
-                self.output("Patching successful!")
+                error = False
+                matching_hash = [
+                    "9D1FEA9DE81219EA7304F32F1AE7A878",
+                    "276441245F2F9C11061E36370E6E9C9D",
+                    "F0ECF91309E55E93C1A9D6E10AF1064F",
+                    "A3CC0CE00949C538DEC395BC07097069",
+                    "300559ED63E1009FD694DEB2784BF1C6",
+                ]
+                matching_hash_1_05 = [
+                    "5D3E158DBE6888FBF24471019FBDE3C9",
+                    "F2CA0969E982C9DEDC77EA5EC0DB0972",
+                    "D96E6AFD0B40F8B4A39CAE86D0F89A0B",
+                    "A3D804E9B101C0D1A6C71117DA214F71",
+                    "591BF5321C70F17818559B8A50A99A7F",
+                ]
+                matching_hash_1_05_30TBPS = [
+                    "7A0DDC20059BDFB56E7E5523B0B65ABF",
+                    "DEE4F1831C7438AEDD375DBE1B587C3F",
+                    "51ABC72791C0AFA533F2DB1D7BE3D44E",
+                    "085C34120F7E25B0766E105A56B14B0B",
+                    "E5DA918F0C064AAE5068F871E5885605",
+                ]
+                for chapter in range(0, 5):
+                    additional_path = ""
+                    file_name = "data.win"
 
-    def _cmd_deathlink(self):
-        """Toggles deathlink"""
-        if isinstance(self.ctx, DeltaruneContext):
-            if self.ctx.chosen_route == 0:
-                self.output(f"Deathlink status unchanged. Try connecting first.")
-            else:
-                self.ctx.deathlink_status = not self.ctx.deathlink_status
-                if self.ctx.deathlink_status:
-                    self.output(f"Deathlink enabled. Enjoy the fun.")
-                else:
-                    self.output(f"Deathlink disabled. Too difficult for you?")
-                update_deathlink_flag(self.ctx)
+                    if chapter > 0:
+                        additional_path = f"chapter{chapter}_windows/"
 
-    def _cmd_receive_type(self):
-        """Toggles between receiving items at the start of the room or whenever possible.\nShould reduce lag for Linux users."""
-        if isinstance(self.ctx, DeltaruneContext):
-            self.ctx.receivingtype = not self.ctx.receivingtype
-            if self.ctx.receivingtype:
-                self.output(f"Receiving mode set to: Start of the room.")
-            else:
-                self.output(f"Receiving mode set to: Whenever possible.")
-            update_receiving_type(self.ctx)
+                    hash = ""
 
+                    with open(f"{pathInstall}/{additional_path}{file_name}", "rb") as f:
+                        hash = hashlib.file_digest(f, "md5").hexdigest().upper()
 
-def send_location_item_to_deltarune(ctx: DeltaruneContext):
-    if os.path.exists(os.path.join(ctx.save_game_folder, "scouting.json")):
-        return
+                    if hash != matching_hash[chapter]:
+                        self.output(
+                            f"{pathInstall}/{additional_path}{file_name} is not DELTARUNE 1.04 Vanilla. (Is your game 1.05 or modded ?)"
+                        )
+                        if hash == matching_hash_1_05[chapter]:
+                            self.output("Detected as 1.05")
+                        elif hash == matching_hash_1_05_30TBPS[chapter]:
+                            self.output("Are you a speedrunner ? Because 1.05 30TBPS is detected")
+                        else:
+                            self.output(f"Expected: {matching_hash[chapter]}, got {hash}")
 
-    result = {}
+                        error = True
 
-    for location in ctx.locations_info.values():
-        if location.player == ctx.slot:
-            playerName = "<yourself>"
-        else:
-            playerName = ctx.player_names[location.player]
-        itemName = ctx.item_names.lookup_in_slot(location.item, location.player)
-        result[location.location] = {"playerName": playerName, "itemName": itemName, "flags": location.flags}
-
-    with open(os.path.join(ctx.save_game_folder, "scouting.json"), "w") as file:
-        json.dump(result, file)
-
-
-def fill_scout_locations(ctx: DeltaruneContext):
-    if os.path.exists(os.path.join(ctx.save_game_folder, "scouting.json")):
-        return
-
-    if ctx.missing_locations and len(ctx.missing_locations) > 0:
-        return ctx.missing_locations
-    return
+                if not error:
+                    shutil.copytree(pathInstall, Utils.user_path("DELTARUNE"), dirs_exist_ok=True)
+                    self.ctx.patch_game()
+                    self.output("Patching successful!")
 
 
 class DeltaruneContext(SuperContext):
-    tags = {"AP"}
+    tags = {"TextOnly"}
     game = "DELTARUNE"
     command_processor = DeltaruneCommandProcessor
     items_handling = 0b111
@@ -250,16 +203,7 @@ class DeltaruneContext(SuperContext):
 
     def __init__(self, server_address, password):
         super().__init__(server_address, password)
-        self.finished_game = False
-        self.got_deathlink = False
-        self.syncing = False
-        self.deathlink_status = False
         self.game = "DELTARUNE"
-        self.chapters = []
-        self.chosen_route = 0
-        self.goal_macguffin_amount = 1
-        # self.save_game_folder: files go in this path to pass data between us and the actual game
-        self.save_game_folder = os.path.expandvars(r"%localappdata%/DELTARUNEAP")
 
     def patch_game(self):
         with open(Utils.user_path("DELTARUNE", "chapter1_windows", "data.win"), "rb") as f:
@@ -289,43 +233,6 @@ class DeltaruneContext(SuperContext):
         await self.get_username()
         await self.send_connect()
 
-    def clear_deltarune_files_disconnect(self):
-        path = self.save_game_folder
-        self.finished_game = False
-        for root, dirs, files in os.walk(path):
-            for file in files:
-                if file.endswith((".item", ".mine", ".flag", ".hint")):
-                    os.remove(os.path.join(root, file))
-        self.chosen_route = 0
-
-    def clear_deltarune_files(self):
-        path = self.save_game_folder
-        self.finished_game = False
-        for root, dirs, files in os.walk(path):
-            for file in files:
-                if "check.spot" == file or "scout" == file:
-                    os.remove(os.path.join(root, file))
-                elif file.endswith((".item", ".victory", ".route", ".mine", ".flag", ".hint", ".complete")):
-                    os.remove(os.path.join(root, file))
-        self.chosen_route = 0
-
-    # no delete certain files on connect/lost connect, but disconnecting manually and closing the client still deletes all
-    async def connect(self, address: typing.Optional[str] = None):
-        self.clear_deltarune_files_disconnect()
-        await super().connect(address)
-
-    async def disconnect(self, allow_autoreconnect: bool = False):
-        self.clear_deltarune_files()
-        await super().disconnect(allow_autoreconnect)
-
-    async def connection_closed(self):
-        self.clear_deltarune_files_disconnect()
-        await super().connection_closed()
-
-    async def shutdown(self):
-        self.clear_deltarune_files()
-        await super().shutdown()
-
     def on_package(self, cmd: str, args: dict):
         super().on_package(cmd, args)
         if cmd == "Connected":
@@ -338,356 +245,18 @@ class DeltaruneContext(SuperContext):
         ui.logging_pairs = [("Client", "Archipelago")]
         return ui
 
-    def on_deathlink(self, data: typing.Dict[str, typing.Any]):
-        self.got_deathlink = True
-        super().on_deathlink(data)
-
     async def version_mismatch(self):
         DeltaruneCommandProcessor.output(self, 
             """*****\nWARNING: Incompatible DELTARUNEAP version. Unable to connect.\n*****""")
         await super().disconnect(False)
 
-    async def invalid_file_directory(self):
-        DeltaruneCommandProcessor.output(self,
-            """*****\nWARNING: No file directory matches the current save path of """ +
-            self.save_game_folder + """\nChange the save path with the /savepath command.\n*****""")
-        await super().disconnect(False)
-
 async def process_deltarune_cmd(ctx: DeltaruneContext, cmd: str, args: dict):
     if cmd == "Connected":
-        try:
-            if not os.path.exists(ctx.save_game_folder):
-                os.mkdir(os.path.join(ctx.save_game_folder))
-        except:        
-            await ctx.invalid_file_directory()
-            return
-
-        # Umm idk how this works but it does so you know... no touchie
-        await ctx.send_msgs(
-            [
-                {
-                    "cmd": "Get",
-                    "keys": [
-                        str(ctx.slot) + " complete chapter1",
-                        str(ctx.slot) + " complete chapter2",
-                        str(ctx.slot) + " complete chapter3",
-                        str(ctx.slot) + " complete chapter4",
-                    ],
-                }
-            ]
-        )
-        await ctx.send_msgs(
-            [
-                {
-                    "cmd": "SetNotify",
-                    "keys": [
-                        str(ctx.slot) + " complete chapter1",
-                        str(ctx.slot) + " complete chapter2",
-                        str(ctx.slot) + " complete chapter3",
-                        str(ctx.slot) + " complete chapter4",
-                    ],
-                }
-            ]
-        )
-
         try:
             options = args["slot_data"]["options"]
         except:
             await ctx.version_mismatch()
             return
-
-        # flags are files so that i can just do `file_exists("weird_route.route")` in DELTARUNE code
-        ctx.chosen_route = options["chosen_route"]
-        filename = f"{str(ctx.chosen_route)}.route"
-        with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-            f.close()
-        ctx.item_balancing = options["item_balancing"]
-        if ctx.item_balancing == 1:
-            filename = f"balancing.flag"
-            with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                f.close()
-        ctx.deathlink_status = options["death_link"]
-        update_deathlink_flag(ctx)
-        ctx.mandatoryboss = options["randomize_secret_bosses"]
-        if ctx.mandatoryboss == "mandatory":
-            filename = f"super.flag"
-            with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                f.close()
-            ctx.mandatorymantle = options["randomize_mantle"]
-            if ctx.mandatorymantle != "mantleless":
-                filename = f"mantle.flag"
-                with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                    f.close()
-        if ctx.mandatorymantle == "mantleless":
-            filename = f"nomantle.flag"
-            with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                f.close()
-        ctx.ranchapters = options["randomize_chapters"]
-        if ctx.ranchapters == "all_unlocked":
-            filename = f"all.route"
-            with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                f.close()
-        ctx.chapter1 = options["include_chapter_1"]
-        if ctx.chapter1 == 1:
-            filename = f"ch1.route"
-            with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                f.close()
-        ctx.chapter2 = options["include_chapter_2"]
-        if ctx.chapter2 == 1:
-            filename = f"ch2.route"
-            with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                f.close()
-        ctx.chapter3 = options["include_chapter_3"]
-        if ctx.chapter3 == 1:
-            filename = f"ch3.route"
-            with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                f.close()
-        ctx.chapter4 = options["include_chapter_4"]
-        if ctx.chapter4 == 1:
-            filename = f"ch4.route"
-            with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                f.close()
-        ctx.goal_macguffin_amount = 3  # by default
-        ctx.goal_macguffin_amount = options["goal_macguffin_amount"]
-        filename = f"macguffin_amount.flag"
-        with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-            f.write(str(ctx.goal_macguffin_amount))
-            f.close()
-        filename = f"check.spot"
-        with open(os.path.join(ctx.save_game_folder, filename), "a") as f:
-            for ss in set(args["checked_locations"]):
-                f.write(str(ss) + "\n")
-            f.close()
-        ctx.unused_items = options["include_unused_items"]
-        if ctx.unused_items == 1:
-            filename = f"unused_items.flag"
-            with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                f.close()
-        ctx.locations_scouted = fill_scout_locations(ctx)
-        if ctx.locations_scouted:
-            msgs = [{"cmd": "LocationScouts", "locations": list(ctx.locations_scouted)}]
-            await ctx.send_msgs(msgs)
-    elif cmd == "Retrieved":
-        # makes completion data
-        if str(ctx.slot) + " complete chapter1" in args["keys"]:
-            if args["keys"][str(ctx.slot) + " complete chapter1"] is not None:
-                ctx.completechapter1 = args["keys"][str(ctx.slot) + " complete chapter1"]
-                filename = f"ch1.complete"
-                with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                    f.close()
-        if str(ctx.slot) + " complete chapter2" in args["keys"]:
-            if args["keys"][str(ctx.slot) + " complete chapter2"] is not None:
-                ctx.completechapter2 = args["keys"][str(ctx.slot) + " complete chapter2"]
-                filename = f"ch2.complete"
-                with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                    f.close()
-        if str(ctx.slot) + " complete chapter3" in args["keys"]:
-            if args["keys"][str(ctx.slot) + " complete chapter3"] is not None:
-                ctx.completechapter3 = args["keys"][str(ctx.slot) + " complete chapter3"]
-                filename = f"ch3.complete"
-                with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                    f.close()
-        if str(ctx.slot) + " complete chapter4" in args["keys"]:
-            if args["keys"][str(ctx.slot) + " complete chapter4"] is not None:
-                ctx.completechapter4 = args["keys"][str(ctx.slot) + " complete chapter4"]
-                filename = f"ch4.complete"
-                with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                    f.close()
-    elif cmd == "SetReply":
-        if args["value"] is not None:
-            if str(ctx.slot) + " complete chapter1" == args["key"]:
-                ctx.completechapter1 = args["value"]
-                filename = f"ch1.complete"
-                with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                    f.close()
-            elif str(ctx.slot) + " complete chapter2" == args["key"]:
-                ctx.completechapter2 = args["value"]
-                filename = f"ch2.complete"
-                with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                    f.close()
-            elif str(ctx.slot) + " complete chapter3" == args["key"]:
-                ctx.completechapter3 = args["value"]
-                filename = f"ch3.complete"
-                with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                    f.close()
-            elif str(ctx.slot) + " complete chapter4" == args["key"]:
-                ctx.completechapter4 = args["value"]
-                filename = f"ch4.complete"
-                with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                    f.close()
-    if cmd == "LocationInfo":
-        send_location_item_to_deltarune(ctx)
-        for l in args["locations"]:
-            locationid = l.location
-            filename = f"{str(locationid)}.hint"
-            with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                toDraw = ""
-                for i in range(20):
-                    if i < len(str(ctx.item_names.lookup_in_game(l.item))):
-                        toDraw += str(ctx.item_names.lookup_in_game(l.item))[i]
-                    else:
-                        break
-                f.write(toDraw)
-                f.close()
-    elif cmd == "ReceivedItems":
-        start_index = args["index"]
-
-        if start_index == 0:
-            ctx.items_received = []
-        elif start_index != len(ctx.items_received):
-            sync_msg = [{"cmd": "Sync"}]
-            if ctx.locations_checked:
-                sync_msg.append({"cmd": "LocationChecks", "locations": list(ctx.locations_checked)})
-            if ctx.locations_scouted:
-                sync_msg.append({"cmd": "LocationScouts", "locations": list(ctx.locations_scouted)})
-            await ctx.send_msgs(sync_msg)
-        if start_index == len(ctx.items_received):
-            counter = -1
-            for item in args["items"]:
-                id = NetworkItem(*item).location
-                while NetworkItem(*item).location < 0 and counter <= id:
-                    id -= 1
-                if NetworkItem(*item).location < 0:
-                    counter -= 1
-                filename = f"{str(id)}PLR{str(NetworkItem(*item).player)}.item"
-                with open(os.path.join(ctx.save_game_folder, filename), "w") as f:
-                    f.write(str(NetworkItem(*item).item))
-                    f.close()
-                ctx.items_received.append(NetworkItem(*item))
-        ctx.watcher_event.set()
-
-    elif cmd == "RoomUpdate":
-        if "checked_locations" in args:
-            filename = f"check.spot"
-            with open(os.path.join(ctx.save_game_folder, filename), "a") as f:
-                for ss in set(args["checked_locations"]):
-                    f.write(str(ss) + "\n")
-                f.close()
-
-
-async def game_watcher(ctx: DeltaruneContext):
-    while not ctx.exit_event.is_set():
-        await ctx.update_death_link(ctx.deathlink_status)
-        path = ctx.save_game_folder
-        if ctx.syncing:
-            for root, dirs, files in os.walk(path):
-                for file in files:
-                    if ".item" in file:
-                        os.remove(os.path.join(root, file))
-            sync_msg = [{"cmd": "Sync"}]
-            if ctx.locations_checked:
-                sync_msg.append({"cmd": "LocationChecks", "locations": list(ctx.locations_checked)})
-            if ctx.locations_scouted:
-                sync_msg.append({"cmd": "LocationScouts", "locations": list(ctx.locations_scouted)})
-            await ctx.send_msgs(sync_msg)
-            ctx.syncing = False
-        if ctx.got_deathlink:
-            ctx.got_deathlink = False
-            with open(os.path.join(ctx.save_game_folder, "WelcomeToTheDead.youDied"), "w") as f:
-                f.close()
-        sending = []
-        sendinghint = []
-        victory = False
-        skipped = 0
-        for root, dirs, files in os.walk(path):
-            for file in files:
-                if "test" in file:
-                    os.remove(os.path.join(root, file))
-                    version_str = ".".join(str(x) for x in Client.version)
-                    await Context.broadcast_text_all(
-                        f"{Context.get_aliased_name(ctx.team, ctx.slot)} (Team #{ctx.team + 1}) has tested this thing. "
-                        f"Client({version_str}), {ctx.tags}.",
-                        {"type": "Part", "team": ctx.team, "slot": ctx.slot},
-                    )
-                if "DontBeMad.mad" in file:
-                    os.remove(os.path.join(root, file))
-                    if "DeathLink" in ctx.tags:
-                        await ctx.send_death()
-                if "scout" == file:
-                    sendinghint = []
-                    try:
-                        with open(os.path.join(root, file), "r") as f:
-                            lines = f.readlines()
-                        for l in lines:
-                            if not l.rstrip("\n") == "":
-                                if ctx.server_locations.__contains__(int(l)):
-                                    sendinghint = sendinghint + [int(l.rstrip("\n"))]
-                    finally:
-                        await ctx.send_msgs(
-                            [{"cmd": "LocationScouts", "locations": sendinghint, "create_as_hint": int(2)}]
-                        )
-                if "check.spot" in file:
-                    sending = []
-                    try:
-                        with open(os.path.join(root, file), "r") as f:
-                            lines = f.readlines()
-                        for l in lines:
-                            if not l.rstrip("\n") == "":
-                                sending = sending + [int(l.rstrip("\n"))]
-                    finally:
-                        await ctx.send_msgs([{"cmd": "LocationChecks", "locations": sending}])
-                if "receivingtype.start" in file:
-                    ctx.receivingtype = 1
-                    update_receiving_type(ctx)
-                if "victory" in file:
-                    victory = True
-                    os.remove(os.path.join(root, file))
-                if "complete" in file:
-                    if "ch1" in file and ctx.completechapter1 != 1:
-                        await ctx.send_msgs(
-                            [
-                                {
-                                    "cmd": "Set",
-                                    "key": str(ctx.slot) + " complete chapter1",
-                                    "default": 0,
-                                    "want_reply": True,
-                                    "operations": [{"operation": "max", "value": 1}],
-                                }
-                            ]
-                        )
-                    elif "ch2" in file and ctx.completechapter2 != 1:
-                        await ctx.send_msgs(
-                            [
-                                {
-                                    "cmd": "Set",
-                                    "key": str(ctx.slot) + " complete chapter2",
-                                    "default": 0,
-                                    "want_reply": True,
-                                    "operations": [{"operation": "max", "value": 1}],
-                                }
-                            ]
-                        )
-                    elif "ch3" in file and ctx.completechapter3 != 1:
-                        await ctx.send_msgs(
-                            [
-                                {
-                                    "cmd": "Set",
-                                    "key": str(ctx.slot) + " complete chapter3",
-                                    "default": 0,
-                                    "want_reply": True,
-                                    "operations": [{"operation": "max", "value": 1}],
-                                }
-                            ]
-                        )
-                    elif "ch4" in file and ctx.completechapter4 != 1:
-                        await ctx.send_msgs(
-                            [
-                                {
-                                    "cmd": "Set",
-                                    "key": str(ctx.slot) + " complete chapter4",
-                                    "default": 0,
-                                    "want_reply": True,
-                                    "operations": [{"operation": "max", "value": 1}],
-                                }
-                            ]
-                        )
-        ctx.locations_checked = sending
-        ctx.locations_scouted = sendinghint
-        if (not ctx.finished_game) and victory:
-            await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
-            ctx.finished_game = True
-        await asyncio.sleep(0.1)
-
 
 async def send_testy():
     """i like to test oh yeah."""
@@ -700,7 +269,6 @@ def main():
     async def _main():
         ctx = DeltaruneContext(None, None)
         ctx.server_task = asyncio.create_task(server_loop(ctx), name="server loop")
-        asyncio.create_task(game_watcher(ctx), name="DeltaruneProgressionWatcher")
 
         if tracker_loaded:
             ctx.run_generator()
