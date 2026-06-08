@@ -15,7 +15,7 @@ from worlds.deltarune.Rules import (
     have_kris_or_noelle,
     have_kris_or_ralsei,
     have_kris_susie_or_ralsei,
-    can_susie_recruit,
+    can_recruit_with_kris_susie,
     have_susie,
 )
 from worlds.deltarune.Items import items, ItemIDs, glitched_item_name
@@ -77,8 +77,7 @@ def create_regions(world: "DeltaruneWorld"):
     # Require Kris or Susie for the werewire fight
     world.get_region(Regions.chapter_2).connect(
         cyber_field,
-        rule=have_kris
-        | can_susie_recruit
+        rule=can_recruit_with_kris_susie
         | (
             have_susie
             & [
