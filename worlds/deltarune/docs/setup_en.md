@@ -28,4 +28,4 @@ Universal Tracker download (There will be a new tab if you have it in the custom
 
 5. To connect to a Multiworld, open the game and connect using your port, username, and (if applicable) password. You can also connect with the DELTARUNE client for text chat and Universal Tracker support (if you have the tracker APWorld installed), but connecting with the client isn't required.
 
-7. Make sure to read the README too! It has a lot of information on the stuff the mod changes.
+7. Make sure to read the README / FAQ too! It has a lot of information on the stuff the mod changes.
