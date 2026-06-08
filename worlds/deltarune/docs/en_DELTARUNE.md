@@ -16,7 +16,7 @@ Location checks in DELTARUNE are all the spots in the game where you can get an 
 
 When the player receives an item in DELTARUNE, it will go into their inventory if they have space.
 
-Currently if you have no space left, the item is discarded. But you have 72 storage, 48 weapons and 60 armor slot.
+Currently if you have no space left, the item is discarded, which is a bug that will be fixed soon. Luckily, this is very unlikely to happen, as you now have 72 storage, 48 weapon, and 60 armor slots in every chapter, which is more than you'll reasonably need.
 
 ## What is the victory condition?
 
@@ -63,7 +63,7 @@ Third Sanctuary Ending - Combination Lock Digits
 ### Chapter 3
 For Chapter 3, getting S-Rank on each board is expected. If you don't get S-Rank, you can either try the board again or buy it from a Pippins in the green room. If somehow the checks for the board didn't send, you can talk to the Zapper in the Ranking room about "My Rank, My Rewards?" to resend them.
 
-You can replay any board at any time with a new Pippins in the green room.
+You can also replay any board at any time with a new Pippins in the green room.
 
 Make sure to get the extra ranks during the boards (Extra Moss, Extra Key, etc.)!
 
@@ -71,11 +71,11 @@ Make sure to get the extra ranks during the boards (Extra Moss, Extra Key, etc.)
 
 #### Neutral Route
 
-Choosing Neutral Route don't add any location about recruits. You're expected to progress during the main storyline.
+Choosing Neutral Route doesn't add any recruit/lost recruit locations. You're expected to progress during the main storyline, though.
 
 #### Weird Route
 
-Choosing weird route will add losing each recruit as location. It's not required to lose every recruit to finish a chapter but it's strongly recommended as important items could be behind.
+Choosing Weird Route will add losing each recruit as location. It's not required to lose every recruit to finish a chapter but it's strongly recommended as important items could be behind.
 
 It's also expected to follow the Weird storyline. If you accidentally deviate, a special "relieved" sound cue will play letting you know that the route has been aborted. MAKE SURE TO LOAD A PREVIOUS SAVE IN THIS SITUATION.
 
@@ -87,15 +87,15 @@ Additional checks include: Both Rings and a special check for losing each recrui
 
 Choosing All Recruits will add recruiting each recruit as location. It's not required to recruit every recruit to finish a chapter but it's strongly recommended as important items could be behind.
 
-You can check your progress at each save point, and each chapter will let you know if you accidentally missed one (Queen will complain about Nubert being gone if you didn't recruit everyone, there's a paper on the wall before the Tenna fight, and there's a "bell of judgement" you can ring before the end of Chapter 4.)
+You can check your progress at each save point, and each chapter will let you know if you accidentally missed one (Trashy will warn you before the queen fight if you didn't recruit everyone, there's a paper on the wall before the Tenna fight, and there's a "bell of judgement" you can ring before the end of Chapter 4.)
 
 Each Recruit counts as a check. Some checks are available in this route that are not a part of the Weird Route.
 
 #### All Routes
 
-It combines both Weird Route and All Recruits as explained above. Take care that losing a recruit prevent your from recruiting it. If you want to do both on the main savefile yor should recruit before losing.
+It combines both Weird Route and All Recruits as explained above. Remember that losing a recruit will prevent you from recruiting it. If you want to do both on the main savefile, you should recruit before losing.
 
-Also Chapter 2 have Tasque Manager Challenge and All Stars Challenge that require the recruits. It's strongly recommended to remove them if you're playing on the same save file.
+Also, Chapter 2 has Tasque Manager Challenge and All Stars Challenge that require recruits. It's strongly recommended to remove them if you're planning on playing on the same save file.
 
 
 ## Universal Tracker Support
