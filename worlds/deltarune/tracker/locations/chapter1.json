@@ -1,0 +1,542 @@
+[
+  {
+    "name": "CH1: ?????? - Hidden Item",
+    "section": [
+      {
+        "name": "CH1: ?????? - Hidden Item"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Bake Sale - Diamond Stand",
+    "section": [
+      {
+        "name": "CH1: Bake Sale - Diamond Stand"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Bake Sale - Heart Stand",
+    "section": [
+      {
+        "name": "CH1: Bake Sale - Heart Stand"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Bake Sale - Repair Door Key",
+    "section": [
+      {
+        "name": "CH1: Bake Sale - Repair Door Key"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Bake Sale - Repair Top Cake",
+    "section": [
+      {
+        "name": "CH1: Bake Sale - Repair Top Cake"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Bake Sale - Spade Stand",
+    "section": [
+      {
+        "name": "CH1: Bake Sale - Spade Stand"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Bake Sale - Warp Door",
+    "section": [
+      {
+        "name": "CH1: Bake Sale - Warp Door"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Card Castle - 2F Chest",
+    "section": [
+      {
+        "name": "CH1: Card Castle - 2F Chest"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Card Castle - 4F Chest",
+    "section": [
+      {
+        "name": "CH1: Card Castle - 4F Chest"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Card Castle - IronShackle",
+    "section": [
+      {
+        "name": "CH1: Card Castle - IronShackle"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Card Castle - Jevil Defeat Item #1",
+    "section": [
+      {
+        "name": "CH1: Card Castle - Jevil Defeat Item #1"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Card Castle - Jevil Defeat Item #2",
+    "section": [
+      {
+        "name": "CH1: Card Castle - Jevil Defeat Item #2"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Card Castle - Jevil Defeat Item #3",
+    "section": [
+      {
+        "name": "CH1: Card Castle - Jevil Defeat Item #3"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Card Castle - Lost Head Hathy",
+    "section": [
+      {
+        "name": "CH1: Card Castle - Lost Head Hathy"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Card Castle - Lost Rudinn Ranger",
+    "section": [
+      {
+        "name": "CH1: Card Castle - Lost Rudinn Ranger"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Card Castle - Moss",
+    "section": [
+      {
+        "name": "CH1: Card Castle - Moss"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Card Castle - Recruit Head Hathy",
+    "section": [
+      {
+        "name": "CH1: Card Castle - Recruit Head Hathy"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Card Castle - Recruit Rudinn Ranger",
+    "section": [
+      {
+        "name": "CH1: Card Castle - Recruit Rudinn Ranger"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Card Castle - Rudinn Gift",
+    "section": [
+      {
+        "name": "CH1: Card Castle - Rudinn Gift"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Card Castle - Warp Door",
+    "section": [
+      {
+        "name": "CH1: Card Castle - Warp Door"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Card Kingdom - Fountain Sealed",
+    "section": [
+      {
+        "name": "CH1: Card Kingdom - Fountain Sealed"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Castle Town - Manual",
+    "section": [
+      {
+        "name": "CH1: Castle Town - Manual"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Fields - BrokenCake",
+    "section": [
+      {
+        "name": "CH1: Fields - BrokenCake"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Fields - Chest Before Great Board",
+    "section": [
+      {
+        "name": "CH1: Fields - Chest Before Great Board"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Fields - Dark Candy Tree 1",
+    "section": [
+      {
+        "name": "CH1: Fields - Dark Candy Tree 1"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Fields - Dark Candy Tree 2",
+    "section": [
+      {
+        "name": "CH1: Fields - Dark Candy Tree 2"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Fields - Dark Candy Tree 3",
+    "section": [
+      {
+        "name": "CH1: Fields - Dark Candy Tree 3"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Fields - Dark Candy Tree 4",
+    "section": [
+      {
+        "name": "CH1: Fields - Dark Candy Tree 4"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Fields - Lost Hathy",
+    "section": [
+      {
+        "name": "CH1: Fields - Lost Hathy"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Fields - Lost Jigsawry",
+    "section": [
+      {
+        "name": "CH1: Fields - Lost Jigsawry"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Fields - Lost Rudinn",
+    "section": [
+      {
+        "name": "CH1: Fields - Lost Rudinn"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Fields - Maze of Death Chest",
+    "section": [
+      {
+        "name": "CH1: Fields - Maze of Death Chest"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Fields - Recruit Hathy",
+    "section": [
+      {
+        "name": "CH1: Fields - Recruit Hathy"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Fields - Recruit Jigsawry",
+    "section": [
+      {
+        "name": "CH1: Fields - Recruit Jigsawry"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Fields - Recruit Rudinn",
+    "section": [
+      {
+        "name": "CH1: Fields - Recruit Rudinn"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Fields - Return Top Cake",
+    "section": [
+      {
+        "name": "CH1: Fields - Return Top Cake"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Fields - Warp Door",
+    "section": [
+      {
+        "name": "CH1: Fields - Warp Door"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Forest - Chest Near Worm",
+    "section": [
+      {
+        "name": "CH1: Forest - Chest Near Worm"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Forest - Coat Rack's Chest",
+    "section": [
+      {
+        "name": "CH1: Forest - Coat Rack's Chest"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Forest - Hidden Chest Near Dancers",
+    "section": [
+      {
+        "name": "CH1: Forest - Hidden Chest Near Dancers"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Forest - Letter Block Chest",
+    "section": [
+      {
+        "name": "CH1: Forest - Letter Block Chest"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Forest - Lost Bloxer",
+    "section": [
+      {
+        "name": "CH1: Forest - Lost Bloxer"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Forest - Man",
+    "section": [
+      {
+        "name": "CH1: Forest - Man"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Forest - Recruit Bloxer",
+    "section": [
+      {
+        "name": "CH1: Forest - Recruit Bloxer"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Forest - Recruit Rabbick",
+    "section": [
+      {
+        "name": "CH1: Forest - Recruit Rabbick"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Forest - Scissor Dancers Chest",
+    "section": [
+      {
+        "name": "CH1: Forest - Scissor Dancers Chest"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Forest - Warp Door",
+    "section": [
+      {
+        "name": "CH1: Forest - Warp Door"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Great Board - Lost Ponman",
+    "section": [
+      {
+        "name": "CH1: Great Board - Lost Ponman"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Great Board - Recruit Ponman",
+    "section": [
+      {
+        "name": "CH1: Great Board - Recruit Ponman"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Rouxls' Shop 1",
+    "section": [
+      {
+        "name": "CH1: Rouxls' Shop 1"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Rouxls' Shop 2",
+    "section": [
+      {
+        "name": "CH1: Rouxls' Shop 2"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Rouxls' Shop 3",
+    "section": [
+      {
+        "name": "CH1: Rouxls' Shop 3"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Rouxls' Shop 4",
+    "section": [
+      {
+        "name": "CH1: Rouxls' Shop 4"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Seam's Seap - Talk About Strange Prisoner",
+    "section": [
+      {
+        "name": "CH1: Seam's Seap - Talk About Strange Prisoner"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Seam's Seap 1",
+    "section": [
+      {
+        "name": "CH1: Seam's Seap 1"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Seam's Seap 2",
+    "section": [
+      {
+        "name": "CH1: Seam's Seap 2"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Seam's Seap 3",
+    "section": [
+      {
+        "name": "CH1: Seam's Seap 3"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Seam's Seap 4",
+    "section": [
+      {
+        "name": "CH1: Seam's Seap 4"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Throw Away Manual",
+    "section": [
+      {
+        "name": "CH1: Throw Away Manual"
+      }
+    ],
+    "map_locations": []
+  },
+  {
+    "name": "CH1: Throw Away Manual (Again...)",
+    "section": [
+      {
+        "name": "CH1: Throw Away Manual (Again...)"
+      }
+    ],
+    "map_locations": []
+  }
+]

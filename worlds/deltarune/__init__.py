@@ -182,7 +182,13 @@ class DeltaruneWorld(World):
     tracker_world: ClassVar = {
         "map_page_folder": "tracker",
         "map_page_maps": "maps/maps.json",
-        "map_page_locations": "locations/locations.json",
+        "map_page_locations": [
+            "locations/chapter1.json",
+            "locations/chapter2.json",
+            "locations/chapter3.json",
+            "locations/chapter4.json",
+            "locations/overview.json",
+        ],
     }
 
     def _get_deltarune_data(self):
