@@ -93,7 +93,7 @@ def create_regions(world: "DeltaruneWorld"):
     )
     dark_sanctuary_claimbclaws.connect(gerson, rule=have_susie | Has(glitched_item_name))
 
-    second_sanctuary.connect(third_sanctuary)
+    second_sanctuary.connect(third_sanctuary, rule=have_susie)
 
     third_sanctuary.connect(gerson, rule=have_susie | Has(glitched_item_name))
 
