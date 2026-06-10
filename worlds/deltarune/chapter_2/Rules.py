@@ -42,7 +42,8 @@ def set_rules(world: "DeltaruneWorld"):
             have_noelle)
         world.set_rule(
             world.get_location(locations[LocationIDs.ch2_cyber_city_purchase_thornring]),
-            have_noelle)
+            have_noelle | Has(glitched_item_name),
+        )
         world.set_rule(
             world.get_location(locations[LocationIDs.ch2_lost_tasque_manager]),
             have_kris_susie_or_ralsei & (can_snowgrave | Has(glitched_item_name)),
