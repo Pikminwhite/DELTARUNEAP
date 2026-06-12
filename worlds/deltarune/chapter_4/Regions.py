@@ -86,14 +86,15 @@ def create_regions(world: "DeltaruneWorld"):
     dark_sanctuary.connect(old_man_shop)
     dark_sanctuary.connect(dark_sanctuary_claimbclaws, rule=Has(items[ItemIDs.claimbclaws]))
 
-    # Require Kris or Susie for the Wingblade fight
+    # Require Kris for Knight climb, require Susie for Sound of Justice
+    # You can't leave second sanctuary once you enter unless you can beat SoJ so we put the block before
     dark_sanctuary_claimbclaws.connect(
         second_sanctuary,
-        rule=Has(items[ItemIDs.sheetmusic]) & (have_kris | (Has(glitched_item_name) & have_kris_and_susie)),
+        rule=Has(items[ItemIDs.sheetmusic]) & (have_kris_and_susie | Has(glitched_item_name)),
     )
     dark_sanctuary_claimbclaws.connect(gerson, rule=have_susie | Has(glitched_item_name))
 
-    second_sanctuary.connect(third_sanctuary, rule=have_susie)
+    second_sanctuary.connect(third_sanctuary, rule=have_susie | Has(glitched_item_name))
 
     third_sanctuary.connect(gerson, rule=have_susie | Has(glitched_item_name))
 
