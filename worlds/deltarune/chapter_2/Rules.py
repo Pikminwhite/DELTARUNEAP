@@ -87,38 +87,40 @@ def set_rules(world: "DeltaruneWorld"):
 
 
 def handle_locked_items(world: "DeltaruneWorld"):
-    player = world.player
-    multiworld = world.multiworld
+    if not world.is_fun_gang_actions_unlockable():
+        world.get_location(locations[LocationIDs.ch2_cyber_field_fun_gang_actions_unlock]).place_locked_item(
+            world.create_item(items[ItemIDs.s_r_n_actions])
+        )
 
     if not world.is_secret_bosses_randomized():
-        multiworld.get_location(locations[LocationIDs.ch2_mansion_spamton_neo_defeat_item_1], player).place_locked_item(
+        world.get_location(locations[LocationIDs.ch2_mansion_spamton_neo_defeat_item_1]).place_locked_item(
             world.create_item(items[ItemIDs.puppetscarf])
         )
-        multiworld.get_location(locations[LocationIDs.ch2_mansion_spamton_neo_defeat_item_2], player).place_locked_item(
+        world.get_location(locations[LocationIDs.ch2_mansion_spamton_neo_defeat_item_2]).place_locked_item(
             world.create_item(items[ItemIDs.shadowcrystal])
         )
         if world.is_not_weird_route_only():
-            multiworld.get_location(
-                locations[LocationIDs.ch2_mansion_spamton_neo_defeat_item_3], player
-            ).place_locked_item(world.create_item(items[ItemIDs.dealmaker]))
+            world.get_location(locations[LocationIDs.ch2_mansion_spamton_neo_defeat_item_3]).place_locked_item(
+                world.create_item(items[ItemIDs.dealmaker])
+            )
 
     # Hidden items
     if world.is_not_weird_route_only():
         if not world.is_hidden_items_randomized():
-            multiworld.get_location(locations[LocationIDs.ch2_cyber_city_man], player).place_locked_item(
+            world.get_location(locations[LocationIDs.ch2_cyber_city_man]).place_locked_item(
                 world.create_item(items[ItemIDs.chapter_2_egg])
             )
-            multiworld.get_location(locations[LocationIDs.ch2_cyber_city_moss], player).place_locked_item(
+            world.get_location(locations[LocationIDs.ch2_cyber_city_moss]).place_locked_item(
                 world.create_item(items[ItemIDs.city_moss])
             )
-            multiworld.get_location(locations[LocationIDs.ch2_cyber_city_annoying_dog], player).place_locked_item(
+            world.get_location(locations[LocationIDs.ch2_cyber_city_annoying_dog]).place_locked_item(
                 world.create_item(items[ItemIDs.dogdollar])
             )
 
         if not world.is_secret_bosses_items_requirement_randomized():
-            multiworld.get_location(locations[LocationIDs.ch2_spamton_shop_1], player).place_locked_item(
+            world.get_location(locations[LocationIDs.ch2_spamton_shop_1]).place_locked_item(
                 world.create_item(items[ItemIDs.keygen])
             )
-            multiworld.get_location(locations[LocationIDs.ch2_mansion_basement_mechanism], player).place_locked_item(
+            world.get_location(locations[LocationIDs.ch2_mansion_basement_mechanism]).place_locked_item(
                 world.create_item(items[ItemIDs.emptydisk])
             )
