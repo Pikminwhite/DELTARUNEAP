@@ -90,6 +90,7 @@ from worlds.deltarune.chapter_2.Locations import chapter2_locations
 from worlds.deltarune.chapter_3.Locations import chapter3_locations
 from worlds.deltarune.chapter_4.Locations import chapter4_locations
 from worlds.deltarune.cross_chapter.Locations import cross_chapter_locations
+from worlds.deltarune.tracker import handle_auto_tracking, handle_player_icon_position
 
 all_item_data: list[ItemData] = chapter1_items + chapter2_items + chapter3_items + chapter4_items + cross_chapter_items
 
@@ -189,6 +190,10 @@ class DeltaruneWorld(World):
             "locations/chapter4.json",
             "locations/overview.json",
         ],
+        "map_page_index": handle_auto_tracking,
+        "map_page_setting_key": "{player}_{team}_current_location",
+        "location_icon_coords": handle_player_icon_position,
+        "location_setting_key": "{player}_{team}_current_location",
     }
 
     def _get_deltarune_data(self):
