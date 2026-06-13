@@ -54,18 +54,18 @@ def handle_locked_items(world: "DeltaruneWorld"):
     multiworld = world.multiworld
 
     if not world.is_secret_bosses_randomized():
-        multiworld.get_location(
-            locations[LocationIDs.ch4_dark_sanctuary_hammer_of_justice_defeat_item_1], player
-        ).place_locked_item(world.create_item(items[ItemIDs.justiceaxe]))
-        multiworld.get_location(
-            locations[LocationIDs.ch4_dark_sanctuary_hammer_of_justice_defeat_item_2], player
-        ).place_locked_item(world.create_item(items[ItemIDs.shadowcrystal]))
+        world.get_location(locations[LocationIDs.ch4_dark_sanctuary_hammer_of_justice_defeat_item_1]).place_locked_item(
+            world.create_item(items[ItemIDs.justiceaxe])
+        )
+        world.get_location(locations[LocationIDs.ch4_dark_sanctuary_hammer_of_justice_defeat_item_2]).place_locked_item(
+            world.create_item(items[ItemIDs.shadowcrystal])
+        )
 
     # Hidden Items
     if not world.is_hidden_items_randomized():
-        multiworld.get_location(locations[LocationIDs.ch4_second_sanctuary_man], player).place_locked_item(
+        world.get_location(locations[LocationIDs.ch4_second_sanctuary_man]).place_locked_item(
             world.create_item(items[ItemIDs.chapter_4_egg])
         )
-        multiworld.get_location(locations[LocationIDs.ch4_second_sanctuary_moss], player).place_locked_item(
+        world.get_location(locations[LocationIDs.ch4_second_sanctuary_moss]).place_locked_item(
             world.create_item(items[ItemIDs.sacred_moss])
         )

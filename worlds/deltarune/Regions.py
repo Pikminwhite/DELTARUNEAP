@@ -79,6 +79,8 @@ class Regions(StrEnum):
     ch4_titan_fight = "CH4: Titan Fight"
     ch4_light_world = "CH4: Light World"
 
+    chapter_5 = "Chapter 5"
+
 
 def add_location_to_region(region: Region, locations: list[LocationData], world: "DeltaruneWorld"):
     for location in locations:
