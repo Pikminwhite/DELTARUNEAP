@@ -1,8 +1,8 @@
 # DELTARUNE Datastorage
 
-All datastorage keys are prefixed with the player slot number.
+All datastorage keys are prefixed with the player slot number than team number.
 
-For example `current_location` is stored as `1_current_location` for player 1.
+For example `current_location` is stored as `1_1_current_location` for player 1 in team 1.
 
 ## `current_location`
 
