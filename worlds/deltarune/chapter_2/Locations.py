@@ -129,10 +129,6 @@ chapter2_locations = {
             group=LocationGroups.chapter2,
         ),
         LocationData(
-            LocationIDs.ch2_cyber_city_trash_can_1,
-            group=LocationGroups.chapter2,
-        ),
-        LocationData(
             LocationIDs.ch2_cyber_city_trash_can_2,
             group=LocationGroups.chapter2,
         ),
@@ -170,6 +166,10 @@ chapter2_locations = {
         ),
     ],
     Regions.ch2_cyber_city: [
+        LocationData(
+            LocationIDs.ch2_cyber_city_trash_can_1,
+            group=LocationGroups.chapter2,
+        ),
         LocationData(
             LocationIDs.ch2_cyber_city_queen_poster_chest,
             group=LocationGroups.chapter2,

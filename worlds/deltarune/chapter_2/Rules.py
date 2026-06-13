@@ -7,12 +7,10 @@ from worlds.deltarune.Items import ItemIDs, items, glitched_item_name
 from worlds.deltarune.Rules import (
     have_kris_susie_or_ralsei,
     have_noelle,
-    have_thornring,
     can_snowgrave,
     have_kris_or_susie,
     can_lost_chapter2_with_noelle,
     can_recruit,
-    can_recruit_with_noelle,
     can_recruit_with_kris_susie,
 )
 
