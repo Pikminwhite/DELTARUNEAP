@@ -74,33 +74,29 @@ def create_regions(world: "DeltaruneWorld"):
         world.multiworld.regions.append(region)
 
     world.get_region(Regions.chapter_2).connect(castle_town)
+
+    access_to_cyber_field = (
+        (
+            can_recruit_with_kris_susie
+            & OptionFilter(ChosenRoute, [ChosenRoute.option_all_recruits, ChosenRoute.option_all_routes], operator="in")
+        )
+        | (have_kris_or_susie & Has(glitched_item_name))
+    ) | (
+        have_kris_or_susie
+        & OptionFilter(ChosenRoute, [ChosenRoute.option_weird_route, ChosenRoute.option_neutral_route], operator="in")
+    )
+
     # Require Kris or Susie for the werewire fight
     world.get_region(Regions.chapter_2).connect(
         cyber_field,
-        rule=can_recruit_with_kris_susie
-        | (
-            have_susie
-            & [
-                OptionFilter(
-                    ChosenRoute, [ChosenRoute.option_weird_route, ChosenRoute.option_neutral_route], operator="in"
-                )
-            ]
-        ),
+        rule=access_to_cyber_field,
     )
 
     castle_town.connect(dojo)
     # Require Kris or Susie for the werewire fight
     castle_town.connect(
         cyber_field,
-        rule=can_recruit_with_kris_susie
-        | (
-            have_susie
-            & [
-                OptionFilter(
-                    ChosenRoute, [ChosenRoute.option_weird_route, ChosenRoute.option_neutral_route], operator="in"
-                )
-            ]
-        ),
+        rule=access_to_cyber_field,
     )
 
     # Require actions and at least one character for DJ-fight unless you ww into the fight (but can't end it) or Bagel Overflow to mansion and come back with plot value updated
@@ -127,7 +123,7 @@ def create_regions(world: "DeltaruneWorld"):
     )
 
     # Require Kris or Noelle for the Virovirokun after noelle
-    trash_zone.connect(cyber_city, rule=have_kris_or_noelle)
+    trash_zone.connect(cyber_city, rule=have_kris_or_noelle | (have_kris_susie_or_ralsei & Has(glitched_item_name)))
 
     # Require Kris for Spamton fight unless you skip it with an Interaction Slide
     cyber_city.connect(cyber_city_spamton_fight, rule=have_kris)

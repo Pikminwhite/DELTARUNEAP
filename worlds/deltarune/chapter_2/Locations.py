@@ -85,7 +85,6 @@ chapter2_locations = {
     Regions.ch2_cyber_field_post_dj: [
         LocationData(
             LocationIDs.ch2_cyber_field_fun_gang_actions_unlock,
-            should_be_included=lambda world: world.is_fun_gang_actions_unlockable(),
             group=LocationGroups.chapter2,
         ),
         LocationData(
