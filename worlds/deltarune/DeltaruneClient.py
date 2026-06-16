@@ -6,6 +6,7 @@ import bsdiff4
 import shutil
 import json
 import hashlib
+import shutil
 
 import Utils
 
@@ -84,6 +85,15 @@ class DeltaruneCommandProcessor(ClientCommandProcessor):
             os.makedirs(name=Utils.user_path("DELTARUNE"), exist_ok=True)
             self.ctx.patch_game()
             self.output("Patched.")
+
+    def _cmd_delete_saves(self):
+        """Delete all archipelago saves and caches"""
+        if isinstance(self.ctx, DeltaruneContext):
+            path = self.ctx.save_game_folder
+            for root, dirs, files in os.walk(path):
+                for dir in dirs:
+                    shutil.rmtree(os.path.join(root, dir), ignore_errors=False)
+                    self.output(f"Deleted {os.path.join(root, dir)}")
 
     def _cmd_chosen_route(self):
         """Use this to figure out your chosen route, if you don't know or have forgotten."""
