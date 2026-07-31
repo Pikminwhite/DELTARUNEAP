@@ -1,7 +1,7 @@
-from enum import IntEnum
-
+from enum import IntEnum, auto
 
 class MapIndex(IntEnum):
     overview = 0
-    ch1_fields = 1
-    ch1_forest = 2
+    ch1_fields = auto()
+    ch1_forest = auto()
+    ch4_first_sanctuary = auto()
